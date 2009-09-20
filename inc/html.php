@@ -240,7 +240,7 @@ EOF;
 		$pagenavigator
 		<br>
 		<div class="footer" style="clear: both;">
-			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="http://code.google.com/p/tinyib/" target="_top">tinyib</a> -
+			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="http://tj9991.github.com/TinyIB/" target="_top">tinyib</a> -
 		</div>
 	</body>
 </html>
@@ -348,7 +348,7 @@ function managePage($text, $onload='') {
 		$text
 		<hr>
 		<div class="footer" style="clear: both;">
-			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="http://code.google.com/p/tinyib/" target="_top">tinyib</a> -
+			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="http://tj9991.github.com/TinyIB/" target="_top">tinyib</a> -
 		</div>
 	</body>
 </html>
