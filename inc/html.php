@@ -85,13 +85,14 @@ EOF;
 	return $return;
 }
 
-function buildPage($htmlposts, $parent, $pages=-1, $thispage=0) {
+function buildPage($htmlposts, $parent, $pages=0, $thispage=0) {
 	global $tinyib;
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
 	
 	$postingmode = "";
 	$pagenavigator = "";
 	if ($parent == 0) {
+		$pages = max($pages, 0);
 		$previous = ($thispage == 1) ? "index" : $thispage - 1;
 		$next = $thispage + 1;
 		
