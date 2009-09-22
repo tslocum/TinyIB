@@ -81,3 +81,22 @@ form {
 	height: 28px;
 	margin: 0.2em;
 }
+
+.footer {
+	clear: both;
+	text-align:center;
+}
+
+.rules ul {
+	margin: 0;
+	padding-left: 0;
+}
+
+.floatpost {
+	float: right;
+	clear: both;
+}
+
+.login {
+	text-align: center;
+}
