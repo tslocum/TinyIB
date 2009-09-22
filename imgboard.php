@@ -331,6 +331,9 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 			session_destroy();
 			die('--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . $returnlink . '?manage">');
 		}
+		if ($text == '') {
+			$text = 'Thread count: ' . countThreads() . ' &middot; Ban count: ' . count(allBans());
+		}
 	} else {
 		$onload = manageOnLoad('login');
 		$text .= manageLogInForm();

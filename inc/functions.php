@@ -106,7 +106,7 @@ function nameAndTripcode($name) {
 }
 
 function nameBlock($name, $tripcode, $email, $timestamp) {
-	$output = "";
+	$output = '<span class="postername">';
 	
 	if ($name == "" && $tripcode == "") {
 		$output .= "Anonymous";
@@ -118,11 +118,13 @@ function nameBlock($name, $tripcode, $email, $timestamp) {
 		$output .= '</span><span class="postertrip">!' . $tripcode;
 	}
 	
+	$output .= '</span>';
+	
 	if ($email != "") {
 		$output = '<a href="mailto:' . $email . '">' . $output . '</a>';
 	}
-		
-	return '<span class="postername">' . $output . '</span> ' . date('y/m/d(D)H:i:s', $timestamp);
+
+	return $output . ' ' . date('y/m/d(D)H:i:s', $timestamp);
 }
 
 function writePage($filename, $contents) {

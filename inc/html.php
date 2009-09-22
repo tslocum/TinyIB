@@ -1,6 +1,36 @@
 <?php
 if (!isset($tinyib)) { die(''); }
 
+function pageHeader() {
+	global $tinyib;
+	return <<<EOF
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>
+			${tinyib['boarddescription']}
+		</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/global.css">
+		<link rel="stylesheet" type="text/css" href="css/futaba.css" title="Futaba">
+		<link rel="alternate stylesheet" type="text/css" href="css/burichan.css" title="Burichan">
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="expires" content="-1">
+	</head>
+EOF;
+}
+
+function pageFooter() {
+	return <<<EOF
+		<div class="footer">
+			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="http://tj9991.github.com/TinyIB/" target="_top">tinyib</a> -
+		</div>
+	</body>
+</html>
+EOF;
+}
+
 function buildPost($post, $isrespage) {
 	$return = "";
 	$threadid = ($post['parent'] == 0) ? $post['id'] : $post['parent'];
@@ -130,20 +160,7 @@ EOF;
 	$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>";
 	}
 	
-	return <<<EOF
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<title>
-			${tinyib['boarddescription']}
-		</title>
-		<link rel="shortcut icon" href="favicon.ico">
-		<link rel="stylesheet" type="text/css" href="css/global.css">
-		<link rel="stylesheet" type="text/css" href="css/futaba.css" title="Futaba">
-		<link rel="alternate stylesheet" type="text/css" href="css/burichan.css" title="Burichan">
-		<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="expires" content="-1">
-	</head>
+	$body = <<<EOF
 	<body>
 		<div class="adminbar">
 			[<a href="$managelink">Manage</a>]
@@ -211,7 +228,7 @@ EOF;
 					</tr>
 					<tr>
 						<td colspan="2" class="rules">
-							<ul style="margin-left: 0; margin-top: 0; margin-bottom: 0; padding-left: 0;">
+							<ul>
 								<li>Supported file types are: GIF, JPG, PNG</li>
 								<li>Maximum file size allowed is 2 MB.</li>
 								<li>Images greater than 250x250 pixels will be thumbnailed.</li>
@@ -239,12 +256,8 @@ EOF;
 		</form>
 		$pagenavigator
 		<br>
-		<div class="footer" style="clear: both;">
-			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="http://tj9991.github.com/TinyIB/" target="_top">tinyib</a> -
-		</div>
-	</body>
-</html>
 EOF;
+	return pageHeader() . $body . pageFooter();
 }
 
 function rebuildIndexes() {
@@ -305,38 +318,25 @@ function rebuildThread($id) {
 	writePage("res/" . $id . ".html", fixLinksInRes(buildPage($htmlposts, $id)));
 }
 
-function manageNavBar() {
-	global $loggedin, $isadmin;
-	if (!$loggedin) { return ''; }
-	$text = '';
-	$text .= ($isadmin) ? '<a href="?manage&bans">bans</a> &middot; ' : '';
-	$text .= '<a href="?manage&moderate">moderate post</a> &middot; ';
-	$text .= ($isadmin) ? '<a href="?manage&rebuildall">rebuild all</a> &middot; ' : '';
-	$text .= '<a href="?manage&logout">log out</a>';
+function adminBar() {
+	global $loggedin, $isadmin, $returnlink;
+	if (!$loggedin) { return '[<a href="' . $returnlink . '">Return</a>]'; }
+	$text = '[';
+	$text .= ($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '';
+	$text .= '<a href="?manage&moderate">Moderate Post</a>] [';
+	$text .= ($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '';
+	$text .= '<a href="?manage&logout">Log Out</a>] [<a href="' . $returnlink . '">Return</a>]';
 	return $text;
 }
 
 function managePage($text, $onload='') {
-	global $tinyib, $returnlink;
+	global $tinyib;
 	
-	$navbar = manageNavBar();
-	return <<<EOF
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<title>
-			${tinyib['boarddescription']}
-		</title>
-	<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="expires" content="-1">
-		<link rel="shortcut icon" href="favicon.ico">
-		<link rel="stylesheet" type="text/css" href="css/global.css">
-		<link rel="stylesheet" type="text/css" href="css/futaba.css" title="Futaba">
-		<link rel="alternate stylesheet" type="text/css" href="css/burichan.css" title="Burichan">
-	</head>
+	$adminbar = adminBar();
+	$body = <<<EOF
 	<body$onload>
 		<div class="adminbar">
-			[<a href="$returnlink">Return</a>]
+			$adminbar
 		</div>
 		<div class="logo">
 			${tinyib['logo']}
@@ -344,15 +344,10 @@ function managePage($text, $onload='') {
 		</div>
 		<hr width="90%" size="1">
 		<div class="replymode">Manage mode</div>
-		<div style="text-align: center;font-size: small;">$navbar</div>
 		$text
 		<hr>
-		<div class="footer" style="clear: both;">
-			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="http://tj9991.github.com/TinyIB/" target="_top">tinyib</a> -
-		</div>
-	</body>
-</html>
 EOF;
+	return pageHeader() . $body . pageFooter();
 }
 
 function manageOnLoad($page) {
@@ -371,7 +366,7 @@ function manageLogInForm() {
 	<form id="tinyib" name="tinyib" method="post" action="?manage">
 	<fieldset>
 	<legend align="center">Please enter an administrator or moderator password</legend>
-	<div style="text-align: center;">
+	<div class="login">
 	<input type="password" id="password" name="password"><br>
 	<input type="submit" value="Submit" class="managebutton">
 	</div>
@@ -433,7 +428,7 @@ function manageModeratePost($post) {
 	<fieldset>
 	<legend>Moderating post No.${post['id']}</legend>
 	
-	<div style="float: right;clear: both;">
+	<div class="floatpost">
 	<fieldset>
 	<legend>Post</legend>	
 	$post_html
