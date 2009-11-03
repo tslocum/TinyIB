@@ -154,21 +154,20 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 			$thumb_location = "thumb/" . $post['thumb'];
 			$file_location = "src/" . $post['file'];
 			
-			if(function_exists("mime_content_type")) {
-				$file_mime = mime_content_type($_FILES['file']['tmp_name']);
-			} else {
-				$file_mime = "image/jpeg"; // It is highly recommended you use PHP 4.3.0 or later!
-			}
-			
-			if (($file_type == '.jpg' || $file_type == '.gif' || $file_type == '.png') && ($file_mime == "image/jpeg" || $file_mime == "image/gif" || $file_mime == "image/png")) {
-				if (!@getimagesize($_FILES['file']['tmp_name'])) {
-					fancyDie("Failed to read the size of the uploaded file. Please retry the submission.");
-				}
-			} else {
+			if (!($file_type == '.jpg' || $file_type == '.gif' || $file_type == '.png')) {
 				fancyDie("Only GIF, JPG, and PNG files are allowed.");
 			}
 			
+			if (!@getimagesize($_FILES['file']['tmp_name'])) {
+				fancyDie("Failed to read the size of the uploaded file. Please retry the submission.");
+			}
+			$file_info = getimagesize($_FILES['file']['tmp_name']);
+			$file_mime = $file_info['mime'];
 			
+			if (!($file_mime == "image/jpeg" || $file_mime == "image/gif" || $file_mime == "image/png")) {
+				fancyDie("Only GIF, JPG, and PNG files are allowed.");
+			}
+
 			$hexmatches = postsByHex($post['file_hex']);
 			if (count($hexmatches) > 0) {
 				foreach ($hexmatches as $hexmatch) {
@@ -189,9 +188,8 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 				fancyDie("File transfer failure. Please go back and try again.");
 			}
 			
-			$file_imagesize = getimagesize($file_location);
-			$post['image_width'] = $file_imagesize[0];
-			$post['image_height'] = $file_imagesize[1];
+			$post['image_width'] = $file_info[0];
+			$post['image_height'] = $file_info[1];
 			
 			if ($post['image_width'] > 250 || $post['image_height'] > 250) {
 				$width = 250;
@@ -204,10 +202,10 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 				fancyDie("Could not create thumbnail.");
 			}
 
-			$thumbsize = getimagesize($thumb_location);
-			$post['thumb_width'] = $thumbsize[0];
-			$post['thumb_height'] = $thumbsize[1];
-			}
+			$thumb_info = getimagesize($thumb_location);
+			$post['thumb_width'] = $thumb_info[0];
+			$post['thumb_height'] = $thumb_info[1];
+		}
 	}
 	
 	if ($post['file'] == '') { // No file uploaded
