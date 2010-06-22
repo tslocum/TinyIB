@@ -74,6 +74,14 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 			clearExpiredBans();
 		}
 	}
+	
+	$modpost = false;
+	if (isset($_POST['modpost'])) {
+		list($loggedin, $isadmin) = manageCheckLogIn();
+		if ($loggedin) {
+			$modpost = true;
+		}
+	}
 
 	$parent = "0";
 	if (isset($_POST["parent"])) {
@@ -108,9 +116,19 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	$post['name'] = cleanString(substr($post['name'], 0, 75));
 	$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST["email"], 0, 75)));
 	$post['subject'] = cleanString(substr($_POST["subject"], 0, 75));
-	$post['message'] = str_replace("\n", "<br>", colorQuote(cleanString(rtrim($_POST["message"]))));
+	if ($modpost) {
+		if ($isadmin) {
+			$modposttext = ' <span style="color: red;">## Admin</span>';
+		} else {
+			$modposttext = ' <span style="color: purple;">## Mod</span>';
+		}
+		$post['message'] = $_POST["message"];
+	} else {
+		$modposttext = '';
+		$post['message'] = str_replace("\n", "<br>", colorQuote(cleanString(rtrim($_POST["message"]))));
+	}
 	if ($_POST['password'] != '') { $post['password'] = md5(md5($_POST['password'])); } else { $post['password'] = ''; }
-	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time());
+	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $modposttext);
 	
 	if (isset($_FILES['file'])) {
 		if ($_FILES['file']['name'] != "") {
@@ -324,6 +342,9 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 				$onload = manageOnLoad('moderate');
 				$text .= manageModeratePostForm();
 			}
+		} elseif (isset($_GET["modpost"])) {
+			$onload = manageOnLoad('modpost');
+			$text .= manageModpostForm();
 		} elseif (isset($_GET["logout"])) {
 			$_SESSION['tinyib'] = '';
 			session_destroy();

@@ -105,7 +105,7 @@ function nameAndTripcode($name) {
 	return array($name, "");
 }
 
-function nameBlock($name, $tripcode, $email, $timestamp) {
+function nameBlock($name, $tripcode, $email, $timestamp, $modposttext) {
 	$output = '<span class="postername">';
 	
 	if ($name == "" && $tripcode == "") {
@@ -124,7 +124,7 @@ function nameBlock($name, $tripcode, $email, $timestamp) {
 		$output = '<a href="mailto:' . $email . '">' . $output . '</a>';
 	}
 
-	return $output . ' ' . date('y/m/d(D)H:i:s', $timestamp);
+	return $output . $modposttext . ' ' . date('y/m/d(D)H:i:s', $timestamp);
 }
 
 function writePage($filename, $contents) {

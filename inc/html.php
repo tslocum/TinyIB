@@ -323,7 +323,7 @@ function adminBar() {
 	if (!$loggedin) { return '[<a href="' . $returnlink . '">Return</a>]'; }
 	$text = '[';
 	$text .= ($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '';
-	$text .= '<a href="?manage&moderate">Moderate Post</a>] [';
+	$text .= '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&modpost">Mod Post</a>] [';
 	$text .= ($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '';
 	$text .= '<a href="?manage&logout">Log Out</a>] [<a href="' . $returnlink . '">Return</a>]';
 	return $text;
@@ -356,6 +356,8 @@ function manageOnLoad($page) {
 			return ' onload="document.tinyib.password.focus();"';
 		case 'moderate':
 			return ' onload="document.tinyib.moderate.focus();"';
+		case 'modpost':
+			return ' onload="document.tinyib.message.focus();"';
 		case 'bans':
 			return ' onload="document.tinyib.ip.focus();"';
 	}
@@ -415,6 +417,82 @@ function manageModeratePostForm() {
 	<legend>
 	</fieldset>
 	</form><br>
+EOF;
+}
+
+function manageModpostForm() {
+	return <<<EOF
+	<div class="postarea">
+		<form id="tinyib" name="tinyib" method="post" action="?" enctype="multipart/form-data">
+		<input type="hidden" name="modpost" value="1">
+		<input type="hidden" name="MAX_FILE_SIZE" value="2097152">
+		<table class="postform">
+			<tbody>
+				<tr>
+					<td class="postblock">
+						Thread No.
+					</td>
+					<td>
+						<input type="text" name="parent" size="28" maxlength="75" value="0" accesskey="t">&nbsp;(0 for new thread)
+					</td>
+				</tr>
+				<tr>
+					<td class="postblock">
+						Name
+					</td>
+					<td>
+						<input type="text" name="name" size="28" maxlength="75" accesskey="n">
+					</td>
+				</tr>
+				<tr>
+					<td class="postblock">
+						E-mail
+					</td>
+					<td>
+						<input type="text" name="email" size="28" maxlength="75" accesskey="e">
+					</td>
+				</tr>
+				<tr>
+					<td class="postblock">
+						Subject
+					</td>
+					<td>
+						<input type="text" name="subject" size="40" maxlength="75" accesskey="s">
+						<input type="submit" value="Submit" accesskey="z">
+					</td>
+				</tr>
+				<tr>
+					<td class="postblock">
+						Message
+					</td>
+					<td>
+						<textarea name="message" cols="48" rows="4" accesskey="m"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td class="postblock">
+						File
+					</td>
+					<td>
+						<input type="file" name="file" size="35" accesskey="f">
+					</td>
+				</tr>
+				<tr>
+					<td class="postblock">
+						Password
+					</td>
+					<td>
+						<input type="password" name="password" size="8" accesskey="p">&nbsp;(for post and file deletion)
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+	</div>
+	<div style="text-align: center;">
+		All text entered in the "Message" field will be posted AS-IS with absolutely no formatting applied.<br>This means for all line-breaks you must enter the text "&lt;br&gt;".
+	</div>
+	<br>
 EOF;
 }
 
