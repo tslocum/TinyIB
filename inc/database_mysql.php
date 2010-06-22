@@ -129,7 +129,11 @@ function deletePostByID($id) {
 		} else {
 			$thispost = $post;
 		}
-	}	if (isset($thispost)) {
+	}
+	if (isset($thispost)) {
+		if ($thispost['parent'] == 0) {
+			@unlink('res/' . $thispost['id'] . '.html');
+		}
 		deletePostImages($thispost);
 		mysql_query("DELETE FROM `" . $GLOBALS['mysql_posts_table'] . "` WHERE `id` = " . $thispost['id'] . " LIMIT 1");
 	}

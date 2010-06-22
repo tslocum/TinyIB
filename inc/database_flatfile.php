@@ -172,6 +172,9 @@ function deletePostByID($id) {
 	}
 	
 	if (isset($thispost)) {
+		if ($thispost['parent'] == 0) {
+			@unlink('res/' . $thispost['id'] . '.html');
+		}
 		deletePostImages($thispost);
 		$GLOBALS['db']->deleteWhere(POSTS_FILE, new SimpleWhereClause(POST_ID, '=', $thispost['id'], INTEGER_COMPARISON));
 	}
