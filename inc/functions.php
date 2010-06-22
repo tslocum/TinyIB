@@ -53,7 +53,7 @@ function convertBytes($number) {
 function nameAndTripcode($name) {
 	global $tinyib;
 
-	if (ereg("(#|!)(.*)", $name, $regs)) {
+	if (preg_match("/(#|!)(.*)/", $name, $regs)) {
 		$cap = $regs[2];
 		$cap_full = '#' . $regs[2];
 		
@@ -72,7 +72,7 @@ function nameAndTripcode($name) {
 			$cap_delimiter = (strpos($name, '#') < strpos($name, '!')) ? '#' : '!';
 		}
 		
-		if (ereg("(.*)(" . $cap_delimiter . ")(.*)", $cap, $regs_secure)) {
+		if (preg_match("/(.*)(" . $cap_delimiter . ")(.*)/", $cap, $regs_secure)) {
 			$cap = $regs_secure[1];
 			$cap_secure = $regs_secure[3];
 			$is_secure_trip = true;
@@ -86,7 +86,7 @@ function nameAndTripcode($name) {
 			$cap = strtr($cap, "&amp;", "&");
 			$cap = strtr($cap, "&#44;", ", ");
 			$salt = substr($cap."H.", 1, 2);
-			$salt = ereg_replace("[^\.-z]", ".", $salt);
+			$salt = preg_replace("/[^\.-z]/", ".", $salt);
 			$salt = strtr($salt, ":;<=>?@[\\]^_`", "ABCDEFGabcdef"); 
 			$tripcode = substr(crypt($cap, $salt), -10);
 		}
@@ -96,10 +96,10 @@ function nameAndTripcode($name) {
 				$tripcode .= "!";
 			}
 			
-			$tripcode .= "!" . substr(md5($cap_secure . $tinyib['tripcodeseed']), 2, 10);
+			$tripcode .= "!" . substr(md5($cap_secure . $tinyib['tripseed']), 2, 10);
 		}
 		
-		return array(ereg_replace("(" . $cap_delimiter . ")(.*)", "", $name), $tripcode);
+		return array(preg_replace("/(" . $cap_delimiter . ")(.*)/", "", $name), $tripcode);
 	}
 	
 	return array($name, "");
