@@ -8,6 +8,13 @@ function cleanString($string) {
 	return str_replace($search, $replace, $string);
 }
 
+function plural($singular, $count, $plural = 's') {
+	if ($plural == 's') {
+        $plural = $singular . $plural;
+    }
+    return ($count == 1 ? $singular : $plural);
+}
+
 function threadUpdated($id) {
 	rebuildThread($id);
 	rebuildIndexes();

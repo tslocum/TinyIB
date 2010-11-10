@@ -2,6 +2,7 @@
 # TinyIB
 #
 # http://tinyib.googlecode.com/
+# http://tj9991.github.com/TinyIB/
 
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -14,7 +15,7 @@ if (get_magic_quotes_gpc()) {
 if (get_magic_quotes_runtime()) { set_magic_quotes_runtime(0); }
 
 $tinyib = array();
-$tinyib['board'] = "b"; // Identifier for this board using only letters and numbers
+$tinyib['board'] = "b"; // Unique identifier for this board using only letters and numbers
 $tinyib['boarddescription'] = "TinyIB"; // Displayed in the logo area
 $tinyib['maxthreads'] = 100; // Set this to limit the number of threads allowed before discarding older threads.  0 to disable
 $tinyib['logo'] = ""; // Logo HTML
@@ -97,7 +98,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	$lastpost = lastPostByIP();
 	if ($lastpost) {
 		if ((time() - $lastpost['timestamp']) < 30) {
-			fancyDie("Please wait a moment before posting again.  You will be able to make another post in " . (30 - (time() - $lastpost['timestamp'])) . " second(s).");
+			fancyDie("Please wait a moment before posting again.  You will be able to make another post in " . (30 - (time() - $lastpost['timestamp'])) . " " . plural("second", (30 - (time() - $lastpost['timestamp']))) . ".");
 		}
 	}
 	
@@ -364,7 +365,9 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 			die('--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . $returnlink . '?manage">');
 		}
 		if ($text == '') {
-			$text = 'Thread count: ' . countThreads() . ' &middot; Ban count: ' . count(allBans());
+			$threads = countThreads();
+			$bans = count(allBans());
+			$text = $threads . ' ' . plural('thread', $threads) . ', ' . $bans . ' ' . plural('ban', $bans) . '.';
 		}
 	} else {
 		$onload = manageOnLoad('login');
