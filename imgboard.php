@@ -97,7 +97,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	$lastpost = lastPostByIP();
 	if ($lastpost) {
 		if ((time() - $lastpost['timestamp']) < 30) {
-			fancyDie("Please wait a moment before posting again.  You will be able to make another post in " . (30 - (time() - $lastpost['timestamp'])) . " seconds.");
+			fancyDie("Please wait a moment before posting again.  You will be able to make another post in " . (30 - (time() - $lastpost['timestamp'])) . " second(s).");
 		}
 	}
 	
@@ -128,6 +128,12 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 		$post['message'] = str_replace("\n", "<br>", colorQuote(cleanString(rtrim($_POST["message"]))));
 	}
 	if ($_POST['password'] != '') { $post['password'] = md5(md5($_POST['password'])); } else { $post['password'] = ''; }
+	if (strtolower($post['email']) == "noko") {
+		$post['email'] = '';
+		$noko = true;
+	} else {
+		$noko = false;
+	}
 	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $modposttext);
 	
 	if (isset($_FILES['file'])) {
@@ -236,6 +242,13 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	}
 	
 	$post['id'] = insertPost($post);
+	if ($noko) {
+		if ($post['parent'] != '0') {
+			$redirect = 'res/' . $post['parent'] . '.html#' . $post['id'];
+		} else {
+			$redirect = 'res/' . $post['id'] . '.html#' . $post['id'];
+		}
+	}
 	trimThreads();
 	echo 'Updating thread page...<br>';
 	if ($post['parent'] != '0') {
@@ -364,7 +377,11 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 }
 
 if ($redirect) {
-	echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=index.html">';
+	if (is_string($redirect)) {
+		echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . $redirect . '">';
+	} else {
+		echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=index.html">';
+	}
 }
 
 ?>
