@@ -248,7 +248,7 @@ EOF;
 			<tbody>
 				<tr>
 					<td>
-						Delete Post<br>Password <input type="password" name="password" size="8">&nbsp;<input name="deletepost" value="Delete" type="submit"> 
+						Delete Post <input type="password" name="password" size="8" placeholder="Password">&nbsp;<input name="deletepost" value="Delete" type="submit"> 
 					</td>
 				</tr>
 			</tbody>
