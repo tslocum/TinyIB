@@ -24,7 +24,7 @@ EOF;
 function pageFooter() {
 	return <<<EOF
 		<div class="footer">
-			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="http://tj9991.github.com/TinyIB/" target="_top">tinyib</a> -
+			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="https://github.com/tslocum/TinyIB" target="_top">tinyib</a> -
 		</div>
 	</body>
 </html>
