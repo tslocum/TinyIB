@@ -1,24 +1,25 @@
-TinyIB by tj9991
-http://tj9991.github.com/TinyIB/
+TinyIB by tslocum
+http://tslocum.github.com/
 
 Supports MySQL and flat file database modes.
 
-To install:
+To install TinyIB:
 - CD to the directory you wish to install TinyIB
 - Run the following command:
---- git clone git://github.com/tj9991/TinyIB ./
-- Edit the configuration at the top of imgboard.php
+--- git clone git://github.com/tslocum/TinyIB.git ./
+- Rename settings.default.php to settings.php
+- Configure settings.php
 - CHMOD write permissions to the following directories:
 --- /
 --- src/
 --- thumb/
 --- res/
 --- inc/flatfile/ (if using flatfile mode)
-- Open a browser and navigate to imgboard.php, which will do the following:
+- Open your browser of choice and navigate to imgboard.php, causing the following to take place:
 --- Create database structure based on chosen mode
 --- Test appropriate directories are writable
 --- Write index.html with a blank image board
 
-To update:
+To update TinyIB:
 - Run the following command:
 --- git pull
