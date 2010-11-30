@@ -1,2 +1,4 @@
 settings.php
 *.html
+.posts
+.posts.lock
