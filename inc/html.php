@@ -97,11 +97,7 @@ EOF;
 
 	if ($post['parent'] == 0) {
 		if (!$isrespage && $post["omitted"] > 0) {
-			$return .= '<span class="omittedposts">' . $post['omitted'] . ' post';
-			if ($post["omitted"] != "1") {
-				$return .= "s";
-			}
-			$return .= ' omitted. Click Reply to view.</span>';
+			$return .= '<span class="omittedposts">' . $post['omitted'] . ' ' . plural("post", $post["omitted"]) . ' omitted. Click Reply to view.</span>';
 		}
 	} else {
 		$return .= <<<EOF
