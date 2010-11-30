@@ -142,7 +142,7 @@ function deletePostByID($id) {
 function trimThreads() {
 	global $tinyib;
 	if ($tinyib['maxthreads'] > 0) {
-		$result = mysql_query("SELECT `id` FROM `b_posts` WHERE `parent` = 0 ORDER BY `bumped` DESC LIMIT " . $tinyib['maxthreads']. ", 10");
+		$result = mysql_query("SELECT `id` FROM `" . $GLOBALS['mysql_posts_table'] . "` WHERE `parent` = 0 ORDER BY `bumped` DESC LIMIT " . $tinyib['maxthreads']. ", 10");
 		while ($post = mysql_fetch_assoc($result)) {
 			deletePostByID($post['id']);
 		}
