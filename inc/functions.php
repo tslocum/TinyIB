@@ -1,5 +1,5 @@
 <?php
-if (!isset($tinyib)) { die(''); }
+if (!defined('TINYIB_BOARD')) { die(''); }
 
 function cleanString($string) {
 	$search = array("<", ">");
@@ -58,8 +58,6 @@ function convertBytes($number) {
 }
 
 function nameAndTripcode($name) {
-	global $tinyib;
-
 	if (preg_match("/(#|!)(.*)/", $name, $regs)) {
 		$cap = $regs[2];
 		$cap_full = '#' . $regs[2];
@@ -103,7 +101,7 @@ function nameAndTripcode($name) {
 				$tripcode .= "!";
 			}
 			
-			$tripcode .= "!" . substr(md5($cap_secure . $tinyib['tripseed']), 2, 10);
+			$tripcode .= "!" . substr(md5($cap_secure . TINYIB_TRIPSEED), 2, 10);
 		}
 		
 		return array(preg_replace("/(" . $cap_delimiter . ")(.*)/", "", $name), $tripcode);
@@ -135,9 +133,7 @@ function nameBlock($name, $tripcode, $email, $timestamp, $modposttext) {
 }
 
 function writePage($filename, $contents) {
-	global $tinyib;
-	
-	$tempfile = tempnam('res/', $tinyib['board'] . 'tmp'); /* Create the temporary file */
+	$tempfile = tempnam('res/', TINYIB_BOARD . 'tmp'); /* Create the temporary file */
 	$fp = fopen($tempfile, 'w');
 	fwrite($fp, $contents);
 	fclose($fp);
@@ -168,21 +164,20 @@ function deletePostImages($post) {
 }
 
 function manageCheckLogIn() {
-	global $tinyib;
 	$loggedin = false; $isadmin = false;
 	if (isset($_POST['password'])) {
-		if ($_POST['password'] == $tinyib['adminpassword']) {
-			$_SESSION['tinyib'] = $tinyib['adminpassword'];
-		} elseif ($tinyib['modpassword'] != '' && $_POST['password'] == $tinyib['modpassword']) {
-			$_SESSION['tinyib'] = $tinyib['modpassword'];
+		if ($_POST['password'] == TINYIB_ADMINPASS) {
+			$_SESSION['tinyib'] = TINYIB_ADMINPASS;
+		} elseif (TINYIB_MODPASS != '' && $_POST['password'] == TINYIB_MODPASS) {
+			$_SESSION['tinyib'] = TINYIB_MODPASS;
 		}
 	}
 	
 	if (isset($_SESSION['tinyib'])) {
-		if ($_SESSION['tinyib'] == $tinyib['adminpassword']) {
+		if ($_SESSION['tinyib'] == TINYIB_ADMINPASS) {
 			$loggedin = true;
 			$isadmin = true;
-		} elseif ($tinyib['modpassword'] != '' && $_SESSION['tinyib'] == $tinyib['modpassword']) {
+		} elseif (TINYIB_MODPASS != '' && $_SESSION['tinyib'] == TINYIB_MODPASS) {
 			$loggedin = true;
 		}
 	}

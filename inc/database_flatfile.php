@@ -1,5 +1,5 @@
 <?php
-if (!isset($tinyib)) { die(''); }
+if (!defined('TINYIB_BOARD')) { die(''); }
 
 # Post Structure
 define('POSTS_FILE',         '.posts');
@@ -181,12 +181,11 @@ function deletePostByID($id) {
 }
 
 function trimThreads() {
-	global $tinyib;
-	if ($tinyib['maxthreads'] > 0) {
+	if (TINYIB_MAXTHREADS > 0) {
 		$numthreads = countThreads();
-		if ($numthreads > $tinyib['maxthreads']) {
+		if ($numthreads > TINYIB_MAXTHREADS) {
 			$allthreads = allThreads();
-			for ($i=$tinyib['maxthreads'];$i<$numthreads;$i++) {
+			for ($i=TINYIB_MAXTHREADS;$i<$numthreads;$i++) {
 				deletePostByID($allthreads[$i]['id']);
 			}
 		}

@@ -24,7 +24,7 @@ require 'settings.php';
 
 // Check directories are writable by the script
 $writedirs = array("res", "src", "thumb");
-if ($tinyib['databasemode'] == 'flatfile') { $writedirs[] = "inc/flatfile"; }
+if (TINYIB_DBMODE == 'flatfile') { $writedirs[] = "inc/flatfile"; }
 foreach ($writedirs as $dir) {
 	if (!is_writable($dir)) {
 		fancyDie("Directory '" . $dir . "' can not be written to! Please modify its permissions.");
@@ -32,9 +32,9 @@ foreach ($writedirs as $dir) {
 }
 
 $includes = array("inc/functions.php", "inc/html.php");
-if ($tinyib['databasemode'] == 'flatfile') {
+if (TINYIB_DBMODE == 'flatfile') {
 	$includes[] = 'inc/database_flatfile.php';
-} elseif ($tinyib['databasemode'] == 'mysql') {
+} elseif (TINYIB_DBMODE == 'mysql') {
 	$includes[] = 'inc/database_mysql.php';
 } else {
 	fancyDie("Unknown database mode specificed");
@@ -44,8 +44,8 @@ foreach ($includes as $include) {
 	include $include;
 }
 
-if ($tinyib['tripseed'] == '' || $tinyib['adminpassword'] == '') {
-	fancyDie('$tinyib[\'tripseed\'] and $tinyib[\'adminpassword\'] still need to be configured!');
+if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
+	fancyDie('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured!');
 }
 
 $redirect = true;
@@ -96,9 +96,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	$post['parent'] = $parent;
 	$post['ip'] = $_SERVER['REMOTE_ADDR'];
 	
-	$nt = nameAndTripcode($_POST["name"]);
-	$post['name']     = $nt[0];
-	$post['tripcode'] = $nt[1];
+	list($post['name'], $post['tripcode']) = nameAndTripcode($_POST["name"]);
 	
 	$post['name'] = cleanString(substr($post['name'], 0, 75));
 	$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST["email"], 0, 75)));

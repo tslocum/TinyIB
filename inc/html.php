@@ -1,14 +1,14 @@
 <?php
-if (!isset($tinyib)) { die(''); }
+if (!defined('TINYIB_BOARD')) { die(''); }
 
 function pageHeader() {
-	global $tinyib;
-	return <<<EOF
+	$return = <<<EOF
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<title>
-			${tinyib['boarddescription']}
+EOF;
+	$return .= TINYIB_BOARDDESC . <<<EOF
 		</title>
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/global.css">
@@ -19,6 +19,7 @@ function pageHeader() {
 		<meta http-equiv="expires" content="-1">
 	</head>
 EOF;
+	return $return;
 }
 
 function pageFooter() {
@@ -112,7 +113,6 @@ EOF;
 }
 
 function buildPage($htmlposts, $parent, $pages=0, $thispage=0) {
-	global $tinyib;
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
 	
 	$postingmode = "";
@@ -162,8 +162,8 @@ EOF;
 			[<a href="$managelink">Manage</a>]
 		</div>
 		<div class="logo">
-			${tinyib['logo']}
-			${tinyib['boarddescription']}
+EOF;
+	$body .= TINYIB_LOGO .  TINYIB_BOARDDESC . <<<EOF
 		</div>
 		<hr width="90%" size="1">
 		$postingmode
@@ -238,7 +238,9 @@ EOF;
 		</div>
 		<hr>
 		<form id="delform" action="imgboard.php?delete" method="post">
-		<input type="hidden" name="board" value="${tinyib['board']}">
+		<input type="hidden" name="board" 
+EOF;
+		$body .= 'value="' . TINYIB_BOARD . '">' . <<<EOF
 		$htmlposts
 		<table class="userdelete">
 			<tbody>
@@ -256,9 +258,7 @@ EOF;
 	return pageHeader() . $body . pageFooter();
 }
 
-function rebuildIndexes() {
-	global $mysql_posts_table;
-	
+function rebuildIndexes() {	
 	$htmlposts = "";
 	$page = 0;
 	$i = 0;
@@ -300,8 +300,6 @@ function rebuildIndexes() {
 }
 
 function rebuildThread($id) {
-	global $mysql_posts_table;
-	
 	$htmlposts = "";
 	$posts = postsInThreadByID($id);
 	foreach ($posts as $post) {
@@ -326,8 +324,6 @@ function adminBar() {
 }
 
 function managePage($text, $onload='') {
-	global $tinyib;
-	
 	$adminbar = adminBar();
 	$body = <<<EOF
 	<body$onload>
@@ -335,8 +331,8 @@ function managePage($text, $onload='') {
 			$adminbar
 		</div>
 		<div class="logo">
-			${tinyib['logo']}
-			${tinyib['boarddescription']}
+EOF;
+	$body .= TINYIB_LOGO . TINYIB_BOARDDESC . <<<EOF
 		</div>
 		<hr width="90%" size="1">
 		<div class="replymode">Manage mode</div>

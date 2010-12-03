@@ -1,19 +1,18 @@
 <?php
-$tinyib = array();
-$tinyib['board']            = "b"; // Unique identifier for this board using only letters and numbers
-$tinyib['boarddescription'] = "TinyIB"; // Displayed in the logo area
-$tinyib['maxthreads']       = 100; // Set this to limit the number of threads allowed before discarding older threads.  0 to disable
-$tinyib['logo']             = ""; // Logo HTML
-$tinyib['tripseed']         = ""; // Text to use when generating secure tripcodes
-$tinyib['adminpassword']    = ""; // Text entered at the manage prompt to gain administrator access
-$tinyib['modpassword']      = ""; // Same as above, but only has access to delete posts. Blank ("") to disable
-$tinyib['databasemode']     = "flatfile"; // flatfile or mysql
+define('TINYIB_BOARD', "b"); // Unique identifier for this board using only letters and numbers
+define('TINYIB_BOARDDESC', "TinyIB"); // Displayed in the logo area
+define('TINYIB_MAXTHREADS', 100); // Set this to limit the number of threads allowed before discarding older threads.  0 to disable
+define('TINYIB_LOGO', ""); // Logo HTML
+define('TINYIB_TRIPSEED', ""); // Text to use when generating secure tripcodes
+define('TINYIB_ADMINPASS', ""); // Text entered at the manage prompt to gain administrator access
+define('TINYIB_MODPASS', ""); // Same as above, but only has access to delete posts. Blank ("") to disable
+define('TINYIB_DBMODE', "flatfile"); // flatfile or mysql
 
-// mysql settings
-$mysql_host = "localhost";
-$mysql_username = "";
-$mysql_password = "";
-$mysql_database = "";
-$mysql_posts_table = $tinyib['board'] . "_posts";
-$mysql_bans_table = "bans";
+// mysql settings - only edit if not using flatfile
+define('TINYIB_DBHOST', "localhost");
+define('TINYIB_DBUSERNAME', "");
+define('TINYIB_DBPASSWORD', "");
+define('TINYIB_DBNAME', "");
+define('TINYIB_DBPOSTS', TINYIB_BOARD . "_posts");
+define('TINYIB_DBBANS', "bans");
 ?>
