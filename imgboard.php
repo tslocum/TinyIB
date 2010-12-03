@@ -62,24 +62,8 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 		}
 	}
 	
-	$modpost = false;
-	if (isset($_POST['modpost'])) {
-		list($loggedin, $isadmin) = manageCheckLogIn();
-		if ($loggedin) {
-			$modpost = true;
-		}
-	}
-
-	$parent = "0";
-	if (isset($_POST["parent"])) {
-		if ($_POST["parent"] != "0") {
-			if (!threadExistsByID($_POST['parent'])) {
-				fancyDie("Invalid parent thread ID supplied, unable to create post.");
-			}
-			
-			$parent = $_POST["parent"];
-		}
-	}
+	list($loggedin, $isadmin) = manageCheckLogIn();
+	$modpost = isModPost();
 	
 	$lastpost = lastPostByIP();
 	if ($lastpost) {
@@ -93,7 +77,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	}
 	
 	$post = newPost();
-	$post['parent'] = $parent;
+	$post['parent'] =setParent();
 	$post['ip'] = $_SERVER['REMOTE_ADDR'];
 	
 	list($post['name'], $post['tripcode']) = nameAndTripcode($_POST["name"]);
@@ -123,30 +107,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	
 	if (isset($_FILES['file'])) {
 		if ($_FILES['file']['name'] != "") {
-			switch ($_FILES['file']['error']) {
-				case UPLOAD_ERR_OK:
-					break;
-				case UPLOAD_ERR_FORM_SIZE:
-					fancyDie("That file is larger than 2 MB.");
-					break;
-				case UPLOAD_ERR_INI_SIZE:
-					fancyDie("The uploaded file exceeds the upload_max_filesize directive (" . ini_get('upload_max_filesize') . ") in php.ini.");
-					break;
-				case UPLOAD_ERR_PARTIAL:
-					fancyDie("The uploaded file was only partially uploaded.");
-					break;
-				case UPLOAD_ERR_NO_FILE:
-					fancyDie("No file was uploaded.");
-					break;
-				case UPLOAD_ERR_NO_TMP_DIR:
-					fancyDie("Missing a temporary folder.");
-					break;
-				case UPLOAD_ERR_CANT_WRITE:
-					fancyDie("Failed to write file to disk");
-					break;
-				default:
-					fancyDie("Unable to save the uploaded file.");
-			}
+			validateFileUpload();
 			
 			if (!is_file($_FILES['file']['tmp_name']) || !is_readable($_FILES['file']['tmp_name'])) {
 				fancyDie("File transfer failure. Please retry the submission.");
@@ -177,17 +138,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 				fancyDie("Only GIF, JPG, and PNG files are allowed.");
 			}
 
-			$hexmatches = postsByHex($post['file_hex']);
-			if (count($hexmatches) > 0) {
-				foreach ($hexmatches as $hexmatch) {
-					if ($hexmatch["parent"] == "0") {
-						$goto = $hexmatch["id"];
-					} else {
-						$goto = $hexmatch["parent"];
-					}
-					fancyDie("Duplicate file uploaded. That file has already been posted <a href=\"res/" . $goto . ".html#" . $hexmatch["id"] . "\">here</a>.");
-				}
-			}
+			checkDuplicateImage($post['file_hex']);
 			
 			if (!move_uploaded_file($_FILES['file']['tmp_name'], $file_location)) {
 				fancyDie("Could not copy uploaded file.");
@@ -197,23 +148,16 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 				fancyDie("File transfer failure. Please go back and try again.");
 			}
 			
-			$post['image_width'] = $file_info[0];
-			$post['image_height'] = $file_info[1];
+			$post['image_width'] = $file_info[0]; $post['image_height'] = $file_info[1];
 			
-			if ($post['image_width'] > 250 || $post['image_height'] > 250) {
-				$width = 250;
-				$height = 250;
-			} else {
-				$width = $post['image_width'];
-				$height = $post['image_height'];
-			}
-			if (!createThumbnail($file_location, $thumb_location, $width, $height)) {
+			list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post['image_width'], $post['image_height']);
+			 
+			if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight)) {
 				fancyDie("Could not create thumbnail.");
 			}
 
 			$thumb_info = getimagesize($thumb_location);
-			$post['thumb_width'] = $thumb_info[0];
-			$post['thumb_height'] = $thumb_info[1];
+			$post['thumb_width'] = $thumb_info[0]; $post['thumb_height'] = $thumb_info[1];
 		}
 	}
 	

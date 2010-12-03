@@ -185,8 +185,82 @@ function manageCheckLogIn() {
 	return array($loggedin, $isadmin);
 }
 
+function setParent() {
+	if (isset($_POST["parent"])) {
+		if ($_POST["parent"] != "0") {
+			if (!threadExistsByID($_POST['parent'])) {
+				fancyDie("Invalid parent thread ID supplied, unable to create post.");
+			}
+			
+			return $_POST["parent"];
+		}
+	}
+	
+	return "0";
+}
+
+function isModPost() {
+	if (isset($_POST['modpost'])) {
+		list($loggedin, $isadmin) = manageCheckLogIn();
+		if ($loggedin) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+function validateFileUpload() {
+	switch ($_FILES['file']['error']) {
+		case UPLOAD_ERR_OK:
+			break;
+		case UPLOAD_ERR_FORM_SIZE:
+			fancyDie("That file is larger than 2 MB.");
+			break;
+		case UPLOAD_ERR_INI_SIZE:
+			fancyDie("The uploaded file exceeds the upload_max_filesize directive (" . ini_get('upload_max_filesize') . ") in php.ini.");
+			break;
+		case UPLOAD_ERR_PARTIAL:
+			fancyDie("The uploaded file was only partially uploaded.");
+			break;
+		case UPLOAD_ERR_NO_FILE:
+			fancyDie("No file was uploaded.");
+			break;
+		case UPLOAD_ERR_NO_TMP_DIR:
+			fancyDie("Missing a temporary folder.");
+			break;
+		case UPLOAD_ERR_CANT_WRITE:
+			fancyDie("Failed to write file to disk");
+			break;
+		default:
+			fancyDie("Unable to save the uploaded file.");
+	}
+}
+
+function checkDuplicateImage($hex) {
+	$hexmatches = postsByHex($hex);
+	if (count($hexmatches) > 0) {
+		foreach ($hexmatches as $hexmatch) {
+			if ($hexmatch["parent"] == "0") {
+				$goto = $hexmatch["id"];
+			} else {
+				$goto = $hexmatch["parent"];
+			}
+			fancyDie("Duplicate file uploaded. That file has already been posted <a href=\"res/" . $goto . ".html#" . $hexmatch["id"] . "\">here</a>.");
+		}
+	}
+}
+
+function thumbnailDimensions($width, $height) {
+	if ($width > 250 || $height > 250) {
+		return array(250, 250);
+	} else {
+		return array($width, $height);
+	}
+}
+
 function createThumbnail($name, $filename, $new_w, $new_h) {
-	$system=explode(".", $filename);
+	$system = explode(".", $filename);
 	$system = array_reverse($system);
 	if (preg_match("/jpg|jpeg/", $system[0])) {
 		$src_img=imagecreatefromjpeg($name);
