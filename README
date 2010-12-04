@@ -1,7 +1,7 @@
 TinyIB by tslocum
 http://tslocum.github.com/
 
-Supports MySQL and flat file database modes.
+Supports MySQL, SQLite, and flat file database modes.
 
 To install TinyIB:
 - CD to the directory you wish to install TinyIB

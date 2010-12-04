@@ -36,6 +36,8 @@ if (TINYIB_DBMODE == 'flatfile') {
 	$includes[] = 'inc/database_flatfile.php';
 } elseif (TINYIB_DBMODE == 'mysql') {
 	$includes[] = 'inc/database_mysql.php';
+} elseif (TINYIB_DBMODE == 'sqlite') {
+	$includes[] = 'inc/database_sqlite.php';
 } else {
 	fancyDie("Unknown database mode specificed");
 }
