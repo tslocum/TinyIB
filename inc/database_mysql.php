@@ -1,11 +1,11 @@
 <?php
 if (!defined('TINYIB_BOARD')) { die(''); }
 
-$link = mysql_connect($mysql_host, $mysql_username, $mysql_password);
+$link = mysql_connect(TINYIB_DBHOST, TINYIB_DBUSERNAME, TINYIB_DBPASSWORD);
 if (!$link) {
 	fancyDie("Could not connect to database: " . mysql_error());
 }
-$db_selected = mysql_select_db($mysql_database, $link);
+$db_selected = mysql_select_db(TINYIB_DBNAME, $link);
 if (!$db_selected) {
 	fancyDie("Could not select database: " . mysql_error());
 }
