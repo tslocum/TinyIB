@@ -53,26 +53,10 @@ if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
 $redirect = true;
 // Check if the request is to make a post
 if (isset($_POST["message"]) || isset($_POST["file"])) {
-	$ban = banByIP($_SERVER['REMOTE_ADDR']);
-	if ($ban) {
-		if ($ban['expire'] == 0 || $ban['expire'] > time()) {
-			$expire = ($ban['expire'] > 0) ? ('Your ban will expire ' . date('y/m/d(D)H:i:s', $ban['expire'])) : 'The ban on your IP address is permanent and will not expire.';
-			$reason = ($ban['reason'] == '') ? '' : ('<br>The reason provided was: ' . $ban['reason']);
-			fancyDie('Sorry, it appears that you have been banned from posting on this image board.  ' . $expire . $reason);
-		} else {
-			clearExpiredBans();
-		}
-	}
-	
 	list($loggedin, $isadmin) = manageCheckLogIn();
 	$modpost = isModPost();
-	
-	$lastpost = lastPostByIP();
-	if ($lastpost) {
-		if ((time() - $lastpost['timestamp']) < 30) {
-			fancyDie("Please wait a moment before posting again.  You will be able to make another post in " . (30 - (time() - $lastpost['timestamp'])) . " " . plural("second", (30 - (time() - $lastpost['timestamp']))) . ".");
-		}
-	}
+	checkBanned();
+	checkFlood();
 	
 	if (strlen($_POST["message"]) > 8000) {
 		fancyDie("Please shorten your message, or post it in multiple parts. Your message is " . strlen($_POST["message"]) . " characters long, and the maximum allowed is 8000.");
@@ -88,17 +72,13 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST["email"], 0, 75)));
 	$post['subject'] = cleanString(substr($_POST["subject"], 0, 75));
 	if ($modpost) {
-		if ($isadmin) {
-			$modposttext = ' <span style="color: red;">## Admin</span>';
-		} else {
-			$modposttext = ' <span style="color: purple;">## Mod</span>';
-		}
-		$post['message'] = $_POST["message"];
+		$modposttext = ($isadmin) ? ' <span style="color: red;">## Admin</span>' : ' <span style="color: purple;">## Mod</span>';
+		$post['message'] = $_POST["message"]; // Treat message as raw HTML
 	} else {
 		$modposttext = '';
 		$post['message'] = str_replace("\n", "<br>", colorQuote(cleanString(rtrim($_POST["message"]))));
 	}
-	if ($_POST['password'] != '') { $post['password'] = md5(md5($_POST['password'])); } else { $post['password'] = ''; }
+	$post['password'] = ($_POST['password'] != '') ? md5(md5($_POST['password'])) : '';
 	if (strtolower($post['email']) == "noko") {
 		$post['email'] = '';
 		$noko = true;
@@ -174,11 +154,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	
 	$post['id'] = insertPost($post);
 	if ($noko) {
-		if ($post['parent'] != '0') {
-			$redirect = 'res/' . $post['parent'] . '.html#' . $post['id'];
-		} else {
-			$redirect = 'res/' . $post['id'] . '.html#' . $post['id'];
-		}
+		$redirect = ($post['parent'] != '0') ? 'res/' . $post['parent'] . '.html#' . $post['id'] : 'res/' . $post['id'] . '.html#' . $post['id'];
 	}
 	trimThreads();
 	echo 'Updating thread page...<br>';
@@ -310,11 +286,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 }
 
 if ($redirect) {
-	if (is_string($redirect)) {
-		echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . $redirect . '">';
-	} else {
-		echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=index.html">';
-	}
+	echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . (is_string($redirect) ? $redirect : 'index.html') . '">';
 }
 
 ?>

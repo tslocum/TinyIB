@@ -163,6 +163,28 @@ function deletePostImages($post) {
 	if ($post['thumb'] != '') { @unlink('thumb/' . $post['thumb']); }
 }
 
+function checkBanned() {
+	$ban = banByIP($_SERVER['REMOTE_ADDR']);
+	if ($ban) {
+		if ($ban['expire'] == 0 || $ban['expire'] > time()) {
+			$expire = ($ban['expire'] > 0) ? ('Your ban will expire ' . date('y/m/d(D)H:i:s', $ban['expire'])) : 'The ban on your IP address is permanent and will not expire.';
+			$reason = ($ban['reason'] == '') ? '' : ('<br>The reason provided was: ' . $ban['reason']);
+			fancyDie('Sorry, it appears that you have been banned from posting on this image board.  ' . $expire . $reason);
+		} else {
+			clearExpiredBans();
+		}
+	}
+}
+
+function checkFlood() {
+	$lastpost = lastPostByIP();
+	if ($lastpost) {
+		if ((time() - $lastpost['timestamp']) < 30) {
+			fancyDie("Please wait a moment before posting again.  You will be able to make another post in " . (30 - (time() - $lastpost['timestamp'])) . " " . plural("second", (30 - (time() - $lastpost['timestamp']))) . ".");
+		}
+	}
+}
+
 function manageCheckLogIn() {
 	$loggedin = false; $isadmin = false;
 	if (isset($_POST['password'])) {
