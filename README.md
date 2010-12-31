@@ -2,7 +2,6 @@ TinyIB
 ====
 
 PHP image board
-Supports MySQL, SQLite, and native flat file for post storage.
 
 Installing
 ------------
