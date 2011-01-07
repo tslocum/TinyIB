@@ -1,11 +1,28 @@
 DirectoryIndex index.html
+Options -Indexes
 AddCharset UTF-8 .html
 AddCharset UTF-8 .php
 
 <IfModule mod_headers.c>
+Header unset ETag
 <Files *.html>
 Header add Pragma "no-cache"
 Header add Cache-Control "no-cache"
 Header unset Vary
 </Files>
 </IfModule>
+
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/x-icon "access plus 2592000 seconds"
+ExpiresByType image/gif "access plus 2592000 seconds"
+ExpiresByType image/jpeg "access plus 2592000 seconds"
+ExpiresByType image/png "access plus 2592000 seconds"
+ExpiresByType text/css "access plus 604800 seconds"
+ExpiresByType text/javascript "access plus 216000 seconds"
+ExpiresByType application/x-javascript "access plus 216000 seconds"
+</ifModule>
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
+</ifmodule>
