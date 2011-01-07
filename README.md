@@ -30,7 +30,7 @@ Updating
 Contributing
 ------------
 
- 1. Read http://help.github.com/forking/
+ 1. Read the [GitHub Guide on Forking](http://help.github.com/forking/)
  2. Fork TinyIB
  3. Commit code changes to your forked repository
  4. Submit a pull request describing your modifications
