@@ -21,8 +21,8 @@ ExpiresByType image/png "access plus 2592000 seconds"
 ExpiresByType text/css "access plus 604800 seconds"
 ExpiresByType text/javascript "access plus 216000 seconds"
 ExpiresByType application/x-javascript "access plus 216000 seconds"
-</ifModule>
+</IfModule>
 
 <IfModule mod_deflate.c>
 AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
-</ifmodule>
+</Ifmodule>

@@ -9,7 +9,7 @@ Installing
  1. CD to the directory you wish to install TinyIB
  2. Run the following command:
     - `git clone git://github.com/tslocum/TinyIB.git ./`
- 3. Rename settings.default.php to settings.php
+ 3. Copy settings.default.php to settings.php
  4. Configure settings.php
  5. CHMOD write permissions to the following directories:
     - /

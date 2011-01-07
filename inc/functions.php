@@ -197,6 +197,12 @@ function checkFlood() {
 	}
 }
 
+function checkMessageSize() {
+	if (strlen($_POST["message"]) > 8000) {
+		fancyDie("Please shorten your message, or post it in multiple parts. Your message is " . strlen($_POST["message"]) . " characters long, and the maximum allowed is 8000.");
+	}
+}
+
 function manageCheckLogIn() {
 	$loggedin = false; $isadmin = false;
 	if (isset($_POST['password'])) {

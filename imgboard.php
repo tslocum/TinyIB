@@ -57,10 +57,8 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	$modpost = isModPost();
 	if (!$loggedin) {
 		checkBanned();
+		checkMessageSize();
 		checkFlood();
-		if (strlen($_POST["message"]) > 8000) {
-			fancyDie("Please shorten your message, or post it in multiple parts. Your message is " . strlen($_POST["message"]) . " characters long, and the maximum allowed is 8000.");
-		}
 	}
 	
 	$post = newPost();
