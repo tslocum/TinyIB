@@ -62,8 +62,10 @@ function uniquePosts() {
 
 function postByID($id) {
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = '" . mysql_real_escape_string($id) . "' LIMIT 1");
-	while ($post = mysql_fetch_assoc($result)) {
-		return $post;
+	if ($result) {
+		while ($post = mysql_fetch_assoc($result)) {
+			return $post;
+		}
 	}
 }
 
@@ -87,8 +89,10 @@ function countThreads() {
 function allThreads() {	
 	$threads = array();
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 ORDER BY `bumped` DESC");
-	while ($thread = mysql_fetch_assoc($result)) {
-		$threads[] = $thread;
+	if ($result) {
+		while ($thread = mysql_fetch_assoc($result)) {
+			$threads[] = $thread;
+		}
 	}
 	return $threads;
 }
@@ -96,8 +100,10 @@ function allThreads() {
 function postsInThreadByID($id) {	
 	$posts = array();
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = " . $id . " OR `parent` = " . $id . " ORDER BY `id` ASC");
-	while ($post = mysql_fetch_assoc($result)) {
-		$posts[] = $post;
+	if ($result) {
+		while ($post = mysql_fetch_assoc($result)) {
+			$posts[] = $post;
+		}
 	}
 	return $posts;
 }
@@ -105,8 +111,10 @@ function postsInThreadByID($id) {
 function latestRepliesInThreadByID($id) {	
 	$posts = array();
 	$replies = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = " . $id . " ORDER BY `id` DESC LIMIT 3");
+	if ($replies) {
 		while ($post = mysql_fetch_assoc($replies)) {
-		$posts[] = $post;
+			$posts[] = $post;
+		}
 	}
 	return $posts;
 }
@@ -114,8 +122,10 @@ function latestRepliesInThreadByID($id) {
 function postsByHex($hex) {	
 	$posts = array();
 	$result = mysql_query("SELECT `id`, `parent` FROM `" . TINYIB_DBPOSTS . "` WHERE `file_hex` = '" . mysql_real_escape_string($hex) . "' LIMIT 1");
-	while ($post = mysql_fetch_assoc($result)) {
-		$posts[] = $post;
+	if ($result) {
+		while ($post = mysql_fetch_assoc($result)) {
+			$posts[] = $post;
+		}
 	}
 	return $posts;
 }
@@ -142,39 +152,49 @@ function deletePostByID($id) {
 function trimThreads() {
 	if (TINYIB_MAXTHREADS > 0) {
 		$result = mysql_query("SELECT `id` FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 ORDER BY `bumped` DESC LIMIT " . TINYIB_MAXTHREADS. ", 10");
-		while ($post = mysql_fetch_assoc($result)) {
-			deletePostByID($post['id']);
+		if ($result) {
+			while ($post = mysql_fetch_assoc($result)) {
+				deletePostByID($post['id']);
+			}
 		}
 	}
 }
 
 function lastPostByIP() {	
 	$replies = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `ip` = '" . $_SERVER['REMOTE_ADDR'] . "' ORDER BY `id` DESC LIMIT 1");
-	while ($post = mysql_fetch_assoc($replies)) {
-		return $post;
+	if ($replies) {
+		while ($post = mysql_fetch_assoc($replies)) {
+			return $post;
+		}
 	}
 }
 
 # Ban Functions
 function banByID($id) {
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `id` = '" . mysql_real_escape_string($id) . "' LIMIT 1");
-	while ($ban = mysql_fetch_assoc($result)) {
-		return $ban;
+	if ($result) {
+		while ($ban = mysql_fetch_assoc($result)) {
+			return $ban;
+		}
 	}
 }
 
 function banByIP($ip) {
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `ip` = '" . mysql_real_escape_string($ip) . "' LIMIT 1");
-	while ($ban = mysql_fetch_assoc($result)) {
-		return $ban;
+	if ($result) {
+		while ($ban = mysql_fetch_assoc($result)) {
+			return $ban;
+		}
 	}
 }
 
 function allBans() {
 	$bans = array();
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBBANS . "` ORDER BY `timestamp` DESC");
-	while ($ban = mysql_fetch_assoc($result)) {
-		$bans[] = $ban;
+	if ($result) {
+		while ($ban = mysql_fetch_assoc($result)) {
+			$bans[] = $ban;
+		}
 	}
 	return $bans;
 }
@@ -186,8 +206,10 @@ function insertBan($ban) {
 
 function clearExpiredBans() {
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `expire` > 0 AND `expire` <= " . time());
-	while ($ban = mysql_fetch_assoc($result)) {
-		mysql_query("DELETE FROM `" . TINYIB_DBBANS . "` WHERE `id` = " . $ban['id'] . " LIMIT 1");
+	if ($result) {
+		while ($ban = mysql_fetch_assoc($result)) {
+			mysql_query("DELETE FROM `" . TINYIB_DBBANS . "` WHERE `id` = " . $ban['id'] . " LIMIT 1");
+		}
 	}
 }
 

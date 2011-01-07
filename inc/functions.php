@@ -153,6 +153,18 @@ function fixLinksInRes($html) {
 	return str_replace($search, $replace, $html);
 }
 
+function _postLink($matches) {
+	$post = postByID($matches[1]);
+	if ($post) {
+		return '<a href="res/' . ($post['parent'] == 0 ? $post['id'] : $post['parent']) . '.html#' . $matches[1] . '">' . $matches[0] . '</a>';
+	}
+	return $matches[0];
+}
+
+function postLink($message) {
+	return preg_replace_callback('/&gt;&gt;([0-9]+)/', '_postLink', $message);
+}
+
 function colorQuote($message) {
 	if (substr($message, -1, 1) != "\n") { $message .= "\n"; }
 	return preg_replace('/^(&gt;[^\>](.*))\n/m', '<span class="unkfunc">\\1</span>' . "\n", $message);

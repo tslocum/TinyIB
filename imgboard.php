@@ -55,15 +55,16 @@ $redirect = true;
 if (isset($_POST["message"]) || isset($_POST["file"])) {
 	list($loggedin, $isadmin) = manageCheckLogIn();
 	$modpost = isModPost();
-	checkBanned();
-	checkFlood();
-	
-	if (strlen($_POST["message"]) > 8000) {
-		fancyDie("Please shorten your message, or post it in multiple parts. Your message is " . strlen($_POST["message"]) . " characters long, and the maximum allowed is 8000.");
+	if (!$loggedin) {
+		checkBanned();
+		checkFlood();
+		if (strlen($_POST["message"]) > 8000) {
+			fancyDie("Please shorten your message, or post it in multiple parts. Your message is " . strlen($_POST["message"]) . " characters long, and the maximum allowed is 8000.");
+		}
 	}
 	
 	$post = newPost();
-	$post['parent'] =setParent();
+	$post['parent'] = setParent();
 	$post['ip'] = $_SERVER['REMOTE_ADDR'];
 	
 	list($post['name'], $post['tripcode']) = nameAndTripcode($_POST["name"]);
@@ -76,7 +77,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 		$post['message'] = $_POST["message"]; // Treat message as raw HTML
 	} else {
 		$modposttext = '';
-		$post['message'] = str_replace("\n", "<br>", colorQuote(cleanString(rtrim($_POST["message"]))));
+		$post['message'] = str_replace("\n", "<br>", colorQuote(postLink(cleanString(rtrim($_POST["message"])))));
 	}
 	$post['password'] = ($_POST['password'] != '') ? md5(md5($_POST['password'])) : '';
 	if (strtolower($post['email']) == "noko") {
