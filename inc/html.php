@@ -153,7 +153,7 @@ EOF;
 	$unique_posts_html = '';
 	$unique_posts = uniquePosts();
 	if ($unique_posts > 0) {
-	$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>";
+		$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>";
 	}
 	
 	$body = <<<EOF
@@ -477,14 +477,18 @@ function manageModpostForm() {
 						<input type="password" name="password" size="8" accesskey="p">&nbsp;(for post and file deletion)
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2" class="rules">
+						<ul>
+							<li>All text entered in the "Message" field will be posted AS-IS with absolutely no formatting applied.</li>
+							<li>This means for all line-breaks you must enter the text "&lt;br&gt;".</li>
+						</ul>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 		</form>
 	</div>
-	<div style="text-align: center;">
-		All text entered in the "Message" field will be posted AS-IS with absolutely no formatting applied.<br>This means for all line-breaks you must enter the text "&lt;br&gt;".
-	</div>
-	<br>
 EOF;
 }
 
@@ -494,13 +498,14 @@ function manageModeratePost($post) {
 	$ban_disabled = (!$ban && $isadmin) ? '' : ' disabled';
 	$ban_disabled_info = (!$ban) ? '' : (' A ban record already exists for ' . $post['ip']);
 	$post_html = buildPost($post, true);
+	$post_or_thread = ($post['parent'] == 0) ? 'Thread' : 'Post';
 	return <<<EOF
 	<fieldset>
 	<legend>Moderating post No.${post['id']}</legend>
 	
 	<div class="floatpost">
 	<fieldset>
-	<legend>Post</legend>	
+	<legend>$post_or_thread</legend>	
 	$post_html
 	</fieldset>
 	</div>
@@ -510,7 +515,7 @@ function manageModeratePost($post) {
 	<form method="get" action="?">
 	<input type="hidden" name="manage" value="">
 	<input type="hidden" name="delete" value="${post['id']}">
-	<input type="submit" value="Delete Post" class="managebutton">
+	<input type="submit" value="Delete $post_or_thread" class="managebutton">
 	</form>
 	<br>
 	<form method="get" action="?">
