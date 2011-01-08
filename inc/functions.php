@@ -86,8 +86,7 @@ function nameAndTripcode($name) {
 		}
 		
 		$tripcode = "";
-		if ($cap != "") {
-			/* From Futabally */
+		if ($cap != "") { // Copied from Futabally
 			$cap = strtr($cap, "&amp;", "&");
 			$cap = strtr($cap, "&#44;", ", ");
 			$salt = substr($cap."H.", 1, 2);
@@ -349,30 +348,26 @@ function createThumbnail($name, $filename, $new_w, $new_h) {
 }
 
 function fastImageCopyResampled(&$dst_image, &$src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h, $quality = 3) {
-	//Author: Tim Eckel - Date: 12/17/04 - Project: FreeRingers.net - Freely distributable. 
+	// Author: Tim Eckel - Date: 12/17/04 - Project: FreeRingers.net - Freely distributable. 
 	if (empty($src_image) || empty($dst_image)) { return false; }
 
 	if ($quality <= 1) {
 		$temp = imagecreatetruecolor ($dst_w + 1, $dst_h + 1);
+		
 		imagecopyresized ($temp, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w + 1, $dst_h + 1, $src_w, $src_h);
 		imagecopyresized ($dst_image, $temp, 0, 0, 0, 0, $dst_w, $dst_h, $dst_w, $dst_h);
 		imagedestroy ($temp);
 	} elseif ($quality < 5 && (($dst_w * $quality) < $src_w || ($dst_h * $quality) < $src_h)) {
-		
 		$tmp_w = $dst_w * $quality;
 		$tmp_h = $dst_h * $quality;
 		$temp = imagecreatetruecolor ($tmp_w + 1, $tmp_h + 1);
 		
 		imagecopyresized ($temp, $src_image, $dst_x * $quality, $dst_y * $quality, $src_x, $src_y, $tmp_w + 1, $tmp_h + 1, $src_w, $src_h);
-		
 		imagecopyresampled ($dst_image, $temp, 0, 0, 0, 0, $dst_w, $dst_h, $tmp_w, $tmp_h);
-		
 		imagedestroy ($temp);
-		
 	} else {
 		imagecopyresampled ($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
 	}
-
 	
 	return true;
 }

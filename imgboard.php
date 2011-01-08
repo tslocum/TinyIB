@@ -14,7 +14,7 @@ if (get_magic_quotes_gpc()) {
 if (get_magic_quotes_runtime()) { set_magic_quotes_runtime(0); }
 
 function fancyDie($message) {
-	die('<span style="color: red;font-size: 1.5em;font-family: Helvetica;">' . $message . '</span>');
+	die('<body text="#800000" bgcolor="#FFFFEE" align="center"><br><span style="background-color: #F0E0D6;font-size: 1.25em;font-family: Tahoma, Geneva, sans-serif;padding: 7px;border: 1px solid #D9BFB7;border-left: none;border-top: none;">' . $message . '</span><br><br>- <a href="javascript:history.go(-1)">Click here to go back</a> -</body>');
 }
 
 if (!file_exists('settings.php')) {
@@ -32,12 +32,8 @@ foreach ($writedirs as $dir) {
 }
 
 $includes = array("inc/functions.php", "inc/html.php");
-if (TINYIB_DBMODE == 'flatfile') {
-	$includes[] = 'inc/database_flatfile.php';
-} elseif (TINYIB_DBMODE == 'mysql') {
-	$includes[] = 'inc/database_mysql.php';
-} elseif (TINYIB_DBMODE == 'sqlite') {
-	$includes[] = 'inc/database_sqlite.php';
+if (in_array(TINYIB_DBMODE, array('flatfile', 'mysql', 'sqlite'))) {
+	$includes[] = 'inc/database_' . TINYIB_DBMODE . '.php';
 } else {
 	fancyDie("Unknown database mode specificed");
 }
@@ -153,7 +149,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	
 	$post['id'] = insertPost($post);
 	if ($noko) {
-		$redirect = ($post['parent'] != '0') ? 'res/' . $post['parent'] . '.html#' . $post['id'] : 'res/' . $post['id'] . '.html#' . $post['id'];
+		$redirect = 'res/' . ($post['parent'] == '0' ? $post['id'] : $post['parent']) . '.html#' . $post['id'];
 	}
 	trimThreads();
 	echo 'Updating thread page...<br>';
