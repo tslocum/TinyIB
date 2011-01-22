@@ -259,37 +259,28 @@ EOF;
 }
 
 function rebuildIndexes() {	
-	$htmlposts = "";
-	$page = 0;
-	$i = 0;
+	$page = 0; $i = 0; $htmlposts = "";
 	$pages = ceil(countThreads() / 10) - 1;
 	$threads = allThreads(); 
+	
 	foreach ($threads as $thread) {
-		$htmlreplies = array();
 		$replies = latestRepliesInThreadByID($thread['id']);
-	foreach ($replies as $reply) {
+		
+		$htmlreplies = array();
+		foreach ($replies as $reply) {
 			$htmlreplies[] = buildPost($reply, False);
 		}
-		if (count($htmlreplies) == 3) {
-		$thread["omitted"] = (count(postsInThreadByID($thread['id'])) - 4);
-	} else {
-		$thread["omitted"] = 0;
-		}
 		
-		$htmlposts .= buildPost($thread, False);
-
-		$htmlposts .= implode("", array_reverse($htmlreplies));
+		$thread["omitted"] = (count($htmlreplies) == 3) ? (count(postsInThreadByID($thread['id'])) - 4) : 0;
 		
-		$htmlposts .= "<br clear=\"left\">\n" . 
-									"<hr>";
+		$htmlposts .= buildPost($thread, False) . implode("", array_reverse($htmlreplies)) . "<br clear=\"left\">\n<hr>";
+		
 		$i += 1;
 		if ($i == 10) {
 			$file = ($page == 0) ? "index.html" : $page . ".html";
 			writePage($file, buildPage($htmlposts, 0, $pages, $page));
 			
-			$page += 1;
-			$i = 0;
-			$htmlposts = "";
+			$page += 1; $i = 0; $htmlposts = "";
 		}
 	}
 	

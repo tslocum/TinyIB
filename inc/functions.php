@@ -111,12 +111,7 @@ function nameAndTripcode($name) {
 
 function nameBlock($name, $tripcode, $email, $timestamp, $modposttext) {
 	$output = '<span class="postername">';
-	
-	if ($name == "" && $tripcode == "") {
-		$output .= "Anonymous";
-	} else {
-		$output .= $name;
-	}
+	$output .= ($name == "" && $tripcode == "") ? "Anonymous" : $name;
 	
 	if ($tripcode != "") {
 		$output .= '</span><span class="postertrip">!' . $tripcode;
@@ -280,33 +275,24 @@ function checkDuplicateImage($hex) {
 	$hexmatches = postsByHex($hex);
 	if (count($hexmatches) > 0) {
 		foreach ($hexmatches as $hexmatch) {
-			if ($hexmatch["parent"] == "0") {
-				$goto = $hexmatch["id"];
-			} else {
-				$goto = $hexmatch["parent"];
-			}
-			fancyDie("Duplicate file uploaded. That file has already been posted <a href=\"res/" . $goto . ".html#" . $hexmatch["id"] . "\">here</a>.");
+			fancyDie("Duplicate file uploaded. That file has already been posted <a href=\"res/" . (($hexmatch["parent"] == "0") ? $hexmatch["id"] : $hexmatch["parent"]) . ".html#" . $hexmatch["id"] . "\">here</a>.");
 		}
 	}
 }
 
 function thumbnailDimensions($width, $height) {
-	if ($width > 250 || $height > 250) {
-		return array(250, 250);
-	} else {
-		return array($width, $height);
-	}
+	return ($width > 250 || $height > 250) ? array(250, 250) : array($width, $height);
 }
 
 function createThumbnail($name, $filename, $new_w, $new_h) {
 	$system = explode(".", $filename);
 	$system = array_reverse($system);
 	if (preg_match("/jpg|jpeg/", $system[0])) {
-		$src_img=imagecreatefromjpeg($name);
+		$src_img = imagecreatefromjpeg($name);
 	} else if (preg_match("/png/", $system[0])) {
-		$src_img=imagecreatefrompng($name);
+		$src_img = imagecreatefrompng($name);
 	} else if (preg_match("/gif/", $system[0])) {
-		$src_img=imagecreatefromgif($name);
+		$src_img = imagecreatefromgif($name);
 	} else {
 		return false;
 	}
@@ -316,11 +302,7 @@ function createThumbnail($name, $filename, $new_w, $new_h) {
 	}
 	$old_x = imageSX($src_img);
 	$old_y = imageSY($src_img);
-	if ($old_x > $old_y) {
-		$percent = $new_w / $old_x;
-	} else {
-		$percent = $new_h / $old_y;
-	}
+	$percent = ($old_x > $old_y) ? ($new_w / $old_x) : ($new_h / $old_y);
 	$thumb_w = round($old_x * $percent);
 	$thumb_h = round($old_y * $percent);
 	
