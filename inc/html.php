@@ -488,7 +488,7 @@ function manageModeratePost($post) {
 	$ban = banByIP($post['ip']);
 	$ban_disabled = (!$ban && $isadmin) ? '' : ' disabled';
 	$ban_disabled_info = (!$ban) ? '' : (' A ban record already exists for ' . $post['ip']);
-	$post_html = buildPost($post, true);
+	$post_html = buildPost($post, false);
 	$post_or_thread = ($post['parent'] == 0) ? 'Thread' : 'Post';
 	return <<<EOF
 	<fieldset>
