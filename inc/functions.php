@@ -20,8 +20,8 @@ function threadUpdated($id) {
 	rebuildIndexes();
 }
 
-function newPost() {
-	return array('parent' => '0',
+function newPost($parent = TINYIB_NEWTHREAD) {
+	return array('parent' => $parent,
 				'timestamp' => '0',
 				'bumped' => '0',
 				'ip' => '',
@@ -109,7 +109,7 @@ function nameAndTripcode($name) {
 	return array($name, "");
 }
 
-function nameBlock($name, $tripcode, $email, $timestamp, $modposttext) {
+function nameBlock($name, $tripcode, $email, $timestamp, $rawposttext) {
 	$output = '<span class="postername">';
 	$output .= ($name == "" && $tripcode == "") ? "Anonymous" : $name;
 	
@@ -123,7 +123,7 @@ function nameBlock($name, $tripcode, $email, $timestamp, $modposttext) {
 		$output = '<a href="mailto:' . $email . '">' . $output . '</a>';
 	}
 
-	return $output . $modposttext . ' ' . date('y/m/d(D)H:i:s', $timestamp);
+	return $output . $rawposttext . ' ' . date('y/m/d(D)H:i:s', $timestamp);
 }
 
 function writePage($filename, $contents) {
@@ -150,7 +150,7 @@ function fixLinksInRes($html) {
 function _postLink($matches) {
 	$post = postByID($matches[1]);
 	if ($post) {
-		return '<a href="res/' . ($post['parent'] == 0 ? $post['id'] : $post['parent']) . '.html#' . $matches[1] . '">' . $matches[0] . '</a>';
+		return '<a href="res/' . ($post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent']) . '.html#' . $matches[1] . '">' . $matches[0] . '</a>';
 	}
 	return $matches[0];
 }
@@ -173,9 +173,9 @@ function checkBanned() {
 	$ban = banByIP($_SERVER['REMOTE_ADDR']);
 	if ($ban) {
 		if ($ban['expire'] == 0 || $ban['expire'] > time()) {
-			$expire = ($ban['expire'] > 0) ? ('Your ban will expire ' . date('y/m/d(D)H:i:s', $ban['expire'])) : 'The ban on your IP address is permanent and will not expire.';
-			$reason = ($ban['reason'] == '') ? '' : ('<br>The reason provided was: ' . $ban['reason']);
-			fancyDie('Sorry, it appears that you have been banned from posting on this image board.  ' . $expire . $reason);
+			$expire = ($ban['expire'] > 0) ? ('<br>This ban will expire ' . date('y/m/d(D)H:i:s', $ban['expire'])) : '<br>This ban is permanent and will not expire.';
+			$reason = ($ban['reason'] == '') ? '' : ('<br>Reason: ' . $ban['reason']);
+			fancyDie('Your IP address ' . $ban['ip'] . ' has been banned from posting on this image board.  ' . $expire . $reason);
 		} else {
 			clearExpiredBans();
 		}
@@ -183,10 +183,12 @@ function checkBanned() {
 }
 
 function checkFlood() {
-	$lastpost = lastPostByIP();
-	if ($lastpost) {
-		if ((time() - $lastpost['timestamp']) < 30) {
-			fancyDie("Please wait a moment before posting again.  You will be able to make another post in " . (30 - (time() - $lastpost['timestamp'])) . " " . plural("second", (30 - (time() - $lastpost['timestamp']))) . ".");
+	if (TINYIB_DELAY > 0) {
+		$lastpost = lastPostByIP();
+		if ($lastpost) {
+			if ((time() - $lastpost['timestamp']) < TINYIB_DELAY) {
+				fancyDie("Please wait a moment before posting again.  You will be able to make another post in " . (TINYIB_DELAY - (time() - $lastpost['timestamp'])) . " " . plural("second", (TINYIB_DELAY - (time() - $lastpost['timestamp']))) . ".");
+			}
 		}
 	}
 }
@@ -221,7 +223,7 @@ function manageCheckLogIn() {
 
 function setParent() {
 	if (isset($_POST["parent"])) {
-		if ($_POST["parent"] != "0") {
+		if ($_POST["parent"] != TINYIB_NEWTHREAD) {
 			if (!threadExistsByID($_POST['parent'])) {
 				fancyDie("Invalid parent thread ID supplied, unable to create post.");
 			}
@@ -230,11 +232,11 @@ function setParent() {
 		}
 	}
 	
-	return "0";
+	return TINYIB_NEWTHREAD;
 }
 
-function isModPost() {
-	if (isset($_POST['modpost'])) {
+function isRawPost() {
+	if (isset($_POST['rawpost'])) {
 		list($loggedin, $isadmin) = manageCheckLogIn();
 		if ($loggedin) {
 			return true;
@@ -249,7 +251,7 @@ function validateFileUpload() {
 		case UPLOAD_ERR_OK:
 			break;
 		case UPLOAD_ERR_FORM_SIZE:
-			fancyDie("That file is larger than 2 MB.");
+			fancyDie("That file is larger than " . TINYIB_MAXKBDESC . ".");
 			break;
 		case UPLOAD_ERR_INI_SIZE:
 			fancyDie("The uploaded file exceeds the upload_max_filesize directive (" . ini_get('upload_max_filesize') . ") in php.ini.");
@@ -275,13 +277,13 @@ function checkDuplicateImage($hex) {
 	$hexmatches = postsByHex($hex);
 	if (count($hexmatches) > 0) {
 		foreach ($hexmatches as $hexmatch) {
-			fancyDie("Duplicate file uploaded. That file has already been posted <a href=\"res/" . (($hexmatch["parent"] == "0") ? $hexmatch["id"] : $hexmatch["parent"]) . ".html#" . $hexmatch["id"] . "\">here</a>.");
+			fancyDie("Duplicate file uploaded. That file has already been posted <a href=\"res/" . (($hexmatch["parent"] == TINYIB_NEWTHREAD) ? $hexmatch["id"] : $hexmatch["parent"]) . ".html#" . $hexmatch["id"] . "\">here</a>.");
 		}
 	}
 }
 
 function thumbnailDimensions($width, $height) {
-	return ($width > 250 || $height > 250) ? array(250, 250) : array($width, $height);
+	return ($width > TINYIB_MAXW || $height > TINYIB_MAXH) ? array(TINYIB_MAXW, TINYIB_MAXH) : array($width, $height);
 }
 
 function createThumbnail($name, $filename, $new_w, $new_h) {
@@ -352,6 +354,21 @@ function fastImageCopyResampled(&$dst_image, &$src_image, $dst_x, $dst_y, $src_x
 	}
 	
 	return true;
+}
+
+function strallpos($haystack, $needle, $offset = 0) {
+	$result = array();
+	for ($i = $offset;$i<strlen($haystack);$i++) {
+		$pos = strpos($haystack, $needle, $i);
+		if ($pos !== False) {
+			$offset = $pos;
+			if ($offset >= $i) {
+				$i = $offset;
+				$result[] = $offset;
+			}
+		}
+	}
+	return $result;
 }
 
 ?>

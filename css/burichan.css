@@ -27,10 +27,7 @@ a:hover {
 	text-decoration:underline;
 }
 .adminbar {
-	text-align:right;
 	background:inherit;
-	clear:both;
-	float:right;
 }
 .logo {
 	clear:both;
@@ -42,6 +39,11 @@ a:hover {
 }
 .replymode {
 	background:#0010E0;
+	color:#FFFFFF;
+	width:100%;
+}
+.manageinfo {
+	background:#00B930;
 	color:#FFFFFF;
 	width:100%;
 }

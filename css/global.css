@@ -100,3 +100,11 @@ form {
 .login {
 	text-align: center;
 }
+
+.adminbar {
+	text-align: right;
+	clear: both;
+	float: right;
+}
+
+.adminbar a:link, .adminbar a:visited, .adminbar a:active, .adminbar a:hover { text-decoration: none; }

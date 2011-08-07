@@ -127,7 +127,7 @@ function convertPostsToSQLStyle($posts, $singlepost=false) {
 		$post['thumb_height'] = $oldpost[POST_THUMB_HEIGHT];
 		
 		if ($post['parent'] == '') {
-			$post['parent'] = '0';
+			$post['parent'] = TINYIB_NEWTHREAD;
 		}
 		
 		if ($singlepost) { return $post; }
@@ -157,6 +157,11 @@ function latestRepliesInThreadByID($id) {
 
 function postsByHex($hex) {
 	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_FILE_HEX, '=', $hex, STRING_COMPARISON), 1);
+	return convertPostsToSQLStyle($rows);
+}
+
+function latestPosts() {
+	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, NULL, 10, new OrderBy(POST_TIMESTAMP, DESCENDING, INTEGER_COMPARISON));
 	return convertPostsToSQLStyle($rows);
 }
 

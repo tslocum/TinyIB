@@ -130,6 +130,17 @@ function postsByHex($hex) {
 	return $posts;
 }
 
+function latestPosts() {	
+	$posts = array();
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` ORDER BY `timestamp` DESC LIMIT 10");
+	if ($result) {
+		while ($post = mysql_fetch_assoc($result)) {
+			$posts[] = $post;
+		}
+	}
+	return $posts;
+}
+
 function deletePostByID($id) {	
 	$posts = postsInThreadByID($id);
 	foreach ($posts as $post) {
@@ -141,7 +152,7 @@ function deletePostByID($id) {
 		}
 	}
 	if (isset($thispost)) {
-		if ($thispost['parent'] == 0) {
+		if ($thispost['parent'] == TINYIB_NEWTHREAD) {
 			@unlink('res/' . $thispost['id'] . '.html');
 		}
 		deletePostImages($thispost);

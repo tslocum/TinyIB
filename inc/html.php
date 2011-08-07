@@ -32,12 +32,13 @@ function pageFooter() {
 EOF;
 }
 
-function buildPost($post, $isrespage) {
+function buildPost($post, $res) {
 	$return = "";
-	$threadid = ($post['parent'] == 0) ? $post['id'] : $post['parent'];
-	$postlink = ($isrespage) ? ($threadid . '.html#' . $post['id']) : ('res/' . $threadid . '.html#' . $post['id']);
+	$threadid = ($post['parent'] == TINYIB_NEWTHREAD) ? $post['id'] : $post['parent'];
+	$postlink = ($res == TINYIB_RESPAGE) ? ($threadid . '.html#' . $post['id']) : ('res/' . $threadid . '.html#' . $post['id']);
+	if (!isset($post["omitted"])) { $post["omitted"] = 0; }
 	
-	if ($post["parent"] != 0) {
+	if ($post["parent"] != TINYIB_NEWTHREAD) {
 		$return .= <<<EOF
 <table>
 <tbody>
@@ -75,7 +76,7 @@ ${post["nameblock"]}
 </span>
 EOF;
 	
-	if ($post['parent'] != 0 && $post["file"] != "") {
+	if ($post['parent'] != TINYIB_NEWTHREAD && $post["file"] != "") {
 		$return .= <<<EOF
 <br>
 <span class="filesize"><a href="src/${post["file"]}">${post["file"]}</a>&ndash;(${post["file_size_formatted"]}, ${post["image_width"]}x${post["image_height"]}, ${post["file_original"]})</span>
@@ -86,18 +87,23 @@ EOF;
 EOF;
 	}
 	
-	if ($post['parent'] == 0 && !$isrespage) {
+	if ($post['parent'] == TINYIB_NEWTHREAD && $res == TINYIB_INDEXPAGE) {
 		$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">Reply</a>]";
 	}
 	
+	if (TINYIB_TRUNCATE > 0 && !$res && substr_count($post['message'], "<br>") > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
+		$br_offsets = strallpos($post['message'], "<br>");
+		$post['message'] = substr($post['message'], 0, $br_offsets[TINYIB_TRUNCATE - 1]);
+		$post['message'] .= '<br><span class="omittedposts">Post truncated.  Click Reply to view.</span><br>';
+	}
 	$return .= <<<EOF
 <blockquote>
 ${post["message"]}
 </blockquote>
 EOF;
 
-	if ($post['parent'] == 0) {
-		if (!$isrespage && $post["omitted"] > 0) {
+	if ($post['parent'] == TINYIB_NEWTHREAD) {
+		if ($res == TINYIB_INDEXPAGE && $post["omitted"] > 0) {
 			$return .= '<span class="omittedposts">' . $post['omitted'] . ' ' . plural("post", $post["omitted"]) . ' omitted. Click Reply to view.</span>';
 		}
 	} else {
@@ -114,10 +120,12 @@ EOF;
 
 function buildPage($htmlposts, $parent, $pages=0, $thispage=0) {
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
+	$maxdimensions = TINYIB_MAXW . 'x' . TINYIB_MAXH;
+	$maxfilesize = TINYIB_MAXKB * 1024;
 	
 	$postingmode = "";
 	$pagenavigator = "";
-	if ($parent == 0) {
+	if ($parent == TINYIB_NEWTHREAD) {
 		$pages = max($pages, 0);
 		$previous = ($thispage == 1) ? "index" : $thispage - 1;
 		$next = $thispage + 1;
@@ -153,13 +161,18 @@ EOF;
 	$unique_posts_html = '';
 	$unique_posts = uniquePosts();
 	if ($unique_posts > 0) {
-		$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>";
+		$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>\n";
+	}
+	
+	$max_file_size_html = '';
+	if (TINYIB_MAXKB > 0) {
+		$max_file_size_html = "<li>Maximum file size allowed is " . TINYIB_MAXKBDESC . ".</li>\n";
 	}
 	
 	$body = <<<EOF
 	<body>
 		<div class="adminbar">
-			[<a href="$managelink">Manage</a>]
+			[<a href="$managelink" style="text-decoration: underline;">Manage</a>]
 		</div>
 		<div class="logo">
 EOF;
@@ -169,7 +182,7 @@ EOF;
 		$postingmode
 		<div class="postarea">
 			<form name="postform" id="postform" action="imgboard.php" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="MAX_FILE_SIZE" value="2097152">
+			<input type="hidden" name="MAX_FILE_SIZE" value="$maxfilesize">
 			<input type="hidden" name="parent" value="$parent">
 			<table class="postform">
 				<tbody>
@@ -226,8 +239,8 @@ EOF;
 						<td colspan="2" class="rules">
 							<ul>
 								<li>Supported file types are: GIF, JPG, PNG</li>
-								<li>Maximum file size allowed is 2 MB.</li>
-								<li>Images greater than 250x250 pixels will be thumbnailed.</li>
+								$max_file_size_html
+								<li>Images greater than $maxdimensions pixels will be thumbnailed.</li>
 								$unique_posts_html
 							</ul>
 						</td>
@@ -268,12 +281,12 @@ function rebuildIndexes() {
 		
 		$htmlreplies = array();
 		foreach ($replies as $reply) {
-			$htmlreplies[] = buildPost($reply, False);
+			$htmlreplies[] = buildPost($reply, TINYIB_INDEXPAGE);
 		}
 		
 		$thread["omitted"] = (count($htmlreplies) == 3) ? (count(postsInThreadByID($thread['id'])) - 4) : 0;
 		
-		$htmlposts .= buildPost($thread, False) . implode("", array_reverse($htmlreplies)) . "<br clear=\"left\">\n<hr>";
+		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode("", array_reverse($htmlreplies)) . "<br clear=\"left\">\n<hr>";
 		
 		$i += 1;
 		if ($i == 10) {
@@ -294,23 +307,23 @@ function rebuildThread($id) {
 	$htmlposts = "";
 	$posts = postsInThreadByID($id);
 	foreach ($posts as $post) {
-		$htmlposts .= buildPost($post, True);
+		$htmlposts .= buildPost($post, TINYIB_RESPAGE);
 	}
 	
-	$htmlposts .= "<br clear=\"left\">\n" . 
-								"<hr>";
+	$htmlposts .= "<br clear=\"left\">\n<hr>\n";
 	
 	writePage("res/" . $id . ".html", fixLinksInRes(buildPage($htmlposts, $id)));
 }
 
 function adminBar() {
 	global $loggedin, $isadmin, $returnlink;
-	if (!$loggedin) { return '[<a href="' . $returnlink . '">Return</a>]'; }
-	$text = '[';
+	$return = '[<a href="' . $returnlink . '" style="text-decoration: underline;">Return</a>]';
+	if (!$loggedin) { return $return; }
+	$text = '[<a href="?manage">Status</a>] [';
 	$text .= ($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '';
-	$text .= '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&modpost">Mod Post</a>] [';
+	$text .= '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&rawpost">Raw Post</a>] [';
 	$text .= ($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '';
-	$text .= '<a href="?manage&logout">Log Out</a>] [<a href="' . $returnlink . '">Return</a>]';
+	$text .= '<a href="?manage&logout">Log Out</a>] &middot; ' . $return;
 	return $text;
 }
 
@@ -339,7 +352,7 @@ function manageOnLoad($page) {
 			return ' onload="document.tinyib.password.focus();"';
 		case 'moderate':
 			return ' onload="document.tinyib.moderate.focus();"';
-		case 'modpost':
+		case 'rawpost':
 			return ' onload="document.tinyib.message.focus();"';
 		case 'bans':
 			return ' onload="document.tinyib.ip.focus();"';
@@ -350,10 +363,10 @@ function manageLogInForm() {
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="post" action="?manage">
 	<fieldset>
-	<legend align="center">Please enter an administrator or moderator password</legend>
+	<legend align="center">Enter an administrator or moderator password</legend>
 	<div class="login">
 	<input type="password" id="password" name="password"><br>
-	<input type="submit" value="Submit" class="managebutton">
+	<input type="submit" value="Log In" class="managebutton">
 	</div>
 	</fieldset>
 	</form>
@@ -365,10 +378,10 @@ function manageBanForm() {
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="post" action="?manage&bans">
 	<fieldset>
-	<legend>Ban an IP address from posting</legend>
+	<legend>Ban an IP address</legend>
 	<label for="ip">IP Address:</label> <input type="text" name="ip" id="ip" value="${_GET['bans']}"> <input type="submit" value="Submit" class="managebutton"><br>
 	<label for="expire">Expire(sec):</label> <input type="text" name="expire" id="expire" value="0">&nbsp;&nbsp;<small><a href="#" onclick="document.tinyib.expire.value='3600';return false;">1hr</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='86400';return false;">1d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='172800';return false;">2d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='604800';return false;">1w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='1209600';return false;">2w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='2592000';return false;">30d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='0';return false;">never</a></small><br>
-	<label for="reason">Reason:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" name="reason" id="reason">&nbsp;&nbsp;<small>(optional)</small>
+	<label for="reason">Reason:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" name="reason" id="reason">&nbsp;&nbsp;<small>optional</small>
 	<legend>
 	</fieldset>
 	</form><br>
@@ -381,7 +394,7 @@ function manageBansTable() {
 	if (count($allbans) > 0) {
 		$text .= '<table border="1"><tr><th>IP Address</th><th>Set At</th><th>Expires</th><th>Reason Provided</th><th>&nbsp;</th></tr>';
 		foreach ($allbans as $ban) {
-			$expire = ($ban['expire'] > 0) ? date('y/m/d(D)H:i:s', $ban['expire']) : 'Never';
+			$expire = ($ban['expire'] > 0) ? date('y/m/d(D)H:i:s', $ban['expire']) : 'Does not expire';
 			$reason = ($ban['reason'] == '') ? '&nbsp;' : htmlentities($ban['reason']);
 			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . date('y/m/d(D)H:i:s', $ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">lift</a></td></tr>';
 		}
@@ -396,18 +409,19 @@ function manageModeratePostForm() {
 	<input type="hidden" name="manage" value="">
 	<fieldset>
 	<legend>Moderate a post</legend>
-	<label for="moderate">Post ID:</label> <input type="text" name="moderate" id="moderate"> <input type="submit" value="Submit" class="managebutton"><br>
-	<legend>
+	<div valign="top"><label for="moderate">Post ID:</label> <input type="text" name="moderate" id="moderate"> <input type="submit" value="Submit" class="managebutton"></div><br>
+	While browsing the image board, you may moderate a post at any time, provided you are logged in.<br>
+	Tick the box next to the post, and click "Delete" at the bottom of the page without entering a password.<br>
 	</fieldset>
 	</form><br>
 EOF;
 }
 
-function manageModpostForm() {
+function manageRawPostForm() {
 	return <<<EOF
 	<div class="postarea">
 		<form id="tinyib" name="tinyib" method="post" action="?" enctype="multipart/form-data">
-		<input type="hidden" name="modpost" value="1">
+		<input type="hidden" name="rawpost" value="1">
 		<input type="hidden" name="MAX_FILE_SIZE" value="2097152">
 		<table class="postform">
 			<tbody>
@@ -416,7 +430,7 @@ function manageModpostForm() {
 						Thread No.
 					</td>
 					<td>
-						<input type="text" name="parent" size="28" maxlength="75" value="0" accesskey="t">&nbsp;(0 for new thread)
+						<input type="text" name="parent" size="28" maxlength="75" value="0" accesskey="t">&nbsp;0 for new thread
 					</td>
 				</tr>
 				<tr>
@@ -487,37 +501,96 @@ function manageModeratePost($post) {
 	global $isadmin;
 	$ban = banByIP($post['ip']);
 	$ban_disabled = (!$ban && $isadmin) ? '' : ' disabled';
-	$ban_disabled_info = (!$ban) ? '' : (' A ban record already exists for ' . $post['ip']);
-	$post_html = buildPost($post, false);
-	$post_or_thread = ($post['parent'] == 0) ? 'Thread' : 'Post';
+	$ban_info = (!$ban) ? ((!$isadmin) ? 'Only an administrator may ban an IP address.' : ('IP address: ' . $post["ip"])) : (' A ban record already exists for ' . $post['ip']);
+	$delete_info = ($post['parent'] == TINYIB_NEWTHREAD) ? 'This will delete the entire thread below.' : 'This will delete the post below.';
+	$post_or_thread = ($post['parent'] == TINYIB_NEWTHREAD) ? 'Thread' : 'Post';
+	
+	if ($post["parent"] == TINYIB_NEWTHREAD) {
+		$post_html = "";
+		$posts = postsInThreadByID($post["id"]);
+		foreach ($posts as $post_temp) {
+			$post_html .= buildPost($post_temp, TINYIB_INDEXPAGE);
+		}
+	} else {
+		$post_html = buildPost($post, TINYIB_INDEXPAGE);
+	}
+	
 	return <<<EOF
 	<fieldset>
-	<legend>Moderating post No.${post['id']}</legend>
-	
-	<div class="floatpost">
-	<fieldset>
-	<legend>$post_or_thread</legend>	
-	$post_html
-	</fieldset>
-	</div>
+	<legend>Moderating No.${post['id']}</legend>
 	
 	<fieldset>
-	<legend>Action</legend>					
+	<legend>Action</legend>
+	
+	<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr><td align="right" width="50%;">
+	
 	<form method="get" action="?">
 	<input type="hidden" name="manage" value="">
 	<input type="hidden" name="delete" value="${post['id']}">
-	<input type="submit" value="Delete $post_or_thread" class="managebutton">
+	<input type="submit" value="Delete $post_or_thread" class="managebutton" style="width: 50%;">
 	</form>
-	<br>
+	
+	</td><td><small>$delete_info</small></td></tr>
+	<tr><td align="right" width="50%;">
+	
 	<form method="get" action="?">
 	<input type="hidden" name="manage" value="">
 	<input type="hidden" name="bans" value="${post['ip']}">
-	<input type="submit" value="Ban Poster" class="managebutton"$ban_disabled>$ban_disabled_info
+	<input type="submit" value="Ban Poster" class="managebutton" style="width: 50%;"$ban_disabled>
 	</form>
+	
+	</td><td><small>$ban_info</small></td></tr>
+	
+	</table>
+	
+	</fieldset>
+	
+	<fieldset>
+	<legend>$post_or_thread</legend>	
+	$post_html
 	</fieldset>
 	
 	</fieldset>
 	<br>
 EOF;
+}
+
+function manageStatus() {
+	$threads = countThreads();
+	$bans = count(allBans());
+	$info = $threads . ' ' . plural('thread', $threads) . ', ' . $bans . ' ' . plural('ban', $bans);
+	
+	$post_html = '';
+	$posts = latestPosts();
+	$i = 0;
+	foreach ($posts as $post) {
+		if ($post_html != '') { $post_html .= '<tr><td colspan="2"><hr></td></tr>'; }
+		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="Moderate No.' . $post['id'] . '" class="managebutton"></form></td></tr>';
+	}
+	
+	return <<<EOF
+	<fieldset>
+	<legend>Status</legend>
+	
+	<fieldset>
+	<legend>Info</legend>
+	$info
+	</fieldset>
+	
+	<fieldset>
+	<legend>Latest posts</legend>
+	<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	$post_html
+	</table>
+	</fieldset>
+	
+	</fieldset>
+	<br>
+EOF;
+}
+
+function manageInfo($text) {
+	return '<div class="manageinfo">' . $text . '</div>';
 }
 ?>

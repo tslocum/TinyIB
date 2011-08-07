@@ -111,6 +111,15 @@ function postsByHex($hex) {
 	return $posts;
 }
 
+function latestPosts() {	
+	$posts = array();
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " ORDER BY timestamp DESC LIMIT 10"), SQLITE_ASSOC);
+	foreach ($result as $post) {
+		$posts[] = $post;
+	}
+	return $posts;
+}
+
 function deletePostByID($id) {	
 	$posts = postsInThreadByID($id);
 	foreach ($posts as $post) {
@@ -122,7 +131,7 @@ function deletePostByID($id) {
 		}
 	}
 	if (isset($thispost)) {
-		if ($thispost['parent'] == 0) {
+		if ($thispost['parent'] == TINYIB_NEWTHREAD) {
 			@unlink('res/' . $thispost['id'] . '.html');
 		}
 		deletePostImages($thispost);
