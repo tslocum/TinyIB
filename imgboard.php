@@ -48,7 +48,7 @@ if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
 
 $redirect = true;
 // Check if the request is to make a post
-if (isset($_POST["message"]) || isset($_POST["file"])) {
+if (isset($_POST['message']) || isset($_POST['file'])) {
 	list($loggedin, $isadmin) = manageCheckLogIn();
 	$rawpost = isRawPost();
 	if (!$loggedin) {
@@ -60,25 +60,19 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	$post = newPost(setParent());
 	$post['ip'] = $_SERVER['REMOTE_ADDR'];
 	
-	list($post['name'], $post['tripcode']) = nameAndTripcode($_POST["name"]);
+	list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
 	
 	$post['name'] = cleanString(substr($post['name'], 0, 75));
-	$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST["email"], 0, 75)));
-	$post['subject'] = cleanString(substr($_POST["subject"], 0, 75));
+	$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST['email'], 0, 75)));
+	$post['subject'] = cleanString(substr($_POST['subject'], 0, 75));
 	if ($rawpost) {
 		$rawposttext = ($isadmin) ? ' <span style="color: red;">## Admin</span>' : ' <span style="color: purple;">## Mod</span>';
-		$post['message'] = $_POST["message"]; // Treat message as raw HTML
+		$post['message'] = $_POST['message']; // Treat message as raw HTML
 	} else {
 		$rawposttext = '';
-		$post['message'] = str_replace("\n", "<br>", colorQuote(postLink(cleanString(rtrim($_POST["message"])))));
+		$post['message'] = str_replace("\n", '<br>', colorQuote(postLink(cleanString(rtrim($_POST['message'])))));
 	}
 	$post['password'] = ($_POST['password'] != '') ? md5(md5($_POST['password'])) : '';
-	if (strtolower($post['email']) == "noko") {
-		$post['email'] = '';
-		$noko = true;
-	} else {
-		$noko = false;
-	}
 	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $rawposttext);
 	
 	if (isset($_FILES['file'])) {
@@ -153,7 +147,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	}
 	
 	$post['id'] = insertPost($post);
-	if ($noko) {
+	if (strtolower($post['email']) == 'noko') {
 		$redirect = 'res/' . ($post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent']) . '.html#' . $post['id'];
 	}
 	trimThreads();
@@ -161,7 +155,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	if ($post['parent'] != TINYIB_NEWTHREAD) {
 		rebuildThread($post['parent']);
 		
-		if (strtolower($post['email']) != "sage") {
+		if (strtolower($post['email']) != 'sage') {
 			bumpThreadByID($post['parent']);
 		}
 	} else {
@@ -172,31 +166,30 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	rebuildIndexes();
 // Check if the request is to delete a post and/or its associated image
 } elseif (isset($_GET['delete']) && !isset($_GET['manage'])) {
-	if (isset($_POST['delete'])) {
-		$post = postByID($_POST['delete']);
-		if ($post) {
-			list($loggedin, $isadmin) = manageCheckLogIn();
-			
-			if ($loggedin && $_POST['password'] == '') {
-				// Redirect to post moderation page
-				echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . basename($_SERVER['PHP_SELF']) . '?manage&moderate=' . $_POST['delete'] . '">';
-			} elseif ($post['password'] != '' && md5(md5($_POST['password'])) == $post['password']) {
-				deletePostByID($post['id']);
-				if ($post['parent'] == TINYIB_NEWTHREAD) { threadUpdated($post['id']); } else { threadUpdated($post['parent']); }
-				fancyDie('Post deleted.');
-			} else {
-				fancyDie('Invalid password.');
-			}
+	if (!isset($_POST['delete'])) { fancyDie('Tick the box next to a post and click "Delete" to delete it.'); }
+
+	$post = postByID($_POST['delete']);
+	if ($post) {
+		list($loggedin, $isadmin) = manageCheckLogIn();
+		
+		if ($loggedin && $_POST['password'] == '') {
+			// Redirect to post moderation page
+			echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . basename($_SERVER['PHP_SELF']) . '?manage&moderate=' . $_POST['delete'] . '">';
+		} elseif ($post['password'] != '' && md5(md5($_POST['password'])) == $post['password']) {
+			deletePostByID($post['id']);
+			if ($post['parent'] == TINYIB_NEWTHREAD) { threadUpdated($post['id']); } else { threadUpdated($post['parent']); }
+			fancyDie('Post deleted.');
 		} else {
-			fancyDie('Sorry, an invalid post identifier was sent.  Please go back, refresh the page, and try again.');
+			fancyDie('Invalid password.');
 		}
 	} else {
-		fancyDie('Tick the box next to a post and click "Delete" to delete it.');
+		fancyDie('Sorry, an invalid post identifier was sent.  Please go back, refresh the page, and try again.');
 	}
+
 	$redirect = false;
 // Check if the request is to access the management area
-} elseif (isset($_GET["manage"])) {
-	$text = ""; $onload = ""; $navbar = "&nbsp;";
+} elseif (isset($_GET['manage'])) {
+	$text = ''; $onload = ''; $navbar = '&nbsp;';
 	$redirect = false; $loggedin = false; $isadmin = false;
 	$returnlink = basename($_SERVER['PHP_SELF']);
 	
@@ -204,14 +197,14 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	
 	if ($loggedin) {
 		if ($isadmin) {
-			if (isset($_GET["rebuildall"])) {
+			if (isset($_GET['rebuildall'])) {
 				$allthreads = allThreads();
 				foreach ($allthreads as $thread) {
-					rebuildThread($thread["id"]);
+					rebuildThread($thread['id']);
 				}
 				rebuildIndexes();
 				$text .= manageInfo('Rebuilt board.');
-			} elseif (isset($_GET["bans"])) {
+			} elseif (isset($_GET['bans'])) {
 				clearExpiredBans();
 				
 				if (isset($_POST['ip'])) {
@@ -243,7 +236,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 			}
 		}
 		
-		if (isset($_GET["delete"])) {
+		if (isset($_GET['delete'])) {
 			$post = postByID($_GET['delete']);
 			if ($post) {
 				deletePostByID($post['id']);
@@ -255,7 +248,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 			} else {
 				fancyDie("Sorry, there doesn't appear to be a post with that ID.");
 			}
-		} elseif (isset($_GET["moderate"])) {
+		} elseif (isset($_GET['moderate'])) {
 			if ($_GET['moderate'] > 0) {
 				$post = postByID($_GET['moderate']);
 				if ($post) {
@@ -284,7 +277,7 @@ if (isset($_POST["message"]) || isset($_POST["file"])) {
 	}
 
 	echo managePage($text, $onload);
-} elseif (!file_exists('index.html') || count(allThreads()) == 0) {
+} elseif (!file_exists('index.html') || countThreads() == 0) {
 	rebuildIndexes();
 }
 

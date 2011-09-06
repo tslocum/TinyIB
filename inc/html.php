@@ -64,8 +64,8 @@ EOF;
 	<input type="checkbox" name="delete" value="${post['id']}"> 
 EOF;
 
-	if ($post["subject"] != "") {
-		$return .= "	<span class=\"filetitle\">${post["subject"]}</span> ";
+	if ($post['subject'] != '') {
+		$return .= '	<span class="filetitle">' . ${post['subject']} . '</span> ';
 	}
 	
 	$return .= <<<EOF
@@ -91,8 +91,8 @@ EOF;
 		$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">Reply</a>]";
 	}
 	
-	if (TINYIB_TRUNCATE > 0 && !$res && substr_count($post['message'], "<br>") > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
-		$br_offsets = strallpos($post['message'], "<br>");
+	if (TINYIB_TRUNCATE > 0 && !$res && substr_count($post['message'], '<br>') > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
+		$br_offsets = strallpos($post['message'], '<br>');
 		$post['message'] = substr($post['message'], 0, $br_offsets[TINYIB_TRUNCATE - 1]);
 		$post['message'] .= '<br><span class="omittedposts">Post truncated.  Click Reply to view.</span><br>';
 	}
@@ -103,8 +103,8 @@ ${post["message"]}
 EOF;
 
 	if ($post['parent'] == TINYIB_NEWTHREAD) {
-		if ($res == TINYIB_INDEXPAGE && $post["omitted"] > 0) {
-			$return .= '<span class="omittedposts">' . $post['omitted'] . ' ' . plural("post", $post["omitted"]) . ' omitted. Click Reply to view.</span>';
+		if ($res == TINYIB_INDEXPAGE && $post['omitted'] > 0) {
+			$return .= '<span class="omittedposts">' . $post['omitted'] . ' ' . plural('post', $post['omitted']) . ' omitted. Click Reply to view.</span>';
 		}
 	} else {
 		$return .= <<<EOF
@@ -272,7 +272,7 @@ EOF;
 }
 
 function rebuildIndexes() {	
-	$page = 0; $i = 0; $htmlposts = "";
+	$page = 0; $i = 0; $htmlposts = '';
 	$pages = ceil(countThreads() / 10) - 1;
 	$threads = allThreads(); 
 	
@@ -284,21 +284,21 @@ function rebuildIndexes() {
 			$htmlreplies[] = buildPost($reply, TINYIB_INDEXPAGE);
 		}
 		
-		$thread["omitted"] = (count($htmlreplies) == 3) ? (count(postsInThreadByID($thread['id'])) - 4) : 0;
+		$thread['omitted'] = (count($htmlreplies) == 3) ? (count(postsInThreadByID($thread['id'])) - 4) : 0;
 		
-		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode("", array_reverse($htmlreplies)) . "<br clear=\"left\">\n<hr>";
+		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', array_reverse($htmlreplies)) . "<br clear=\"left\">\n<hr>";
 		
 		$i += 1;
 		if ($i == 10) {
-			$file = ($page == 0) ? "index.html" : $page . ".html";
+			$file = ($page == 0) ? 'index.html' : $page . '.html';
 			writePage($file, buildPage($htmlposts, 0, $pages, $page));
 			
-			$page += 1; $i = 0; $htmlposts = "";
+			$page += 1; $i = 0; $htmlposts = '';
 		}
 	}
 	
-	if ($page == 0 || $htmlposts != "") {
-		$file = ($page == 0) ? "index.html" : $page . ".html";
+	if ($page == 0 || $htmlposts != '') {
+		$file = ($page == 0) ? 'index.html' : $page . '.html';
 		writePage($file, buildPage($htmlposts, 0, $pages, $page));
 	}
 }
@@ -312,19 +312,14 @@ function rebuildThread($id) {
 	
 	$htmlposts .= "<br clear=\"left\">\n<hr>\n";
 	
-	writePage("res/" . $id . ".html", fixLinksInRes(buildPage($htmlposts, $id)));
+	writePage('res/' . $id . '.html', fixLinksInRes(buildPage($htmlposts, $id)));
 }
 
 function adminBar() {
 	global $loggedin, $isadmin, $returnlink;
 	$return = '[<a href="' . $returnlink . '" style="text-decoration: underline;">Return</a>]';
 	if (!$loggedin) { return $return; }
-	$text = '[<a href="?manage">Status</a>] [';
-	$text .= ($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '';
-	$text .= '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&rawpost">Raw Post</a>] [';
-	$text .= ($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '';
-	$text .= '<a href="?manage&logout">Log Out</a>] &middot; ' . $return;
-	return $text;
+	return '[<a href="?manage">Status</a>] [' . (($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '') . '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&rawpost">Raw Post</a>] [' . (($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '') . '<a href="?manage&logout">Log Out</a>] &middot; ' . $return;
 }
 
 function managePage($text, $onload='') {

@@ -111,15 +111,15 @@ function nameAndTripcode($name) {
 
 function nameBlock($name, $tripcode, $email, $timestamp, $rawposttext) {
 	$output = '<span class="postername">';
-	$output .= ($name == "" && $tripcode == "") ? "Anonymous" : $name;
+	$output .= ($name == '' && $tripcode == '') ? 'Anonymous' : $name;
 	
-	if ($tripcode != "") {
+	if ($tripcode != '') {
 		$output .= '</span><span class="postertrip">!' . $tripcode;
 	}
 	
 	$output .= '</span>';
 	
-	if ($email != "") {
+	if ($email != '' && strtolower($email) != 'noko') {
 		$output = '<a href="mailto:' . $email . '">' . $output . '</a>';
 	}
 

@@ -40,7 +40,7 @@ $db->datadir = 'inc/flatfile/';
 
 # Post Functions
 function uniquePosts() {
-	return 0;
+	return 0; // Unsupported by this database option
 }
 
 function postByID($id) {
