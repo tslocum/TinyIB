@@ -65,7 +65,7 @@ EOF;
 EOF;
 
 	if ($post['subject'] != '') {
-		$return .= '	<span class="filetitle">' . ${post['subject']} . '</span> ';
+		$return .= '	<span class="filetitle">' . $post['subject'] . '</span> ';
 	}
 	
 	$return .= <<<EOF
