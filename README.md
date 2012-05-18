@@ -3,29 +3,42 @@ TinyIB
 
 PHP image board
 
+Databases supported:
+
+ * MySQL
+ * SQLite
+ * Flat file (Database entries are stored in text files)
+
+Example installations available [here](https://github.com/tslocum/TinyIB/wiki)
+
 Installing
 ------------
 
  1. CD to the directory you wish to install TinyIB
- 2. Run the following command:
+ 2. Run the command:
     - `git clone git://github.com/tslocum/TinyIB.git ./`
  3. Copy settings.default.php to settings.php
  4. Configure settings.php
- 5. CHMOD write permissions to the following directories:
-    - /
-    - src/
-    - thumb/
-    - res/
-    - inc/flatfile/ (if you choose to use flat file)
- 6. Navigate your browser to imgboard.php, which causes the following to take place:
-    - Create database structure
-    - Check necessary directories are writable
-    - Write index.html containing the new image board
+ 5. CHMOD write permissions to these directories:
+    - ./
+    - ./src/
+    - ./thumb/
+    - ./res/
+    - ./inc/flatfile/ (only if you use flat file for the database)
+ 6. Navigate your browser to imgboard.php and the following will take place:
+    - The database structure will be created
+    - Directories will be verified to be writable
+    - The file index.html will be created containing the new image board
 
 Updating
 ------------
 
 `git pull`
+
+Support
+------------
+
+Contact tslocum@gmail.com
 
 Contributing
 ------------
