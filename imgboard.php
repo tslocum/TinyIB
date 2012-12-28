@@ -6,6 +6,8 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 session_start();
+ob_implicit_flush();
+ob_end_flush();
 
 if (get_magic_quotes_gpc()) {
 	foreach ($_GET as $key => $val) { $_GET[$key] = stripslashes($val); }
@@ -150,8 +152,10 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	if (strtolower($post['email']) == 'noko') {
 		$redirect = 'res/' . ($post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent']) . '.html#' . $post['id'];
 	}
+	
 	trimThreads();
-	echo 'Updating thread page...<br>';
+	
+	echo 'Updating thread...<br>';
 	if ($post['parent'] != TINYIB_NEWTHREAD) {
 		rebuildThread($post['parent']);
 		
@@ -162,7 +166,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 		rebuildThread($post['id']);
 	}
 	
-	echo 'Updating thread index...<br>';
+	echo 'Updating index...<br>';
 	rebuildIndexes();
 // Check if the request is to delete a post and/or its associated image
 } elseif (isset($_GET['delete']) && !isset($_GET['manage'])) {
