@@ -23,6 +23,7 @@ EOF;
 }
 
 function pageFooter() {
+	/* If the footer is removed from the page, please link to TinyIB somewhere on the site. */
 	return <<<EOF
 		<div class="footer">
 			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="https://github.com/tslocum/TinyIB" target="_top">tinyib</a> -
@@ -405,8 +406,8 @@ function manageModeratePostForm() {
 	<fieldset>
 	<legend>Moderate a post</legend>
 	<div valign="top"><label for="moderate">Post ID:</label> <input type="text" name="moderate" id="moderate"> <input type="submit" value="Submit" class="managebutton"></div><br>
-	While browsing the image board, you may moderate a post at any time, provided you are logged in.<br>
-	Tick the box next to the post, and click "Delete" at the bottom of the page without entering a password.<br>
+	<small><b>Tip:</b> While browsing the image board, you can easily moderate a post if you are logged in:<br>
+	Tick the box next to a post and click "Delete" at the bottom of the page with a blank password.</small><br>
 	</fieldset>
 	</form><br>
 EOF;
@@ -422,10 +423,10 @@ function manageRawPostForm() {
 			<tbody>
 				<tr>
 					<td class="postblock">
-						Thread No.
+						Reply to
 					</td>
 					<td>
-						<input type="text" name="parent" size="28" maxlength="75" value="0" accesskey="t">&nbsp;0 for new thread
+						<input type="text" name="parent" size="28" maxlength="75" value="0" accesskey="t">&nbsp;0 to start a new thread
 					</td>
 				</tr>
 				<tr>
@@ -480,8 +481,8 @@ function manageRawPostForm() {
 				<tr>
 					<td colspan="2" class="rules">
 						<ul>
-							<li>All text entered in the "Message" field will be posted AS-IS with absolutely no formatting applied.</li>
-							<li>This means for all line-breaks you must enter the text "&lt;br&gt;".</li>
+							<li>Text entered in the Message field will be posted as is with no formatting applied.</li>
+							<li>Line-breaks must be specified with "&lt;br&gt;".</li>
 						</ul>
 					</td>
 				</tr>
@@ -561,7 +562,7 @@ function manageStatus() {
 	$i = 0;
 	foreach ($posts as $post) {
 		if ($post_html != '') { $post_html .= '<tr><td colspan="2"><hr></td></tr>'; }
-		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="Moderate No.' . $post['id'] . '" class="managebutton"></form></td></tr>';
+		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="Moderate" class="managebutton"></form></td></tr>';
 	}
 	
 	return <<<EOF
@@ -574,7 +575,7 @@ function manageStatus() {
 	</fieldset>
 	
 	<fieldset>
-	<legend>Latest posts</legend>
+	<legend>Recent posts</legend>
 	<table border="0" cellspacing="0" cellpadding="0" width="100%">
 	$post_html
 	</table>
