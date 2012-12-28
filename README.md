@@ -1,16 +1,21 @@
 TinyIB
 ====
 
-PHP image board
+Lightweight [image board](http://en.wikipedia.org/wiki/Imageboard) script.  See [example installations](https://github.com/tslocum/TinyIB/wiki) for a demo.
 
-Databases supported:
+**Database not required.**  Store posts as text files for a portable set-up capable of running on virtually any PHP host.
 
- * MySQL
- * SQLite
- * Flat file (Database entries are stored in text files)
-
-Example installations available [here](https://github.com/tslocum/TinyIB/wiki)
-
+**Got database?**  Use [MySQL](http://mysql.com) or [SQLite](http://sqlite.org) for an efficient set-up able to handle high amounts of traffic.
+Features
+------------
+ - Reference links >>###
+ - Delete post via password
+ - Management panel
+   - Administrators and moderators use separate passwords
+     - Moderators are only able to delete posts
+   - Ban offensive/abusive posters across all boards
+   - Post using raw HTML
+   
 Installing
 ------------
 
@@ -43,7 +48,7 @@ Contact tslocum@gmail.com
 Contributing
 ------------
 
- 1. Read the [GitHub Guide on Forking](http://help.github.com/forking/)
+ 1. Read the [GitHub Forking Guide](http://help.github.com/forking/)
  2. Fork TinyIB
  3. Commit code changes to your forked repository
  4. Submit a pull request describing your modifications
