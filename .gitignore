@@ -3,3 +3,5 @@ settings.php
 *.db
 .posts
 .posts.lock
+.project
+
