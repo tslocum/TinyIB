@@ -275,25 +275,25 @@ EOF;
 function rebuildIndexes() {	
 	$page = 0; $i = 0; $htmlposts = '';
 	$threads = allThreads(); 
-	$pages = ceil(count($threads) / 10) - 1;
+	$pages = ceil(count($threads) / TINYIB_THREADSPERPAGE) - 1;
 	
 	foreach ($threads as $thread) {
 		$replies = postsInThreadByID($thread['id']);
-		
-		$htmlreplies = array();
-		for ($j = min(count($replies) - 1, TINYIB_PREVIEWREPLIES); $j > 0; $j--) {
-			$htmlreplies[$j] = buildPost($replies[$j], TINYIB_INDEXPAGE);
-		}
-		
-		$thread['omitted'] = max(count($replies) - TINYIB_PREVIEWREPLIES - 1, 0);
+		$thread['omitted'] = max(0, count($replies) - TINYIB_PREVIEWREPLIES - 1);
 
-		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', $htmlreplies) . "<br clear=\"left\">\n<hr>";
+		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE);
+
+		for ($j = count($replies) - 1; $j > $thread['omitted']; $j--) {
+			$htmlposts .= buildPost($replies[$j], TINYIB_INDEXPAGE);
+		}
+
+		$htmlposts .= "<br clear=\"left\">\n<hr>";
 		
-		if (++$i == 10) {
+		if (++$i >= TINYIB_THREADSPERPAGE) {
 			$file = ($page == 0) ? 'index.html' : $page . '.html';
 			writePage($file, buildPage($htmlposts, 0, $pages, $page));
 			
-			$page += 1; $i = 0; $htmlposts = '';
+			$page++; $i = 0; $htmlposts = '';
 		}
 	}
 	
