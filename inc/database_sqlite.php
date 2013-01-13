@@ -93,15 +93,6 @@ function postsInThreadByID($id) {
 	return $posts;
 }
 
-function latestRepliesInThreadByID($id) {	
-	$posts = array();
-	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = " . $id . " ORDER BY id DESC LIMIT 3"), SQLITE_ASSOC);
-	foreach ($result as $post) {
-		$posts[] = $post;
-	}
-	return $posts;
-}
-
 function postsByHex($hex) {	
 	$posts = array();
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT id, parent FROM " . TINYIB_DBPOSTS . " WHERE file_hex = '" . sqlite_escape_string($hex) . "' LIMIT 1"), SQLITE_ASSOC);
