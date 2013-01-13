@@ -274,23 +274,22 @@ EOF;
 
 function rebuildIndexes() {	
 	$page = 0; $i = 0; $htmlposts = '';
-	$pages = ceil(countThreads() / 10) - 1;
 	$threads = allThreads(); 
+	$pages = ceil(count($threads) / 10) - 1;
 	
 	foreach ($threads as $thread) {
-		$replies = latestRepliesInThreadByID($thread['id']);
+		$replies = postsInThreadByID($thread['id']);
 		
 		$htmlreplies = array();
-		foreach ($replies as $reply) {
-			$htmlreplies[] = buildPost($reply, TINYIB_INDEXPAGE);
+		for ($j = min(count($replies) - 1, TINYIB_PREVIEWREPLIES); $j > 0; $j--) {
+			$htmlreplies[$j] = buildPost($replies[$j], TINYIB_INDEXPAGE);
 		}
 		
-		$thread['omitted'] = (count($htmlreplies) == 3) ? (count(postsInThreadByID($thread['id'])) - 4) : 0;
+		$thread['omitted'] = max(count($replies) - TINYIB_PREVIEWREPLIES - 1, 0);
+
+		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', $htmlreplies) . "<br clear=\"left\">\n<hr>";
 		
-		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', array_reverse($htmlreplies)) . "<br clear=\"left\">\n<hr>";
-		
-		$i += 1;
-		if ($i == 10) {
+		if (++$i == 10) {
 			$file = ($page == 0) ? 'index.html' : $page . '.html';
 			writePage($file, buildPage($htmlposts, 0, $pages, $page));
 			

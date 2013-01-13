@@ -150,11 +150,6 @@ function postsInThreadByID($id) {
 	return convertPostsToSQLStyle($rows);
 }
 
-function latestRepliesInThreadByID($id) {
-	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_PARENT, '=', $id, INTEGER_COMPARISON), 3, new OrderBy(POST_ID, DESCENDING, INTEGER_COMPARISON));
-	return convertPostsToSQLStyle($rows);
-}
-
 function postsByHex($hex) {
 	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_FILE_HEX, '=', $hex, STRING_COMPARISON), 1);
 	return convertPostsToSQLStyle($rows);

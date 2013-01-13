@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 define('TINYIB_BOARD', "b"); // Unique identifier for this board using only letters and numbers
 define('TINYIB_BOARDDESC', "TinyIB"); // Displayed at the top of every page
 define('TINYIB_MAXTHREADS', 100); // Oldest threads are discarded over this limit  [0 to disable]
@@ -13,6 +13,7 @@ define('TINYIB_TRIPSEED', ""); // Enter some random text - Used when generating 
 define('TINYIB_ADMINPASS', ""); // Text entered at the manage prompt to gain administrator access
 define('TINYIB_MODPASS', ""); // Moderators only have access to delete posts  ["" to disable]
 define('TINYIB_DBMODE', "flatfile"); // Choose: flatfile / mysql / sqlite
+define('TINYIB_PREVIEWREPLIES', 0); // Max replies to show on index
 
 // Note: The following only apply when TINYIB_DBMODE is set to mysql
 define('TINYIB_DBHOST', "localhost");
