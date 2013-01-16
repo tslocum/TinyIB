@@ -108,17 +108,6 @@ function postsInThreadByID($id) {
 	return $posts;
 }
 
-function latestRepliesInThreadByID($id) {	
-	$posts = array();
-	$replies = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = " . $id . " ORDER BY `id` DESC LIMIT 3");
-	if ($replies) {
-		while ($post = mysql_fetch_assoc($replies)) {
-			$posts[] = $post;
-		}
-	}
-	return $posts;
-}
-
 function postsByHex($hex) {	
 	$posts = array();
 	$result = mysql_query("SELECT `id`, `parent` FROM `" . TINYIB_DBPOSTS . "` WHERE `file_hex` = '" . mysql_real_escape_string($hex) . "' LIMIT 1");
