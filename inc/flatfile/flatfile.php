@@ -343,7 +343,7 @@ class Flatfile {
 			$max = $keys[0];
 			for ($i = 0; $i <= $max; ++$i) {
 				if ($i > 0) $output .= "\t";
-				$data = (empty($row[$i]) ? '' : $row[$i]);
+				$data = (!isset($row[$i]) ? '' : $row[$i]);
 				$output .= str_replace(array("\t","\r","\n"), array(''), $data);
 			}
 			$output .= "\n";
