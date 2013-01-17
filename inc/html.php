@@ -280,14 +280,14 @@ function rebuildIndexes() {
 	foreach ($threads as $thread) {
 		$replies = postsInThreadByID($thread['id']);
 		$thread['omitted'] = max(0, count($replies) - TINYIB_PREVIEWREPLIES - 1);
-
-		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE);
-
+		
+		// Build replies for preview
+		$htmlreplies = array();
 		for ($j = count($replies) - 1; $j > $thread['omitted']; $j--) {
-			$htmlposts .= buildPost($replies[$j], TINYIB_INDEXPAGE);
+			$htmlreplies[] = buildPost($replies[$j], TINYIB_INDEXPAGE);
 		}
-
-		$htmlposts .= "<br clear=\"left\">\n<hr>";
+		
+		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', array_reverse($htmlreplies)) . "<br clear=\"left\">\n<hr>";
 		
 		if (++$i >= TINYIB_THREADSPERPAGE) {
 			$file = ($page == 0) ? 'index.html' : $page . '.html';
