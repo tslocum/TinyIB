@@ -273,21 +273,24 @@ EOF;
 }
 
 function rebuildIndexes() {	
-	$page = 0; $i = 0; $htmlposts = '';
+	$page = 0; $i = 0;
 	$threads = allThreads(); 
 	$pages = ceil(count($threads) / TINYIB_THREADSPERPAGE) - 1;
 	
 	foreach ($threads as $thread) {
 		$replies = postsInThreadByID($thread['id']);
-		$thread['omitted'] = max(0, count($replies) - TINYIB_PREVIEWREPLIES - 1);
-		
+		$replyCount = count($replies);
+		$repliesInPreview = min($replyCount, TINYIB_PREVIEWREPLIES + 1); // + 1 because the parent is included too
+		$thread['omitted'] = $replyCount - $repliesInPreview;
+
+		$htmlposts = buildPost($thread, TINYIB_INDEXPAGE);
+
 		// Build replies for preview
-		$htmlreplies = array();
-		for ($j = count($replies) - 1; $j > $thread['omitted']; $j--) {
-			$htmlreplies[] = buildPost($replies[$j], TINYIB_INDEXPAGE);
+		for ($j = 1; $j < $repliesInPreview; $j++) { // $replies[0] is parent, so we skip it
+			$htmlposts .= buildPost($replies[$j], TINYIB_INDEXPAGE);
 		}
 		
-		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', array_reverse($htmlreplies)) . "<br clear=\"left\">\n<hr>";
+		$htmlposts .= "<br clear=\"left\">\n<hr>";
 		
 		if (++$i >= TINYIB_THREADSPERPAGE) {
 			$file = ($page == 0) ? 'index.html' : $page . '.html';
