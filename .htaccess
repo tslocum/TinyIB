@@ -3,6 +3,12 @@ Options -Indexes
 AddCharset UTF-8 .html
 AddCharset UTF-8 .php
 
+# Protect important files just in case the server goes nuts
+RedirectMatch 403 /settings(\.default)?\.php$
+RedirectMatch 403 /inc/
+RedirectMatch 403 /\.git/
+RedirectMatch 403 /\.gitignore$
+
 <IfModule mod_headers.c>
 Header unset ETag
 <Files *.html>
