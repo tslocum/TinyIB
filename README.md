@@ -48,8 +48,9 @@ Updating
  2. If TinyIB has been updated, note which files are modified.
     - If **settings.default.php** is updated, migrate the changes to **settings.php**
       - Take care to not change the value of **TINYIB_TRIPSEED**, as it would result in different secure tripcodes.
-    - If other files are updated, and you have made changes yourself, review the modifications ensuring they do not interfere with yours.
-      - Visit GitHub and select the relevant update commit(s) to review what changes were made.
+    - If other files are updated, and you have made changes yourself:
+      - Visit [GitHub](https://github.com/tslocum/TinyIB) and review the changes made in the update.
+      - Ensure the update does not interfere with your changes.
 
 Support
 ------------
