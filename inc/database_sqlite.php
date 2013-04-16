@@ -1,6 +1,10 @@
 <?php
 if (!defined('TINYIB_BOARD')) { die(''); }
 
+if (!function_exists('sqlite_open')) {
+	fancyDie("SQLite library is not installed");
+}
+
 if (!$db = sqlite_open('tinyib.db', 0666, $error)) {
 	fancyDie("Could not connect to database: " . $error);
 }
