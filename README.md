@@ -29,13 +29,13 @@ Installing
     - `git clone git://github.com/tslocum/TinyIB.git ./`
  4. Copy **settings.default.php** to **settings.php**
  5. Configure **settings.php**
- 6. CHMOD write permissions to these directories:
+ 6. [CHMOD](http://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)
     - ./src/
     - ./thumb/
     - ./res/
     - ./inc/flatfile/ (only if you use flat file for the database)
- 7. Navigate your browser to imgboard.php and the following will take place:
+ 7. Navigate your browser to **imgboard.php** and the following will take place:
     - The database structure will be created.
     - Directories will be verified to be writable.
     - The file index.html will be created containing the new image board.
