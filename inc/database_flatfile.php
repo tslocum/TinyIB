@@ -141,6 +141,11 @@ function allThreads() {
 	return convertPostsToSQLStyle($rows);
 }
 
+function numRepliesToThreadByID($id) {
+	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_PARENT, '=', $id, INTEGER_COMPARISON));
+	return count($rows);
+}
+
 function postsInThreadByID($id) {
 	$compClause = new OrWhereClause();
 	$compClause->add(new SimpleWhereClause(POST_ID, '=', $id, INTEGER_COMPARISON));

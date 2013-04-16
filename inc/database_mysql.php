@@ -82,7 +82,7 @@ function bumpThreadByID($id) {
 	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `bumped` = " . time() . " WHERE `id` = " . $id . " LIMIT 1");
 }
 
-function countThreads() {	
+function countThreads() {
 	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0"), 0, 0);
 }
 
@@ -95,6 +95,10 @@ function allThreads() {
 		}
 	}
 	return $threads;
+}
+
+function numRepliesToThreadByID($id) {
+	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = " . $id), 0, 0);
 }
 
 function postsInThreadByID($id) {	

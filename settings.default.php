@@ -5,6 +5,7 @@ define('TINYIB_THREADSPERPAGE', 10); // Amount of threads shown per index page
 define('TINYIB_MAXTHREADS', 100); // Oldest threads are discarded over this limit  [0 to disable]
 define('TINYIB_TRUNCATE', 15); // Messages are truncated to this many lines on board index pages  [0 to disable]
 define('TINYIB_PREVIEWREPLIES', 3); // Amount of replies previewed on index pages
+define('TINYIB_MAXREPLIES', 0); // Maximum replies before a thread stops bumping  [0 to disable]
 define('TINYIB_MAXKB', 2048); // Maximum file size in kilobytes  [0 to disable]
 define('TINYIB_MAXKBDESC', "2 MB"); // Human-readable representation of the maximum file size
 define('TINYIB_MAXW', 250); // Maximum image width

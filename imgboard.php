@@ -160,7 +160,9 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 		rebuildThread($post['parent']);
 		
 		if (strtolower($post['email']) != 'sage') {
-			bumpThreadByID($post['parent']);
+			if (TINYIB_MAXREPLIES == 0 || numRepliesToThreadByID($id) > TINYIB_MAXREPLIES) {
+				bumpThreadByID($post['parent']);
+			}
 		}
 	} else {
 		rebuildThread($post['id']);
