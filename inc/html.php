@@ -552,6 +552,7 @@ EOF;
 }
 
 function manageStatus() {
+	global $isadmin;
 	$threads = countThreads();
 	$bans = count(allBans());
 	$info = $threads . ' ' . plural('thread', $threads) . ', ' . $bans . ' ' . plural('ban', $bans);
