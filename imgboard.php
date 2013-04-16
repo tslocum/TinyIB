@@ -241,7 +241,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 				if (is_dir('.git')) {
 					$git_output = shell_exec('git pull 2>&1');
 					$text .= '<blockquote class="reply" style="padding: 7px;font-size: 1.25em;">
-					<pre>Attempting update...' . "\n\n" . $git_output . '</pre>
+					<pre style="margin: 0px;padding: 0px;">Attempting update...' . "\n\n" . $git_output . '</pre>
 					</blockquote>
 					<p><b>Note:</b> If TinyIB updates and you have made custom modifications, <a href="https://github.com/tslocum/TinyIB/commits/master">review the changes</a> which have been merged into your installation.
 					Ensure that your modifications do not interfere with any new/modified files.
