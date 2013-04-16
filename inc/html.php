@@ -565,7 +565,7 @@ function manageStatus() {
 		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="Moderate" class="managebutton"></form></td></tr>';
 	}
 	
-	return <<<EOF
+	$output .= <<<EOF
 	<fieldset>
 	<legend>Status</legend>
 	
@@ -604,6 +604,8 @@ EOF;
 	</fieldset>
 	<br>
 EOF;
+	
+	return $output;
 }
 
 function manageInfo($text) {
