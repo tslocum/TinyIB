@@ -237,6 +237,19 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 				$onload = manageOnLoad('bans');
 				$text .= manageBanForm();
 				$text .= manageBansTable();
+			} else if (isset($_GET['update'])) {
+				if (is_dir('.git')) {
+					$git_output = shell_exec('git pull 2>&1');
+					$text .= '<blockquote class="reply" style="padding: 7px;font-size: 1.25em;">
+					<pre>Attempting update...' . "\n\n" . $git_output . '</pre>
+					</blockquote>
+					<p><b>Note:</b> If TinyIB updates and you have made custom modifications, <a href="https://github.com/tslocum/TinyIB/commits/master">review the changes</a> which have been merged into your installation.
+					Ensure that your modifications do not interfere with any new/modified files.
+					See the <a href="https://github.com/tslocum/TinyIB#readme">README</a> for more information.</p>';
+				} else {
+					$text .= '<p><b>TinyIB was not installed via Git.</b></p>
+					<p>If you installed TinyIB without Git, you must <a href="https://github.com/tslocum/TinyIB">update manually</a>.  If you did install with Git, ensure the script has read and write access to the <b>.git</b> folder.</p>';
+				}
 			}
 		}
 		

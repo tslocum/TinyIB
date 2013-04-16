@@ -561,7 +561,7 @@ function manageStatus() {
 	$i = 0;
 	foreach ($posts as $post) {
 		if ($post_html != '') { $post_html .= '<tr><td colspan="2"><hr></td></tr>'; }
-		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="Moderate" class="managebutton"></form></td></tr>';
+		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="Moderate" class="managebutton"></form></td></tr>';
 	}
 	
 	return <<<EOF
@@ -570,7 +570,27 @@ function manageStatus() {
 	
 	<fieldset>
 	<legend>Info</legend>
-	$info
+	<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tbody>
+	<tr><td>
+		$info
+	</td>
+EOF;
+	if ($isadmin) {
+		$output .= <<<EOF
+	<td valign="top" align="right">
+		<form method="get" action="?">
+			<input type="hidden" name="manage">
+			<input type="hidden" name="update">
+			<input type="submit" value="Update TinyIB" class="managebutton">
+		</form>
+	</td>
+EOF;
+	}
+	$output .= <<<EOF
+	</tr>
+	</tbody>
+	</table>
 	</fieldset>
 	
 	<fieldset>
