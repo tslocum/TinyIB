@@ -126,7 +126,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 			
 			$post['image_width'] = $file_info[0]; $post['image_height'] = $file_info[1];
 			
-			list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post['image_width'], $post['image_height']);
+			list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
 			
 			if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight)) {
 				fancyDie("Could not create thumbnail.");

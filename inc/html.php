@@ -121,7 +121,10 @@ EOF;
 
 function buildPage($htmlposts, $parent, $pages=0, $thispage=0) {
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
-	$maxdimensions = TINYIB_MAXW . 'x' . TINYIB_MAXH;
+	$maxdimensions = TINYIB_MAXWOP . 'x' . TINYIB_MAXHOP;
+	if (TINYIB_MAXW != TINYIB_MAXWOP || TINYIB_MAXH != TINYIB_MAXHOP) {
+		$maxdimensions .= ' (new thread) or ' . TINYIB_MAXW . 'x' . TINYIB_MAXH . ' (reply)';
+	}
 	$maxfilesize = TINYIB_MAXKB * 1024;
 	
 	$postingmode = "";
@@ -239,9 +242,9 @@ EOF;
 					<tr>
 						<td colspan="2" class="rules">
 							<ul>
-								<li>Supported file types are: GIF, JPG, PNG</li>
+								<li>Supported file types are GIF, JPG, and PNG.</li>
 								$max_file_size_html
-								<li>Images greater than $maxdimensions pixels will be thumbnailed.</li>
+								<li>Images greater than $maxdimensions will be thumbnailed.</li>
 								$unique_posts_html
 							</ul>
 						</td>

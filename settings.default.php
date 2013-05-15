@@ -8,8 +8,10 @@ define('TINYIB_PREVIEWREPLIES', 3); // Amount of replies previewed on index page
 define('TINYIB_MAXREPLIES', 0); // Maximum replies before a thread stops bumping  [0 to disable]
 define('TINYIB_MAXKB', 2048); // Maximum file size in kilobytes  [0 to disable]
 define('TINYIB_MAXKBDESC', "2 MB"); // Human-readable representation of the maximum file size
-define('TINYIB_MAXW', 250); // Maximum image width
-define('TINYIB_MAXH', 250); // Maximum image height - Images exceeding these sizes will be thumbnailed
+define('TINYIB_MAXW', 250); // Maximum image width (reply) - Images exceeding these sizes will be thumbnailed
+define('TINYIB_MAXH', 250); // Maximum image height (reply)
+define('TINYIB_MAXWOP', 250); // Maximum image width (new thread)
+define('TINYIB_MAXHOP', 250); // Maximum image height (new thread)
 define('TINYIB_DELAY', 30); // Delay between posts to help control flooding  [0 to disable]
 define('TINYIB_LOGO', ""); // Logo HTML
 define('TINYIB_TRIPSEED', ""); // Enter some random text - Used when generating secure tripcodes - Must not change once set

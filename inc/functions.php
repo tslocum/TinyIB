@@ -282,8 +282,15 @@ function checkDuplicateImage($hex) {
 	}
 }
 
-function thumbnailDimensions($width, $height) {
-	return ($width > TINYIB_MAXW || $height > TINYIB_MAXH) ? array(TINYIB_MAXW, TINYIB_MAXH) : array($width, $height);
+function thumbnailDimensions($post) {
+	if ($post['parent'] == TINYIB_NEWTHREAD) {
+		$max_width = TINYIB_MAXWOP;
+		$max_height = TINYIB_MAXHOP;
+	} else {
+		$max_width = TINYIB_MAXW;
+		$max_height = TINYIB_MAXH;
+	}
+	return ($post['image_width'] > $max_width || $post['image_height'] > $max_height) ? array($max_width, $max_height) : array($post['image_width'], $post['image_height']);
 }
 
 function createThumbnail($name, $filename, $new_w, $new_h) {
