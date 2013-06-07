@@ -98,9 +98,9 @@ EOF;
 		$post['message'] .= '<br><span class="omittedposts">Post truncated.  Click Reply to view.</span><br>';
 	}
 	$return .= <<<EOF
-<blockquote>
+<div class="message">
 ${post["message"]}
-</blockquote>
+</div>
 EOF;
 
 	if ($post['parent'] == TINYIB_NEWTHREAD) {
