@@ -1,3 +1,4 @@
+[![Stories in Ready](http://badge.waffle.io/tslocum/TinyIB.png)](http://waffle.io/tslocum/TinyIB)  
 TinyIB - A Lightweight and Efficient [Image Board](http://en.wikipedia.org/wiki/Imageboard) Script
 ====
 
