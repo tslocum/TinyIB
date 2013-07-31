@@ -1,5 +1,4 @@
-
-TinyIB - A Lightweight and Efficient [Image Board](http://en.wikipedia.org/wiki/Imageboard) Script [![Stories in Ready](http://badge.waffle.io/tslocum/TinyIB.png)](http://waffle.io/tslocum/TinyIB)
+TinyIB - A Lightweight and Efficient [Image Board](http://en.wikipedia.org/wiki/Imageboard) Script
 ====
 
 **Got database? Get speed.**  Use [MySQL](http://mysql.com) or [SQLite](http://sqlite.org) for an efficient set-up able to handle high amounts of traffic.
