@@ -125,7 +125,6 @@ function buildPage($htmlposts, $parent, $pages=0, $thispage=0) {
 	if (TINYIB_MAXW != TINYIB_MAXWOP || TINYIB_MAXH != TINYIB_MAXHOP) {
 		$maxdimensions .= ' (new thread) or ' . TINYIB_MAXW . 'x' . TINYIB_MAXH . ' (reply)';
 	}
-	$maxfilesize = TINYIB_MAXKB * 1024;
 	
 	$postingmode = "";
 	$pagenavigator = "";
@@ -168,9 +167,11 @@ EOF;
 		$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>\n";
 	}
 	
+	$max_file_size_input = '';
 	$max_file_size_html = '';
 	if (TINYIB_MAXKB > 0) {
-		$max_file_size_html = "<li>Maximum file size allowed is " . TINYIB_MAXKBDESC . ".</li>\n";
+		$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
+		$max_file_size_rules_html = '<li>Maximum file size allowed is ' . TINYIB_MAXKBDESC . '.</li>';
 	}
 	
 	$body = <<<EOF
@@ -186,7 +187,7 @@ EOF;
 		$postingmode
 		<div class="postarea">
 			<form name="postform" id="postform" action="imgboard.php" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="MAX_FILE_SIZE" value="$maxfilesize">
+			$max_file_size_input
 			<input type="hidden" name="parent" value="$parent">
 			<table class="postform">
 				<tbody>
@@ -243,7 +244,7 @@ EOF;
 						<td colspan="2" class="rules">
 							<ul>
 								<li>Supported file types are GIF, JPG, and PNG.</li>
-								$max_file_size_html
+								$max_file_size_rules_html
 								<li>Images greater than $maxdimensions will be thumbnailed.</li>
 								$unique_posts_html
 							</ul>
@@ -416,11 +417,16 @@ EOF;
 }
 
 function manageRawPostForm() {
+	$max_file_size_input_html = '';
+	if (TINYIB_MAXKB > 0) {
+		$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
+	}
+	
 	return <<<EOF
 	<div class="postarea">
 		<form id="tinyib" name="tinyib" method="post" action="?" enctype="multipart/form-data">
 		<input type="hidden" name="rawpost" value="1">
-		<input type="hidden" name="MAX_FILE_SIZE" value="2097152">
+		$max_file_size_input_html
 		<table class="postform">
 			<tbody>
 				<tr>
