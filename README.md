@@ -16,7 +16,7 @@ Features
      - Moderators are only able to delete posts.
    - Ban offensive/abusive posters across all boards.
    - Post using raw HTML.
-   - Upgrade automatically (when installed via git, tested on Linux only)
+   - Upgrade automatically when installed via git.  (Tested on Linux only)
 
 Installing
 ------------
