@@ -5,7 +5,9 @@ TinyIB - A Lightweight and Efficient [Image Board](http://en.wikipedia.org/wiki/
 
 **No database?  No problem.**  Store posts as text files for a portable set-up capable of running on virtually any PHP host.
 
-For demos see [example installations](https://github.com/tslocum/TinyIB/wiki).  [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/5135372febbc40bacddbb13c1f0a8333 "githalytics.com")](http://githalytics.com/tslocum/TinyIB)
+To allow new threads without requiring an image, see the [Text Board Mode](https://github.com/tslocum/TinyIB/wiki/Text-Board-Mode) page.
+
+For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki) page.  [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/5135372febbc40bacddbb13c1f0a8333 "githalytics.com")](http://githalytics.com/tslocum/TinyIB)
 
 Features
 ------------
