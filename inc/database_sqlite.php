@@ -1,5 +1,7 @@
 <?php
-if (!defined('TINYIB_BOARD')) { die(''); }
+if (!defined('TINYIB_BOARD')) {
+	die('');
+}
 
 if (!function_exists('sqlite_open')) {
 	fancyDie("SQLite library is not installed");
@@ -75,11 +77,11 @@ function bumpThreadByID($id) {
 	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET bumped = " . time() . " WHERE id = " . $id);
 }
 
-function countThreads() {	
+function countThreads() {
 	return sqlite_fetch_single(sqlite_query($GLOBALS["db"], "SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = 0"));
 }
 
-function allThreads() {	
+function allThreads() {
 	$threads = array();
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY bumped DESC"), SQLITE_ASSOC);
 	foreach ($result as $thread) {
@@ -92,7 +94,7 @@ function numRepliesToThreadByID($id) {
 	return sqlite_fetch_single(sqlite_query($GLOBALS["db"], "SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = " . $id));
 }
 
-function postsInThreadByID($id) {	
+function postsInThreadByID($id) {
 	$posts = array();
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " WHERE id = " . $id . " OR parent = " . $id . " ORDER BY id ASC"), SQLITE_ASSOC);
 	foreach ($result as $post) {
@@ -101,7 +103,7 @@ function postsInThreadByID($id) {
 	return $posts;
 }
 
-function postsByHex($hex) {	
+function postsByHex($hex) {
 	$posts = array();
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT id, parent FROM " . TINYIB_DBPOSTS . " WHERE file_hex = '" . sqlite_escape_string($hex) . "' LIMIT 1"), SQLITE_ASSOC);
 	foreach ($result as $post) {
@@ -110,7 +112,7 @@ function postsByHex($hex) {
 	return $posts;
 }
 
-function latestPosts() {	
+function latestPosts() {
 	$posts = array();
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " ORDER BY timestamp DESC LIMIT 10"), SQLITE_ASSOC);
 	foreach ($result as $post) {
@@ -119,7 +121,7 @@ function latestPosts() {
 	return $posts;
 }
 
-function deletePostByID($id) {	
+function deletePostByID($id) {
 	$posts = postsInThreadByID($id);
 	foreach ($posts as $post) {
 		if ($post['id'] != $id) {
@@ -140,14 +142,14 @@ function deletePostByID($id) {
 
 function trimThreads() {
 	if (TINYIB_MAXTHREADS > 0) {
-		$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY bumped DESC LIMIT " . TINYIB_MAXTHREADS. ", 10"), SQLITE_ASSOC);
+		$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY bumped DESC LIMIT " . TINYIB_MAXTHREADS . ", 10"), SQLITE_ASSOC);
 		foreach ($result as $post) {
 			deletePostByID($post['id']);
 		}
 	}
 }
 
-function lastPostByIP() {	
+function lastPostByIP() {
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " WHERE ip = '" . $_SERVER['REMOTE_ADDR'] . "' ORDER BY id DESC LIMIT 1"), SQLITE_ASSOC);
 	foreach ($result as $post) {
 		return $post;
@@ -193,5 +195,3 @@ function clearExpiredBans() {
 function deleteBanByID($id) {
 	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . sqlite_escape_string($id));
 }
-
-?>

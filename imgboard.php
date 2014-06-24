@@ -10,10 +10,16 @@ ob_implicit_flush();
 ob_end_flush();
 
 if (get_magic_quotes_gpc()) {
-	foreach ($_GET as $key => $val) { $_GET[$key] = stripslashes($val); }
-	foreach ($_POST as $key => $val) { $_POST[$key] = stripslashes($val); }
+	foreach ($_GET as $key => $val) {
+		$_GET[$key] = stripslashes($val);
+	}
+	foreach ($_POST as $key => $val) {
+		$_POST[$key] = stripslashes($val);
+	}
 }
-if (get_magic_quotes_runtime()) { set_magic_quotes_runtime(0); }
+if (get_magic_quotes_runtime()) {
+	set_magic_quotes_runtime(0);
+}
 
 function fancyDie($message) {
 	die('<body text="#800000" bgcolor="#FFFFEE" align="center"><br><div style="display: inline-block; background-color: #F0E0D6;font-size: 1.25em;font-family: Tahoma, Geneva, sans-serif;padding: 7px;border: 1px solid #D9BFB7;border-left: none;border-top: none;">' . $message . '</div><br><br>- <a href="javascript:history.go(-1)">Click here to go back</a> -</body>');
@@ -26,7 +32,9 @@ require 'settings.php';
 
 // Check directories are writable by the script
 $writedirs = array("res", "src", "thumb");
-if (TINYIB_DBMODE == 'flatfile') { $writedirs[] = "inc/flatfile"; }
+if (TINYIB_DBMODE == 'flatfile') {
+	$writedirs[] = "inc/flatfile";
+}
 foreach ($writedirs as $dir) {
 	if (!is_writable($dir)) {
 		fancyDie("Directory '" . $dir . "' can not be written to.  Please modify its permissions.");
@@ -58,12 +66,12 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 		checkMessageSize();
 		checkFlood();
 	}
-	
+
 	$post = newPost(setParent());
 	$post['ip'] = $_SERVER['REMOTE_ADDR'];
-	
+
 	list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
-	
+
 	$post['name'] = cleanString(substr($post['name'], 0, 75));
 	$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST['email'], 0, 75)));
 	$post['subject'] = cleanString(substr($_POST['subject'], 0, 75));
@@ -76,67 +84,141 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	}
 	$post['password'] = ($_POST['password'] != '') ? md5(md5($_POST['password'])) : '';
 	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $rawposttext);
-	
+
 	if (isset($_FILES['file'])) {
 		if ($_FILES['file']['name'] != "") {
 			validateFileUpload();
-			
+
 			if (!is_file($_FILES['file']['tmp_name']) || !is_readable($_FILES['file']['tmp_name'])) {
 				fancyDie("File transfer failure. Please retry the submission.");
 			}
-			
+
 			if ((TINYIB_MAXKB > 0) && (filesize($_FILES['file']['tmp_name']) > (TINYIB_MAXKB * 1024))) {
 				fancyDie("That file is larger than " . TINYIB_MAXKBDESC . ".");
 			}
-			
-			$post['file_original'] = htmlentities(substr($_FILES['file']['name'], 0, 50), ENT_QUOTES);
+
+			$post['file_original'] = trim(htmlentities(substr($_FILES['file']['name'], 0, 50), ENT_QUOTES));
 			$post['file_hex'] = md5_file($_FILES['file']['tmp_name']);
 			$post['file_size'] = $_FILES['file']['size'];
 			$post['file_size_formatted'] = convertBytes($post['file_size']);
-			$file_type = strtolower(preg_replace('/.*(\..+)/', '\1', $_FILES['file']['name'])); if ($file_type == '.jpeg') { $file_type = '.jpg'; }
-			$file_name = time() . substr(microtime(), 2, 3);
-			$post['file'] = $file_name . $file_type;
-			$post['thumb'] = $file_name . "s" . $file_type;
-			$file_location = "src/" . $post['file'];
-			$thumb_location = "thumb/" . $post['thumb'];
-			
-			if (!($file_type == '.jpg' || $file_type == '.gif' || $file_type == '.png')) {
-				fancyDie("Only GIF, JPG, and PNG files are allowed.");
+
+			$file_type = strtolower(preg_replace('/.*(\..+)/', '\1', $_FILES['file']['name']));
+			if ($file_type == '.jpeg') {
+				$file_type = '.jpg';
 			}
-			
-			if (!@getimagesize($_FILES['file']['tmp_name'])) {
-				fancyDie("Failed to read the size of the uploaded file. Please retry the submission.");
-			}
-			$file_info = getimagesize($_FILES['file']['tmp_name']);
-			$file_mime = $file_info['mime'];
-			
-			if (!($file_mime == "image/jpeg" || $file_mime == "image/gif" || $file_mime == "image/png")) {
-				fancyDie("Only GIF, JPG, and PNG files are allowed.");
+			if ($file_type == '.weba') {
+				$file_type = '.webm';
 			}
 
-			checkDuplicateImage($post['file_hex']);
-			
+			$file_name = time() . substr(microtime(), 2, 3);
+			$post['file'] = $file_name . $file_type;
+			$post['thumb'] = $file_name . "s" . ($file_type == '.webm' ? '.jpg' : $file_type);
+			$file_location = "src/" . $post['file'];
+			$thumb_location = "thumb/" . $post['thumb'];
+
+			checkDuplicateFile($post['file_hex']);
+
 			if (!move_uploaded_file($_FILES['file']['tmp_name'], $file_location)) {
 				fancyDie("Could not copy uploaded file.");
 			}
-			
-			if ($_FILES['file']['size'] != filesize($file_location)) {
-				fancyDie("File transfer failure. Please go back and try again.");
-			}
-			
-			$post['image_width'] = $file_info[0]; $post['image_height'] = $file_info[1];
-			
-			list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
-			
-			if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight)) {
-				fancyDie("Could not create thumbnail.");
+
+			if ($file_type == '.webm') {
+				$file_mime_output = shell_exec('file --mime-type ' . $file_location);
+				$file_mime_split = explode(' ', $file_mime_output);
+				$file_mime = strtolower(trim(array_pop($file_mime_split)));
+			} else {
+				if (!@getimagesize($file_location)) {
+					@unlink($file_location);
+					fancyDie("Failed to read the size of the uploaded file. Please retry the submission.");
+				}
+
+				$file_info = getimagesize($file_location);
+				$file_mime = $file_info['mime'];
 			}
 
-			$thumb_info = getimagesize($thumb_location);
-			$post['thumb_width'] = $thumb_info[0]; $post['thumb_height'] = $thumb_info[1];
+			if (!($file_mime == "image/jpeg" || $file_mime == "image/gif" || $file_mime == "image/png" || (TINYIB_WEBM && ($file_mime == "video/webm" || $file_mime == "audio/webm")))) {
+				@unlink($file_location);
+				fancyDie("Only " . (TINYIB_WEBM ? "GIF, JPG, PNG, and WEBM" : "GIF, JPG, and PNG") . " files are allowed.");
+			}
+
+			if ($_FILES['file']['size'] != filesize($file_location)) {
+				@unlink($file_location);
+				fancyDie("File transfer failure. Please go back and try again.");
+			}
+
+			if ($file_mime == "audio/webm" || $file_mime == "video/webm") {
+				$post['image_width'] = intval(shell_exec('mediainfo --Inform="Video;%Width%" ' . $file_location));
+				$post['image_height'] = intval(shell_exec('mediainfo --Inform="Video;%Height%" ' . $file_location));
+
+				if ($post['image_width'] <= 0 || $post['image_height'] <= 0) {
+					$post['image_width'] = 0;
+					$post['image_height'] = 0;
+
+					$file_location_old = $file_location;
+					$file_location = substr($file_location, 0, -1) . 'a'; // replace webm with weba
+					rename($file_location_old, $file_location);
+
+					$post['file'] = substr($post['file'], 0, -1) . 'a'; // replace webm with weba
+				}
+
+				if ($file_mime == "video/webm") {
+					list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
+					shell_exec("ffmpegthumbnailer -s " . max($thumb_maxwidth, $thumb_maxheight) . " -i $file_location -o $thumb_location") . '!';
+
+					$thumb_info = getimagesize($thumb_location);
+					$post['thumb_width'] = $thumb_info[0];
+					$post['thumb_height'] = $thumb_info[1];
+
+					if ($post['thumb_width'] <= 0 || $post['thumb_height'] <= 0) {
+						@unlink($file_location);
+						@unlink($thumb_location);
+						fancyDie("Sorry, your video appears to be corrupt.");
+					}
+
+					if (file_exists('video_overlay.png')) {
+						$thumbnail = imagecreatefromjpeg($thumb_location);
+						list($width, $height, $type, $attr) = getimagesize($thumb_location);
+
+						$overlay_play = imagecreatefrompng('video_overlay.png');
+						imagealphablending($overlay_play, false);
+						imagesavealpha($overlay_play, true);
+						list($overlay_width, $overlay_height, $overlay_type, $overlay_attr) = getimagesize('video_overlay.png');
+
+						$new_thumbnail = imagecreatetruecolor($width, $height);
+						imagecopyresampled($new_thumbnail, $thumbnail, 0, 0, 0, 0, $width, $height, $width, $height);
+						imagecopyresampled($new_thumbnail, $overlay_play, ($width / 2) - ($overlay_width / 2), ($height / 2) - ($overlay_height / 2), 0, 0, $overlay_width, $overlay_width, $overlay_width, $overlay_height);
+						imagejpeg($new_thumbnail, $thumb_location);
+
+						$thumb_info = getimagesize($thumb_location);
+						$post['thumb_width'] = $thumb_info[0];
+						$post['thumb_height'] = $thumb_info[1];
+					}
+				}
+
+				$duration = intval(shell_exec('mediainfo --Inform="' . ($file_mime == 'video/webm' ? 'Video' : 'Audio') . ';%Duration%" ' . $file_location));
+				$mins = floor(round($duration / 1000) / 60);
+				$secs = str_pad(floor(round($duration / 1000) % 60), 2, "0", STR_PAD_LEFT);
+
+				$post['file_original'] = "$mins:$secs" . ($post['file_original'] != '' ? (', ' . $post['file_original']) : '');
+			} else {
+				$file_info = getimagesize($file_location);
+
+				$post['image_width'] = $file_info[0];
+				$post['image_height'] = $file_info[1];
+
+				list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
+
+				if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight)) {
+					fancyDie("Could not create thumbnail.");
+				}
+
+				$thumb_info = getimagesize($thumb_location);
+				$post['thumb_width'] = $thumb_info[0];
+				$post['thumb_height'] = $thumb_info[1];
+			}
 		}
 	}
-	
+
 	if ($post['file'] == '') { // No file uploaded
 		if ($post['parent'] == TINYIB_NEWTHREAD) {
 			fancyDie("An image is required to start a thread.");
@@ -147,18 +229,18 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	} else {
 		echo $post['file_original'] . ' uploaded.<br>';
 	}
-	
+
 	$post['id'] = insertPost($post);
 	if (strtolower($post['email']) == 'noko') {
 		$redirect = 'res/' . ($post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent']) . '.html#' . $post['id'];
 	}
-	
+
 	trimThreads();
-	
+
 	echo 'Updating thread...<br>';
 	if ($post['parent'] != TINYIB_NEWTHREAD) {
 		rebuildThread($post['parent']);
-		
+
 		if (strtolower($post['email']) != 'sage') {
 			if (TINYIB_MAXREPLIES == 0 || numRepliesToThreadByID($post['parent']) <= TINYIB_MAXREPLIES) {
 				bumpThreadByID($post['parent']);
@@ -167,23 +249,29 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	} else {
 		rebuildThread($post['id']);
 	}
-	
+
 	echo 'Updating index...<br>';
 	rebuildIndexes();
 // Check if the request is to delete a post and/or its associated image
 } elseif (isset($_GET['delete']) && !isset($_GET['manage'])) {
-	if (!isset($_POST['delete'])) { fancyDie('Tick the box next to a post and click "Delete" to delete it.'); }
+	if (!isset($_POST['delete'])) {
+		fancyDie('Tick the box next to a post and click "Delete" to delete it.');
+	}
 
 	$post = postByID($_POST['delete']);
 	if ($post) {
 		list($loggedin, $isadmin) = manageCheckLogIn();
-		
+
 		if ($loggedin && $_POST['password'] == '') {
 			// Redirect to post moderation page
 			echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . basename($_SERVER['PHP_SELF']) . '?manage&moderate=' . $_POST['delete'] . '">';
 		} elseif ($post['password'] != '' && md5(md5($_POST['password'])) == $post['password']) {
 			deletePostByID($post['id']);
-			if ($post['parent'] == TINYIB_NEWTHREAD) { threadUpdated($post['id']); } else { threadUpdated($post['parent']); }
+			if ($post['parent'] == TINYIB_NEWTHREAD) {
+				threadUpdated($post['id']);
+			} else {
+				threadUpdated($post['parent']);
+			}
 			fancyDie('Post deleted.');
 		} else {
 			fancyDie('Invalid password.');
@@ -195,12 +283,16 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	$redirect = false;
 // Check if the request is to access the management area
 } elseif (isset($_GET['manage'])) {
-	$text = ''; $onload = ''; $navbar = '&nbsp;';
-	$redirect = false; $loggedin = false; $isadmin = false;
+	$text = '';
+	$onload = '';
+	$navbar = '&nbsp;';
+	$redirect = false;
+	$loggedin = false;
+	$isadmin = false;
 	$returnlink = basename($_SERVER['PHP_SELF']);
-	
+
 	list($loggedin, $isadmin) = manageCheckLogIn();
-	
+
 	if ($loggedin) {
 		if ($isadmin) {
 			if (isset($_GET['rebuildall'])) {
@@ -212,19 +304,19 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 				$text .= manageInfo('Rebuilt board.');
 			} elseif (isset($_GET['bans'])) {
 				clearExpiredBans();
-				
+
 				if (isset($_POST['ip'])) {
 					if ($_POST['ip'] != '') {
 						$banexists = banByIP($_POST['ip']);
 						if ($banexists) {
 							fancyDie('Sorry, there is already a ban on record for that IP address.');
 						}
-						
+
 						$ban = array();
 						$ban['ip'] = $_POST['ip'];
 						$ban['expire'] = ($_POST['expire'] > 0) ? (time() + $_POST['expire']) : 0;
 						$ban['reason'] = $_POST['reason'];
-						
+
 						insertBan($ban);
 						$text .= manageInfo('Ban record added for ' . $ban['ip']);
 					}
@@ -235,7 +327,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 						$text .= manageInfo('Ban record lifted for ' . $ban['ip']);
 					}
 				}
-				
+
 				$onload = manageOnLoad('bans');
 				$text .= manageBanForm();
 				$text .= manageBansTable();
@@ -254,7 +346,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 				}
 			}
 		}
-		
+
 		if (isset($_GET['delete'])) {
 			$post = postByID($_GET['delete']);
 			if ($post) {
@@ -303,5 +395,3 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 if ($redirect) {
 	echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . (is_string($redirect) ? $redirect : 'index.html') . '">';
 }
-
-?>

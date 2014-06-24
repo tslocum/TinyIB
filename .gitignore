@@ -5,3 +5,4 @@ settings.php
 .posts.lock
 .project
 .settings/
+.idea/

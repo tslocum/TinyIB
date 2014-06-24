@@ -1,5 +1,7 @@
 <?php
-if (!defined('TINYIB_BOARD')) { die(''); }
+if (!defined('TINYIB_BOARD')) {
+	die('');
+}
 
 function pageHeader() {
 	$return = <<<EOF
@@ -37,8 +39,10 @@ function buildPost($post, $res) {
 	$return = "";
 	$threadid = ($post['parent'] == TINYIB_NEWTHREAD) ? $post['id'] : $post['parent'];
 	$postlink = ($res == TINYIB_RESPAGE) ? ($threadid . '.html#' . $post['id']) : ('res/' . $threadid . '.html#' . $post['id']);
-	if (!isset($post["omitted"])) { $post["omitted"] = 0; }
-	
+	if (!isset($post["omitted"])) {
+		$post["omitted"] = 0;
+	}
+
 	if ($post["parent"] != TINYIB_NEWTHREAD) {
 		$return .= <<<EOF
 <table>
@@ -58,7 +62,7 @@ EOF;
 </a>
 EOF;
 	}
-	
+
 	$return .= <<<EOF
 <a name="${post['id']}"></a>
 <label>
@@ -68,7 +72,7 @@ EOF;
 	if ($post['subject'] != '') {
 		$return .= '	<span class="filetitle">' . $post['subject'] . '</span> ';
 	}
-	
+
 	$return .= <<<EOF
 ${post["nameblock"]}
 </label>
@@ -76,7 +80,7 @@ ${post["nameblock"]}
 	<a href="$postlink">No.${post["id"]}</a>
 </span>
 EOF;
-	
+
 	if ($post['parent'] != TINYIB_NEWTHREAD && $post["file"] != "") {
 		$return .= <<<EOF
 <br>
@@ -87,11 +91,11 @@ EOF;
 </a>
 EOF;
 	}
-	
+
 	if ($post['parent'] == TINYIB_NEWTHREAD && $res == TINYIB_INDEXPAGE) {
 		$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">Reply</a>]";
 	}
-	
+
 	if (TINYIB_TRUNCATE > 0 && !$res && substr_count($post['message'], '<br>') > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
 		$br_offsets = strallpos($post['message'], '<br>');
 		$post['message'] = substr($post['message'], 0, $br_offsets[TINYIB_TRUNCATE - 1]);
@@ -115,28 +119,28 @@ EOF;
 </table>
 EOF;
 	}
-	
+
 	return $return;
 }
 
-function buildPage($htmlposts, $parent, $pages=0, $thispage=0) {
+function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
 	$maxdimensions = TINYIB_MAXWOP . 'x' . TINYIB_MAXHOP;
 	if (TINYIB_MAXW != TINYIB_MAXWOP || TINYIB_MAXH != TINYIB_MAXHOP) {
 		$maxdimensions .= ' (new thread) or ' . TINYIB_MAXW . 'x' . TINYIB_MAXH . ' (reply)';
 	}
-	
+
 	$postingmode = "";
 	$pagenavigator = "";
 	if ($parent == TINYIB_NEWTHREAD) {
 		$pages = max($pages, 0);
 		$previous = ($thispage == 1) ? "index" : $thispage - 1;
 		$next = $thispage + 1;
-		
+
 		$pagelinks = ($thispage == 0) ? "<td>Previous</td>" : '<td><form method="get" action="' . $previous . '.html"><input value="Previous" type="submit"></form></td>';
-		
+
 		$pagelinks .= "<td>";
-		for ($i = 0;$i <= $pages;$i++) {
+		for ($i = 0; $i <= $pages; $i++) {
 			if ($thispage == $i) {
 				$pagelinks .= '&#91;' . $i . '&#93; ';
 			} else {
@@ -145,9 +149,9 @@ function buildPage($htmlposts, $parent, $pages=0, $thispage=0) {
 			}
 		}
 		$pagelinks .= "</td>";
-		
+
 		$pagelinks .= ($pages <= $thispage) ? "<td>Next</td>" : '<td><form method="get" action="' . $next . '.html"><input value="Next" type="submit"></form></td>';
-		
+
 		$pagenavigator = <<<EOF
 <table border="1">
 	<tbody>
@@ -160,20 +164,22 @@ EOF;
 	} else {
 		$postingmode = '&#91;<a href="../">Return</a>&#93;<div class="replymode">Posting mode: Reply</div> ';
 	}
-	
+
+	$filetypes = (TINYIB_WEBM ? "GIF, JPG, PNG, and WEBM" : "GIF, JPG, and PNG");
+
 	$unique_posts_html = '';
 	$unique_posts = uniquePosts();
 	if ($unique_posts > 0) {
 		$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>\n";
 	}
-	
+
 	$max_file_size_input = '';
 	$max_file_size_html = '';
 	if (TINYIB_MAXKB > 0) {
 		$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
 		$max_file_size_rules_html = '<li>Maximum file size allowed is ' . TINYIB_MAXKBDESC . '.</li>';
 	}
-	
+
 	$body = <<<EOF
 	<body>
 		<div class="adminbar">
@@ -181,7 +187,7 @@ EOF;
 		</div>
 		<div class="logo">
 EOF;
-	$body .= TINYIB_LOGO .  TINYIB_BOARDDESC . <<<EOF
+	$body .= TINYIB_LOGO . TINYIB_BOARDDESC . <<<EOF
 		</div>
 		<hr width="90%" size="1">
 		$postingmode
@@ -243,7 +249,7 @@ EOF;
 					<tr>
 						<td colspan="2" class="rules">
 							<ul>
-								<li>Supported file types are GIF, JPG, and PNG.</li>
+								<li>Supported file types are $filetypes.</li>
 								$max_file_size_rules_html
 								<li>Images greater than $maxdimensions will be thumbnailed.</li>
 								$unique_posts_html
@@ -258,7 +264,7 @@ EOF;
 		<form id="delform" action="imgboard.php?delete" method="post">
 		<input type="hidden" name="board" 
 EOF;
-		$body .= 'value="' . TINYIB_BOARD . '">' . <<<EOF
+	$body .= 'value="' . TINYIB_BOARD . '">' . <<<EOF
 		$htmlposts
 		<table class="userdelete">
 			<tbody>
@@ -276,31 +282,35 @@ EOF;
 	return pageHeader() . $body . pageFooter();
 }
 
-function rebuildIndexes() {	
-	$page = 0; $i = 0; $htmlposts = '';
-	$threads = allThreads(); 
+function rebuildIndexes() {
+	$page = 0;
+	$i = 0;
+	$htmlposts = '';
+	$threads = allThreads();
 	$pages = ceil(count($threads) / TINYIB_THREADSPERPAGE) - 1;
-	
+
 	foreach ($threads as $thread) {
 		$replies = postsInThreadByID($thread['id']);
 		$thread['omitted'] = max(0, count($replies) - TINYIB_PREVIEWREPLIES - 1);
-		
+
 		// Build replies for preview
 		$htmlreplies = array();
 		for ($j = count($replies) - 1; $j > $thread['omitted']; $j--) {
 			$htmlreplies[] = buildPost($replies[$j], TINYIB_INDEXPAGE);
 		}
-		
+
 		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', array_reverse($htmlreplies)) . "<br clear=\"left\">\n<hr>";
-		
+
 		if (++$i >= TINYIB_THREADSPERPAGE) {
 			$file = ($page == 0) ? 'index.html' : $page . '.html';
 			writePage($file, buildPage($htmlposts, 0, $pages, $page));
-			
-			$page++; $i = 0; $htmlposts = '';
+
+			$page++;
+			$i = 0;
+			$htmlposts = '';
 		}
 	}
-	
+
 	if ($page == 0 || $htmlposts != '') {
 		$file = ($page == 0) ? 'index.html' : $page . '.html';
 		writePage($file, buildPage($htmlposts, 0, $pages, $page));
@@ -313,20 +323,22 @@ function rebuildThread($id) {
 	foreach ($posts as $post) {
 		$htmlposts .= buildPost($post, TINYIB_RESPAGE);
 	}
-	
+
 	$htmlposts .= "<br clear=\"left\">\n<hr>\n";
-	
+
 	writePage('res/' . $id . '.html', fixLinksInRes(buildPage($htmlposts, $id)));
 }
 
 function adminBar() {
 	global $loggedin, $isadmin, $returnlink;
 	$return = '[<a href="' . $returnlink . '" style="text-decoration: underline;">Return</a>]';
-	if (!$loggedin) { return $return; }
+	if (!$loggedin) {
+		return $return;
+	}
 	return '[<a href="?manage">Status</a>] [' . (($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '') . '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&rawpost">Raw Post</a>] [' . (($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '') . '<a href="?manage&logout">Log Out</a>] &middot; ' . $return;
 }
 
-function managePage($text, $onload='') {
+function managePage($text, $onload = '') {
 	$adminbar = adminBar();
 	$body = <<<EOF
 	<body$onload>
@@ -421,7 +433,7 @@ function manageRawPostForm() {
 	if (TINYIB_MAXKB > 0) {
 		$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
 	}
-	
+
 	return <<<EOF
 	<div class="postarea">
 		<form id="tinyib" name="tinyib" method="post" action="?" enctype="multipart/form-data">
@@ -508,7 +520,7 @@ function manageModeratePost($post) {
 	$ban_info = (!$ban) ? ((!$isadmin) ? 'Only an administrator may ban an IP address.' : ('IP address: ' . $post["ip"])) : (' A ban record already exists for ' . $post['ip']);
 	$delete_info = ($post['parent'] == TINYIB_NEWTHREAD) ? 'This will delete the entire thread below.' : 'This will delete the post below.';
 	$post_or_thread = ($post['parent'] == TINYIB_NEWTHREAD) ? 'Thread' : 'Post';
-	
+
 	if ($post["parent"] == TINYIB_NEWTHREAD) {
 		$post_html = "";
 		$posts = postsInThreadByID($post["id"]);
@@ -518,7 +530,7 @@ function manageModeratePost($post) {
 	} else {
 		$post_html = buildPost($post, TINYIB_INDEXPAGE);
 	}
-	
+
 	return <<<EOF
 	<fieldset>
 	<legend>Moderating No.${post['id']}</legend>
@@ -565,15 +577,17 @@ function manageStatus() {
 	$threads = countThreads();
 	$bans = count(allBans());
 	$info = $threads . ' ' . plural('thread', $threads) . ', ' . $bans . ' ' . plural('ban', $bans);
-	
+
 	$post_html = '';
 	$posts = latestPosts();
 	$i = 0;
 	foreach ($posts as $post) {
-		if ($post_html != '') { $post_html .= '<tr><td colspan="2"><hr></td></tr>'; }
+		if ($post_html != '') {
+			$post_html .= '<tr><td colspan="2"><hr></td></tr>';
+		}
 		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="Moderate" class="managebutton"></form></td></tr>';
 	}
-	
+
 	$output = <<<EOF
 	<fieldset>
 	<legend>Status</legend>
@@ -613,11 +627,10 @@ EOF;
 	</fieldset>
 	<br>
 EOF;
-	
+
 	return $output;
 }
 
 function manageInfo($text) {
 	return '<div class="manageinfo">' . $text . '</div>';
 }
-?>

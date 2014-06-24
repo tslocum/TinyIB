@@ -1,5 +1,7 @@
 <?php
-if (!defined('TINYIB_BOARD')) { die(''); }
+if (!defined('TINYIB_BOARD')) {
+	die('');
+}
 
 if (!function_exists('mysql_connect')) {
 	fancyDie("MySQL library is not installed");
@@ -90,7 +92,7 @@ function countThreads() {
 	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0"), 0, 0);
 }
 
-function allThreads() {	
+function allThreads() {
 	$threads = array();
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 ORDER BY `bumped` DESC");
 	if ($result) {
@@ -105,7 +107,7 @@ function numRepliesToThreadByID($id) {
 	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = " . $id), 0, 0);
 }
 
-function postsInThreadByID($id) {	
+function postsInThreadByID($id) {
 	$posts = array();
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = " . $id . " OR `parent` = " . $id . " ORDER BY `id` ASC");
 	if ($result) {
@@ -116,7 +118,7 @@ function postsInThreadByID($id) {
 	return $posts;
 }
 
-function postsByHex($hex) {	
+function postsByHex($hex) {
 	$posts = array();
 	$result = mysql_query("SELECT `id`, `parent` FROM `" . TINYIB_DBPOSTS . "` WHERE `file_hex` = '" . mysql_real_escape_string($hex) . "' LIMIT 1");
 	if ($result) {
@@ -127,7 +129,7 @@ function postsByHex($hex) {
 	return $posts;
 }
 
-function latestPosts() {	
+function latestPosts() {
 	$posts = array();
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` ORDER BY `timestamp` DESC LIMIT 10");
 	if ($result) {
@@ -138,7 +140,7 @@ function latestPosts() {
 	return $posts;
 }
 
-function deletePostByID($id) {	
+function deletePostByID($id) {
 	$posts = postsInThreadByID($id);
 	foreach ($posts as $post) {
 		if ($post['id'] != $id) {
@@ -159,7 +161,7 @@ function deletePostByID($id) {
 
 function trimThreads() {
 	if (TINYIB_MAXTHREADS > 0) {
-		$result = mysql_query("SELECT `id` FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 ORDER BY `bumped` DESC LIMIT " . TINYIB_MAXTHREADS. ", 10");
+		$result = mysql_query("SELECT `id` FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 ORDER BY `bumped` DESC LIMIT " . TINYIB_MAXTHREADS . ", 10");
 		if ($result) {
 			while ($post = mysql_fetch_assoc($result)) {
 				deletePostByID($post['id']);
@@ -168,7 +170,7 @@ function trimThreads() {
 	}
 }
 
-function lastPostByIP() {	
+function lastPostByIP() {
 	$replies = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `ip` = '" . $_SERVER['REMOTE_ADDR'] . "' ORDER BY `id` DESC LIMIT 1");
 	if ($replies) {
 		while ($post = mysql_fetch_assoc($replies)) {
@@ -224,5 +226,3 @@ function clearExpiredBans() {
 function deleteBanByID($id) {
 	mysql_query("DELETE FROM `" . TINYIB_DBBANS . "` WHERE `id` = " . mysql_real_escape_string($id) . " LIMIT 1");
 }
-
-?>

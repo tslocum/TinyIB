@@ -1,18 +1,20 @@
 <?php
-if (!defined('TINYIB_BOARD')) { die(''); }
+if (!defined('TINYIB_BOARD')) {
+	die('');
+}
 
 function cleanString($string) {
 	$search = array("<", ">");
 	$replace = array("&lt;", "&gt;");
-	
+
 	return str_replace($search, $replace, $string);
 }
 
 function plural($singular, $count, $plural = 's') {
 	if ($plural == 's') {
-        $plural = $singular . $plural;
-    }
-    return ($count == 1 ? $singular : $plural);
+		$plural = $singular . $plural;
+	}
+	return ($count == 1 ? $singular : $plural);
 }
 
 function threadUpdated($id) {
@@ -22,26 +24,26 @@ function threadUpdated($id) {
 
 function newPost($parent = TINYIB_NEWTHREAD) {
 	return array('parent' => $parent,
-				'timestamp' => '0',
-				'bumped' => '0',
-				'ip' => '',
-				'name' => '',
-				'tripcode' => '',
-				'email' => '',
-				'nameblock' => '',
-				'subject' => '',
-				'message' => '',
-				'password' => '',
-				'file' => '',
-				'file_hex' => '',
-				'file_original' => '',
-				'file_size' => '0',
-				'file_size_formatted' => '',
-				'image_width' => '0',
-				'image_height' => '0',
-				'thumb' => '',
-				'thumb_width' => '0',
-				'thumb_height' => '0');
+		'timestamp' => '0',
+		'bumped' => '0',
+		'ip' => '',
+		'name' => '',
+		'tripcode' => '',
+		'email' => '',
+		'nameblock' => '',
+		'subject' => '',
+		'message' => '',
+		'password' => '',
+		'file' => '',
+		'file_hex' => '',
+		'file_original' => '',
+		'file_size' => '0',
+		'file_size_formatted' => '',
+		'image_width' => '0',
+		'image_height' => '0',
+		'thumb' => '',
+		'thumb_width' => '0',
+		'thumb_height' => '0');
 }
 
 function convertBytes($number) {
@@ -49,26 +51,26 @@ function convertBytes($number) {
 	if ($len < 4) {
 		return sprintf("%dB", $number);
 	} elseif ($len <= 6) {
-		return sprintf("%0.2fKB", $number/1024);
+		return sprintf("%0.2fKB", $number / 1024);
 	} elseif ($len <= 9) {
-		return sprintf("%0.2fMB", $number/1024/1024);
+		return sprintf("%0.2fMB", $number / 1024 / 1024);
 	}
 
-	return sprintf("%0.2fGB", $number/1024/1024/1024);						
+	return sprintf("%0.2fGB", $number / 1024 / 1024 / 1024);
 }
 
 function nameAndTripcode($name) {
 	if (preg_match("/(#|!)(.*)/", $name, $regs)) {
 		$cap = $regs[2];
 		$cap_full = '#' . $regs[2];
-		
+
 		if (function_exists('mb_convert_encoding')) {
 			$recoded_cap = mb_convert_encoding($cap, 'SJIS', 'UTF-8');
 			if ($recoded_cap != '') {
 				$cap = $recoded_cap;
 			}
 		}
-		
+
 		if (strpos($name, '#') === false) {
 			$cap_delimiter = '!';
 		} elseif (strpos($name, '!') === false) {
@@ -76,7 +78,7 @@ function nameAndTripcode($name) {
 		} else {
 			$cap_delimiter = (strpos($name, '#') < strpos($name, '!')) ? '#' : '!';
 		}
-		
+
 		if (preg_match("/(.*)(" . $cap_delimiter . ")(.*)/", $cap, $regs_secure)) {
 			$cap = $regs_secure[1];
 			$cap_secure = $regs_secure[3];
@@ -84,41 +86,41 @@ function nameAndTripcode($name) {
 		} else {
 			$is_secure_trip = false;
 		}
-		
+
 		$tripcode = "";
 		if ($cap != "") { // Copied from Futabally
 			$cap = strtr($cap, "&amp;", "&");
 			$cap = strtr($cap, "&#44;", ", ");
-			$salt = substr($cap."H.", 1, 2);
+			$salt = substr($cap . "H.", 1, 2);
 			$salt = preg_replace("/[^\.-z]/", ".", $salt);
-			$salt = strtr($salt, ":;<=>?@[\\]^_`", "ABCDEFGabcdef"); 
+			$salt = strtr($salt, ":;<=>?@[\\]^_`", "ABCDEFGabcdef");
 			$tripcode = substr(crypt($cap, $salt), -10);
 		}
-		
+
 		if ($is_secure_trip) {
 			if ($cap != "") {
 				$tripcode .= "!";
 			}
-			
+
 			$tripcode .= "!" . substr(md5($cap_secure . TINYIB_TRIPSEED), 2, 10);
 		}
-		
+
 		return array(preg_replace("/(" . $cap_delimiter . ")(.*)/", "", $name), $tripcode);
 	}
-	
+
 	return array($name, "");
 }
 
 function nameBlock($name, $tripcode, $email, $timestamp, $rawposttext) {
 	$output = '<span class="postername">';
 	$output .= ($name == '' && $tripcode == '') ? 'Anonymous' : $name;
-	
+
 	if ($tripcode != '') {
 		$output .= '</span><span class="postertrip">!' . $tripcode;
 	}
-	
+
 	$output .= '</span>';
-	
+
 	if ($email != '' && strtolower($email) != 'noko') {
 		$output = '<a href="mailto:' . $email . '">' . $output . '</a>';
 	}
@@ -136,14 +138,14 @@ function writePage($filename, $contents) {
 		copy($tempfile, $filename);
 		unlink($tempfile);
 	}
-	
+
 	chmod($filename, 0664); /* it was created 0600 */
 }
 
 function fixLinksInRes($html) {
 	$search = array(' href="css/', ' href="src/', ' href="thumb/', ' href="res/', ' href="imgboard.php', ' href="favicon.ico', 'src="thumb/', ' action="imgboard.php');
 	$replace = array(' href="../css/', ' href="../src/', ' href="../thumb/', ' href="../res/', ' href="../imgboard.php', ' href="../favicon.ico', 'src="../thumb/', ' action="../imgboard.php');
-	
+
 	return str_replace($search, $replace, $html);
 }
 
@@ -160,13 +162,19 @@ function postLink($message) {
 }
 
 function colorQuote($message) {
-	if (substr($message, -1, 1) != "\n") { $message .= "\n"; }
+	if (substr($message, -1, 1) != "\n") {
+		$message .= "\n";
+	}
 	return preg_replace('/^(&gt;[^\>](.*))\n/m', '<span class="unkfunc">\\1</span>' . "\n", $message);
 }
 
 function deletePostImages($post) {
-	if ($post['file'] != '') { @unlink('src/' . $post['file']); }
-	if ($post['thumb'] != '') { @unlink('thumb/' . $post['thumb']); }
+	if ($post['file'] != '') {
+		@unlink('src/' . $post['file']);
+	}
+	if ($post['thumb'] != '') {
+		@unlink('thumb/' . $post['thumb']);
+	}
 }
 
 function checkBanned() {
@@ -200,7 +208,8 @@ function checkMessageSize() {
 }
 
 function manageCheckLogIn() {
-	$loggedin = false; $isadmin = false;
+	$loggedin = false;
+	$isadmin = false;
 	if (isset($_POST['password'])) {
 		if ($_POST['password'] == TINYIB_ADMINPASS) {
 			$_SESSION['tinyib'] = TINYIB_ADMINPASS;
@@ -208,7 +217,7 @@ function manageCheckLogIn() {
 			$_SESSION['tinyib'] = TINYIB_MODPASS;
 		}
 	}
-	
+
 	if (isset($_SESSION['tinyib'])) {
 		if ($_SESSION['tinyib'] == TINYIB_ADMINPASS) {
 			$loggedin = true;
@@ -217,7 +226,7 @@ function manageCheckLogIn() {
 			$loggedin = true;
 		}
 	}
-	
+
 	return array($loggedin, $isadmin);
 }
 
@@ -227,11 +236,11 @@ function setParent() {
 			if (!threadExistsByID($_POST['parent'])) {
 				fancyDie("Invalid parent thread ID supplied, unable to create post.");
 			}
-			
+
 			return $_POST["parent"];
 		}
 	}
-	
+
 	return TINYIB_NEWTHREAD;
 }
 
@@ -242,7 +251,7 @@ function isRawPost() {
 			return true;
 		}
 	}
-	
+
 	return false;
 }
 
@@ -273,7 +282,7 @@ function validateFileUpload() {
 	}
 }
 
-function checkDuplicateImage($hex) {
+function checkDuplicateFile($hex) {
 	$hexmatches = postsByHex($hex);
 	if (count($hexmatches) > 0) {
 		foreach ($hexmatches as $hexmatch) {
@@ -305,7 +314,7 @@ function createThumbnail($name, $filename, $new_w, $new_h) {
 	} else {
 		return false;
 	}
-	
+
 	if (!$src_img) {
 		fancyDie("Unable to read uploaded file during thumbnailing. A common cause for this is an incorrect extension when the file is actually of a different type.");
 	}
@@ -314,10 +323,10 @@ function createThumbnail($name, $filename, $new_w, $new_h) {
 	$percent = ($old_x > $old_y) ? ($new_w / $old_x) : ($new_h / $old_y);
 	$thumb_w = round($old_x * $percent);
 	$thumb_h = round($old_y * $percent);
-	
+
 	$dst_img = ImageCreateTrueColor($thumb_w, $thumb_h);
 	fastImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
-	
+
 	if (preg_match("/png/", $system[0])) {
 		if (!imagepng($dst_img, $filename)) {
 			return false;
@@ -327,45 +336,47 @@ function createThumbnail($name, $filename, $new_w, $new_h) {
 			return false;
 		}
 	} else if (preg_match("/gif/", $system[0])) {
-		if (!imagegif($dst_img, $filename)) { 
+		if (!imagegif($dst_img, $filename)) {
 			return false;
 		}
 	}
-	
-	imagedestroy($dst_img); 
-	imagedestroy($src_img); 
-	
+
+	imagedestroy($dst_img);
+	imagedestroy($src_img);
+
 	return true;
 }
 
 function fastImageCopyResampled(&$dst_image, &$src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h, $quality = 3) {
-	// Author: Tim Eckel - Date: 12/17/04 - Project: FreeRingers.net - Freely distributable. 
-	if (empty($src_image) || empty($dst_image)) { return false; }
+	// Author: Tim Eckel - Date: 12/17/04 - Project: FreeRingers.net - Freely distributable.
+	if (empty($src_image) || empty($dst_image)) {
+		return false;
+	}
 
 	if ($quality <= 1) {
-		$temp = imagecreatetruecolor ($dst_w + 1, $dst_h + 1);
-		
-		imagecopyresized ($temp, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w + 1, $dst_h + 1, $src_w, $src_h);
-		imagecopyresized ($dst_image, $temp, 0, 0, 0, 0, $dst_w, $dst_h, $dst_w, $dst_h);
-		imagedestroy ($temp);
+		$temp = imagecreatetruecolor($dst_w + 1, $dst_h + 1);
+
+		imagecopyresized($temp, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w + 1, $dst_h + 1, $src_w, $src_h);
+		imagecopyresized($dst_image, $temp, 0, 0, 0, 0, $dst_w, $dst_h, $dst_w, $dst_h);
+		imagedestroy($temp);
 	} elseif ($quality < 5 && (($dst_w * $quality) < $src_w || ($dst_h * $quality) < $src_h)) {
 		$tmp_w = $dst_w * $quality;
 		$tmp_h = $dst_h * $quality;
-		$temp = imagecreatetruecolor ($tmp_w + 1, $tmp_h + 1);
-		
-		imagecopyresized ($temp, $src_image, $dst_x * $quality, $dst_y * $quality, $src_x, $src_y, $tmp_w + 1, $tmp_h + 1, $src_w, $src_h);
-		imagecopyresampled ($dst_image, $temp, 0, 0, 0, 0, $dst_w, $dst_h, $tmp_w, $tmp_h);
-		imagedestroy ($temp);
+		$temp = imagecreatetruecolor($tmp_w + 1, $tmp_h + 1);
+
+		imagecopyresized($temp, $src_image, $dst_x * $quality, $dst_y * $quality, $src_x, $src_y, $tmp_w + 1, $tmp_h + 1, $src_w, $src_h);
+		imagecopyresampled($dst_image, $temp, 0, 0, 0, 0, $dst_w, $dst_h, $tmp_w, $tmp_h);
+		imagedestroy($temp);
 	} else {
-		imagecopyresampled ($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
+		imagecopyresampled($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
 	}
-	
+
 	return true;
 }
 
 function strallpos($haystack, $needle, $offset = 0) {
 	$result = array();
-	for ($i = $offset;$i<strlen($haystack);$i++) {
+	for ($i = $offset; $i < strlen($haystack); $i++) {
 		$pos = strpos($haystack, $needle, $i);
 		if ($pos !== False) {
 			$offset = $pos;
@@ -377,5 +388,3 @@ function strallpos($haystack, $needle, $offset = 0) {
 	}
 	return $result;
 }
-
-?>

@@ -1,38 +1,40 @@
 <?php
-if (!defined('TINYIB_BOARD')) { die(''); }
+if (!defined('TINYIB_BOARD')) {
+	die('');
+}
 
 # Post Structure
-define('POSTS_FILE',         '.posts');
-define('POST_ID',                   0);
-define('POST_PARENT',               1);
-define('POST_TIMESTAMP',            2);
-define('POST_BUMPED',               3);
-define('POST_IP',                   4);
-define('POST_NAME',                 5);
-define('POST_TRIPCODE',             6);
-define('POST_EMAIL',                7);
-define('POST_NAMEBLOCK',            8);
-define('POST_SUBJECT',              9);
-define('POST_MESSAGE',             10);
-define('POST_PASSWORD',            11);
-define('POST_FILE',                12);
-define('POST_FILE_HEX',            13);
-define('POST_FILE_ORIGINAL',       14);
-define('POST_FILE_SIZE',           15);
+define('POSTS_FILE', '.posts');
+define('POST_ID', 0);
+define('POST_PARENT', 1);
+define('POST_TIMESTAMP', 2);
+define('POST_BUMPED', 3);
+define('POST_IP', 4);
+define('POST_NAME', 5);
+define('POST_TRIPCODE', 6);
+define('POST_EMAIL', 7);
+define('POST_NAMEBLOCK', 8);
+define('POST_SUBJECT', 9);
+define('POST_MESSAGE', 10);
+define('POST_PASSWORD', 11);
+define('POST_FILE', 12);
+define('POST_FILE_HEX', 13);
+define('POST_FILE_ORIGINAL', 14);
+define('POST_FILE_SIZE', 15);
 define('POST_FILE_SIZE_FORMATTED', 16);
-define('POST_IMAGE_WIDTH',         17);
-define('POST_IMAGE_HEIGHT',        18);
-define('POST_THUMB',               19);
-define('POST_THUMB_WIDTH',         20);
-define('POST_THUMB_HEIGHT',        21);
+define('POST_IMAGE_WIDTH', 17);
+define('POST_IMAGE_HEIGHT', 18);
+define('POST_THUMB', 19);
+define('POST_THUMB_WIDTH', 20);
+define('POST_THUMB_HEIGHT', 21);
 
 # Ban Structure
-define('BANS_FILE',          '.bans');
-define('BAN_ID',                   0);
-define('BAN_IP',                   1);
-define('BAN_TIMESTAMP',            2);
-define('BAN_EXPIRE',               3);
-define('BAN_REASON',               4);
+define('BANS_FILE', '.bans');
+define('BAN_ID', 0);
+define('BAN_IP', 1);
+define('BAN_TIMESTAMP', 2);
+define('BAN_EXPIRE', 3);
+define('BAN_REASON', 4);
 
 require_once 'flatfile/flatfile.php';
 $db = new Flatfile();
@@ -51,7 +53,7 @@ function threadExistsByID($id) {
 	$compClause = new AndWhereClause();
 	$compClause->add(new SimpleWhereClause(POST_ID, '=', $id, INTEGER_COMPARISON));
 	$compClause->add(new SimpleWhereClause(POST_PARENT, '=', 0, INTEGER_COMPARISON));
-	
+
 	return count($GLOBALS['db']->selectWhere(POSTS_FILE, $compClause, 1)) > 0;
 }
 
@@ -67,7 +69,7 @@ function insertPost($newpost) {
 	$post[POST_EMAIL] = $newpost['email'];
 	$post[POST_NAMEBLOCK] = $newpost['nameblock'];
 	$post[POST_SUBJECT] = $newpost['subject'];
-	$post[POST_MESSAGE]	= $newpost['message'];
+	$post[POST_MESSAGE] = $newpost['message'];
 	$post[POST_PASSWORD] = $newpost['password'];
 	$post[POST_FILE] = $newpost['file'];
 	$post[POST_FILE_HEX] = $newpost['file_hex'];
@@ -99,7 +101,7 @@ function countThreads() {
 	return count($rows);
 }
 
-function convertPostsToSQLStyle($posts, $singlepost=false) {
+function convertPostsToSQLStyle($posts, $singlepost = false) {
 	$newposts = array();
 	foreach ($posts as $oldpost) {
 		$post = newPost();
@@ -125,12 +127,14 @@ function convertPostsToSQLStyle($posts, $singlepost=false) {
 		$post['thumb'] = $oldpost[POST_THUMB];
 		$post['thumb_width'] = $oldpost[POST_THUMB_WIDTH];
 		$post['thumb_height'] = $oldpost[POST_THUMB_HEIGHT];
-		
+
 		if ($post['parent'] == '') {
 			$post['parent'] = TINYIB_NEWTHREAD;
 		}
-		
-		if ($singlepost) { return $post; }
+
+		if ($singlepost) {
+			return $post;
+		}
 		$newposts[] = $post;
 	}
 	return $newposts;
@@ -150,7 +154,7 @@ function postsInThreadByID($id) {
 	$compClause = new OrWhereClause();
 	$compClause->add(new SimpleWhereClause(POST_ID, '=', $id, INTEGER_COMPARISON));
 	$compClause->add(new SimpleWhereClause(POST_PARENT, '=', $id, INTEGER_COMPARISON));
-	
+
 	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, $compClause, -1, new OrderBy(POST_ID, ASCENDING, INTEGER_COMPARISON));
 	return convertPostsToSQLStyle($rows);
 }
@@ -175,7 +179,7 @@ function deletePostByID($id) {
 			$thispost = $post;
 		}
 	}
-	
+
 	if (isset($thispost)) {
 		if ($thispost['parent'] == 0) {
 			@unlink('res/' . $thispost['id'] . '.html');
@@ -190,7 +194,7 @@ function trimThreads() {
 		$numthreads = countThreads();
 		if ($numthreads > TINYIB_MAXTHREADS) {
 			$allthreads = allThreads();
-			for ($i=TINYIB_MAXTHREADS;$i<$numthreads;$i++) {
+			for ($i = TINYIB_MAXTHREADS; $i < $numthreads; $i++) {
 				deletePostByID($allthreads[$i]['id']);
 			}
 		}
@@ -216,7 +220,7 @@ function allBans() {
 	return convertBansToSQLStyle($rows);
 }
 
-function convertBansToSQLStyle($bans, $singleban=false) {
+function convertBansToSQLStyle($bans, $singleban = false) {
 	$newbans = array();
 	foreach ($bans as $oldban) {
 		$ban = array();
@@ -225,8 +229,10 @@ function convertBansToSQLStyle($bans, $singleban=false) {
 		$ban['timestamp'] = $oldban[BAN_TIMESTAMP];
 		$ban['expire'] = $oldban[BAN_EXPIRE];
 		$ban['reason'] = $oldban[BAN_REASON];
-		
-		if ($singleban) { return $ban; }
+
+		if ($singleban) {
+			return $ban;
+		}
 		$newbans[] = $ban;
 	}
 	return $newbans;
@@ -239,7 +245,7 @@ function insertBan($newban) {
 	$ban[BAN_TIMESTAMP] = time();
 	$ban[BAN_EXPIRE] = $newban['expire'];
 	$ban[BAN_REASON] = $newban['reason'];
-	
+
 	return $GLOBALS['db']->insertWithAutoId(BANS_FILE, BAN_ID, $ban);
 }
 
@@ -247,7 +253,7 @@ function clearExpiredBans() {
 	$compClause = new AndWhereClause();
 	$compClause->add(new SimpleWhereClause(BAN_EXPIRE, '>', 0, INTEGER_COMPARISON));
 	$compClause->add(new SimpleWhereClause(BAN_EXPIRE, '<=', time(), INTEGER_COMPARISON));
-	
+
 	$bans = $GLOBALS['db']->selectWhere(BANS_FILE, $compClause, -1);
 	foreach ($bans as $ban) {
 		deleteBanByID($ban[BAN_ID]);
@@ -257,5 +263,3 @@ function clearExpiredBans() {
 function deleteBanByID($id) {
 	$GLOBALS['db']->deleteWhere(BANS_FILE, new SimpleWhereClause(BAN_ID, '=', $id, INTEGER_COMPARISON));
 }
-
-?>
