@@ -450,6 +450,7 @@ class SimpleWhereClause extends WhereClause {
 	var $operator;
 	var $value;
 	var $compare_type;
+
 	/**#@-*/
 
 	/**

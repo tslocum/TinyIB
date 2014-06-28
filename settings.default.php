@@ -18,9 +18,9 @@ define('TINYIB_LOGO', ""); // Logo HTML
 define('TINYIB_TRIPSEED', ""); // Enter some random text - Used when generating secure tripcodes - Must not change once set
 define('TINYIB_ADMINPASS', ""); // Text entered at the manage prompt to gain administrator access
 define('TINYIB_MODPASS', ""); // Moderators only have access to delete posts  ["" to disable]
-define('TINYIB_DBMODE', "flatfile"); // Choose: flatfile / mysql / sqlite  (flatfile is not recommended for popular sites)
+define('TINYIB_DBMODE', "flatfile"); // Choose: flatfile / mysql / mysqli / sqlite  (flatfile is not recommended for popular sites)
 
-// Note: The following only apply when TINYIB_DBMODE is set to mysql
+// Note: The following only apply when TINYIB_DBMODE is set to mysql or mysqli (recommended)
 define('TINYIB_DBHOST', "localhost");
 define('TINYIB_DBUSERNAME', "");
 define('TINYIB_DBPASSWORD', "");

@@ -577,6 +577,16 @@ function manageStatus() {
 	$threads = countThreads();
 	$bans = count(allBans());
 	$info = $threads . ' ' . plural('thread', $threads) . ', ' . $bans . ' ' . plural('ban', $bans);
+	$output = '';
+
+	if ($isadmin && TINYIB_DBMODE == 'mysql' && function_exists('mysqli_connect')) { // Recommend MySQLi
+		$output .= <<<EOF
+	<fieldset>
+	<legend>Notice</legend>
+	<p><b>TINYIB_DBMODE</b> is currently <b>mysql</b> in <b>settings.php</b>, but <a href="http://www.php.net/manual/en/book.mysqli.php">MySQLi</a> is installed.  Please change it to <b>mysqli</b>.  This will not affect your data.</p>
+	</fieldset>
+EOF;
+	}
 
 	$post_html = '';
 	$posts = latestPosts();
@@ -588,7 +598,7 @@ function manageStatus() {
 		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="Moderate" class="managebutton"></form></td></tr>';
 	}
 
-	$output = <<<EOF
+	$output .= <<<EOF
 	<fieldset>
 	<legend>Status</legend>
 	
