@@ -61,12 +61,14 @@ Moderating
 Updating
 ------------
 
- 1. Run the command:
-    - `git pull`
- 2. If TinyIB has been updated, note which files are modified.
-    - If **settings.default.php** is updated, migrate the changes to **settings.php**
+ 1. Obtain the latest release.
+ 	- If you installed via Git, run the following command in TinyIB's directory:
+ 	  - `git pull`
+ 	- Otherwise, [download](https://github.com/tslocum/TinyIB/archive/master.zip) and extract a zipped archive.
+ 2. Note which files were modified.
+    - If **settings.default.php** was updated, migrate the changes to **settings.php**
       - Take care to not change the value of **TINYIB_TRIPSEED**, as it would result in different secure tripcodes.
-    - If other files are updated, and you have made changes yourself:
+    - If other files were updated, and you have made changes yourself:
       - Visit [GitHub](https://github.com/tslocum/TinyIB) and review the changes made in the update.
       - Ensure the update does not interfere with your changes.
 
