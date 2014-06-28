@@ -35,7 +35,7 @@ Installing
  5. Configure **settings.php**
     - To allow WebA/WebM upload:
       - Ensure your web host is running Linux.
-      - Install [mediainfo](http://mediaarea.net/en/MediaInfo).  On Ubuntu, run ``sudo apt-get install mediainfo``.
+      - Install [mediainfo](http://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
       - Set ``TINYIB_WEBM`` to ``true``.
       - To remove the play icon from thumbnails, delete or rename **video_overlay.png**.
  6. [CHMOD](http://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
