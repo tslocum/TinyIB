@@ -32,18 +32,23 @@ Installing
  3. Run the command:
     - `git clone git://github.com/tslocum/TinyIB.git ./`
  4. Copy **settings.default.php** to **settings.php**
- 5. Configure **settings.php**
+ 5. Edit **settings.php** with a text editor.
+    - You should at least change TRIPSEED, ADMINPASS, MODPASS
+    - DBMODE of "flatfile" is okay for single-user sites, consider using sqlite or mysql instead
+    - if you use DBMODE "mysql", you must 
+      - edit settings.php to set DBUSERNAME (ibuser), DBPASSWORD (arglebargle), DBNAME (tinyib).
+      - don't actually use "ibuser" and "arglebargle" please make up your own username and password
+      - `mysql -e 'create database tinyib;'`
+      - `mysql -e 'create user "ibuser"@"localhost" identified by "arglebargle";'`
+      - `mysql -e 'grant all on tinyib.* to "ibuser"@"localhost";'`
     - To allow WebA/WebM upload:
       - Ensure your web host is running Linux.
       - Install [mediainfo](http://mediaarea.net/en/MediaInfo).  On Ubuntu, run ``sudo apt-get install mediainfo``.
       - Set ``TINYIB_WEBM`` to ``true``.
       - To remove the play icon from thumbnails, delete or rename **video_overlay.png**.
  6. [CHMOD](http://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
-    - ./ (the directory containing TinyIB)
-    - ./src/
-    - ./thumb/
-    - ./res/
-    - ./inc/flatfile/ (only if you use flat file for the database)
+    - `chmod a+w ./ ./src/ ./thumb/ ./res/`
+    - if you use a flat file for the database, also `chmod a+w ./inc/flatfile/`
  7. Navigate your browser to **imgboard.php** and the following will take place:
     - The database structure will be created.
     - Directories will be verified to be writable.

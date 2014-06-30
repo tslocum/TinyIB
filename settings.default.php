@@ -22,6 +22,7 @@ define('TINYIB_DBMODE', "flatfile"); // Choose: flatfile / mysql / sqlite  (flat
 
 // Note: The following only apply when TINYIB_DBMODE is set to mysql
 define('TINYIB_DBHOST', "localhost");
+define('TINYIB_DBPORT', "3306");
 define('TINYIB_DBUSERNAME', "");
 define('TINYIB_DBPASSWORD', "");
 define('TINYIB_DBNAME', "");

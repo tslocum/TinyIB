@@ -2,141 +2,174 @@
 if (!defined('TINYIB_BOARD')) {
 	die('');
 }
-
-if (!function_exists('mysql_connect')) {
-	fancyDie("MySQL library is not installed");
+try {
+  if (TINYIB_DBHOST == "localhost") {
+    // if you're using UNIX should use a unix.socket
+    $dsn = "mysql:host=;dbname=" . TINYIB_DBNAME;
+  }
+  else {
+    $dsn = "mysql:host=" . TINYIB_DBHOST . ";port=" . TINYIB_DBPORT . ";dbname=" . TINYIB_DBNAME;
+  }
+  $options = array(PDO::ATTR_PERSISTENT => true,
+                   PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                   PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+                  );
+  $dbh = new PDO($dsn, TINYIB_DBUSERNAME, TINYIB_DBPASSWORD, $options);
 }
-
-$link = mysql_connect(TINYIB_DBHOST, TINYIB_DBUSERNAME, TINYIB_DBPASSWORD);
-if (!$link) {
-	fancyDie("Could not connect to database: " . mysql_error());
+catch(PDOException $e) {
+  fancyDie("could not connect to database: " . $e->getMessage() );
 }
-$db_selected = mysql_select_db(TINYIB_DBNAME, $link);
-if (!$db_selected) {
-	fancyDie("Could not select database: " . mysql_error());
-}
+#define('TINYIB_DBPOSTS', $dbh->quote(TINYIB_DBPOSTS));
+#define('TINYIB_DBBANS',  $dbh->quote(TINYIB_DBBANS));
 
 // Create the posts table if it does not exist
-if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '" . TINYIB_DBPOSTS . "'")) == 0) {
-	mysql_query("CREATE TABLE `" . TINYIB_DBPOSTS . "` (
-		`id` mediumint(7) unsigned NOT NULL auto_increment,
-		`parent` mediumint(7) unsigned NOT NULL,
-		`timestamp` int(20) NOT NULL,
-		`bumped` int(20) NOT NULL,
-		`ip` varchar(15) NOT NULL,
-		`name` varchar(75) NOT NULL,
-		`tripcode` varchar(10) NOT NULL,
-		`email` varchar(75) NOT NULL,
-		`nameblock` varchar(255) NOT NULL,
-		`subject` varchar(75) NOT NULL,
-		`message` text NOT NULL,
-		`password` varchar(255) NOT NULL,
-		`file` varchar(75) NOT NULL,
-		`file_hex` varchar(75) NOT NULL,
-		`file_original` varchar(255) NOT NULL,
-		`file_size` int(20) unsigned NOT NULL default '0',
-		`file_size_formatted` varchar(75) NOT NULL,
-		`image_width` smallint(5) unsigned NOT NULL default '0',
-		`image_height` smallint(5) unsigned NOT NULL default '0',
-		`thumb` varchar(255) NOT NULL,
-		`thumb_width` smallint(5) unsigned NOT NULL default '0',
-		`thumb_height` smallint(5) unsigned NOT NULL default '0',
-		PRIMARY KEY	(`id`),
-		KEY `parent` (`parent`),
-		KEY `bumped` (`bumped`)
+$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBPOSTS));
+if ($dbh->query("SELECT FOUND_ROWS()")->fetchColumn() == 0) {
+	$dbh->exec("CREATE TABLE " . TINYIB_DBPOSTS . " (
+		id mediumint(7) unsigned NOT NULL auto_increment,
+		parent mediumint(7) unsigned NOT NULL,
+		timestamp int(20) NOT NULL,
+		bumped int(20) NOT NULL,
+		ip varchar(15) NOT NULL,
+		name varchar(75) NOT NULL,
+		tripcode varchar(10) NOT NULL,
+		email varchar(75) NOT NULL,
+		nameblock varchar(255) NOT NULL,
+		subject varchar(75) NOT NULL,
+		message text NOT NULL,
+		password varchar(255) NOT NULL,
+		file varchar(75) NOT NULL,
+		file_hex varchar(75) NOT NULL,
+		file_original varchar(255) NOT NULL,
+		file_size int(20) unsigned NOT NULL default '0',
+		file_size_formatted varchar(75) NOT NULL,
+		image_width smallint(5) unsigned NOT NULL default '0',
+		image_height smallint(5) unsigned NOT NULL default '0',
+		thumb varchar(255) NOT NULL,
+		thumb_width smallint(5) unsigned NOT NULL default '0',
+		thumb_height smallint(5) unsigned NOT NULL default '0',
+		PRIMARY KEY	(id),
+		KEY parent (parent),
+		KEY bumped (bumped)
 	) ENGINE=MyISAM");
 }
 
 // Create the bans table if it does not exist
-if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '" . TINYIB_DBBANS . "'")) == 0) {
-	mysql_query("CREATE TABLE `" . TINYIB_DBBANS . "` (
-		`id` mediumint(7) unsigned NOT NULL auto_increment,
-		`ip` varchar(15) NOT NULL,
-		`timestamp` int(20) NOT NULL,
-		`expire` int(20) NOT NULL,
-		`reason` text NOT NULL,
-		PRIMARY KEY	(`id`),
-		KEY `ip` (`ip`)
+$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBBANS));
+if ($dbh->query("SELECT FOUND_ROWS()")->fetchColumn() == 0) {
+	$dbh->exec("CREATE TABLE " . TINYIB_DBBANS . " (
+		id mediumint(7) unsigned NOT NULL auto_increment,
+		ip varchar(15) NOT NULL,
+		timestamp int(20) NOT NULL,
+		expire int(20) NOT NULL,
+		reason text NOT NULL,
+		PRIMARY KEY	(id),
+		KEY ip (ip)
 	) ENGINE=MyISAM");
+}
+
+# Utililty
+function sqlquery( $sql, $params = false) {
+  global $dbh;
+  if ($params) {
+    $statement = $dbh->prepare($sql);
+    $statement->execute($params);
+  }
+  else {
+    $statement = $dbh->query($sql);
+  }
+  return $statement;
 }
 
 # Post Functions
 function uniquePosts() {
-	$row = mysql_fetch_row(mysql_query("SELECT COUNT(DISTINCT(`ip`)) FROM " . TINYIB_DBPOSTS));
-	return $row[0];
+  $result = sqlquery("SELECT COUNT(DISTINCT(ip)) FROM " . TINYIB_DBPOSTS);
+  return (int) $result->fetchColumn();
 }
 
 function postByID($id) {
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = '" . mysql_real_escape_string($id) . "' LIMIT 1");
+  $result = sqlquery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE id = ?", array($id,));
 	if ($result) {
-		while ($post = mysql_fetch_assoc($result)) {
-			return $post;
-		}
+		return $result->fetch();
 	}
 }
 
 function threadExistsByID($id) {
-	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = '" . mysql_real_escape_string($id) . "' AND `parent` = 0 LIMIT 1"), 0, 0) > 0;
+	$result = sqlquery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE id = ? AND parent = 0", array($id,));
+  return $result->fetchColumn() != 0;
 }
 
 function insertPost($post) {
-	mysql_query("INSERT INTO `" . TINYIB_DBPOSTS . "` (`parent`, `timestamp`, `bumped`, `ip`, `name`, `tripcode`, `email`, `nameblock`, `subject`, `message`, `password`, `file`, `file_hex`, `file_original`, `file_size`, `file_size_formatted`, `image_width`, `image_height`, `thumb`, `thumb_width`, `thumb_height`) VALUES (" . $post['parent'] . ", " . time() . ", " . time() . ", '" . $_SERVER['REMOTE_ADDR'] . "', '" . mysql_real_escape_string($post['name']) . "', '" . mysql_real_escape_string($post['tripcode']) . "',	'" . mysql_real_escape_string($post['email']) . "',	'" . mysql_real_escape_string($post['nameblock']) . "', '" . mysql_real_escape_string($post['subject']) . "', '" . mysql_real_escape_string($post['message']) . "', '" . mysql_real_escape_string($post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . mysql_real_escape_string($post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ")");
-	return mysql_insert_id();
+  global $dbh;
+  $now = time();
+	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBPOSTS . 
+    " (parent, timestamp, bumped, ip, name, tripcode, email, " .
+    "  nameblock, subject, message, password, " .
+    "  file, file_hex, file_original, file_size, file_size_formatted, " .
+    "  image_width, image_height, thumb, thumb_width, thumb_height) " .
+    " VALUES (?, ?, ?, ?, ?, ?, ?, " .
+    "         ?, ?, ?, ?, " .
+    "         ?, ?, ?, ?, ?, " .
+    "         ?, ?, ?, ?, ?)"
+  );
+  $stm->execute(
+    array($post['parent'], $now, $now, $_SERVER['REMOTE_ADDR'], $post['name'], $post['tripcode'],	$post['email'],
+          $post['nameblock'], $post['subject'], $post['message'], $post['password'],
+          $post['file'], $post['file_hex'], $post['file_original'], $post['file_size'], $post['file_size_formatted'],
+          $post['image_width'], $post['image_height'], $post['thumb'], $post['thumb_width'], $post['thumb_height'])
+  
+  );
+  return $dbh->lastInsertId();
 }
 
 function bumpThreadByID($id) {
-	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `bumped` = " . time() . " WHERE `id` = " . $id . " LIMIT 1");
+  $now = time();
+	sqlquery("UPDATE " . TINYIB_DBPOSTS . " SET bumped = ? WHERE id = ?", array($now, $id));
 }
 
 function countThreads() {
-	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0"), 0, 0);
+  $result = sqlquery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = 0");
+  return (int) $result->fetchColumn();
 }
 
 function allThreads() {
 	$threads = array();
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 ORDER BY `bumped` DESC");
-	if ($result) {
-		while ($thread = mysql_fetch_assoc($result)) {
-			$threads[] = $thread;
-		}
-	}
+  $results = sqlquery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY bumped DESC");
+  while($row = $results->fetch()) {
+    $threads[] = $row;
+  }
 	return $threads;
 }
 
 function numRepliesToThreadByID($id) {
-	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = " . $id), 0, 0);
+  $result = sqlquery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = ?", array($id,));
+  return (int) $result->fetchColumn();
 }
 
 function postsInThreadByID($id) {
 	$posts = array();
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = " . $id . " OR `parent` = " . $id . " ORDER BY `id` ASC");
-	if ($result) {
-		while ($post = mysql_fetch_assoc($result)) {
-			$posts[] = $post;
-		}
-	}
+	$results = sqlquery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE id = ? OR parent = ? ORDER BY id ASC", array($id,$id));
+  while($row = $results->fetch(PDO::FETCH_ASSOC)) {
+    $posts[] = $row;
+  }
 	return $posts;
 }
 
 function postsByHex($hex) {
 	$posts = array();
-	$result = mysql_query("SELECT `id`, `parent` FROM `" . TINYIB_DBPOSTS . "` WHERE `file_hex` = '" . mysql_real_escape_string($hex) . "' LIMIT 1");
-	if ($result) {
-		while ($post = mysql_fetch_assoc($result)) {
-			$posts[] = $post;
-		}
-	}
+	$results = sqlquery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE file_hex = ? LIMIT 1", array($hex,));
+  while($row = $results->fetch(PDO::FETCH_ASSOC)) {
+    $posts[] = $row;
+  }
 	return $posts;
 }
 
 function latestPosts() {
 	$posts = array();
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` ORDER BY `timestamp` DESC LIMIT 10");
-	if ($result) {
-		while ($post = mysql_fetch_assoc($result)) {
-			$posts[] = $post;
-		}
-	}
+	$results = sqlquery("SELECT * FROM " . TINYIB_DBPOSTS . " ORDER BY timestamp DESC LIMIT 10");
+  while($row = $results->fetch(PDO::FETCH_ASSOC)) {
+    $posts[] = $row;
+  }
 	return $posts;
 }
 
@@ -145,8 +178,9 @@ function deletePostByID($id) {
 	foreach ($posts as $post) {
 		if ($post['id'] != $id) {
 			deletePostImages($post);
-			mysql_query("DELETE FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = " . $post['id'] . " LIMIT 1");
-		} else {
+      sqlquery("DELETE FROM " . TINYIB_DBPOSTS . " WHERE id = ?", array($id,));
+		}
+    else {
 			$thispost = $post;
 		}
 	}
@@ -155,74 +189,68 @@ function deletePostByID($id) {
 			@unlink('res/' . $thispost['id'] . '.html');
 		}
 		deletePostImages($thispost);
-		mysql_query("DELETE FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = " . $thispost['id'] . " LIMIT 1");
+	  sqlquery("DELETE FROM " . TINYIB_DBPOSTS . " WHERE id = ?", array($thispost['id'],));
 	}
 }
 
 function trimThreads() {
-	if (TINYIB_MAXTHREADS > 0) {
-		$result = mysql_query("SELECT `id` FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 ORDER BY `bumped` DESC LIMIT " . TINYIB_MAXTHREADS . ", 10");
-		if ($result) {
-			while ($post = mysql_fetch_assoc($result)) {
-				deletePostByID($post['id']);
-			}
-		}
-	}
+  $limit = (int) TINYIB_MAXTHREADS;
+	if ($limit > 0) {
+		$results = sqlquery("SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY bumped LIMIT 100 OFFSET " . $limit);
+		# old mysql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT $limit,100
+    # mysql, postgresql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT 100 OFFSET $limit
+    # oracle: SELECT id FROM ( SELECT id, rownum FROM $table ORDER BY bumped) WHERE rownum >= $limit
+    # MSSQL: WITH ts AS (SELECT ROWNUMBER() OVER (ORDER BY bumped) AS 'rownum', * FROM $table) SELECT id FROM ts WHERE rownum >= $limit
+    foreach($results as $post) {
+      deletePostByID($post['id']);
+    }
+  }
 }
 
 function lastPostByIP() {
-	$replies = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `ip` = '" . $_SERVER['REMOTE_ADDR'] . "' ORDER BY `id` DESC LIMIT 1");
-	if ($replies) {
-		while ($post = mysql_fetch_assoc($replies)) {
-			return $post;
-		}
-	}
+	$result = sqlquery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE ip = ? ORDER BY id DESC LIMIT 1", array($_SERVER['REMOTE_ADDR'],));
+  return $result->fetch(PDO::FETCH_ASSOC);
 }
 
 # Ban Functions
 function banByID($id) {
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `id` = '" . mysql_real_escape_string($id) . "' LIMIT 1");
-	if ($result) {
-		while ($ban = mysql_fetch_assoc($result)) {
-			return $ban;
-		}
-	}
+	$result = sqlquery("SELECT * FROM " . TINYIB_DBBANS . " WHERE id = ?", array($id,));
+	return $result->fetch(PDO::FETCH_ASSOC);
 }
 
 function banByIP($ip) {
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `ip` = '" . mysql_real_escape_string($ip) . "' LIMIT 1");
-	if ($result) {
-		while ($ban = mysql_fetch_assoc($result)) {
-			return $ban;
-		}
-	}
+	$result = sqlquery("SELECT * FROM " . TINYIB_DBBANS . " WHERE ip = ? LIMIT 1", array($ip,));
+	return $result->fetch(PDO::FETCH_ASSOC);
 }
 
 function allBans() {
 	$bans = array();
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBBANS . "` ORDER BY `timestamp` DESC");
-	if ($result) {
-		while ($ban = mysql_fetch_assoc($result)) {
-			$bans[] = $ban;
-		}
-	}
+	$results = sqlquery("SELECT * FROM " . TINYIB_DBBANS . " ORDER BY timestamp DESC");
+  while($row = $results->fetch(PDO::FETCH_ASSOC)) {
+    $bans[] = $row;
+  }
 	return $bans;
 }
 
 function insertBan($ban) {
-	mysql_query("INSERT INTO `" . TINYIB_DBBANS . "` (`ip`, `timestamp`, `expire`, `reason`) VALUES ('" . mysql_real_escape_string($ban['ip']) . "', " . time() . ", '" . mysql_real_escape_string($ban['expire']) . "', '" . mysql_real_escape_string($ban['reason']) . "')");
-	return mysql_insert_id();
+  global $dbh;
+  $now = time();
+  $stm = $dbh->prepare("INSERT INTO " . TINYIB_DBBANS . 
+    " (ip, timestamp, expire, reason) " .
+    " VALUES (?, ?, ?, ?)"
+  );
+  $stm->execute(array($ban['ip'], $now, $ban['expire'], $ban['reason']));
+	return $dbh->lastInsertId();
 }
 
 function clearExpiredBans() {
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `expire` > 0 AND `expire` <= " . time());
-	if ($result) {
-		while ($ban = mysql_fetch_assoc($result)) {
-			mysql_query("DELETE FROM `" . TINYIB_DBBANS . "` WHERE `id` = " . $ban['id'] . " LIMIT 1");
-		}
-	}
+  $now = time();
+	sqlquery("DELETE FROM " . TINYIB_DBBANS . " WHERE expire > 0 AND expire <= ?", array($now,));
+  # "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `expire` > 0 AND `expire` <= " . time());
+	# foreach ($results as $ban)
+	#  "DELETE FROM " . TINYIB_DBBANS . " WHERE id = ? LIMIT 1", array($ban['id'],)
 }
 
 function deleteBanByID($id) {
-	mysql_query("DELETE FROM `" . TINYIB_DBBANS . "` WHERE `id` = " . mysql_real_escape_string($id) . " LIMIT 1");
+  sqlquery("DELETE FROM " . TINYIB_DBBANS . " WHERE id = ?", array($id,));
 }
