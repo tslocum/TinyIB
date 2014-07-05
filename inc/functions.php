@@ -374,6 +374,36 @@ function fastImageCopyResampled(&$dst_image, &$src_image, $dst_x, $dst_y, $src_x
 	return true;
 }
 
+function addVideoOverlay($thumb_location) {
+	if (file_exists('video_overlay.png')) {
+		if (substr($thumb_location, -4) == ".jpg") {
+			$thumbnail = imagecreatefromjpeg($thumb_location);
+		} else {
+			$thumbnail = imagecreatefrompng($thumb_location);
+		}
+		list($width, $height, $type, $attr) = getimagesize($thumb_location);
+
+		$overlay_play = imagecreatefrompng('video_overlay.png');
+		imagealphablending($overlay_play, false);
+		imagesavealpha($overlay_play, true);
+		list($overlay_width, $overlay_height, $overlay_type, $overlay_attr) = getimagesize('video_overlay.png');
+
+		if (substr($thumb_location, -4) == ".png") {
+			imagecolortransparent($thumbnail, imagecolorallocatealpha($thumbnail, 0, 0, 0, 127));
+			imagealphablending($thumbnail, true);
+			imagesavealpha($thumbnail, true);
+		}
+
+		imagecopy($thumbnail, $overlay_play, ($width / 2) - ($overlay_width / 2), ($height / 2) - ($overlay_height / 2), 0, 0, $overlay_width, $overlay_height);
+
+		if (substr($thumb_location, -4) == ".jpg") {
+			imagejpeg($thumbnail, $thumb_location);
+		} else {
+			imagepng($thumbnail, $thumb_location);
+		}
+	}
+}
+
 function strallpos($haystack, $needle, $offset = 0) {
 	$result = array();
 	for ($i = $offset; $i < strlen($haystack); $i++) {

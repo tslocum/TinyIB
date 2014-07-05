@@ -102,6 +102,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 			$post['file_size'] = $_FILES['file']['size'];
 			$post['file_size_formatted'] = convertBytes($post['file_size']);
 
+			// Uploaded file type
 			$file_type = strtolower(preg_replace('/.*(\..+)/', '\1', $_FILES['file']['name']));
 			if ($file_type == '.jpeg') {
 				$file_type = '.jpg';
@@ -110,9 +111,19 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 				$file_type = '.webm';
 			}
 
+			// Thumbnail type
+			if ($file_type == '.webm') {
+				$thumb_type = '.jpg';
+			} else if ($file_type == '.swf') {
+				$thumb_type = '.png';
+			} else {
+				$thumb_type = $file_type;
+			}
+
 			$file_name = time() . substr(microtime(), 2, 3);
 			$post['file'] = $file_name . $file_type;
-			$post['thumb'] = $file_name . "s" . ($file_type == '.webm' ? '.jpg' : $file_type);
+			$post['thumb'] = $file_name . "s" . $thumb_type;
+
 			$file_location = "src/" . $post['file'];
 			$thumb_location = "thumb/" . $post['thumb'];
 
@@ -136,9 +147,9 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 				$file_mime = $file_info['mime'];
 			}
 
-			if (!($file_mime == "image/jpeg" || $file_mime == "image/gif" || $file_mime == "image/png" || (TINYIB_WEBM && ($file_mime == "video/webm" || $file_mime == "audio/webm")))) {
+			if (!($file_mime == "image/jpeg" || $file_mime == "image/gif" || $file_mime == "image/png" || (TINYIB_WEBM && ($file_mime == "video/webm" || $file_mime == "audio/webm")) || (TINYIB_SWF && ($file_mime == "application/x-shockwave-flash")))) {
 				@unlink($file_location);
-				fancyDie("Only " . (TINYIB_WEBM ? "GIF, JPG, PNG, and WEBM" : "GIF, JPG, and PNG") . " files are allowed.");
+				fancyDie(supportedFileTypes());
 			}
 
 			if ($_FILES['file']['size'] != filesize($file_location)) {
@@ -175,24 +186,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 						fancyDie("Sorry, your video appears to be corrupt.");
 					}
 
-					if (file_exists('video_overlay.png')) {
-						$thumbnail = imagecreatefromjpeg($thumb_location);
-						list($width, $height, $type, $attr) = getimagesize($thumb_location);
-
-						$overlay_play = imagecreatefrompng('video_overlay.png');
-						imagealphablending($overlay_play, false);
-						imagesavealpha($overlay_play, true);
-						list($overlay_width, $overlay_height, $overlay_type, $overlay_attr) = getimagesize('video_overlay.png');
-
-						$new_thumbnail = imagecreatetruecolor($width, $height);
-						imagecopyresampled($new_thumbnail, $thumbnail, 0, 0, 0, 0, $width, $height, $width, $height);
-						imagecopyresampled($new_thumbnail, $overlay_play, ($width / 2) - ($overlay_width / 2), ($height / 2) - ($overlay_height / 2), 0, 0, $overlay_width, $overlay_width, $overlay_width, $overlay_height);
-						imagejpeg($new_thumbnail, $thumb_location);
-
-						$thumb_info = getimagesize($thumb_location);
-						$post['thumb_width'] = $thumb_info[0];
-						$post['thumb_height'] = $thumb_info[1];
-					}
+					addVideoOverlay($thumb_location);
 				}
 
 				$duration = intval(shell_exec('mediainfo --Inform="' . ($file_mime == 'video/webm' ? 'Video' : 'Audio') . ';%Duration%" ' . $file_location));
@@ -206,25 +200,35 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 				$post['image_width'] = $file_info[0];
 				$post['image_height'] = $file_info[1];
 
-				list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
+				if ($file_mime == "application/x-shockwave-flash") {
+					if (!copy('swf_thumbnail.png', $thumb_location)) {
+						@unlink($file_location);
+						fancyDie("Could not create thumbnail.");
+					}
 
-				if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight)) {
-					fancyDie("Could not create thumbnail.");
+					addVideoOverlay($thumb_location);
+				} else {
+					list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
+
+					if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight)) {
+						@unlink($file_location);
+						fancyDie("Could not create thumbnail.");
+					}
 				}
-
-				$thumb_info = getimagesize($thumb_location);
-				$post['thumb_width'] = $thumb_info[0];
-				$post['thumb_height'] = $thumb_info[1];
 			}
+
+			$thumb_info = getimagesize($thumb_location);
+			$post['thumb_width'] = $thumb_info[0];
+			$post['thumb_height'] = $thumb_info[1];
 		}
 	}
 
 	if ($post['file'] == '') { // No file uploaded
-		if ($post['parent'] == TINYIB_NEWTHREAD) {
-			fancyDie("An image is required to start a thread.");
+		if ($post['parent'] == TINYIB_NEWTHREAD && (TINYIB_PIC || TINYIB_SWF || TINYIB_WEBM)) {
+			fancyDie("A file is required to start a thread.");
 		}
 		if (str_replace('<br>', '', $post['message']) == "") {
-			fancyDie("Please enter a message and/or upload an image to make a reply.");
+			fancyDie("Please enter a message" . ((TINYIB_PIC || TINYIB_SWF || TINYIB_WEBM) ? " and/or upload a file" : "") . ".");
 		}
 	} else {
 		echo $post['file_original'] . ' uploaded.<br>';

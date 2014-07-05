@@ -35,6 +35,36 @@ function pageFooter() {
 EOF;
 }
 
+function supportedFileTypes() {
+	$types_allowed = array();
+	if (TINYIB_PIC) {
+		array_push($types_allowed, "GIF", "JPG", "PNG");
+	}
+	if (TINYIB_SWF) {
+		array_push($types_allowed, "SWF");
+	}
+	if (TINYIB_WEBM) {
+		array_push($types_allowed, "WebM");
+	}
+
+	$i = 0;
+	$types_count = count($types_allowed);
+	$types_formatted = "";
+	foreach ($types_allowed as $type) {
+		if (++$i >= $types_count - 1) {
+			$types_formatted .= $type . ($i == $types_count - 1 && $types_count > 1 ? " and " : "");
+		} else {
+			$types_formatted .= $type . ", ";
+		}
+	}
+
+	if ($types_formatted != "") {
+		return "Supported file type" . ($types_count != 1 ? "s are " : " is ") . $types_formatted . ".";
+	}
+
+	return $types_formatted;
+}
+
 function buildPost($post, $res) {
 	$return = "";
 	$threadid = ($post['parent'] == TINYIB_NEWTHREAD) ? $post['id'] : $post['parent'];
@@ -165,19 +195,40 @@ EOF;
 		$postingmode = '&#91;<a href="../">Return</a>&#93;<div class="replymode">Posting mode: Reply</div> ';
 	}
 
-	$filetypes = (TINYIB_WEBM ? "GIF, JPG, PNG, and WEBM" : "GIF, JPG, and PNG");
-
+	$max_file_size_input_html = '';
+	$max_file_size_rules_html = '';
+	$filetypes_html = '';
+	$file_input_html = '';
 	$unique_posts_html = '';
+
+	if (TINYIB_PIC || TINYIB_WEBM || TINYIB_SWF) {
+		if (TINYIB_MAXKB > 0) {
+			$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
+			$max_file_size_rules_html = '<li>Maximum file size allowed is ' . TINYIB_MAXKBDESC . '.</li>';
+		}
+
+		$filetypes_html = '<li>' . supportedFileTypes() . '</li>';
+
+		$file_input_html = <<<EOF
+					<tr>
+						<td class="postblock">
+							File
+						</td>
+						<td>
+							<input type="file" name="file" size="35" accesskey="f">
+						</td>
+					</tr>
+EOF;
+	}
+
+	$thumbnails_html = '';
+	if (TINYIB_PIC) {
+		$thumbnails_html = "<li>Images greater than $maxdimensions will be thumbnailed.</li>";
+	}
+
 	$unique_posts = uniquePosts();
 	if ($unique_posts > 0) {
 		$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>\n";
-	}
-
-	$max_file_size_input = '';
-	$max_file_size_html = '';
-	if (TINYIB_MAXKB > 0) {
-		$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
-		$max_file_size_rules_html = '<li>Maximum file size allowed is ' . TINYIB_MAXKBDESC . '.</li>';
 	}
 
 	$body = <<<EOF
@@ -193,7 +244,7 @@ EOF;
 		$postingmode
 		<div class="postarea">
 			<form name="postform" id="postform" action="imgboard.php" method="post" enctype="multipart/form-data">
-			$max_file_size_input
+			$max_file_size_input_html
 			<input type="hidden" name="parent" value="$parent">
 			<table class="postform">
 				<tbody>
@@ -230,14 +281,7 @@ EOF;
 							<textarea name="message" cols="48" rows="4" accesskey="m"></textarea>
 						</td>
 					</tr>
-					<tr>
-						<td class="postblock">
-							File
-						</td>
-						<td>
-							<input type="file" name="file" size="35" accesskey="f">
-						</td>
-					</tr>
+					$file_input_html
 					<tr>
 						<td class="postblock">
 							Password
@@ -249,9 +293,9 @@ EOF;
 					<tr>
 						<td colspan="2" class="rules">
 							<ul>
-								<li>Supported file types are $filetypes.</li>
+								$filetypes_html
 								$max_file_size_rules_html
-								<li>Images greater than $maxdimensions will be thumbnailed.</li>
+								$thumbnails_html
 								$unique_posts_html
 							</ul>
 						</td>

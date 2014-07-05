@@ -8,6 +8,8 @@ define('TINYIB_PREVIEWREPLIES', 3); // Amount of replies previewed on index page
 define('TINYIB_MAXREPLIES', 0); // Maximum replies before a thread stops bumping  [0 to disable]
 define('TINYIB_MAXKB', 2048); // Maximum file size in kilobytes  [0 to disable]
 define('TINYIB_MAXKBDESC', "2 MB"); // Human-readable representation of the maximum file size
+define('TINYIB_PIC', true); // Enable .jpg, .png and .gif image file upload
+define('TINYIB_SWF', false); // Enable .swf Flash file upload
 define('TINYIB_WEBM', false); // Enable .weba and .webm audio/video file upload  (see README for instructions)
 define('TINYIB_MAXW', 250); // Maximum image width (reply) - Images exceeding these sizes will be thumbnailed
 define('TINYIB_MAXH', 250); // Maximum image height (reply)

@@ -18,6 +18,12 @@ if (!defined('TINYIB_MAXWOP')) {
 if (!defined('TINYIB_MAXHOP')) {
 	define('TINYIB_MAXHOP', TINYIB_MAXH);
 }
+if (!defined('TINYIB_PIC')) {
+	define('TINYIB_PIC', true);
+}
+if (!defined('TINYIB_SWF')) {
+	define('TINYIB_SWF', false);
+}
 if (!defined('TINYIB_WEBM')) {
 	define('TINYIB_WEBM', false);
 }

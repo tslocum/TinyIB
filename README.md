@@ -11,7 +11,7 @@ For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki)
 
 Features
 ------------
- - GIF, JPG, PNG and WebA/WebM upload.
+ - GIF, JPG, PNG, SWF and WebA/WebM upload.
  - Reference links >>###
  - Delete post via password.
  - Management panel:
@@ -33,11 +33,11 @@ Installing
     - `git clone git://github.com/tslocum/TinyIB.git ./`
  4. Copy **settings.default.php** to **settings.php**
  5. Configure **settings.php**
+    - To remove the play icon from .SWF/.WebM thumbnails, delete or rename **video_overlay.png**.
     - To allow WebA/WebM upload:
       - Ensure your web host is running Linux.
       - Install [mediainfo](http://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
       - Set ``TINYIB_WEBM`` to ``true``.
-      - To remove the play icon from thumbnails, delete or rename **video_overlay.png**.
  6. [CHMOD](http://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)
     - ./src/
