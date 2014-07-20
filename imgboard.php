@@ -59,6 +59,10 @@ if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
 $redirect = true;
 // Check if the request is to make a post
 if (isset($_POST['message']) || isset($_POST['file'])) {
+	if (TINYIB_DBMIGRATE) {
+		fancyDie('Posting is currently disabled.<br>Please try again in a few moments.');
+	}
+
 	list($loggedin, $isadmin) = manageCheckLogIn();
 	$rawpost = isRawPost();
 	if (!$loggedin) {
@@ -262,6 +266,10 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 		fancyDie('Tick the box next to a post and click "Delete" to delete it.');
 	}
 
+	if (TINYIB_DBMIGRATE) {
+		fancyDie('Post deletion is currently disabled.<br>Please try again in a few moments.');
+	}
+
 	$post = postByID($_POST['delete']);
 	if ($post) {
 		list($loggedin, $isadmin) = manageCheckLogIn();
@@ -347,6 +355,67 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 				} else {
 					$text .= '<p><b>TinyIB was not installed via Git.</b></p>
 					<p>If you installed TinyIB without Git, you must <a href="https://github.com/tslocum/TinyIB">update manually</a>.  If you did install with Git, ensure the script has read and write access to the <b>.git</b> folder.</p>';
+				}
+			} elseif (isset($_GET['dbmigrate'])) {
+				if (TINYIB_DBMIGRATE) {
+					if (isset($_GET['go'])) {
+						if (TINYIB_DBMODE == 'flatfile') {
+							if (function_exists('mysqli_connect')) {
+								$link = @mysqli_connect(TINYIB_DBHOST, TINYIB_DBUSERNAME, TINYIB_DBPASSWORD);
+								if (!$link) {
+									fancyDie("Could not connect to database: " . ((is_object($link)) ? mysqli_error($link) : (($link_error = mysqli_connect_error()) ? $link_error : '(unknown error)')));
+								}
+								$db_selected = @mysqli_query($link, "USE " . constant('TINYIB_DBNAME'));
+								if (!$db_selected) {
+									fancyDie("Could not select database: " . ((is_object($link)) ? mysqli_error($link) : (($link_error = mysqli_connect_error()) ? $link_error : '(unknown error')));
+								}
+
+								if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBPOSTS . "'")) == 0) {
+									if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBBANS . "'")) == 0) {
+										mysqli_query($link, $posts_sql);
+										mysqli_query($link, $bans_sql);
+
+										$max_id = 0;
+										$threads = allThreads();
+										foreach ($threads as $thread) {
+											$posts = postsInThreadByID($thread['id']);
+											foreach ($posts as $post) {
+												mysqli_query($link, "INSERT INTO `" . TINYIB_DBPOSTS . "` (`id`, `parent`, `timestamp`, `bumped`, `ip`, `name`, `tripcode`, `email`, `nameblock`, `subject`, `message`, `password`, `file`, `file_hex`, `file_original`, `file_size`, `file_size_formatted`, `image_width`, `image_height`, `thumb`, `thumb_width`, `thumb_height`) VALUES (" . $post['id'] . ", " . $post['parent'] . ", " . time() . ", " . time() . ", '" . $_SERVER['REMOTE_ADDR'] . "', '" . mysqli_real_escape_string($link, $post['name']) . "', '" . mysqli_real_escape_string($link, $post['tripcode']) . "',	'" . mysqli_real_escape_string($link, $post['email']) . "',	'" . mysqli_real_escape_string($link, $post['nameblock']) . "', '" . mysqli_real_escape_string($link, $post['subject']) . "', '" . mysqli_real_escape_string($link, $post['message']) . "', '" . mysqli_real_escape_string($link, $post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . mysqli_real_escape_string($link, $post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ")");
+												$max_id = max($max_id, $post['id']);
+											}
+										}
+										if ($max_id > 0 && !mysqli_query($link, "ALTER TABLE `" . TINYIB_DBPOSTS . "` AUTO_INCREMENT = " . ($max_id + 1))) {
+											$text .= '<p><b>Warning:</b> Unable to update the AUTO_INCREMENT value for table ' . TINYIB_DBPOSTS . ', please set it to ' . ($max_id + 1) . '.</p>';
+										}
+
+										$max_id = 0;
+										$bans = allBans();
+										foreach ($bans as $ban) {
+											$max_id = max($max_id, $ban['id']);
+											mysqli_query($link, "INSERT INTO `" . TINYIB_DBBANS . "` (`id`, `ip`, `timestamp`, `expire`, `reason`) VALUES ('" . mysqli_real_escape_string($link, $ban['id']) . "', '" . mysqli_real_escape_string($link, $ban['ip']) . "', '" . mysqli_real_escape_string($link, $ban['timestamp']) . "', '" . mysqli_real_escape_string($link, $ban['expire']) . "', '" . mysqli_real_escape_string($link, $ban['reason']) . "')");
+										}
+										if ($max_id > 0 && !mysqli_query($link, "ALTER TABLE `" . TINYIB_DBBANS . "` AUTO_INCREMENT = " . ($max_id + 1))) {
+											$text .= '<p><b>Warning:</b> Unable to update the AUTO_INCREMENT value for table ' . TINYIB_DBBANS . ', please set it to ' . ($max_id + 1) . '.</p>';
+										}
+
+										$text .= '<p><b>Database migration complete</b>.  Set TINYIB_DBMODE to mysqli and TINYIB_DBMIGRATE to false, then click <b>Rebuild All</b> above and ensure everything looks the way it should.</p>';
+									} else {
+										fancyDie('Bans table (' . TINYIB_DBBANS . ') already exists!  Please DROP this table and try again.');
+									}
+								} else {
+									fancyDie('Posts table (' . TINYIB_DBPOSTS . ') already exists!  Please DROP this table and try again.');
+								}
+							} else {
+								fancyDie('Please install the <a href="http://php.net/manual/en/book.mysqli.php">MySQLi extension</a> and try again.');
+							}
+						} else {
+							fancyDie('Set TINYIB_DBMODE to flatfile and enter in your MySQL settings in settings.php before migrating.');
+						}
+					} else {
+						$text .= '<p>This tool currently only supports migration from a flat file database to MySQL.  Your original database will not be deleted.  If the migration fails, disable the tool and your board will be unaffected.  See the <a href="https://github.com/tslocum/TinyIB#migrating" target="_blank">README</a> <small>(<a href="README.md" target="_blank">alternate link</a>)</small> for instructions.</a><br><br><a href="?manage&dbmigrate&go"><b>Start the migration</b></a></p>';
+					}
+				} else {
+					fancyDie('Set TINYIB_DBMIGRATE to true in settings.php to use this feature.');
 				}
 			}
 		}

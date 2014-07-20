@@ -72,6 +72,28 @@ Updating
       - Visit [GitHub](https://github.com/tslocum/TinyIB) and review the changes made in the update.
       - Ensure the update does not interfere with your changes.
 
+Migrating
+------------
+
+TinyIB includes a database migration tool, which currently only supports migrating from flat file to MySQL.  While the migration is in progress, visitors will not be able to create or delete posts.
+
+ 1. Edit **settings.php**
+    - Ensure ``TINYIB_DBMODE`` is still set to ``flatfile``.
+    - Set ``TINYIB_DBMIGRATE`` to ``true``.
+    - Configure all MySQL-related settings.
+ 2. Open the management panel.
+ 3. Click **Migrate Database**
+ 4. Click **Start the migration**
+ 5. If the migration was successful:
+    - Edit **settings.php**
+      - Set ``TINYIB_DBMODE`` to ``mysqli``.
+      - Set ``TINYIB_DBMIGRATE`` to ``false``.
+    - Click **Rebuild All** and ensure the board still looks the way it should.
+
+If there was a warning about AUTO_INCREMENT not being updated, you'll need to update it manually via a more privileged MySQL user.  Run the following query for one or both of the tables, dependant of the warnings you were issued:
+
+``ALTER TABLE (table name) AUTO_INCREMENT = (value to be set)``
+
 Support
 ------------
 

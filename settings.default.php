@@ -21,6 +21,7 @@ define('TINYIB_TRIPSEED', ""); // Enter some random text - Used when generating 
 define('TINYIB_ADMINPASS', ""); // Text entered at the manage prompt to gain administrator access
 define('TINYIB_MODPASS', ""); // Moderators only have access to delete posts  ["" to disable]
 define('TINYIB_DBMODE', "flatfile"); // Choose: flatfile / mysql / mysqli / sqlite  (flatfile is not recommended for popular sites)
+define('TINYIB_DBMIGRATE', false); // Enable database migration tool  (see README for instructions)
 
 // Note: The following only apply when TINYIB_DBMODE is set to mysql or mysqli (recommended)
 define('TINYIB_DBHOST', "localhost");

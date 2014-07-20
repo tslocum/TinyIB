@@ -18,46 +18,12 @@ if (!$db_selected) {
 
 // Create the posts table if it does not exist
 if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBPOSTS . "'")) == 0) {
-	mysqli_query($link, "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
-		`id` mediumint(7) unsigned NOT NULL auto_increment,
-		`parent` mediumint(7) unsigned NOT NULL,
-		`timestamp` int(20) NOT NULL,
-		`bumped` int(20) NOT NULL,
-		`ip` varchar(15) NOT NULL,
-		`name` varchar(75) NOT NULL,
-		`tripcode` varchar(10) NOT NULL,
-		`email` varchar(75) NOT NULL,
-		`nameblock` varchar(255) NOT NULL,
-		`subject` varchar(75) NOT NULL,
-		`message` text NOT NULL,
-		`password` varchar(255) NOT NULL,
-		`file` varchar(75) NOT NULL,
-		`file_hex` varchar(75) NOT NULL,
-		`file_original` varchar(255) NOT NULL,
-		`file_size` int(20) unsigned NOT NULL default '0',
-		`file_size_formatted` varchar(75) NOT NULL,
-		`image_width` smallint(5) unsigned NOT NULL default '0',
-		`image_height` smallint(5) unsigned NOT NULL default '0',
-		`thumb` varchar(255) NOT NULL,
-		`thumb_width` smallint(5) unsigned NOT NULL default '0',
-		`thumb_height` smallint(5) unsigned NOT NULL default '0',
-		PRIMARY KEY	(`id`),
-		KEY `parent` (`parent`),
-		KEY `bumped` (`bumped`)
-	) ENGINE=MyISAM");
+	mysqli_query($link, $posts_sql);
 }
 
 // Create the bans table if it does not exist
 if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBBANS . "'")) == 0) {
-	mysqli_query($link, "CREATE TABLE `" . TINYIB_DBBANS . "` (
-		`id` mediumint(7) unsigned NOT NULL auto_increment,
-		`ip` varchar(15) NOT NULL,
-		`timestamp` int(20) NOT NULL,
-		`expire` int(20) NOT NULL,
-		`reason` text NOT NULL,
-		PRIMARY KEY	(`id`),
-		KEY `ip` (`ip`)
-	) ENGINE=MyISAM");
+	mysqli_query($link, $bans_sql);
 }
 
 # Post Functions
@@ -228,7 +194,7 @@ function allBans() {
 
 function insertBan($ban) {
 	global $link;
-	mysqli_query($link, "INSERT INTO `" . TINYIB_DBBANS . "` (`ip`, `timestamp`, `expire`, `reason`) VALUES ('" . mysqli_real_escape_string($link, $ban['ip']) . "')");
+	mysqli_query($link, "INSERT INTO `" . TINYIB_DBBANS . "` (`ip`, `timestamp`, `expire`, `reason`) VALUES ('" . mysqli_real_escape_string($link, $ban['ip']) . "', '" . time() . "', '" . mysqli_real_escape_string($link, $ban['expire']) . "', '" . mysqli_real_escape_string($link, $ban['reason']) . "')");
 	return mysqli_insert_id($link);
 }
 

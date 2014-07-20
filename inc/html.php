@@ -379,7 +379,7 @@ function adminBar() {
 	if (!$loggedin) {
 		return $return;
 	}
-	return '[<a href="?manage">Status</a>] [' . (($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '') . '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&rawpost">Raw Post</a>] [' . (($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '') . '<a href="?manage&logout">Log Out</a>] &middot; ' . $return;
+	return '[<a href="?manage">Status</a>] [' . (($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '') . '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&rawpost">Raw Post</a>] [' . (($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '') . (($isadmin && TINYIB_DBMIGRATE) ? '<a href="?manage&dbmigrate"><b>Migrate Database</b></a>] [' : '') . '<a href="?manage&logout">Log Out</a>] &middot; ' . $return;
 }
 
 function managePage($text, $onload = '') {
