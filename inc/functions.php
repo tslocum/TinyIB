@@ -362,9 +362,19 @@ function createThumbnail($name, $filename, $new_w, $new_h) {
 	$thumb_w = round($old_x * $percent);
 	$thumb_h = round($old_y * $percent);
 
-	$dst_img = ImageCreateTrueColor($thumb_w, $thumb_h);
-	fastImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
+	if (preg_match("/png/", $system[0]) && (imagepng($src_img, $filename))) {
+		$dst_img = imagecreatetruecolor($thumb_w, $thumb_h);
+		imagealphablending($dst_img, false);
+		imagesavealpha($dst_img, true);
+		$color = imagecolorallocatealpha($dst_img, 0, 0, 0, 0);
+		imagefilledrectangle($dst_img, 0, 0, $thumb_w, $thumb_h, $color);
+		imagecolortransparent($dst_img, $color);
+		} else {
+		$dst_img = ImageCreateTrueColor($thumb_w, $thumb_h);
+	}
 
+	ImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
+	
 	if (preg_match("/png/", $system[0])) {
 		if (!imagepng($dst_img, $filename)) {
 			return false;
@@ -378,10 +388,10 @@ function createThumbnail($name, $filename, $new_w, $new_h) {
 			return false;
 		}
 	}
-
+	
 	imagedestroy($dst_img);
 	imagedestroy($src_img);
-
+	
 	return true;
 }
 
