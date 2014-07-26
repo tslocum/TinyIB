@@ -38,6 +38,7 @@ Installing
       - Ensure your web host is running Linux.
       - Install [mediainfo](http://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
       - Set ``TINYIB_WEBM`` to ``true``.
+    - When setting ``TINYIB_DBMODE`` to ``pdo``, note that PDO mode has been tested on **MySQL databases only**.  Theoretically it will work with any applicable driver, but this is not guaranteed.  If you use an alternative driver, please report back regarding how it works.
  6. [CHMOD](http://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)
     - ./src/

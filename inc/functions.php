@@ -29,7 +29,7 @@ $posts_sql = "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
 	PRIMARY KEY	(`id`),
 	KEY `parent` (`parent`),
 	KEY `bumped` (`bumped`)
-) ENGINE=MyISAM";
+)";
 
 $bans_sql = "CREATE TABLE `" . TINYIB_DBBANS . "` (
 	`id` mediumint(7) unsigned NOT NULL auto_increment,
@@ -39,7 +39,7 @@ $bans_sql = "CREATE TABLE `" . TINYIB_DBBANS . "` (
 	`reason` text NOT NULL,
 	PRIMARY KEY	(`id`),
 	KEY `ip` (`ip`)
-) ENGINE=MyISAM";
+)";
 
 function cleanString($string) {
 	$search = array("<", ">");

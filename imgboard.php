@@ -42,7 +42,7 @@ foreach ($writedirs as $dir) {
 }
 
 $includes = array("inc/defines.php", "inc/functions.php", "inc/html.php");
-if (in_array(TINYIB_DBMODE, array('flatfile', 'mysql', 'mysqli', 'sqlite'))) {
+if (in_array(TINYIB_DBMODE, array('flatfile', 'mysql', 'mysqli', 'sqlite', 'pdo'))) {
 	$includes[] = 'inc/database_' . TINYIB_DBMODE . '.php';
 } else {
 	fancyDie("Unknown database mode specificed");

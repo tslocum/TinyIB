@@ -30,3 +30,12 @@ if (!defined('TINYIB_WEBM')) {
 if (!defined('TINYIB_DBMIGRATE')) {
 	define('TINYIB_DBMIGRATE', false);
 }
+if (!defined('TINYIB_DBPORT')) {
+	define('TINYIB_DBPORT', 3306);
+}
+if (!defined('TINYIB_DBDRIVER')) {
+	define('TINYIB_DBDRIVER', 'pdo');
+}
+if (!defined('TINYIB_DBDSN')) {
+	define('TINYIB_DBDSN', '');
+}
