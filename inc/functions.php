@@ -362,19 +362,20 @@ function createThumbnail($name, $filename, $new_w, $new_h) {
 	$thumb_w = round($old_x * $percent);
 	$thumb_h = round($old_y * $percent);
 
-	if (preg_match("/png/", $system[0]) && (imagepng($src_img, $filename))) {
-		$dst_img = imagecreatetruecolor($thumb_w, $thumb_h);
+	$dst_img = imagecreatetruecolor($thumb_w, $thumb_h);
+	if (preg_match("/png/", $system[0]) && imagepng($src_img, $filename)) {
 		imagealphablending($dst_img, false);
 		imagesavealpha($dst_img, true);
+
 		$color = imagecolorallocatealpha($dst_img, 0, 0, 0, 0);
 		imagefilledrectangle($dst_img, 0, 0, $thumb_w, $thumb_h, $color);
 		imagecolortransparent($dst_img, $color);
-		} else {
-		$dst_img = ImageCreateTrueColor($thumb_w, $thumb_h);
+
+		imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
+	} else {
+		fastimagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
 	}
 
-	ImageCopyResampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
-	
 	if (preg_match("/png/", $system[0])) {
 		if (!imagepng($dst_img, $filename)) {
 			return false;
@@ -388,14 +389,14 @@ function createThumbnail($name, $filename, $new_w, $new_h) {
 			return false;
 		}
 	}
-	
+
 	imagedestroy($dst_img);
 	imagedestroy($src_img);
-	
+
 	return true;
 }
 
-function fastImageCopyResampled(&$dst_image, &$src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h, $quality = 3) {
+function fastimagecopyresampled(&$dst_image, &$src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h, $quality = 3) {
 	// Author: Tim Eckel - Date: 12/17/04 - Project: FreeRingers.net - Freely distributable.
 	if (empty($src_image) || empty($dst_image)) {
 		return false;
