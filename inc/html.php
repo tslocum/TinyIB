@@ -16,6 +16,7 @@ EOF;
 		<link rel="stylesheet" type="text/css" href="css/global.css">
 		<link rel="stylesheet" type="text/css" href="css/futaba.css" title="Futaba">
 		<link rel="alternate stylesheet" type="text/css" href="css/burichan.css" title="Burichan">
+		<script src="js/tinyib.js"></script>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
 		<meta http-equiv="cache-control" content="max-age=0">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -71,7 +72,13 @@ function supportedFileTypes() {
 function buildPost($post, $res) {
 	$return = "";
 	$threadid = ($post['parent'] == TINYIB_NEWTHREAD) ? $post['id'] : $post['parent'];
-	$postlink = ($res == TINYIB_RESPAGE) ? ($threadid . '.html#' . $post['id']) : ('res/' . $threadid . '.html#' . $post['id']);
+
+	if ($res == TINYIB_RESPAGE) {
+		$reflink = "<a href=\"$threadid.html#{$post['id']}\">No.</a><a href=\"$threadid.html#q{$post['id']}\" onclick=\"javascript:quotePost('{$post['id']}')\">{$post['id']}</a>";
+	} else {
+		$reflink = "<a href=\"res/$threadid.html#{$post['id']}\">No.</a><a href=\"res/$threadid.html#q{$post['id']}\">{$post['id']}</a>";
+	}
+
 	if (!isset($post["omitted"])) {
 		$post["omitted"] = 0;
 	}
@@ -110,7 +117,7 @@ EOF;
 ${post["nameblock"]}
 </label>
 <span class="reflink">
-	<a href="$postlink">No.${post["id"]}</a>
+	$reflink
 </span>
 EOF;
 
@@ -281,7 +288,7 @@ EOF;
 							Message
 						</td>
 						<td>
-							<textarea name="message" cols="48" rows="4" accesskey="m"></textarea>
+							<textarea id="message" name="message" cols="48" rows="4" accesskey="m"></textarea>
 						</td>
 					</tr>
 					$file_input_html
