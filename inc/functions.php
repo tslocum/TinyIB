@@ -30,7 +30,9 @@ $posts_sql = "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
 	`moderated` tinyint(1) NOT NULL default '1',
 	PRIMARY KEY	(`id`),
 	KEY `parent` (`parent`),
-	KEY `bumped` (`bumped`)
+	KEY `bumped` (`bumped`),
+	KEY `stickied` (`stickied`),
+	KEY `moderated` (`moderated`)
 )";
 
 $bans_sql = "CREATE TABLE `" . TINYIB_DBBANS . "` (
