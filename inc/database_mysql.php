@@ -42,12 +42,16 @@ function postByID($id) {
 }
 
 function threadExistsByID($id) {
-	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = '" . mysql_real_escape_string($id) . "' AND `parent` = 0 LIMIT 1"), 0, 0) > 0;
+	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = '" . mysql_real_escape_string($id) . "' AND `parent` = 0 AND `moderated` = 1 LIMIT 1"), 0, 0) > 0;
 }
 
 function insertPost($post) {
-	mysql_query("INSERT INTO `" . TINYIB_DBPOSTS . "` (`parent`, `timestamp`, `bumped`, `ip`, `name`, `tripcode`, `email`, `nameblock`, `subject`, `message`, `password`, `file`, `file_hex`, `file_original`, `file_size`, `file_size_formatted`, `image_width`, `image_height`, `thumb`, `thumb_width`, `thumb_height`) VALUES (" . $post['parent'] . ", " . time() . ", " . time() . ", '" . $_SERVER['REMOTE_ADDR'] . "', '" . mysql_real_escape_string($post['name']) . "', '" . mysql_real_escape_string($post['tripcode']) . "',	'" . mysql_real_escape_string($post['email']) . "',	'" . mysql_real_escape_string($post['nameblock']) . "', '" . mysql_real_escape_string($post['subject']) . "', '" . mysql_real_escape_string($post['message']) . "', '" . mysql_real_escape_string($post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . mysql_real_escape_string($post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ")");
+	mysql_query("INSERT INTO `" . TINYIB_DBPOSTS . "` (`parent`, `timestamp`, `bumped`, `ip`, `name`, `tripcode`, `email`, `nameblock`, `subject`, `message`, `password`, `file`, `file_hex`, `file_original`, `file_size`, `file_size_formatted`, `image_width`, `image_height`, `thumb`, `thumb_width`, `thumb_height`, `moderated`) VALUES (" . $post['parent'] . ", " . time() . ", " . time() . ", '" . $_SERVER['REMOTE_ADDR'] . "', '" . mysql_real_escape_string($post['name']) . "', '" . mysql_real_escape_string($post['tripcode']) . "',	'" . mysql_real_escape_string($post['email']) . "',	'" . mysql_real_escape_string($post['nameblock']) . "', '" . mysql_real_escape_string($post['subject']) . "', '" . mysql_real_escape_string($post['message']) . "', '" . mysql_real_escape_string($post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . mysql_real_escape_string($post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ", " . $post['moderated'] . ")");
 	return mysql_insert_id();
+}
+
+function approvePostByID($id) {
+	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = 1 WHERE `id` = " . $id . " LIMIT 1");
 }
 
 function bumpThreadByID($id) {
@@ -55,12 +59,12 @@ function bumpThreadByID($id) {
 }
 
 function countThreads() {
-	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0"), 0, 0);
+	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 AND `moderated` = 1"), 0, 0);
 }
 
 function allThreads() {
 	$threads = array();
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 ORDER BY `bumped` DESC");
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 AND `moderated` = 1 ORDER BY `bumped` DESC");
 	if ($result) {
 		while ($thread = mysql_fetch_assoc($result)) {
 			$threads[] = $thread;
@@ -70,12 +74,12 @@ function allThreads() {
 }
 
 function numRepliesToThreadByID($id) {
-	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = " . $id), 0, 0);
+	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = " . $id . " AND `moderated` = 1"), 0, 0);
 }
 
-function postsInThreadByID($id) {
+function postsInThreadByID($id, $moderated_only = true) {
 	$posts = array();
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = " . $id . " OR `parent` = " . $id . " ORDER BY `id` ASC");
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE (`id` = " . $id . " OR `parent` = " . $id . ")" . ($moderated_only ? " AND `moderated` = 1" : "") . " ORDER BY `id` ASC");
 	if ($result) {
 		while ($post = mysql_fetch_assoc($result)) {
 			$posts[] = $post;
@@ -86,7 +90,7 @@ function postsInThreadByID($id) {
 
 function postsByHex($hex) {
 	$posts = array();
-	$result = mysql_query("SELECT `id`, `parent` FROM `" . TINYIB_DBPOSTS . "` WHERE `file_hex` = '" . mysql_real_escape_string($hex) . "' LIMIT 1");
+	$result = mysql_query("SELECT `id`, `parent` FROM `" . TINYIB_DBPOSTS . "` WHERE `file_hex` = '" . mysql_real_escape_string($hex) . "' AND `moderated` = 1 LIMIT 1");
 	if ($result) {
 		while ($post = mysql_fetch_assoc($result)) {
 			$posts[] = $post;
@@ -95,9 +99,9 @@ function postsByHex($hex) {
 	return $posts;
 }
 
-function latestPosts() {
+function latestPosts($moderated = true) {
 	$posts = array();
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` ORDER BY `timestamp` DESC LIMIT 10");
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `moderated` = " . ($moderated ? '1' : '0') . " ORDER BY `timestamp` DESC LIMIT 10");
 	if ($result) {
 		while ($post = mysql_fetch_assoc($result)) {
 			$posts[] = $post;
@@ -107,7 +111,7 @@ function latestPosts() {
 }
 
 function deletePostByID($id) {
-	$posts = postsInThreadByID($id);
+	$posts = postsInThreadByID($id, false);
 	foreach ($posts as $post) {
 		if ($post['id'] != $id) {
 			deletePostImages($post);
@@ -127,7 +131,7 @@ function deletePostByID($id) {
 
 function trimThreads() {
 	if (TINYIB_MAXTHREADS > 0) {
-		$result = mysql_query("SELECT `id` FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 ORDER BY `bumped` DESC LIMIT " . TINYIB_MAXTHREADS . ", 10");
+		$result = mysql_query("SELECT `id` FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 AND `moderated` = 1 ORDER BY `bumped` DESC LIMIT " . TINYIB_MAXTHREADS . ", 10");
 		if ($result) {
 			while ($post = mysql_fetch_assoc($result)) {
 				deletePostByID($post['id']);

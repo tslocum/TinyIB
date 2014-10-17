@@ -9,6 +9,8 @@ To allow new threads without requiring an image, see the [Text Board Mode](https
 
 For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki) page.  [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/5135372febbc40bacddbb13c1f0a8333 "githalytics.com")](http://githalytics.com/tslocum/TinyIB)
 
+**Note to those who have recently upgraded:** Are you unable to create new posts?  Run the SQL on [this page](https://github.com/tslocum/TinyIB/wiki/NewSQLStructure) to finish the upgrade process.
+
 Features
 ------------
  - GIF, JPG, PNG, SWF and WebA/WebM upload.
@@ -16,7 +18,7 @@ Features
  - Delete post via password.
  - Management panel:
    - Administrators and moderators use separate passwords.
-     - Moderators are only able to delete posts.
+     - Moderators are only able to delete posts, or approve them when necessary.  (See ``TINYIB_REQMOD``)
    - Ban offensive/abusive posters across all boards.
    - Post using raw HTML.
    - Upgrade automatically when installed via git.  (Tested on Linux only)
@@ -38,6 +40,11 @@ Installing
       - Ensure your web host is running Linux.
       - Install [mediainfo](http://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
       - Set ``TINYIB_WEBM`` to ``true``.
+    - To require moderation before displaying posts:
+      - Ensure your ``TINYIB_DBMODE`` is set to ``mysql``, ``mysqli``, or ``pdo``.
+      - Set ``TINYIB_REQMOD`` to ``files`` to require moderation for posts with files attached.
+      - Set ``TINYIB_REQMOD`` to ``all`` to require moderation for all posts.
+      - Moderate posts by visiting the management panel.
     - When setting ``TINYIB_DBMODE`` to ``pdo``, note that PDO mode has been tested on **MySQL databases only**.  Theoretically it will work with any applicable driver, but this is not guaranteed.  If you use an alternative driver, please report back regarding how it works.
  6. [CHMOD](http://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)

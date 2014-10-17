@@ -238,28 +238,37 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 		echo $post['file_original'] . ' uploaded.<br>';
 	}
 
+	if (!$loggedin && (($post['file'] != '' && TINYIB_REQMOD == 'files') || TINYIB_REQMOD == 'all')) {
+		$post['moderated'] = '0';
+		echo 'Your ' . ($post['parent'] == TINYIB_NEWTHREAD ? 'thread' : 'post') . ' will be shown <b>once it has been approved</b>.<br>';
+		$slow_redirect = true;
+	}
+
 	$post['id'] = insertPost($post);
-	if (strtolower($post['email']) == 'noko') {
-		$redirect = 'res/' . ($post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent']) . '.html#' . $post['id'];
-	}
 
-	trimThreads();
-
-	echo 'Updating thread...<br>';
-	if ($post['parent'] != TINYIB_NEWTHREAD) {
-		rebuildThread($post['parent']);
-
-		if (strtolower($post['email']) != 'sage') {
-			if (TINYIB_MAXREPLIES == 0 || numRepliesToThreadByID($post['parent']) <= TINYIB_MAXREPLIES) {
-				bumpThreadByID($post['parent']);
-			}
+	if ($post['moderated'] == '1') {
+		if (strtolower($post['email']) == 'noko') {
+			$redirect = 'res/' . ($post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent']) . '.html#' . $post['id'];
 		}
-	} else {
-		rebuildThread($post['id']);
-	}
 
-	echo 'Updating index...<br>';
-	rebuildIndexes();
+		trimThreads();
+
+		echo 'Updating thread...<br>';
+		if ($post['parent'] != TINYIB_NEWTHREAD) {
+			rebuildThread($post['parent']);
+
+			if (strtolower($post['email']) != 'sage') {
+				if (TINYIB_MAXREPLIES == 0 || numRepliesToThreadByID($post['parent']) <= TINYIB_MAXREPLIES) {
+					bumpThreadByID($post['parent']);
+				}
+			}
+		} else {
+			rebuildThread($post['id']);
+		}
+
+		echo 'Updating index...<br>';
+		rebuildIndexes();
+	}
 // Check if the request is to delete a post and/or its associated image
 } elseif (isset($_GET['delete']) && !isset($_GET['manage'])) {
 	if (!isset($_POST['delete'])) {
@@ -432,6 +441,23 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 			} else {
 				fancyDie("Sorry, there doesn't appear to be a post with that ID.");
 			}
+		} elseif (isset($_GET['approve'])) {
+			if ($_GET['approve'] > 0) {
+				$post = postByID($_GET['approve']);
+				if ($post) {
+					approvePostByID($post['id']);
+					$thread_id = $post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent'];
+
+					if (strtolower($post['email']) != 'sage' && (TINYIB_MAXREPLIES == 0 || numRepliesToThreadByID($thread_id) <= TINYIB_MAXREPLIES)) {
+						bumpThreadByID($thread_id);
+					}
+					threadUpdated($thread_id);
+
+					$text .= manageInfo('Post No.' . $post['id'] . ' approved.');
+				} else {
+					fancyDie("Sorry, there doesn't appear to be a post with that ID.");
+				}
+			}
 		} elseif (isset($_GET['moderate'])) {
 			if ($_GET['moderate'] > 0) {
 				$post = postByID($_GET['moderate']);
@@ -466,5 +492,5 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 }
 
 if ($redirect) {
-	echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . (is_string($redirect) ? $redirect : 'index.html') . '">';
+	echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="' . (isset($slow_redirect) ? '3' : '0') . ';url=' . (is_string($redirect) ? $redirect : 'index.html') . '">';
 }

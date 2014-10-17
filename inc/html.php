@@ -8,6 +8,12 @@ function pageHeader() {
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta http-equiv="cache-control" content="max-age=0">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
+		<meta http-equiv="pragma" content="no-cache">
 		<title>
 EOF;
 	$return .= TINYIB_BOARDDESC . <<<EOF
@@ -17,12 +23,6 @@ EOF;
 		<link rel="stylesheet" type="text/css" href="css/futaba.css" title="Futaba">
 		<link rel="alternate stylesheet" type="text/css" href="css/burichan.css" title="Burichan">
 		<script src="js/tinyib.js"></script>
-		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
-		<meta http-equiv="cache-control" content="max-age=0">
-		<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="0">
-		<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
-		<meta http-equiv="pragma" content="no-cache">
 	</head>
 EOF;
 	return $return;
@@ -207,9 +207,14 @@ EOF;
 
 	$max_file_size_input_html = '';
 	$max_file_size_rules_html = '';
+	$reqmod_html = '';
 	$filetypes_html = '';
 	$file_input_html = '';
 	$unique_posts_html = '';
+
+	if (TINYIB_REQMOD != 'disable') {
+		$reqmod_html = '<li>All posts' . (TINYIB_REQMOD == 'files' ? ' with a file attached' : '') . ' will be moderated before being shown.</li>';
+	}
 
 	if (TINYIB_PIC || TINYIB_WEBM || TINYIB_SWF) {
 		if (TINYIB_MAXKB > 0) {
@@ -303,6 +308,7 @@ EOF;
 					<tr>
 						<td colspan="2" class="rules">
 							<ul>
+								$reqmod_html
 								$filetypes_html
 								$max_file_size_rules_html
 								$thumbnails_html
@@ -642,8 +648,41 @@ function manageStatus() {
 EOF;
 	}
 
+	$reqmod_html = '';
+
+	if (TINYIB_REQMOD != 'disable') {
+		$reqmod_post_html = '';
+
+		$reqmod_posts = latestPosts(false);
+		foreach ($reqmod_posts as $post) {
+			if ($reqmod_post_html != '') {
+				$reqmod_post_html .= '<tr><td colspan="2"><hr></td></tr>';
+			}
+			$reqmod_post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right">
+			<table border="0"><tr><td>
+			<form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="approve" value="' . $post['id'] . '"><input type="submit" value="Approve" class="managebutton"></form>
+			</td><td>
+			<form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="More Info" class="managebutton"></form>
+			</td></tr><tr><td align="right" colspan="2">
+			<form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="delete" value="' . $post['id'] . '"><input type="submit" value="Delete" class="managebutton"></form>
+			</td></tr></table>
+			</td></tr>';
+		}
+
+		if ($reqmod_post_html != '') {
+			$reqmod_html = <<<EOF
+	<fieldset>
+	<legend>Pending posts</legend>
+	<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	$reqmod_post_html
+	</table>
+	</fieldset>
+EOF;
+		}
+	}
+
 	$post_html = '';
-	$posts = latestPosts();
+	$posts = latestPosts(true);
 	$i = 0;
 	foreach ($posts as $post) {
 		if ($post_html != '') {
@@ -680,6 +719,8 @@ EOF;
 	</tbody>
 	</table>
 	</fieldset>
+
+	$reqmod_html
 	
 	<fieldset>
 	<legend>Recent posts</legend>

@@ -94,7 +94,7 @@ function numRepliesToThreadByID($id) {
 	return sqlite_fetch_single(sqlite_query($GLOBALS["db"], "SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = " . $id));
 }
 
-function postsInThreadByID($id) {
+function postsInThreadByID($id, $moderated_only = true) {
 	$posts = array();
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " WHERE id = " . $id . " OR parent = " . $id . " ORDER BY id ASC"), SQLITE_ASSOC);
 	foreach ($result as $post) {
@@ -112,7 +112,7 @@ function postsByHex($hex) {
 	return $posts;
 }
 
-function latestPosts() {
+function latestPosts($moderated = true) {
 	$posts = array();
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " ORDER BY timestamp DESC LIMIT 10"), SQLITE_ASSOC);
 	foreach ($result as $post) {
@@ -122,7 +122,7 @@ function latestPosts() {
 }
 
 function deletePostByID($id) {
-	$posts = postsInThreadByID($id);
+	$posts = postsInThreadByID($id, false);
 	foreach ($posts as $post) {
 		if ($post['id'] != $id) {
 			deletePostImages($post);

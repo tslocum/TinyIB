@@ -63,20 +63,24 @@ function postByID($id) {
 }
 
 function threadExistsByID($id) {
-	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE id = ? AND parent = 0", array($id));
+	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE id = ? AND parent = 0 AND moderated = 1", array($id));
 	return $result->fetchColumn() != 0;
 }
 
 function insertPost($post) {
 	global $dbh;
 	$now = time();
-	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBPOSTS . " (parent, timestamp, bumped, ip, name, tripcode, email,   nameblock, subject, message, password,   file, file_hex, file_original, file_size, file_size_formatted, image_width, image_height, thumb, thumb_width, thumb_height) " .
-		" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBPOSTS . " (parent, timestamp, bumped, ip, name, tripcode, email,   nameblock, subject, message, password,   file, file_hex, file_original, file_size, file_size_formatted, image_width, image_height, thumb, thumb_width, thumb_height, moderated) " .
+		" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	$stm->execute(array($post['parent'], $now, $now, $_SERVER['REMOTE_ADDR'], $post['name'], $post['tripcode'], $post['email'],
 		$post['nameblock'], $post['subject'], $post['message'], $post['password'],
 		$post['file'], $post['file_hex'], $post['file_original'], $post['file_size'], $post['file_size_formatted'],
-		$post['image_width'], $post['image_height'], $post['thumb'], $post['thumb_width'], $post['thumb_height']));
+		$post['image_width'], $post['image_height'], $post['thumb'], $post['thumb_width'], $post['thumb_height'], $post['moderated']));
 	return $dbh->lastInsertId();
+}
+
+function approvePostByID($id) {
+	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET moderated = ? WHERE id = ?", array('1', $id));
 }
 
 function bumpThreadByID($id) {
@@ -85,13 +89,13 @@ function bumpThreadByID($id) {
 }
 
 function countThreads() {
-	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = 0");
+	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1");
 	return (int)$result->fetchColumn();
 }
 
 function allThreads() {
 	$threads = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY bumped DESC");
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1 ORDER BY bumped DESC");
 	while ($row = $results->fetch()) {
 		$threads[] = $row;
 	}
@@ -99,13 +103,13 @@ function allThreads() {
 }
 
 function numRepliesToThreadByID($id) {
-	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = ?", array($id));
+	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = ? AND moderated = 1", array($id));
 	return (int)$result->fetchColumn();
 }
 
-function postsInThreadByID($id) {
+function postsInThreadByID($id, $moderated_only = true) {
 	$posts = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE id = ? OR parent = ? ORDER BY id ASC", array($id, $id));
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE (id = ? OR parent = ?)" . ($moderated_only ? " AND moderated = 1" : "") . " ORDER BY id ASC", array($id, $id));
 	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
 		$posts[] = $row;
 	}
@@ -114,16 +118,16 @@ function postsInThreadByID($id) {
 
 function postsByHex($hex) {
 	$posts = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE file_hex = ? LIMIT 1", array($hex));
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE file_hex = ? AND moderated = 1 LIMIT 1", array($hex));
 	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
 		$posts[] = $row;
 	}
 	return $posts;
 }
 
-function latestPosts() {
+function latestPosts($moderated = true) {
 	$posts = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " ORDER BY timestamp DESC LIMIT 10");
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE moderated = ? ORDER BY timestamp DESC LIMIT 10", array($moderated ? '1' : '0'));
 	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
 		$posts[] = $row;
 	}
@@ -131,7 +135,7 @@ function latestPosts() {
 }
 
 function deletePostByID($id) {
-	$posts = postsInThreadByID($id);
+	$posts = postsInThreadByID($id, false);
 	foreach ($posts as $post) {
 		if ($post['id'] != $id) {
 			deletePostImages($post);
@@ -152,7 +156,7 @@ function deletePostByID($id) {
 function trimThreads() {
 	$limit = (int)TINYIB_MAXTHREADS;
 	if ($limit > 0) {
-		$results = pdoQuery("SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY bumped LIMIT 100 OFFSET " . $limit
+		$results = pdoQuery("SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1 ORDER BY bumped LIMIT 100 OFFSET " . $limit
 		);
 		# old mysql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT $limit,100
 		# mysql, postgresql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT 100 OFFSET $limit

@@ -26,6 +26,8 @@ $posts_sql = "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
 	`thumb` varchar(255) NOT NULL,
 	`thumb_width` smallint(5) unsigned NOT NULL default '0',
 	`thumb_height` smallint(5) unsigned NOT NULL default '0',
+	`stickied` tinyint(1) NOT NULL default '0',
+	`moderated` tinyint(1) NOT NULL default '1',
 	PRIMARY KEY	(`id`),
 	KEY `parent` (`parent`),
 	KEY `bumped` (`bumped`)
@@ -81,7 +83,9 @@ function newPost($parent = TINYIB_NEWTHREAD) {
 		'image_height' => '0',
 		'thumb' => '',
 		'thumb_width' => '0',
-		'thumb_height' => '0');
+		'thumb_height' => '0',
+		'stickied' => '0',
+		'moderated' => '1');
 }
 
 function convertBytes($number) {

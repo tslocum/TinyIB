@@ -27,6 +27,9 @@ if (!defined('TINYIB_SWF')) {
 if (!defined('TINYIB_WEBM')) {
 	define('TINYIB_WEBM', false);
 }
+if (!defined('TINYIB_REQMOD')) {
+	define('TINYIB_REQMOD', 'disable');
+}
 if (!defined('TINYIB_DBMIGRATE')) {
 	define('TINYIB_DBMIGRATE', false);
 }

@@ -150,7 +150,7 @@ function numRepliesToThreadByID($id) {
 	return count($rows);
 }
 
-function postsInThreadByID($id) {
+function postsInThreadByID($id, $moderated_only = true) {
 	$compClause = new OrWhereClause();
 	$compClause->add(new SimpleWhereClause(POST_ID, '=', $id, INTEGER_COMPARISON));
 	$compClause->add(new SimpleWhereClause(POST_PARENT, '=', $id, INTEGER_COMPARISON));
@@ -164,13 +164,13 @@ function postsByHex($hex) {
 	return convertPostsToSQLStyle($rows);
 }
 
-function latestPosts() {
+function latestPosts($moderated = true) {
 	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, NULL, 10, new OrderBy(POST_TIMESTAMP, DESCENDING, INTEGER_COMPARISON));
 	return convertPostsToSQLStyle($rows);
 }
 
 function deletePostByID($id) {
-	$posts = postsInThreadByID($id);
+	$posts = postsInThreadByID($id, false);
 	foreach ($posts as $post) {
 		if ($post['id'] != $id) {
 			deletePostImages($post);
