@@ -29,7 +29,9 @@ EOF;
 }
 
 function pageFooter() {
-	/* If the footer is removed from the page, please link to TinyIB somewhere on the site. */
+	// If the footer link is removed from the page, please link to TinyIB somewhere on the site.
+	// This is all I ask in return for the free software you are using.
+
 	return <<<EOF
 		<div class="footer">
 			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="https://github.com/tslocum/TinyIB" target="_top">tinyib</a> -
