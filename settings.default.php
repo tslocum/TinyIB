@@ -35,6 +35,7 @@ define('TINYIB_WEBM', false);         // Enable .weba and .webm audio/video file
 // File control
 define('TINYIB_MAXKB', 2048);         // Maximum file size in kilobytes  [0 to disable]
 define('TINYIB_MAXKBDESC', "2 MB");   // Human-readable representation of the maximum file size
+define('TINYIB_NOFILEOK', false);     // Allow the creation of new threads without uploading a file
 
 // Thumbnail size - new thread
 define('TINYIB_MAXWOP', 250);         // Width

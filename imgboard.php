@@ -228,7 +228,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	}
 
 	if ($post['file'] == '') { // No file uploaded
-		if ($post['parent'] == TINYIB_NEWTHREAD && (TINYIB_PIC || TINYIB_SWF || TINYIB_WEBM)) {
+		if ($post['parent'] == TINYIB_NEWTHREAD && (TINYIB_PIC || TINYIB_SWF || TINYIB_WEBM) && !TINYIB_NOFILEOK) {
 			fancyDie("A file is required to start a thread.");
 		}
 		if (str_replace('<br>', '', $post['message']) == "") {
