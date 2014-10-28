@@ -304,7 +304,7 @@ EOF;
 							Password
 						</td>
 						<td>
-							<input type="password" name="password" size="8" accesskey="p">&nbsp;(for post and file deletion)
+							<input type="password" name="password" id="newpostpassword" size="8" accesskey="p">&nbsp;(for post and file deletion)
 						</td>
 					</tr>
 					<tr>
@@ -332,7 +332,7 @@ EOF;
 			<tbody>
 				<tr>
 					<td>
-						Delete Post <input type="password" name="password" size="8" placeholder="Password">&nbsp;<input name="deletepost" value="Delete" type="submit"> 
+						Delete Post <input type="password" name="password" id="deletepostpassword" size="8" placeholder="Password">&nbsp;<input name="deletepost" value="Delete" type="submit">
 					</td>
 				</tr>
 			</tbody>
