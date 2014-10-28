@@ -30,6 +30,7 @@ Installing
     - [PHP](http://php.net) 4 or higher is installed.
     - [GD Image Processing Library](http://php.net/gd) is installed.
       - This library is installed by default on most hosts.
+      - If you plan on disabling image uploads to use TinyIB as a text board only, this library is not required.
  2. CD to the directory you wish to install TinyIB.
  3. Run the command:
     - `git clone git://github.com/tslocum/TinyIB.git ./`
