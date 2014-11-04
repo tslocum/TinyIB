@@ -7,7 +7,11 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 session_start();
 ob_implicit_flush();
-ob_end_flush();
+if (function_exists('ob_get_level')) {
+	while (ob_get_level() > 0) {
+		ob_end_flush();
+	}
+}
 
 if (get_magic_quotes_gpc()) {
 	foreach ($_GET as $key => $val) {

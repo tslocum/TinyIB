@@ -36,7 +36,7 @@ Installing
     - `git clone git://github.com/tslocum/TinyIB.git ./`
  4. Copy **settings.default.php** to **settings.php**
  5. Configure **settings.php**
-    - To remove the play icon from .SWF/.WebM thumbnails, delete or rename **video_overlay.png**.
+    - To remove the play icon from .SWF/.WebM thumbnails, delete or rename **video_overlay.png**
     - To allow WebA/WebM upload:
       - Ensure your web host is running Linux.
       - Install [mediainfo](http://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
@@ -52,11 +52,11 @@ Installing
     - ./src/
     - ./thumb/
     - ./res/
-    - ./inc/flatfile/ (only if you use flat file for the database)
+    - ./inc/flatfile/ (only if you use the ``flatfile`` database mode)
  7. Navigate your browser to **imgboard.php** and the following will take place:
     - The database structure will be created.
     - Directories will be verified to be writable.
-    - The file index.html will be created containing the new image board.
+    - The file **index.html** will be created containing the new image board.
 
 Moderating
 ------------
