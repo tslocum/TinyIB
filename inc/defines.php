@@ -30,6 +30,9 @@ if (!defined('TINYIB_WEBM')) {
 if (!defined('TINYIB_NOFILEOK')) {
 	define('TINYIB_NOFILEOK', false);
 }
+if (!defined('TINYIB_CAPTCHA')) {
+	define('TINYIB_CAPTCHA', false);
+}
 if (!defined('TINYIB_REQMOD')) {
 	define('TINYIB_REQMOD', 'disable');
 }

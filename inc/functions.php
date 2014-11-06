@@ -187,8 +187,8 @@ function writePage($filename, $contents) {
 }
 
 function fixLinksInRes($html) {
-	$search = array(' href="css/', ' src="js/', ' href="src/', ' href="thumb/', ' href="res/', ' href="imgboard.php', ' href="favicon.ico', 'src="thumb/', ' action="imgboard.php');
-	$replace = array(' href="../css/', ' src="../js/', ' href="../src/', ' href="../thumb/', ' href="../res/', ' href="../imgboard.php', ' href="../favicon.ico', 'src="../thumb/', ' action="../imgboard.php');
+	$search = array(' href="css/', ' src="js/', ' href="src/', ' href="thumb/', ' href="res/', ' href="imgboard.php', ' href="favicon.ico', 'src="thumb/', 'src="inc/', ' action="imgboard.php');
+	$replace = array(' href="../css/', ' src="../js/', ' href="../src/', ' href="../thumb/', ' href="../res/', ' href="../imgboard.php', ' href="../favicon.ico', 'src="../thumb/', 'src="../inc/', ' action="../imgboard.php');
 
 	return str_replace($search, $replace, $html);
 }
@@ -218,6 +218,21 @@ function deletePostImages($post) {
 	}
 	if ($post['thumb'] != '') {
 		@unlink('thumb/' . $post['thumb']);
+	}
+}
+
+function checkCAPTCHA() {
+	if (!TINYIB_CAPTCHA) {
+		return; // CAPTCHA is disabled
+	}
+
+	$captcha = isset($_POST['captcha']) ? strtolower(trim($_POST['captcha'])) : '';
+	$captcha_solution = isset($_SESSION['tinyibcaptcha']) ? strtolower(trim($_SESSION['tinyibcaptcha'])) : '';
+
+	if ($captcha == '') {
+		fancyDie('Please enter the CAPTCHA text.');
+	} else if ($captcha != $captcha_solution) {
+		fancyDie('Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to retrieve a new CAPTCHA.');
 	}
 }
 

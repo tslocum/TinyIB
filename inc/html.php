@@ -214,8 +214,19 @@ EOF;
 	$file_input_html = '';
 	$unique_posts_html = '';
 
-	if (TINYIB_REQMOD != 'disable') {
-		$reqmod_html = '<li>All posts' . (TINYIB_REQMOD == 'files' ? ' with a file attached' : '') . ' will be moderated before being shown.</li>';
+	$captcha_html = '';
+	if (TINYIB_CAPTCHA) {
+		$captcha_html = <<<EOF
+					<tr>
+						<td class="postblock">
+							CAPTCHA
+						</td>
+						<td>
+							<input type="text" name="captcha" id="captcha" autocomplete="off" size="6" accesskey="c">&nbsp;&nbsp;(enter the text below)<br>
+							<img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;">
+						</td>
+					</tr>
+EOF;
 	}
 
 	if (TINYIB_PIC || TINYIB_WEBM || TINYIB_SWF) {
@@ -236,6 +247,10 @@ EOF;
 						</td>
 					</tr>
 EOF;
+	}
+
+	if (TINYIB_REQMOD != 'disable') {
+		$reqmod_html = '<li>All posts' . (TINYIB_REQMOD == 'files' ? ' with a file attached' : '') . ' will be moderated before being shown.</li>';
 	}
 
 	$thumbnails_html = '';
@@ -298,13 +313,14 @@ EOF;
 							<textarea id="message" name="message" cols="48" rows="4" accesskey="m"></textarea>
 						</td>
 					</tr>
+					$captcha_html
 					$file_input_html
 					<tr>
 						<td class="postblock">
 							Password
 						</td>
 						<td>
-							<input type="password" name="password" id="newpostpassword" size="8" accesskey="p">&nbsp;(for post and file deletion)
+							<input type="password" name="password" id="newpostpassword" size="8" accesskey="p">&nbsp;&nbsp;(for post and file deletion)
 						</td>
 					</tr>
 					<tr>

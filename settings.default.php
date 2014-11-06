@@ -14,6 +14,7 @@ define('TINYIB_MODPASS', "");         // Moderators only have access to delete (
 // Board description and behavior
 define('TINYIB_BOARD', "b");          // Unique identifier for this board using only letters and numbers
 define('TINYIB_BOARDDESC', "TinyIB"); // Displayed at the top of every page
+define('TINYIB_CAPTCHA', false);      // Reduce spam by requiring users to pass a CAPTCHA when posting  (click Rebuild All in the management panel after enabling)
 define('TINYIB_REQMOD', "disable");   // Require moderation before displaying posts: disable / files / all  (see README for instructions, only MySQL is supported)
 
 // Board appearance

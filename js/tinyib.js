@@ -23,6 +23,21 @@ function quotePost(postID) {
 	return false;
 }
 
+function reloadCAPTCHA() {
+	var captcha_element = document.getElementById("captcha");
+	if (captcha_element) {
+		captcha_element.focus();
+		captcha_element.value = "";
+	}
+
+	var captchaimg_element = document.getElementById("captchaimage");
+	if (captchaimg_element) {
+		captchaimg_element.src += "#new";
+	}
+
+	return false;
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 	var newpostpassword = document.getElementById("newpostpassword");
 	if (newpostpassword) {

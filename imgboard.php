@@ -70,6 +70,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	list($loggedin, $isadmin) = manageCheckLogIn();
 	$rawpost = isRawPost();
 	if (!$loggedin) {
+		checkCAPTCHA();
 		checkBanned();
 		checkMessageSize();
 		checkFlood();

@@ -71,9 +71,9 @@ class TableUtils {
 	/** Uses 'define' to create global constants for all the column names */
 	function createDefines(&$tables) {
 		foreach ($tables as $tablename => $discard) {
-			$tabledef = & $tables[$tablename]; // PHP4 compatible
+			$tabledef = &$tables[$tablename]; // PHP4 compatible
 			foreach ($tabledef as $colname => $discard) {
-				$coldef = & $tabledef[$colname];
+				$coldef = &$tabledef[$colname];
 				define(strtoupper($tablename) . '_' . $colname, $coldef->index);
 			}
 		}
