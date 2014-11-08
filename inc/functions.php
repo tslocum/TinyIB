@@ -270,18 +270,18 @@ function manageCheckLogIn() {
 	$loggedin = false;
 	$isadmin = false;
 	if (isset($_POST['password'])) {
-		if ($_POST['password'] == TINYIB_ADMINPASS) {
+		if ($_POST['password'] === TINYIB_ADMINPASS) {
 			$_SESSION['tinyib'] = TINYIB_ADMINPASS;
-		} elseif (TINYIB_MODPASS != '' && $_POST['password'] == TINYIB_MODPASS) {
+		} elseif (TINYIB_MODPASS != '' && $_POST['password'] === TINYIB_MODPASS) {
 			$_SESSION['tinyib'] = TINYIB_MODPASS;
 		}
 	}
 
 	if (isset($_SESSION['tinyib'])) {
-		if ($_SESSION['tinyib'] == TINYIB_ADMINPASS) {
+		if ($_SESSION['tinyib'] === TINYIB_ADMINPASS) {
 			$loggedin = true;
 			$isadmin = true;
-		} elseif (TINYIB_MODPASS != '' && $_SESSION['tinyib'] == TINYIB_MODPASS) {
+		} elseif (TINYIB_MODPASS != '' && $_SESSION['tinyib'] === TINYIB_MODPASS) {
 			$loggedin = true;
 		}
 	}
