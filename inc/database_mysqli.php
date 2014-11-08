@@ -45,7 +45,7 @@ function postByID($id) {
 
 function threadExistsByID($id) {
 	global $link;
-	return mysqli_result(mysqli_query($link, "SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "' AND `parent` = 0 AND `moderated` = 0 LIMIT 1"), 0, 0) > 0;
+	return mysqli_result(mysqli_query($link, "SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "' AND `parent` = 0 AND `moderated` = 1 LIMIT 1"), 0, 0) > 0;
 }
 
 function insertPost($post) {

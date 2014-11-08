@@ -14,8 +14,8 @@ For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki)
 Features
 ------------
  - GIF, JPG, PNG, SWF and WebA/WebM upload.
+ - CAPTCHA.
  - Reference links >>###
- - Built-in CAPTCHA system. (Optional)
  - Delete post via password.
  - Management panel:
    - Administrators and moderators use separate passwords.
