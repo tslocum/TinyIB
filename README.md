@@ -81,6 +81,7 @@ Updating
     - If other files were updated, and you have made changes yourself:
       - Visit [GitHub](https://github.com/tslocum/TinyIB) and review the changes made in the update.
       - Ensure the update does not interfere with your changes.
+ 3. Visit [GitHub](https://github.com/tslocum/TinyIB/wiki/NewSQLStructure) and check for new SQL queries which may be required to complete the update.
 
 Migrating
 ------------
