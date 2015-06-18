@@ -7,7 +7,7 @@ TinyIB - A Lightweight and Efficient [Image Board](http://en.wikipedia.org/wiki/
 
 To allow new threads without requiring an image, see the [Text Board Mode](https://github.com/tslocum/TinyIB/wiki/Text-Board-Mode) page.
 
-For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki) page.  [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/5135372febbc40bacddbb13c1f0a8333 "githalytics.com")](http://githalytics.com/tslocum/TinyIB)
+For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki) page.
 
 **Note to those who have recently upgraded:** Are you unable to create new posts?  Run the SQL on [this page](https://github.com/tslocum/TinyIB/wiki/NewSQLStructure) to finish the upgrade process.
 
