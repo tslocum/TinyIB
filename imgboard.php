@@ -49,7 +49,7 @@ $includes = array("inc/defines.php", "inc/functions.php", "inc/html.php");
 if (in_array(TINYIB_DBMODE, array('flatfile', 'mysql', 'mysqli', 'sqlite', 'pdo'))) {
 	$includes[] = 'inc/database_' . TINYIB_DBMODE . '.php';
 } else {
-	fancyDie("Unknown database mode specificed");
+	fancyDie("Unknown database mode specified");
 }
 
 foreach ($includes as $include) {
@@ -183,7 +183,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 
 				if ($file_mime == "video/webm") {
 					list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
-					shell_exec("ffmpegthumbnailer -s " . max($thumb_maxwidth, $thumb_maxheight) . " -i $file_location -o $thumb_location") . '!';
+					shell_exec("ffmpegthumbnailer -s " . max($thumb_maxwidth, $thumb_maxheight) . " -i $file_location -o $thumb_location");
 
 					$thumb_info = getimagesize($thumb_location);
 					$post['thumb_width'] = $thumb_info[0];
@@ -361,7 +361,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 				if (is_dir('.git')) {
 					$git_output = shell_exec('git pull 2>&1');
 					$text .= '<blockquote class="reply" style="padding: 7px;font-size: 1.25em;">
-					<pre style="margin: 0px;padding: 0px;">Attempting update...' . "\n\n" . $git_output . '</pre>
+					<pre style="margin: 0;padding: 0;">Attempting update...' . "\n\n" . $git_output . '</pre>
 					</blockquote>
 					<p><b>Note:</b> If TinyIB updates and you have made custom modifications, <a href="https://github.com/tslocum/TinyIB/commits/master">review the changes</a> which have been merged into your installation.
 					Ensure that your modifications do not interfere with any new/modified files.

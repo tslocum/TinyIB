@@ -113,13 +113,13 @@ a:hover {
 	color: #000000;
 	font-family: sans-serif;
 	font-size: 14px;
-	padding: 0px;
+	padding: 0;
 }
 
 .postlists {
 	background: #FFFFFF;
 	width: 100%;
-	padding: 0px;
+	padding: 0;
 	color: #000000;
 }
 

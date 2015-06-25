@@ -5,6 +5,7 @@
 #
 # Contact the author via tslocum@gmail.com if you need support.
 # See README for instructions on configuring, moderating and upgrading your board.
+#
 # Set TINYIB_DBMODE to a MySQL-related mode if it's available.  By default it's set to flatfile, which can be very slow.
 
 // Administrator/moderator credentials
@@ -70,4 +71,4 @@ define('TINYIB_DBNAME', "");          // Database
 define('TINYIB_DBDRIVER', "mysql");   // PDO driver to use (mysql / sqlite / pgsql / etc.)
 define('TINYIB_DBDSN', "");           // Enter a custom DSN to override all of the connection/driver settings above  (see README for instructions)
 //                                         When changing this, you should still set TINYIB_DBDRIVER appropriately.
-//                                         If you're using PDO with MySQL, you should leave this blank so TinyIB can build the DSN.
+//                                         If you're using PDO with a MySQL database, you should leave this blank.

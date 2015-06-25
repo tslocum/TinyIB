@@ -1,15 +1,14 @@
 body {
-	margin: 0;
 	padding: 8px;
-	margin-bottom: auto;
+	margin: 0 0 auto;
 }
 
 blockquote blockquote {
-	margin-left: 0em;
+	margin-left: 0;
 }
 
 form {
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 .postarea {
@@ -17,7 +16,7 @@ form {
 }
 
 .postarea table {
-	margin: 0px auto;
+	margin: 0 auto;
 	text-align: left;
 }
 
@@ -43,10 +42,7 @@ form {
 }
 
 .message {
-	margin-top: 1em;
-	margin-bottom: 1em;
-	margin-left: 25px;
-	margin-right: 25px;
+	margin: 1em 25px;
 }
 
 .reply .message {
@@ -100,7 +96,7 @@ form {
 
 .rules ul {
 	margin: 0;
-	padding-left: 0px;
+	padding-left: 0;
 }
 
 .floatpost {

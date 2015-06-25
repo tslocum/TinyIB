@@ -5,7 +5,7 @@ TinyIB - A Lightweight and Efficient [Image Board](http://en.wikipedia.org/wiki/
 
 **No database?  No problem.**  Store posts as text files for a portable set-up capable of running on virtually any PHP host.
 
-To allow new threads without requiring an image, see the [Text Board Mode](https://github.com/tslocum/TinyIB/wiki/Text-Board-Mode) page.
+**Not looking for an image board script?**  TinyIB is able to allow new threads without requiring an image, or even disallow images entirely.  See the [Text Board Mode](https://github.com/tslocum/TinyIB/wiki/Text-Board-Mode) wiki page for instructions.
 
 For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki) page.
 

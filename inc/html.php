@@ -701,7 +701,6 @@ EOF;
 
 	$post_html = '';
 	$posts = latestPosts(true);
-	$i = 0;
 	foreach ($posts as $post) {
 		if ($post_html != '') {
 			$post_html .= '<tr><td colspan="2"><hr></td></tr>';

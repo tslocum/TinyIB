@@ -32,7 +32,7 @@ class SimpleCaptcha {
 	 * Path for resource files (fonts, words, etc.)
 	 *
 	 * "resources" by default. For security reasons, is better move this
-	 * directory to another location outise the web server
+	 * directory to another location outside the web server
 	 *
 	 */
 	public $resourcesPath = './fonts';
@@ -80,7 +80,7 @@ class SimpleCaptcha {
 		'Roboto-Bold' => array('spacing' => 0, 'minSize' => 27, 'maxSize' => 27, 'font' => 'roboto_bold.ttf')
 	);
 
-	/** Wave configuracion in X and Y axes */
+	/** Wave configuration in X and Y axes */
 	public $Yperiod = 12;
 	public $Yamplitude = 14;
 	public $Xperiod = 11;
@@ -254,7 +254,7 @@ class SimpleCaptcha {
 		$text = trim(fgets($fp));
 		fclose($fp);
 
-		/** Change ramdom volcals */
+		/** Change random volcals */
 		if ($extended) {
 			$text = preg_split('//', $text, -1, PREG_SPLIT_NO_EMPTY);
 			$vocals = array('a', 'e', 'i', 'o', 'u');

@@ -91,13 +91,13 @@ a:hover {
 .managehead {
 	background: #AAAA66;
 	color: #400000;
-	padding: 0px;
+	padding: 0;
 }
 
 .postlists {
 	background: #FFFFFF;
 	width: 100%;
-	padding: 0px;
+	padding: 0;
 	color: #800000;
 }
 
