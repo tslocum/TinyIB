@@ -27,6 +27,9 @@ if (!defined('TINYIB_SWF')) {
 if (!defined('TINYIB_WEBM')) {
 	define('TINYIB_WEBM', false);
 }
+if (!defined('TINYIB_THUMBNAIL')) {
+	define('TINYIB_THUMBNAIL', 'gd');
+}
 if (!defined('TINYIB_NOFILEOK')) {
 	define('TINYIB_NOFILEOK', false);
 }

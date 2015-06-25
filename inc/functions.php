@@ -361,58 +361,69 @@ function thumbnailDimensions($post) {
 	return ($post['image_width'] > $max_width || $post['image_height'] > $max_height) ? array($max_width, $max_height) : array($post['image_width'], $post['image_height']);
 }
 
-function createThumbnail($name, $filename, $new_w, $new_h) {
-	$system = explode(".", $filename);
-	$system = array_reverse($system);
-	if (preg_match("/jpg|jpeg/", $system[0])) {
-		$src_img = imagecreatefromjpeg($name);
-	} else if (preg_match("/png/", $system[0])) {
-		$src_img = imagecreatefrompng($name);
-	} else if (preg_match("/gif/", $system[0])) {
-		$src_img = imagecreatefromgif($name);
-	} else {
-		return false;
-	}
-
-	if (!$src_img) {
-		fancyDie("Unable to read uploaded file during thumbnailing. A common cause for this is an incorrect extension when the file is actually of a different type.");
-	}
-	$old_x = imageSX($src_img);
-	$old_y = imageSY($src_img);
-	$percent = ($old_x > $old_y) ? ($new_w / $old_x) : ($new_h / $old_y);
-	$thumb_w = round($old_x * $percent);
-	$thumb_h = round($old_y * $percent);
-
-	$dst_img = imagecreatetruecolor($thumb_w, $thumb_h);
-	if (preg_match("/png/", $system[0]) && imagepng($src_img, $filename)) {
-		imagealphablending($dst_img, false);
-		imagesavealpha($dst_img, true);
-
-		$color = imagecolorallocatealpha($dst_img, 0, 0, 0, 0);
-		imagefilledrectangle($dst_img, 0, 0, $thumb_w, $thumb_h, $color);
-		imagecolortransparent($dst_img, $color);
-
-		imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
-	} else {
-		fastimagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
-	}
-
-	if (preg_match("/png/", $system[0])) {
-		if (!imagepng($dst_img, $filename)) {
+function createThumbnail($file_location, $thumb_location, $new_w, $new_h) {
+	if (TINYIB_THUMBNAIL == 'gd') {
+		$system = explode(".", $thumb_location);
+		$system = array_reverse($system);
+		if (preg_match("/jpg|jpeg/", $system[0])) {
+			$src_img = imagecreatefromjpeg($file_location);
+		} else if (preg_match("/png/", $system[0])) {
+			$src_img = imagecreatefrompng($file_location);
+		} else if (preg_match("/gif/", $system[0])) {
+			$src_img = imagecreatefromgif($file_location);
+		} else {
 			return false;
 		}
-	} else if (preg_match("/jpg|jpeg/", $system[0])) {
-		if (!imagejpeg($dst_img, $filename, 70)) {
-			return false;
+
+		if (!$src_img) {
+			fancyDie("Unable to read uploaded file during thumbnailing. A common cause for this is an incorrect extension when the file is actually of a different type.");
 		}
-	} else if (preg_match("/gif/", $system[0])) {
-		if (!imagegif($dst_img, $filename)) {
+
+		$old_x = imageSX($src_img);
+		$old_y = imageSY($src_img);
+		$percent = ($old_x > $old_y) ? ($new_w / $old_x) : ($new_h / $old_y);
+		$thumb_w = round($old_x * $percent);
+		$thumb_h = round($old_y * $percent);
+
+		$dst_img = imagecreatetruecolor($thumb_w, $thumb_h);
+		if (preg_match("/png/", $system[0]) && imagepng($src_img, $thumb_location)) {
+			imagealphablending($dst_img, false);
+			imagesavealpha($dst_img, true);
+
+			$color = imagecolorallocatealpha($dst_img, 0, 0, 0, 0);
+			imagefilledrectangle($dst_img, 0, 0, $thumb_w, $thumb_h, $color);
+			imagecolortransparent($dst_img, $color);
+
+			imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
+		} else {
+			fastimagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
+		}
+
+		if (preg_match("/png/", $system[0])) {
+			if (!imagepng($dst_img, $thumb_location)) {
+				return false;
+			}
+		} else if (preg_match("/jpg|jpeg/", $system[0])) {
+			if (!imagejpeg($dst_img, $thumb_location, 70)) {
+				return false;
+			}
+		} else if (preg_match("/gif/", $system[0])) {
+			if (!imagegif($dst_img, $thumb_location)) {
+				return false;
+			}
+		}
+
+		imagedestroy($dst_img);
+		imagedestroy($src_img);
+	} else { // imagemagick
+		$discard = '';
+		$exit_status = 1;
+		exec("convert $file_location -auto-orient -thumbnail '" . $new_w . "x" . $new_h . "' -coalesce -layers OptimizeFrame -depth 4 -type palettealpha $thumb_location", $discard, $exit_status);
+
+		if ($exit_status != 0) {
 			return false;
 		}
 	}
-
-	imagedestroy($dst_img);
-	imagedestroy($src_img);
 
 	return true;
 }

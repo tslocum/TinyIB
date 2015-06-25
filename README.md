@@ -48,6 +48,10 @@ Installing
       - Set ``TINYIB_REQMOD`` to ``all`` to require moderation for all posts.
       - Moderate posts by visiting the management panel.
     - When setting ``TINYIB_DBMODE`` to ``pdo``, note that PDO mode has been tested on **MySQL databases only**.  Theoretically it will work with any applicable driver, but this is not guaranteed.  If you use an alternative driver, please report back regarding how it works.
+    - To use ImageMagick instead of GD when creating thumbnails:
+      - Install ImageMagick and ensure that the ``convert`` command is available.
+      - Set ``TINYIB_THUMBNAIL`` to ``imagemagick``.
+      - **Note:** GIF files will have animated thumbnails, which will often have large file sizes.
  6. [CHMOD](http://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)
     - ./src/
