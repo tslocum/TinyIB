@@ -29,10 +29,11 @@ define('TINYIB_DELAY', 30);           // Delay (in seconds) between posts from t
 define('TINYIB_MAXTHREADS', 100);     // Oldest threads are discarded when the thread count passes this limit  [0 to disable]
 define('TINYIB_MAXREPLIES', 0);       // Maximum replies before a thread stops bumping  [0 to disable]
 
-// File types
+// Upload types
 define('TINYIB_PIC', true);           // Enable .jpg, .png and .gif image file upload
 define('TINYIB_SWF', false);          // Enable .swf Flash file upload
 define('TINYIB_WEBM', false);         // Enable .weba and .webm audio/video file upload  (see README for instructions)
+define('TINYIB_EMBED', false);        // Enable embedding  (e.g. YouTube, Vimeo, SoundCloud)
 
 // File control
 define('TINYIB_MAXKB', 2048);         // Maximum file size in kilobytes  [0 to disable]

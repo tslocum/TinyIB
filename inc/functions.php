@@ -213,7 +213,7 @@ function colorQuote($message) {
 }
 
 function deletePostImages($post) {
-	if ($post['file'] != '') {
+	if ($post['file_hex'] != 'YouTube' && $post['file_hex'] != 'Vimeo' && $post['file_hex'] != 'SoundCloud' && $post['file'] != '') {
 		@unlink('src/' . $post['file']);
 	}
 	if ($post['thumb'] != '') {
@@ -498,4 +498,20 @@ function strallpos($haystack, $needle, $offset = 0) {
 		}
 	}
 	return $result;
+}
+
+function getEmbed($url) {
+	$services = array('YouTube' => "http://www.youtube.com/oembed?url=" . urlencode($url) . "&format=json", 'Vimeo' => "http://vimeo.com/api/oembed.json?url=" . urlencode($url), 'SoundCloud' => "http://soundcloud.com/oembed?format=json&url=" . $url);
+	foreach ($services as $service => $service_url) {
+		$curl = curl_init($service_url);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+		$return = curl_exec($curl);
+		curl_close($curl);
+		$result = json_decode($return, true);
+		if (!empty($result)) {
+			break;
+		}
+	}
+	return array($service, $result);
 }

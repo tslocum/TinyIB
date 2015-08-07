@@ -4,55 +4,55 @@ function getCookie(name) {
 	if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-function storePassword() {
-	var newpostpassword = document.getElementById("newpostpassword");
-	if (newpostpassword) {
-		var expiration_date = new Date();
-		expiration_date.setFullYear(expiration_date.getFullYear() + 7);
-		document.cookie = "tinyib_password=" + encodeURIComponent(newpostpassword.value) + "; path=/; expires=" + expiration_date.toGMTString();
-	}
-}
-
 function quotePost(postID) {
-	var message_element = document.getElementById("message");
-	if (message_element) {
-		message_element.focus();
-		message_element.value += '>>' + postID + "\n";
-	}
+	$("#message").val('>>' + postID + "\n").focus();
 
 	return false;
 }
 
 function reloadCAPTCHA() {
-	var captcha_element = document.getElementById("captcha");
-	if (captcha_element) {
-		captcha_element.focus();
-		captcha_element.value = "";
-	}
-
-	var captchaimg_element = document.getElementById("captchaimage");
-	if (captchaimg_element) {
-		captchaimg_element.src += "#new";
-	}
+	$("#captcha").val("").focus();
+	$("#captchaimage").attr("src", $("#captchaimage").attr("src") + "#new")
 
 	return false;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-	var newpostpassword = document.getElementById("newpostpassword");
+function showEmbed(id, embedhtml){
+	if($("#thumbembed"+ id).attr('expanded') != 'true') {
+		$("#thumbembed"+ id).hide();
+		$("#embed"+ id).show();
+		$("#embed"+ id).html(embedhtml);
+		$("#thumbembed"+ id).attr('expanded', 'true');
+	}else{
+		$("#embed"+ id).hide();
+		$("#embed"+ id).html('');
+		$("#thumbembed"+ id).show();
+		$("#thumbembed"+ id).attr('expanded', 'false');
+	}
+}
+
+$(function() {
+	var newpostpassword = $("#newpostpassword");
 	if (newpostpassword) {
-		newpostpassword.addEventListener("change", storePassword);
+		newpostpassword.change(function () {
+			var newpostpassword = $("#newpostpassword");
+			if (newpostpassword) {
+				var expiration_date = new Date();
+				expiration_date.setFullYear(expiration_date.getFullYear() + 7);
+				document.cookie = "tinyib_password=" + encodeURIComponent(newpostpassword.val()) + "; path=/; expires=" + expiration_date.toGMTString();
+			}
+		});
 	}
 
 	var password = getCookie("tinyib_password");
 	if (password && password != "") {
 		if (newpostpassword) {
-			newpostpassword.value = password;
+			newpostpassword.val(password);
 		}
 
-		var deletepostpassword = document.getElementById("deletepostpassword");
+		var deletepostpassword = $("#deletepostpassword");
 		if (deletepostpassword) {
-			deletepostpassword.value = password;
+			deletepostpassword.val(password);
 		}
 	}
 

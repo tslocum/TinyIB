@@ -14,6 +14,7 @@ For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki)
 Features
 ------------
  - GIF, JPG, PNG, SWF and WebA/WebM upload.
+ - YouTube, Vimeo and SoundCloud embedding.
  - CAPTCHA.
  - Reference links >>###
  - Delete post via password.

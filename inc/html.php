@@ -22,6 +22,7 @@ EOF;
 		<link rel="stylesheet" type="text/css" href="css/global.css">
 		<link rel="stylesheet" type="text/css" href="css/futaba.css" title="Futaba">
 		<link rel="alternate stylesheet" type="text/css" href="css/burichan.css" title="Burichan">
+		<script src="js/jquery.js"></script>
 		<script src="js/tinyib.js"></script>
 	</head>
 EOF;
@@ -71,6 +72,15 @@ function supportedFileTypes() {
 	return $types_formatted;
 }
 
+function makeLinksClickable($text) {
+	$text = preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%\!_+.,~#?&;//=]+)!i', '<a href="$1" target="_blank">$1</a>', $text);
+	$text = preg_replace('/\(\<a href\=\"(.*)\)"\ target\=\"\_blank\">(.*)\)\<\/a>/i', '(<a href="$1" target="_blank">$2</a>)', $text);
+	$text = preg_replace('/\<a href\=\"(.*)\."\ target\=\"\_blank\">(.*)\.\<\/a>/i', '<a href="$1" target="_blank">$2</a>.', $text);
+	$text = preg_replace('/\<a href\=\"(.*)\,"\ target\=\"\_blank\">(.*)\,\<\/a>/i', '<a href="$1" target="_blank">$2</a>,', $text);
+
+	return $text;
+}
+
 function buildPost($post, $res) {
 	$return = "";
 	$threadid = ($post['parent'] == TINYIB_NEWTHREAD) ? $post['id'] : $post['parent'];
@@ -85,6 +95,11 @@ function buildPost($post, $res) {
 		$post["omitted"] = 0;
 	}
 
+	$embed = '';
+	if ($post["file_hex"] == "YouTube" || $post["file_hex"] == "Vimeo" || $post["file_hex"] == "SoundCloud") {
+		$embed = str_replace("'", "\'", $post['file']);
+	}
+
 	if ($post["parent"] != TINYIB_NEWTHREAD) {
 		$return .= <<<EOF
 <table>
@@ -95,6 +110,24 @@ function buildPost($post, $res) {
 </td>
 <td class="reply" id="reply${post["id"]}">
 EOF;
+	} elseif ($embed != "") {
+		$return .= <<<EOF
+<span class="filesize">Embed: <a href="#" id="tiembed${post['id']}">${post["file_original"]}</a>&ndash;(${post["file_hex"]})</span>
+<br>
+<span id="thumbembed${post['id']}">
+<a href="#" id="exembed${post['id']}">
+<img src="thumb/${post["thumb"]}" alt="${post["id"]}" class="thumb opthumb" id="thumbnail${post['id']}" width="${post["thumb_width"]}" height="${post["thumb_height"]}">
+</a>
+</span>
+<div id="embed${post['id']}" class="thumb" style="display: none;"></div>
+<script type="text/javascript">
+$("#tiembed${post['id']}, #exembed${post['id']}").click(function(){
+showEmbed('${post['id']}', '$embed');
+return false;
+});
+</script>
+EOF;
+
 	} elseif ($post["file"] != "") {
 		$return .= <<<EOF
 <span class="filesize">File: <a href="src/${post["file"]}">${post["file"]}</a>&ndash;(${post["file_size_formatted"]}, ${post["image_width"]}x${post["image_height"]}, ${post["file_original"]})</span>
@@ -123,8 +156,27 @@ ${post["nameblock"]}
 </span>
 EOF;
 
-	if ($post['parent'] != TINYIB_NEWTHREAD && $post["file"] != "") {
-		$return .= <<<EOF
+	if ($post['parent'] != TINYIB_NEWTHREAD) {
+		if ($embed != "") {
+			$return .= <<<EOF
+<br>
+<span class="filesize"><a href="#" id="tiembed${post['id']}">${post['file_original']}</a>&ndash;(${post['file_hex']})</span>
+<br>
+<span id="thumbembed${post['id']}">
+<a href="#" id="exembed${post['id']}">
+		<img src="thumb/${post["thumb"]}" alt="${post["id"]}" class="thumb" id="thumbnail${post['id']}" width="${post["thumb_width"]}" height="${post["thumb_height"]}">
+</a>
+</span>
+<div id="embed${post['id']}" class="thumb" style="display: none;"></div>
+<script type="text/javascript">
+$("#tiembed${post['id']}, #exembed${post['id']}").click(function(){
+showEmbed('${post['id']}', '$embed');
+return false;
+});
+</script>
+EOF;
+		} else if ($post["file"] != "") {
+			$return .= <<<EOF
 <br>
 <span class="filesize"><a href="src/${post["file"]}">${post["file"]}</a>&ndash;(${post["file_size_formatted"]}, ${post["image_width"]}x${post["image_height"]}, ${post["file_original"]})</span>
 <br>
@@ -132,6 +184,7 @@ EOF;
 	<span id="thumb${post["id"]}"><img src="thumb/${post["thumb"]}" alt="${post["id"]}" class="thumb" width="${post["thumb_width"]}" height="${post["thumb_height"]}"></span>
 </a>
 EOF;
+		}
 	}
 
 	if ($post['parent'] == TINYIB_NEWTHREAD && $res == TINYIB_INDEXPAGE) {
@@ -212,6 +265,7 @@ EOF;
 	$reqmod_html = '';
 	$filetypes_html = '';
 	$file_input_html = '';
+	$embed_input_html = '';
 	$unique_posts_html = '';
 
 	$captcha_html = '';
@@ -244,6 +298,19 @@ EOF;
 						</td>
 						<td>
 							<input type="file" name="file" size="35" accesskey="f">
+						</td>
+					</tr>
+EOF;
+	}
+
+	if (TINYIB_EMBED) {
+		$embed_input_html = <<<EOF
+					<tr>
+						<td class="postblock">
+							Embed
+						</td>
+						<td>
+							<input type="text" name="embed" size="28" accesskey="e">&nbsp;&nbsp;(paste a YouTube URL)
 						</td>
 					</tr>
 EOF;
@@ -315,6 +382,7 @@ EOF;
 					</tr>
 					$captcha_html
 					$file_input_html
+					$embed_input_html
 					<tr>
 						<td class="postblock">
 							Password

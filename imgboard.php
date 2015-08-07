@@ -89,12 +89,53 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 		$post['message'] = $_POST['message']; // Treat message as raw HTML
 	} else {
 		$rawposttext = '';
-		$post['message'] = str_replace("\n", '<br>', colorQuote(postLink(cleanString(rtrim($_POST['message'])))));
+		$post['message'] = str_replace("\n", '<br>', makeLinksClickable(colorQuote(postLink(cleanString(rtrim($_POST['message']))))));
 	}
 	$post['password'] = ($_POST['password'] != '') ? md5(md5($_POST['password'])) : '';
 	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $rawposttext);
 
-	if (isset($_FILES['file'])) {
+	if (isset($_POST['embed']) && trim($_POST['embed']) != '') {
+		list($service, $embed) = getEmbed(trim($_POST['embed']));
+		if (empty($embed) || !isset($embed['html']) || !isset($embed['title']) || !isset($embed['thumbnail_url'])) {
+			fancyDie("Invalid embed URL. Only YouTube, Vimeo, and SoundCloud URLs are supported.");
+		}
+
+		$post['file_hex'] = $service;
+		$temp_file = time() . substr(microtime(), 2, 3) . '.tmp';
+		$file_location = "thumb/" . $temp_file;
+		file_put_contents($file_location, file_get_contents($embed['thumbnail_url']));
+
+		$file_info = getimagesize($file_location);
+		$file_mime = $file_info['mime'];
+		$post['image_width'] = $file_info[0];
+		$post['image_height'] = $file_info[1];
+
+		if ($file_mime == "image/jpeg") {
+			$post['thumb'] = $temp_file . '.jpg';
+		} else if ($file_mime == "image/gif") {
+			$post['thumb'] = $temp_file . '.gif';
+		} else if ($file_mime == "image/png") {
+			$post['thumb'] = $temp_file . '.png';
+		} else {
+			fancyDie("Error while processing audio/video.");
+		}
+		$thumb_location = "thumb/" . $post['thumb'];
+
+		list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
+
+		if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight)) {
+			fancyDie("Could not create thumbnail.");
+		}
+
+		addVideoOverlay($thumb_location);
+
+		$thumb_info = getimagesize($thumb_location);
+		$post['thumb_width'] = $thumb_info[0];
+		$post['thumb_height'] = $thumb_info[1];
+
+		$post['file_original'] = cleanString($embed['title']);
+		$post['file'] = str_ireplace(array('src="https://', 'src="http://'), 'src="//', $embed['html']);
+	} else if (isset($_FILES['file'])) {
 		if ($_FILES['file']['name'] != "") {
 			validateFileUpload();
 
@@ -233,11 +274,21 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	}
 
 	if ($post['file'] == '') { // No file uploaded
-		if ($post['parent'] == TINYIB_NEWTHREAD && (TINYIB_PIC || TINYIB_SWF || TINYIB_WEBM) && !TINYIB_NOFILEOK) {
-			fancyDie("A file is required to start a thread.");
+		$allowed = "";
+		if (TINYIB_PIC || TINYIB_SWF || TINYIB_WEBM) {
+			$allowed = "file";
+		}
+		if (TINYIB_EMBED) {
+			if ($allowed != "") {
+				$allowed .= " or ";
+			}
+			$allowed .= "embed URL";
+		}
+		if ($post['parent'] == TINYIB_NEWTHREAD && $allowed != "" && !TINYIB_NOFILEOK) {
+			fancyDie("A $allowed is required to start a thread.");
 		}
 		if (str_replace('<br>', '', $post['message']) == "") {
-			fancyDie("Please enter a message" . ((TINYIB_PIC || TINYIB_SWF || TINYIB_WEBM) ? " and/or upload a file" : "") . ".");
+			fancyDie("Please enter a message" . ($allowed != "" ? " and/or upload a $allowed" : "") . ".");
 		}
 	} else {
 		echo $post['file_original'] . ' uploaded.<br>';
