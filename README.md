@@ -9,7 +9,7 @@ TinyIB - A Lightweight and Efficient [Image Board](http://en.wikipedia.org/wiki/
 
 For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki) page.
 
-**Note to those who have recently upgraded:** Are you unable to create new posts?  Run the SQL on [this page](https://github.com/tslocum/TinyIB/wiki/NewSQLStructure) to finish the upgrade process.
+**Database structure was last modified on *7th Aug 2015*.** Are you unable to create new posts?  Run the SQL on [this page](https://github.com/tslocum/TinyIB/wiki/NewSQLStructure) to finish the upgrade process.
 
 Features
 ------------

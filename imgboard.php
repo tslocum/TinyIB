@@ -101,7 +101,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 		}
 
 		$post['file_hex'] = $service;
-		$temp_file = time() . substr(microtime(), 2, 3) . '.tmp';
+		$temp_file = time() . substr(microtime(), 2, 3);
 		$file_location = "thumb/" . $temp_file;
 		file_put_contents($file_location, file_get_contents($embed['thumbnail_url']));
 
