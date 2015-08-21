@@ -52,6 +52,9 @@ if (sqlite_num_rows($result) == 0) {
 	)");
 }
 
+// Add stickied column if it isn't present
+sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGER");
+
 # Post Functions
 function uniquePosts() {
 	return sqlite_fetch_single(sqlite_query($GLOBALS["db"], "SELECT COUNT(ip) FROM (SELECT DISTINCT ip FROM " . TINYIB_DBPOSTS . ")"));
@@ -73,6 +76,10 @@ function insertPost($post) {
 	return sqlite_last_insert_rowid($GLOBALS["db"]);
 }
 
+function stickyThreadByID($id, $setsticky) {
+	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET stickied = '" . sqlite_escape_string($setsticky) . "' WHERE id = " . $id);
+}
+
 function bumpThreadByID($id) {
 	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET bumped = " . time() . " WHERE id = " . $id);
 }
@@ -83,7 +90,7 @@ function countThreads() {
 
 function allThreads() {
 	$threads = array();
-	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY bumped DESC"), SQLITE_ASSOC);
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY stickied DESC, bumped DESC"), SQLITE_ASSOC);
 	foreach ($result as $thread) {
 		$threads[] = $thread;
 	}
@@ -142,7 +149,7 @@ function deletePostByID($id) {
 
 function trimThreads() {
 	if (TINYIB_MAXTHREADS > 0) {
-		$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY bumped DESC LIMIT " . TINYIB_MAXTHREADS . ", 10"), SQLITE_ASSOC);
+		$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 ORDER BY stickied DESC, bumped DESC LIMIT " . TINYIB_MAXTHREADS . ", 10"), SQLITE_ASSOC);
 		foreach ($result as $post) {
 			deletePostByID($post['id']);
 		}

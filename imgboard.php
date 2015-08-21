@@ -445,7 +445,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 										foreach ($threads as $thread) {
 											$posts = postsInThreadByID($thread['id']);
 											foreach ($posts as $post) {
-												mysqli_query($link, "INSERT INTO `" . TINYIB_DBPOSTS . "` (`id`, `parent`, `timestamp`, `bumped`, `ip`, `name`, `tripcode`, `email`, `nameblock`, `subject`, `message`, `password`, `file`, `file_hex`, `file_original`, `file_size`, `file_size_formatted`, `image_width`, `image_height`, `thumb`, `thumb_width`, `thumb_height`) VALUES (" . $post['id'] . ", " . $post['parent'] . ", " . time() . ", " . time() . ", '" . $_SERVER['REMOTE_ADDR'] . "', '" . mysqli_real_escape_string($link, $post['name']) . "', '" . mysqli_real_escape_string($link, $post['tripcode']) . "',	'" . mysqli_real_escape_string($link, $post['email']) . "',	'" . mysqli_real_escape_string($link, $post['nameblock']) . "', '" . mysqli_real_escape_string($link, $post['subject']) . "', '" . mysqli_real_escape_string($link, $post['message']) . "', '" . mysqli_real_escape_string($link, $post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . mysqli_real_escape_string($link, $post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ")");
+												mysqli_query($link, "INSERT INTO `" . TINYIB_DBPOSTS . "` (`id`, `parent`, `timestamp`, `bumped`, `ip`, `name`, `tripcode`, `email`, `nameblock`, `subject`, `message`, `password`, `file`, `file_hex`, `file_original`, `file_size`, `file_size_formatted`, `image_width`, `image_height`, `thumb`, `thumb_width`, `thumb_height`, `stickied`) VALUES (" . $post['id'] . ", " . $post['parent'] . ", " . time() . ", " . time() . ", '" . $_SERVER['REMOTE_ADDR'] . "', '" . mysqli_real_escape_string($link, $post['name']) . "', '" . mysqli_real_escape_string($link, $post['tripcode']) . "',	'" . mysqli_real_escape_string($link, $post['email']) . "',	'" . mysqli_real_escape_string($link, $post['nameblock']) . "', '" . mysqli_real_escape_string($link, $post['subject']) . "', '" . mysqli_real_escape_string($link, $post['message']) . "', '" . mysqli_real_escape_string($link, $post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . mysqli_real_escape_string($link, $post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ", " . $post['stickied'] . ")");
 												$max_id = max($max_id, $post['id']);
 											}
 										}
@@ -525,6 +525,20 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 			} else {
 				$onload = manageOnLoad('moderate');
 				$text .= manageModeratePostForm();
+			}
+		} elseif (isset($_GET['sticky']) && isset($_GET['setsticky'])) {
+			if ($_GET['sticky'] > 0) {
+				$post = postByID($_GET['sticky']);
+				if ($post && $post['parent'] == TINYIB_NEWTHREAD) {
+					stickyThreadByID($post['id'], (intval($_GET['setsticky'])));
+					threadUpdated($post['id']);
+
+					$text .= manageInfo('Thread No.' . $post['id'] . ' ' . (intval($_GET['setsticky']) == 1 ? 'stickied' : 'un-stickied') . '.');
+				} else {
+					fancyDie("Sorry, there doesn't appear to be a thread with that ID.");
+				}
+			} else {
+				fancyDie("Form data was lost. Please go back and try again.");
 			}
 		} elseif (isset($_GET["rawpost"])) {
 			$onload = manageOnLoad("rawpost");

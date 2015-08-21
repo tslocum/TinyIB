@@ -187,8 +187,8 @@ function writePage($filename, $contents) {
 }
 
 function fixLinksInRes($html) {
-	$search = array(' href="css/', ' src="js/', ' href="src/', ' href="thumb/', ' href="res/', ' href="imgboard.php', ' href="favicon.ico', 'src="thumb/', 'src="inc/', ' action="imgboard.php');
-	$replace = array(' href="../css/', ' src="../js/', ' href="../src/', ' href="../thumb/', ' href="../res/', ' href="../imgboard.php', ' href="../favicon.ico', 'src="../thumb/', 'src="../inc/', ' action="../imgboard.php');
+	$search = array(' href="css/', ' src="js/', ' href="src/', ' href="thumb/', ' href="res/', ' href="imgboard.php', ' href="favicon.ico', 'src="thumb/', 'src="inc/',  'src="sticky.png', ' action="imgboard.php');
+	$replace = array(' href="../css/', ' src="../js/', ' href="../src/', ' href="../thumb/', ' href="../res/', ' href="../imgboard.php', ' href="../favicon.ico', 'src="../thumb/', 'src="../inc/', 'src="../sticky.png', ' action="../imgboard.php');
 
 	return str_replace($search, $replace, $html);
 }

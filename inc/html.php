@@ -91,6 +91,10 @@ function buildPost($post, $res) {
 		$reflink = "<a href=\"res/$threadid.html#{$post['id']}\">No.</a><a href=\"res/$threadid.html#q{$post['id']}\">{$post['id']}</a>";
 	}
 
+	if ($post["stickied"] == 1) {
+		$reflink .= ' <img src="sticky.png" alt="Stickied" title="Stickied" width="16" height="16">';
+	}
+
 	if (!isset($post["omitted"])) {
 		$post["omitted"] = 0;
 	}
@@ -667,7 +671,23 @@ function manageModeratePost($post) {
 	$delete_info = ($post['parent'] == TINYIB_NEWTHREAD) ? 'This will delete the entire thread below.' : 'This will delete the post below.';
 	$post_or_thread = ($post['parent'] == TINYIB_NEWTHREAD) ? 'Thread' : 'Post';
 
+	$sticky_html = "";
 	if ($post["parent"] == TINYIB_NEWTHREAD) {
+		$sticky_set = $post['stickied'] == 1 ? '0' : '1';
+		$sticky_unsticky = $post['stickied'] == 1 ? 'Un-sticky' : 'Sticky';
+		$sticky_unsticky_help = $post['stickied'] == 1 ? 'Return this thread to a normal state.' : 'Keep this thread at the top of the board.';
+		$sticky_html = <<<EOF
+	<tr><td colspan="2">&nbsp;</td></tr>
+	<tr><td align="right" width="50%;">
+		<form method="get" action="?">
+		<input type="hidden" name="manage" value="">
+		<input type="hidden" name="sticky" value="${post['id']}">
+		<input type="hidden" name="setsticky" value="$sticky_set">
+		<input type="submit" value="$sticky_unsticky Thread" class="managebutton" style="width: 50%;">
+		</form>
+	</td><td><small>$sticky_unsticky_help</small></td></tr>
+EOF;
+
 		$post_html = "";
 		$posts = postsInThreadByID($post["id"]);
 		foreach ($posts as $post_temp) {
@@ -703,6 +723,8 @@ function manageModeratePost($post) {
 	</form>
 	
 	</td><td><small>$ban_info</small></td></tr>
+
+	$sticky_html
 	
 	</table>
 	

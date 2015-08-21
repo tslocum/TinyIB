@@ -59,6 +59,11 @@ function approvePostByID($id) {
 	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = 1 WHERE `id` = " . $id . " LIMIT 1");
 }
 
+function stickyThreadByID($id, $setsticky) {
+	global $link;
+	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `stickied` = '" . mysqli_real_escape_string($link, $setsticky) . "' WHERE `id` = " . $id . " LIMIT 1");
+}
+
 function bumpThreadByID($id) {
 	global $link;
 	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `bumped` = " . time() . " WHERE `id` = " . $id . " LIMIT 1");
@@ -72,7 +77,7 @@ function countThreads() {
 function allThreads() {
 	global $link;
 	$threads = array();
-	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 AND `moderated` = 1 ORDER BY `bumped` DESC");
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 AND `moderated` = 1 ORDER BY `stickied` DESC, `bumped` DESC");
 	if ($result) {
 		while ($thread = mysqli_fetch_assoc($result)) {
 			$threads[] = $thread;
@@ -145,7 +150,7 @@ function deletePostByID($id) {
 function trimThreads() {
 	global $link;
 	if (TINYIB_MAXTHREADS > 0) {
-		$result = mysqli_query($link, "SELECT `id` FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 AND `moderated` = 1 ORDER BY `bumped` DESC LIMIT " . TINYIB_MAXTHREADS . ", 10");
+		$result = mysqli_query($link, "SELECT `id` FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 AND `moderated` = 1 ORDER BY `stickied` DESC, `bumped` DESC LIMIT " . TINYIB_MAXTHREADS . ", 10");
 		if ($result) {
 			while ($post = mysqli_fetch_assoc($result)) {
 				deletePostByID($post['id']);

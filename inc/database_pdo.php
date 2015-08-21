@@ -83,6 +83,10 @@ function approvePostByID($id) {
 	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET moderated = ? WHERE id = ?", array('1', $id));
 }
 
+function stickyThreadByID($id, $setsticky) {
+	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET stickied = ? WHERE id = ?", array($setsticky, $id));
+}
+
 function bumpThreadByID($id) {
 	$now = time();
 	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET bumped = ? WHERE id = ?", array($now, $id));
@@ -95,7 +99,7 @@ function countThreads() {
 
 function allThreads() {
 	$threads = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1 ORDER BY bumped DESC");
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1 ORDER BY stickied DESC, bumped DESC");
 	while ($row = $results->fetch()) {
 		$threads[] = $row;
 	}
@@ -156,7 +160,7 @@ function deletePostByID($id) {
 function trimThreads() {
 	$limit = (int)TINYIB_MAXTHREADS;
 	if ($limit > 0) {
-		$results = pdoQuery("SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1 ORDER BY bumped LIMIT 100 OFFSET " . $limit
+		$results = pdoQuery("SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1 ORDER BY stickied DESC, bumped DESC LIMIT 100 OFFSET " . $limit
 		);
 		# old mysql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT $limit,100
 		# mysql, postgresql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT 100 OFFSET $limit

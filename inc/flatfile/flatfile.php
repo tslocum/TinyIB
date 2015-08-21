@@ -758,7 +758,7 @@ class Orderer {
 		if ($cmpfunc == DEFAULT_COMPARISON) {
 			$cmpfunc = STRING_COMPARISON;
 		}
-		$cmp = $orderBy->orderType * $cmpfunc($row1[$orderBy->field], $row2[$orderBy->field]);
+		$cmp = $orderBy->orderType * $cmpfunc(isset($row1[$orderBy->field]) ? $row1[$orderBy->field] : false, isset($row2[$orderBy->field]) ? $row2[$orderBy->field] : false);
 		if ($cmp == 0) {
 			if ($index == (count($this->orderByList) - 1))
 				return 0;
