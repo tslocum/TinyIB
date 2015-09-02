@@ -20,6 +20,11 @@ form {
 	text-align: left;
 }
 
+.postblock {
+	vertical-align: top;
+	padding: 3px;
+}
+
 .aa {
 	white-space: pre;
 	text-align: left;
