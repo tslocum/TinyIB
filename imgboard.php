@@ -559,7 +559,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	echo managePage($text, $onload);
 } elseif (!file_exists('index.html') || countThreads() == 0) {
 	rebuildIndexes();
-} elseif (isset($_GET['json'] && TINYIB_JSON)) {
+} elseif (isset($_GET['json']) && TINYIB_JSON) {
 	$redirect = false;
 	$json = $_GET['json'];
 	if ($json == '') {
