@@ -563,9 +563,9 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	$redirect = false;
 	$json = $_GET['json'];
 	if ($json == '') {
-		echo getJSON(allThreads(true));
+		echo '{"threads":' . getJSON(allThreads(true)) . '}';
 	} else {
-		echo getJSON(postsInThreadByID($json, true, true));
+		echo '{"posts":' . getJSON(postsInThreadByID($json, true, true)) . '}';
 	}
 }
 

@@ -533,3 +533,8 @@ function writeJSON($filename, $contents) {
 
 	chmod($filename, 0664); /* it was created 0600 */
 }
+
+function fixJSON($json) {
+	$regex = '/(?<!")([a-zA-Z0-9_]+)(?!")(?=:)/i';
+	preg_replace($regex, '"$1"', $json);
+}

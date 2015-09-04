@@ -282,6 +282,7 @@ function deleteBanByID($id) {
 function safeFilter(&$posts) {
 	foreach ($posts as &$post) {
 		$post[POST_IP] = $post[POST_PASSWORD] = $post[POST_NAMEBLOCK] = "";
+		$post[POST_MESSAGE] = str_replace('<br>', '', $post[POST_MESSAGE]);
 	}
 	
 	return $posts;
