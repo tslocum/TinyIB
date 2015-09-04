@@ -52,6 +52,9 @@ define('TINYIB_MAXH', 250);           // Height
 // Tripcode seed - Must not change once set!
 define('TINYIB_TRIPSEED', "");        // Enter some random text  (used when generating secure tripcodes)
 
+// JSON generation
+define('TINYIB_JSON', false);         // Enable JSON generation
+
 // Database
 //   Recommended database modes from best to worst:
 //     pdo, mysqli, mysql, sqlite, flatfile  (flatfile is only useful if you need portability or lack any kind of database)

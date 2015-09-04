@@ -559,6 +559,14 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	echo managePage($text, $onload);
 } elseif (!file_exists('index.html') || countThreads() == 0) {
 	rebuildIndexes();
+} elseif (isset($_GET['json'])) {
+	$redirect = false;
+	$json = $_GET['json'];
+	if ($json == '') {
+		echo getJSON(allThreads(true));
+	} else {
+		echo getJSON(postsInThreadByID($json, true, true));
+	}
 }
 
 if ($redirect) {
