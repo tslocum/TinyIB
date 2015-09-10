@@ -1,4 +1,4 @@
-<?php
+4<?php
 # TinyIB
 #
 # https://github.com/tslocum/TinyIB
@@ -563,9 +563,9 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	$redirect = false;
 	$json = $_GET['json'];
 	if ($json == '') {
-		echo '{"threads":' . getJSON(allThreads(true)) . '}';
+		echo '{"id": ' . 0 . ', "name": ' . TINYIB_BOARD . ', "threads":' . getJSON(allThreads(true)) . '}';
 	} else {
-		echo '{"posts":' . getJSON(postsInThreadByID($json, true, true)) . '}';
+		echo '{"id": ' . $json .', "posts":' . getJSON(postsInThreadByID($json, true, true)) . '}';
 	}
 }
 
