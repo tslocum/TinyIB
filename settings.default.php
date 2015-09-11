@@ -33,6 +33,7 @@ define('TINYIB_MAXREPLIES', 0);       // Maximum replies before a thread stops b
 define('TINYIB_PIC', true);           // Enable .jpg, .png and .gif image file upload
 define('TINYIB_SWF', false);          // Enable .swf Flash file upload
 define('TINYIB_WEBM', false);         // Enable .weba and .webm audio/video file upload  (see README for instructions)
+define('TINYIB_AUDIO', false);        // Enable .wav and .mp3 audio file upload 
 define('TINYIB_EMBED', false);        // Enable embedding  (e.g. YouTube, Vimeo, SoundCloud)
 
 // File control

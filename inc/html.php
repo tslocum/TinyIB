@@ -53,6 +53,10 @@ function supportedFileTypes() {
 	if (TINYIB_WEBM) {
 		array_push($types_allowed, "WebM");
 	}
+	if (TINYIB_AUDIO) {
+		array_push($types_allowed, "WAV");
+		array_push($types_allowed, "MP3");
+	}
 
 	$i = 0;
 	$types_count = count($types_allowed);
