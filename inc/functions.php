@@ -16,7 +16,7 @@ $posts_sql = "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
 	`subject` varchar(75) NOT NULL,
 	`message` text NOT NULL,
 	`password` varchar(255) NOT NULL,
-	`file` varchar(75) NOT NULL,
+	`file` text NOT NULL,
 	`file_hex` varchar(75) NOT NULL,
 	`file_original` varchar(255) NOT NULL,
 	`file_size` int(20) unsigned NOT NULL default '0',
