@@ -56,6 +56,9 @@ define('TINYIB_TRIPSEED', "");        // Enter some random text  (used when gene
 // JSON generation
 define('TINYIB_JSON', false);         // Enable JSON generation (see README for instruction)
 
+// 3D Views
+define('TINYIB_3D', false);         // Enable 3D WebGL/Canvas views (see README for instruction)
+
 // Database
 //   Recommended database modes from best to worst:
 //     pdo, mysqli, mysql, sqlite, flatfile  (flatfile is only useful if you need portability or lack any kind of database)

@@ -88,13 +88,17 @@ function makeLinksClickable($text) {
 function buildPost($post, $res) {
 	$return = "";
 	$threadid = ($post['parent'] == TINYIB_NEWTHREAD) ? $post['id'] : $post['parent'];
-
+	
 	if ($res == TINYIB_RESPAGE) {
 		$reflink = "<a href=\"$threadid.html#{$post['id']}\">No.</a><a href=\"$threadid.html#q{$post['id']}\" onclick=\"javascript:quotePost('{$post['id']}')\">{$post['id']}</a>";
 	} else {
 		$reflink = "<a href=\"res/$threadid.html#{$post['id']}\">No.</a><a href=\"res/$threadid.html#q{$post['id']}\">{$post['id']}</a>";
 	}
-
+	
+	if (TINYIB_3D) {
+		$reflink .= " <a href=\"../3d.html#{$post['id']}\">3D</a>";
+	}
+	
 	if ($post["stickied"] == 1) {
 		$reflink .= ' <img src="sticky.png" alt="Stickied" title="Stickied" width="16" height="16">';
 	}
@@ -197,6 +201,10 @@ EOF;
 
 	if ($post['parent'] == TINYIB_NEWTHREAD && $res == TINYIB_INDEXPAGE) {
 		$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">Reply</a>]";
+		if (TINYIB_3D) {
+			$return .= "[<a href=\"3d.html#${post['id']}\">3D</a>]";
+		}
+	
 	}
 
 	if (TINYIB_TRUNCATE > 0 && !$res && substr_count($post['message'], '<br>') > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
