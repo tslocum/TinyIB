@@ -9,7 +9,7 @@ TinyIB - A Lightweight and Efficient [Image Board](http://en.wikipedia.org/wiki/
 
 For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki) page.
 
-**Database structure was last modified on *21st Aug 2015*.** Are you unable to create new posts?  Run the SQL on [this page](https://github.com/tslocum/TinyIB/wiki/NewSQLStructure) to finish the upgrade process.
+**Database structure was last modified on *15th Sep 2015*.** Are you unable to create new posts?  Run the SQL on [this page](https://github.com/tslocum/TinyIB/wiki/NewSQLStructure) to finish the upgrade process.
 
 Features
 ------------
@@ -20,7 +20,7 @@ Features
  - Delete post via password.
  - Management panel:
    - Administrators and moderators use separate passwords.
-     - Moderators are only able to delete posts, or approve them when necessary.  (See ``TINYIB_REQMOD``)
+     - Moderators are only able to sticky threads, delete posts, and approve posts when necessary.  (See ``TINYIB_REQMOD``)
    - Ban offensive/abusive posters across all boards.
    - Post using raw HTML.
    - Upgrade automatically when installed via git.  (Tested on Linux only)
