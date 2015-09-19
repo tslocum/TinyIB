@@ -280,7 +280,7 @@ EOF;
 							CAPTCHA
 						</td>
 						<td>
-							<input type="text" name="captcha" id="captcha" autocomplete="off" size="6" accesskey="c">&nbsp;&nbsp;(enter the text below)<br>
+							<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;(enter the text below)<br>
 							<img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;">
 						</td>
 					</tr>
@@ -314,7 +314,7 @@ EOF;
 							Embed
 						</td>
 						<td>
-							<input type="text" name="embed" size="28" accesskey="e">&nbsp;&nbsp;(paste a YouTube URL)
+							<input type="text" name="embed" size="28" accesskey="x" autocomplete="off">&nbsp;&nbsp;(paste a YouTube URL)
 						</td>
 					</tr>
 EOF;
@@ -372,7 +372,7 @@ EOF;
 							Subject
 						</td>
 						<td>
-							<input type="text" name="subject" size="40" maxlength="75" accesskey="s">
+							<input type="text" name="subject" size="40" maxlength="75" accesskey="s" autocomplete="off">
 							<input type="submit" value="Submit" accesskey="z">
 						</td>
 					</tr>
@@ -620,7 +620,7 @@ function manageRawPostForm() {
 						Subject
 					</td>
 					<td>
-						<input type="text" name="subject" size="40" maxlength="75" accesskey="s">
+						<input type="text" name="subject" size="40" maxlength="75" accesskey="s" autocomplete="off">
 						<input type="submit" value="Submit" accesskey="z">
 					</td>
 				</tr>
