@@ -15,12 +15,15 @@ Header unset Vary
 <IfModule mod_expires.c>
 ExpiresActive On
 ExpiresByType image/x-icon "access plus 2592000 seconds"
-ExpiresByType image/gif "access plus 2592000 seconds"
-ExpiresByType image/jpeg "access plus 2592000 seconds"
-ExpiresByType image/png "access plus 2592000 seconds"
 ExpiresByType text/css "access plus 604800 seconds"
 ExpiresByType text/javascript "access plus 216000 seconds"
 ExpiresByType application/x-javascript "access plus 216000 seconds"
+ExpiresByType image/gif "access plus 2592000 seconds"
+ExpiresByType image/jpeg "access plus 2592000 seconds"
+ExpiresByType image/png "access plus 2592000 seconds"
+ExpiresByType audio/webm "access plus 2592000 seconds"
+ExpiresByType video/webm "access plus 2592000 seconds"
+ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
 </IfModule>
 
 <IfModule mod_deflate.c>
