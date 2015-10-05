@@ -34,6 +34,10 @@ if (!file_exists('settings.php')) {
 }
 require 'settings.php';
 
+if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
+	fancyDie('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured');
+}
+
 // Check directories are writable by the script
 $writedirs = array("res", "src", "thumb");
 if (TINYIB_DBMODE == 'flatfile') {
@@ -54,10 +58,6 @@ if (in_array(TINYIB_DBMODE, array('flatfile', 'mysql', 'mysqli', 'sqlite', 'pdo'
 
 foreach ($includes as $include) {
 	include $include;
-}
-
-if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
-	fancyDie('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured');
 }
 
 $redirect = true;
