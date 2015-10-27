@@ -269,10 +269,10 @@ function checkMessageSize() {
 function manageCheckLogIn() {
 	$loggedin = false;
 	$isadmin = false;
-	if (isset($_POST['password'])) {
-		if ($_POST['password'] === TINYIB_ADMINPASS) {
+	if (isset($_POST['managepassword'])) {
+		if ($_POST['managepassword'] === TINYIB_ADMINPASS) {
 			$_SESSION['tinyib'] = TINYIB_ADMINPASS;
-		} elseif (TINYIB_MODPASS != '' && $_POST['password'] === TINYIB_MODPASS) {
+		} elseif (TINYIB_MODPASS != '' && $_POST['managepassword'] === TINYIB_MODPASS) {
 			$_SESSION['tinyib'] = TINYIB_MODPASS;
 		}
 	}

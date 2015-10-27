@@ -510,7 +510,7 @@ EOF;
 function manageOnLoad($page) {
 	switch ($page) {
 		case 'login':
-			return ' onload="document.tinyib.password.focus();"';
+			return ' onload="document.tinyib.managepassword.focus();"';
 		case 'moderate':
 			return ' onload="document.tinyib.moderate.focus();"';
 		case 'rawpost':
@@ -526,7 +526,7 @@ function manageLogInForm() {
 	<fieldset>
 	<legend align="center">Enter an administrator or moderator password</legend>
 	<div class="login">
-	<input type="password" id="password" name="password"><br>
+	<input type="password" id="managepassword" name="managepassword"><br>
 	<input type="submit" value="Log In" class="managebutton">
 	</div>
 	</fieldset>
