@@ -11,6 +11,12 @@ form {
 	margin-bottom: 0;
 }
 
+hr {
+	clear: both;
+	border: 0;
+	height: 1px;
+}
+
 .postarea {
 	text-align: center;
 }
@@ -34,7 +40,7 @@ form {
 .thumb {
 	border: none;
 	float: left;
-	margin: 2px 20px;
+	margin: 4px 20px;
 }
 
 .nothumb {

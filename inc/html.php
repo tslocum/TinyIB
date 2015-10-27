@@ -5,7 +5,7 @@ if (!defined('TINYIB_BOARD')) {
 
 function pageHeader() {
 	$return = <<<EOF
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
@@ -143,7 +143,7 @@ EOF;
 	}
 
 	$return .= <<<EOF
-<a name="${post['id']}"></a>
+<a id="${post['id']}"></a>
 <label>
 	<input type="checkbox" name="delete" value="${post['id']}"> 
 EOF;
@@ -343,7 +343,7 @@ EOF;
 EOF;
 	$body .= TINYIB_LOGO . TINYIB_BOARDDESC . <<<EOF
 		</div>
-		<hr width="90%" size="1">
+		<hr width="90%">
 		$postingmode
 		<div class="postarea">
 			<form name="postform" id="postform" action="imgboard.php" method="post" enctype="multipart/form-data">
@@ -449,7 +449,7 @@ function rebuildIndexes() {
 			$htmlreplies[] = buildPost($replies[$j], TINYIB_INDEXPAGE);
 		}
 
-		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', array_reverse($htmlreplies)) . "<br clear=\"left\">\n<hr>";
+		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', array_reverse($htmlreplies)) . "\n<hr>";
 
 		if (++$i >= TINYIB_THREADSPERPAGE) {
 			$file = ($page == 0) ? 'index.html' : $page . '.html';
@@ -474,7 +474,7 @@ function rebuildThread($id) {
 		$htmlposts .= buildPost($post, TINYIB_RESPAGE);
 	}
 
-	$htmlposts .= "<br clear=\"left\">\n<hr>\n";
+	$htmlposts .= "\n<hr>";
 
 	writePage('res/' . $id . '.html', fixLinksInRes(buildPage($htmlposts, $id)));
 }
@@ -499,7 +499,7 @@ function managePage($text, $onload = '') {
 EOF;
 	$body .= TINYIB_LOGO . TINYIB_BOARDDESC . <<<EOF
 		</div>
-		<hr width="90%" size="1">
+		<hr width="90%">
 		<div class="replymode">Manage mode</div>
 		$text
 		<hr>

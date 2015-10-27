@@ -24,6 +24,14 @@ a:hover {
 	font-family: sans-serif;
 }
 
+hr {
+	color: #34345C;
+	background-image: -webkit-linear-gradient(left,rgba(238,242,255,1),rgba(52,52,92,0.75),rgba(238,242,255,1));
+	background-image: -moz-linear-gradient(left,rgba(238,242,255,1),rgba(52,52,92,0.75),rgba(238,242,255,1));
+	background-image: -ms-linear-gradient(left,rgba(238,242,255,1),rgba(52,52,92,0.75),rgba(238,242,255,1));
+	background-image: -o-linear-gradient(left,rgba(238,242,255,1),rgba(52,52,92,0.75),rgba(238,242,255,1));
+}
+
 .filesize a {
 	text-decoration: underline;
 }
