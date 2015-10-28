@@ -6,6 +6,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 session_start();
+setcookie(session_name(), session_id(), time() + 2592000);
 ob_implicit_flush();
 if (function_exists('ob_get_level')) {
 	while (ob_get_level() > 0) {
