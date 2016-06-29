@@ -76,8 +76,14 @@ class Flatfile {
 	 */
 	var $datadir;
 
-	function Flatfile() {
+	function __construct() {
 		$this->schemata = array();
+	}
+
+	function Flatfile() {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct();
+		}
 	}
 
 	/**
@@ -427,8 +433,14 @@ class NotWhere extends WhereClause {
 	 * of the WhereClause object passed in when testing rows.
 	 * @param WhereClause $whereclause The WhereClause object to negate
 	 */
-	function NotWhere($whereclause) {
+	function __construct($whereclause) {
 		$this->clause = $whereclause;
+	}
+
+	function NotWhere($whereclause) {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct($whereclause);
+		}
 	}
 
 	function testRow($row, $rowSchema = null) {
@@ -480,11 +492,17 @@ class SimpleWhereClause extends WhereClause {
 	 * STRING_COMPARISON (default), NUMERIC COMPARISON or INTEGER_COMPARISON
 	 *
 	 */
-	function SimpleWhereClause($field, $operator, $value, $compare_type = DEFAULT_COMPARISON) {
+	function __construct($field, $operator, $value, $compare_type = DEFAULT_COMPARISON) {
 		$this->field = $field;
 		$this->operator = $operator;
 		$this->value = $value;
 		$this->compare_type = $compare_type;
+	}
+
+	function SimpleWhereClause($field, $operator, $value, $compare_type = DEFAULT_COMPARISON) {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct($field, $operator, $value, $compare_type);
+		}
 	}
 
 	function testRow($tablerow, $rowSchema = null) {
@@ -536,9 +554,15 @@ class LikeWhereClause extends WhereClause {
 	 *                       wildcard, and is case insensitve.  e.g. 'test%' will match 'TESTS' and 'Testing'
 	 */
 
-	function LikeWhereClause($field, $value) {
+	function __construct($field, $value) {
 		$this->field = $field;
 		$this->regexp = '/^' . str_replace('%', '.*', preg_quote($value)) . '$/i';
+	}
+
+	function LikeWhereClause($field, $value) {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct($field, $value);
+		}
 	}
 
 	function testRow($tablerow, $rowSchema = NULL) {
@@ -570,10 +594,16 @@ class ListWhereClause extends WhereClause {
 	 * @param array $list List of items
 	 * @param string $compare_type Comparison type, string by default.
 	 */
-	function ListWhereClause($field, $list, $compare_type = DEFAULT_COMPARISON) {
+	function __construct($field, $list, $compare_type = DEFAULT_COMPARISON) {
 		$this->list = $list;
 		$this->field = (int)$field;
 		$this->compareAs = $compare_type;
+	}
+
+	function ListWhereClause($field, $list, $compare_type = DEFAULT_COMPARISON) {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct($field, $list, $compare_type);
+		}
 	}
 
 	function testRow($tablerow, $rowSchema = null) {
@@ -639,8 +669,14 @@ class OrWhereClause extends CompositeWhereClause {
 	 * Creates a new OrWhereClause
 	 * @param WhereClause $whereClause,... optional unlimited list of WhereClause objects to be added
 	 */
-	function OrWhereClause() {
+	function __construct() {
 		$this->clauses = func_get_args();
+	}
+
+	function OrWhereClause() {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct();
+		}
 	}
 }
 
@@ -667,8 +703,14 @@ class AndWhereClause extends CompositeWhereClause {
 	 * Creates a new AndWhereClause
 	 * @param WhereClause $whereClause,... optional unlimited list of WhereClause objects to be added
 	 */
-	function AndWhereClause() {
+	function __construct() {
 		$this->clauses = func_get_args();
+	}
+
+	function AndWhereClause() {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct();
+		}
 	}
 }
 
@@ -701,10 +743,16 @@ class OrderBy {
 	 * @param int $compareAs Comparison type: DEFAULT_COMPARISON, STRING_COMPARISON, INTEGER_COMPARISION,
 	 * or NUMERIC_COMPARISON, or the name of a user defined function that you want to use for doing the comparison.
 	 */
-	function OrderBy($field, $orderType, $compareAs = DEFAULT_COMPARISON) {
+	function __construct($field, $orderType, $compareAs = DEFAULT_COMPARISON) {
 		$this->field = $field;
 		$this->orderType = $orderType;
 		$this->compareAs = $compareAs;
+	}
+
+	function OrderBy($field, $orderType, $compareAs) {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct();
+		}
 	}
 }
 
@@ -726,7 +774,7 @@ class Orderer {
 	 * @param mixed $orderBy An OrderBy object or an array of them
 	 * @param array $rowSchema Option row schema
 	 */
-	function Orderer($orderBy, $rowSchema = null) {
+	function __construct($orderBy, $rowSchema = null) {
 		if (!is_array($orderBy))
 			$orderBy = array($orderBy);
 		if ($rowSchema) {
@@ -739,6 +787,12 @@ class Orderer {
 			}
 		}
 		$this->orderByList = $orderBy;
+	}
+
+	function Orderer($orderBy, $rowSchema = null) {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct($orderBy, $rowSchema);
+		}
 	}
 
 	/**

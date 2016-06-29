@@ -17,18 +17,30 @@ class Column {
 	/**
 	 * Create a new column object
 	 */
-	function Column($index, $type) {
+	function __construct($index, $type) {
 		$this->index = $index;
 		$this->type = $type;
+	}
+
+	function Column($index, $type) {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct($index, $type);
+		}
 	}
 }
 
 /** EXPERIMENTAL: Represent a column that is a foreign key.  Used for temporarily building tables array */
 class JoinColumn {
-	function JoinColumn($index, $tablename, $columnname) {
+	function __construct($index, $tablename, $columnname) {
 		$this->index = $index;
 		$this->tablename = $tablename;
 		$this->columnname = $columnname;
+	}
+
+	function JoinColumn($index, $tablename, $columnname) {
+		if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+			$this->__construct($index, $tablename, $columnname);
+		}
 	}
 }
 
