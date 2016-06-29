@@ -515,3 +515,26 @@ function getEmbed($url) {
 	}
 	return array($service, $result);
 }
+
+function getJSON($data) {
+	return json_encode($data);
+}
+
+function writeJSON($filename, $contents) {
+	$tempfile = tempnam('res/', TINYIB_BOARD . 'tmp'); /* Create the temporary file */
+	$fp = fopen($tempfile, 'w');
+	fwrite($fp, $contents);
+	fclose($fp);
+	/* If we aren't able to use the rename function, try the alternate method */
+	if (!@rename($tempfile, $filename)) {
+		copy($tempfile, $filename);
+		unlink($tempfile);
+	}
+
+	chmod($filename, 0664); /* it was created 0600 */
+}
+
+function fixJSON($json) {
+	$regex = '/(?<!")([a-zA-Z0-9_]+)(?!")(?=:)/i';
+	preg_replace($regex, '"$1"', $json);
+}

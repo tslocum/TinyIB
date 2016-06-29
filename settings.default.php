@@ -13,7 +13,7 @@ define('TINYIB_ADMINPASS', "");       // Administrators have full access to the 
 define('TINYIB_MODPASS', "");         // Moderators only have access to delete (and moderate if TINYIB_REQMOD is set) posts  ["" to disable]
 
 // Board description and behavior
-define('TINYIB_BOARD', "b");          // Unique identifier for this board using only letters and numbers
+define('TINYIB_BOARD', "3d");          // Unique identifier for this board using only letters and numbers
 define('TINYIB_BOARDDESC', "TinyIB"); // Displayed at the top of every page
 define('TINYIB_CAPTCHA', false);      // Reduce spam by requiring users to pass a CAPTCHA when posting  (click Rebuild All in the management panel after enabling)
 define('TINYIB_REQMOD', "disable");   // Require moderation before displaying posts: disable / files / all  (see README for instructions, only MySQL is supported)
@@ -33,6 +33,7 @@ define('TINYIB_MAXREPLIES', 0);       // Maximum replies before a thread stops b
 define('TINYIB_PIC', true);           // Enable .jpg, .png and .gif image file upload
 define('TINYIB_SWF', false);          // Enable .swf Flash file upload
 define('TINYIB_WEBM', false);         // Enable .weba and .webm audio/video file upload  (see README for instructions)
+define('TINYIB_AUDIO', false);        // Enable .wav and .mp3 audio file upload 
 define('TINYIB_EMBED', false);        // Enable embedding  (e.g. YouTube, Vimeo, SoundCloud)
 
 // File control
@@ -51,6 +52,12 @@ define('TINYIB_MAXH', 250);           // Height
 
 // Tripcode seed - Must not change once set!
 define('TINYIB_TRIPSEED', "");        // Enter some random text  (used when generating secure tripcodes)
+
+// JSON generation
+define('TINYIB_JSON', false);         // Enable JSON generation (see README for instruction)
+
+// 3D Views
+define('TINYIB_3D', false);         // Enable 3D WebGL/Canvas views (see README for instruction)
 
 // Database
 //   Recommended database modes from best to worst:

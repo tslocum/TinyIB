@@ -152,22 +152,25 @@ function convertPostsToSQLStyle($posts, $singlepost = false) {
 	return $newposts;
 }
 
-function allThreads() {
+function allThreads($safeFilter = false) {
 	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_PARENT, '=', 0, INTEGER_COMPARISON), -1, array(new OrderBy(POST_STICKIED, DESCENDING, INTEGER_COMPARISON), new OrderBy(POST_BUMPED, DESCENDING, INTEGER_COMPARISON)));
+	if ($safeFilter) {
+		safeFilter($rows);
+	}
 	return convertPostsToSQLStyle($rows);
 }
 
-function numRepliesToThreadByID($id) {
-	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_PARENT, '=', $id, INTEGER_COMPARISON));
-	return count($rows);
-}
-
-function postsInThreadByID($id, $moderated_only = true) {
+function postsInThreadByID($id, $moderated_only = true, $safeFilter = false) {
 	$compClause = new OrWhereClause();
 	$compClause->add(new SimpleWhereClause(POST_ID, '=', $id, INTEGER_COMPARISON));
 	$compClause->add(new SimpleWhereClause(POST_PARENT, '=', $id, INTEGER_COMPARISON));
 
 	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, $compClause, -1, new OrderBy(POST_ID, ASCENDING, INTEGER_COMPARISON));
+	
+	if ($safeFilter) {
+		safeFilter($rows);
+	}
+	
 	return convertPostsToSQLStyle($rows);
 }
 
@@ -274,4 +277,13 @@ function clearExpiredBans() {
 
 function deleteBanByID($id) {
 	$GLOBALS['db']->deleteWhere(BANS_FILE, new SimpleWhereClause(BAN_ID, '=', $id, INTEGER_COMPARISON));
+}
+
+function safeFilter(&$posts) {
+	foreach ($posts as &$post) {
+		$post[POST_IP] = $post[POST_PASSWORD] = $post[POST_NAMEBLOCK] = "";
+		$post[POST_MESSAGE] = str_replace('<br>', '', $post[POST_MESSAGE]);
+	}
+	
+	return $posts;
 }
