@@ -4,6 +4,8 @@ if (!defined('TINYIB_BOARD')) {
 }
 
 function pageHeader() {
+	$js_captcha = TINYIB_CAPTCHA === 'recaptcha' ? '<script src="https://www.google.com/recaptcha/api.js" async defer></script>' : '';
+
 	$return = <<<EOF
 <!DOCTYPE html>
 <html>
@@ -25,6 +27,7 @@ EOF;
 		<link rel="alternate stylesheet" type="text/css" href="css/burichan.css" title="Burichan">
 		<script src="js/jquery.js"></script>
 		<script src="js/tinyib.js"></script>
+		$js_captcha
 	</head>
 EOF;
 	return $return;
@@ -274,15 +277,37 @@ EOF;
 	$unique_posts_html = '';
 
 	$captcha_html = '';
-	if (TINYIB_CAPTCHA) {
+	if (!empty(TINYIB_CAPTCHA)) {
+		if (TINYIB_CAPTCHA === 'recaptcha') {
+			$captcha_inner_html = '
+<div style="min-height: 80px;">
+	<div class="g-recaptcha" data-sitekey="' . TINYIB_RECAPTCHA_SITE . '"></div>
+	<noscript>
+		<div>
+			<div style="width: 302px; height: 422px; position: relative;">
+				<div style="width: 302px; height: 422px; position: absolute;">
+					<iframe src="https://www.google.com/recaptcha/api/fallback?k=' . TINYIB_RECAPTCHA_SITE . '" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none;"></iframe>
+				</div>
+			</div>
+			<div style="width: 300px; height: 60px; border-style: none;bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px;background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px;">
+				<textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;"></textarea>
+			</div>
+		</div>
+	</noscript>
+</div>';
+		} else { // Simple CAPTCHA
+			$captcha_inner_html = '
+<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;(enter the text below)<br>
+<img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;">';
+		}
+
 		$captcha_html = <<<EOF
 					<tr>
 						<td class="postblock">
 							CAPTCHA
 						</td>
 						<td>
-							<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;(enter the text below)<br>
-							<img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;">
+							$captcha_inner_html
 						</td>
 					</tr>
 EOF;
@@ -321,7 +346,7 @@ EOF;
 EOF;
 	}
 
-	if (TINYIB_REQMOD != 'disable') {
+	if (TINYIB_REQMOD == 'files' || TINYIB_REQMOD == 'all') {
 		$reqmod_html = '<li>All posts' . (TINYIB_REQMOD == 'files' ? ' with a file attached' : '') . ' will be moderated before being shown.</li>';
 	}
 
@@ -759,7 +784,7 @@ EOF;
 
 	$reqmod_html = '';
 
-	if (TINYIB_REQMOD != 'disable') {
+	if (TINYIB_REQMOD == 'files' || TINYIB_REQMOD == 'all') {
 		$reqmod_post_html = '';
 
 		$reqmod_posts = latestPosts(false);

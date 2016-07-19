@@ -37,10 +37,10 @@ if (!defined('TINYIB_NOFILEOK')) {
 	define('TINYIB_NOFILEOK', false);
 }
 if (!defined('TINYIB_CAPTCHA')) {
-	define('TINYIB_CAPTCHA', false);
+	define('TINYIB_CAPTCHA', '');
 }
 if (!defined('TINYIB_REQMOD')) {
-	define('TINYIB_REQMOD', 'disable');
+	define('TINYIB_REQMOD', '');
 }
 if (!defined('TINYIB_DBMIGRATE')) {
 	define('TINYIB_DBMIGRATE', false);

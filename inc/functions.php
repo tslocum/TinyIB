@@ -222,17 +222,39 @@ function deletePostImages($post) {
 }
 
 function checkCAPTCHA() {
-	if (!TINYIB_CAPTCHA) {
-		return; // CAPTCHA is disabled
-	}
+	if (TINYIB_CAPTCHA === 'recaptcha') {
+		require_once 'inc/recaptcha/autoload.php';
 
-	$captcha = isset($_POST['captcha']) ? strtolower(trim($_POST['captcha'])) : '';
-	$captcha_solution = isset($_SESSION['tinyibcaptcha']) ? strtolower(trim($_SESSION['tinyibcaptcha'])) : '';
+		$captcha = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : '';
+		$failed_captcha = true;
 
-	if ($captcha == '') {
-		fancyDie('Please enter the CAPTCHA text.');
-	} else if ($captcha != $captcha_solution) {
-		fancyDie('Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to retrieve a new CAPTCHA.');
+		$recaptcha = new \ReCaptcha\ReCaptcha(TINYIB_RECAPTCHA_SECRET);
+		$resp = $recaptcha->verify($captcha, $_SERVER['REMOTE_ADDR']);
+		if ($resp->isSuccess()) {
+			$failed_captcha = false;
+		}
+
+		if ($failed_captcha) {
+			$captcha_error = 'Failed CAPTCHA.';
+			if (count($resp->getErrorCodes()) == 1 && $resp->getErrorCodes()[0] == 'missing-input-response') {
+				$captcha_error .= ' Please click the checkbox labeled "I\'m not a robot".';
+			} else {
+				$captcha_error .= ' Reason:';
+				foreach ($resp->getErrorCodes() as $error) {
+					$captcha_error .= '<br>' . $error;
+				}
+			}
+			fancyDie($captcha_error);
+		}
+	} else if (!empty(TINYIB_CAPTCHA)) { // Simple CAPTCHA
+		$captcha = isset($_POST['captcha']) ? strtolower(trim($_POST['captcha'])) : '';
+		$captcha_solution = isset($_SESSION['tinyibcaptcha']) ? strtolower(trim($_SESSION['tinyibcaptcha'])) : '';
+
+		if ($captcha == '') {
+			fancyDie('Please enter the CAPTCHA text.');
+		} else if ($captcha != $captcha_solution) {
+			fancyDie('Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to retrieve a new CAPTCHA.');
+		}
 	}
 }
 

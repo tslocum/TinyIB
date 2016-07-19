@@ -36,7 +36,11 @@ if (!file_exists('settings.php')) {
 require 'settings.php';
 
 if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
-	fancyDie('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured');
+	fancyDie('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured.');
+}
+
+if (TINYIB_CAPTCHA === 'recaptcha' && (TINYIB_RECAPTCHA_SITE == '' || TINYIB_RECAPTCHA_SECRET == '')) {
+	fancyDie('TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured.');
 }
 
 // Check directories are writable by the script
@@ -54,7 +58,7 @@ $includes = array("inc/defines.php", "inc/functions.php", "inc/html.php");
 if (in_array(TINYIB_DBMODE, array('flatfile', 'mysql', 'mysqli', 'sqlite', 'pdo'))) {
 	$includes[] = 'inc/database_' . TINYIB_DBMODE . '.php';
 } else {
-	fancyDie("Unknown database mode specified");
+	fancyDie("Unknown database mode specified.");
 }
 
 foreach ($includes as $include) {

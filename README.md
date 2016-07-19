@@ -15,7 +15,7 @@ Features
 ------------
  - GIF, JPG, PNG, SWF and WebA/WebM upload.
  - YouTube, Vimeo and SoundCloud embedding.
- - CAPTCHA.
+ - CAPTCHA  (A simple implementation is included, reCAPTCHA is also supported)
  - Reference links >>###
  - Delete post via password.
  - Management panel:
