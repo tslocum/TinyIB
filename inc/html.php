@@ -277,7 +277,7 @@ EOF;
 	$unique_posts_html = '';
 
 	$captcha_html = '';
-	if (!empty(TINYIB_CAPTCHA)) {
+	if (TINYIB_CAPTCHA) {
 		if (TINYIB_CAPTCHA === 'recaptcha') {
 			$captcha_inner_html = '
 <div style="min-height: 80px;">

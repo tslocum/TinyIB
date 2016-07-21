@@ -246,7 +246,7 @@ function checkCAPTCHA() {
 			}
 			fancyDie($captcha_error);
 		}
-	} else if (!empty(TINYIB_CAPTCHA)) { // Simple CAPTCHA
+	} else if (TINYIB_CAPTCHA) { // Simple CAPTCHA
 		$captcha = isset($_POST['captcha']) ? strtolower(trim($_POST['captcha'])) : '';
 		$captcha_solution = isset($_SESSION['tinyibcaptcha']) ? strtolower(trim($_SESSION['tinyibcaptcha'])) : '';
 
