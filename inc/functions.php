@@ -3,6 +3,8 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
+define('TINYIB_EMBEDS', array('YouTube' => "http://www.youtube.com/oembed?url=TINYIBEMBED&format=json", 'Vimeo' => "http://vimeo.com/api/oembed.json?url=TINYIBEMBED", 'SoundCloud' => "http://soundcloud.com/oembed?format=json&url=TINYIBEMBED"));
+
 $posts_sql = "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
 	`id` mediumint(7) unsigned NOT NULL auto_increment,
 	`parent` mediumint(7) unsigned NOT NULL,
@@ -213,7 +215,7 @@ function colorQuote($message) {
 }
 
 function deletePostImages($post) {
-	if ($post['file_hex'] != 'YouTube' && $post['file_hex'] != 'Vimeo' && $post['file_hex'] != 'SoundCloud' && $post['file'] != '') {
+	if (!isEmbed($post['file_hex']) && $post['file'] != '') {
 		@unlink('src/' . $post['file']);
 	}
 	if ($post['thumb'] != '') {
@@ -522,9 +524,13 @@ function strallpos($haystack, $needle, $offset = 0) {
 	return $result;
 }
 
+function isEmbed($file_hex) {
+	return in_array($file_hex, array_keys(TINYIB_EMBEDS));
+}
+
 function getEmbed($url) {
-	$services = array('YouTube' => "http://www.youtube.com/oembed?url=" . urlencode($url) . "&format=json", 'Vimeo' => "http://vimeo.com/api/oembed.json?url=" . urlencode($url), 'SoundCloud' => "http://soundcloud.com/oembed?format=json&url=" . $url);
-	foreach ($services as $service => $service_url) {
+	foreach (TINYIB_EMBEDS as $service => $service_url) {
+		$service_url = str_ireplace("TINYIBEMBED", urlencode($url), $service_url);
 		$curl = curl_init($service_url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
@@ -532,8 +538,9 @@ function getEmbed($url) {
 		curl_close($curl);
 		$result = json_decode($return, true);
 		if (!empty($result)) {
-			break;
+			return array($service, $result);
 		}
 	}
-	return array($service, $result);
+
+	return array('',  array());
 }

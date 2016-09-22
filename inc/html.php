@@ -103,12 +103,61 @@ function buildPost($post, $res) {
 		$post["omitted"] = 0;
 	}
 
-	$embed = '';
-	if ($post["file_hex"] == "YouTube" || $post["file_hex"] == "Vimeo" || $post["file_hex"] == "SoundCloud") {
-		$embed = str_replace("'", "\'", $post['file']);
+	$filehtml = '';
+	$filesize = '';
+	$expandhtml = '';
+
+	$direct_link = '#';
+	if (!isEmbed($post["file_hex"])) {
+		$direct_link = "src/${post["file"]}";
 	}
 
-	if ($post["parent"] != TINYIB_NEWTHREAD) {
+	if ($post['parent'] == TINYIB_NEWTHREAD && $post["file"] != '') {
+		$filesize .= isEmbed($post['file_hex']) ? 'Embed: ' : 'File: ';
+	}
+
+	if (isEmbed($post["file_hex"])) {
+		$expandhtml = $post['file'];
+	} else if ($post["file"] != '') {
+		$expandhtml = "<a href=\"src/${post["file"]}\" onclick=\"return expandFile(event, '${post['id']}');\"><img src=\"" . ($res == TINYIB_RESPAGE ? "../" : "") . "src/${post["file"]}\" width=\"${post["image_width"]}\" style=\"max-width: 100%;height: auto;\"></a>";
+	}
+
+	$thumblink = "<a href=\"$direct_link\" target=\"_blank\"" . ((substr($post["file"], -4) != '.swf') ? " onclick=\"return expandFile(event, '${post['id']}');\"" : "") . ">";
+	$expandhtml = rawurlencode($expandhtml);
+
+	if (isEmbed($post["file_hex"])) {
+		$filesize .= "<a href=\"$direct_link\" onclick=\"return expandFile(event, '${post['id']}');\">${post['file_original']}</a>&ndash;(${post['file_hex']})";
+	} else if ($post["file"] != '') {
+		$filesize .= $thumblink . "${post["file"]}</a>&ndash;(${post["file_size_formatted"]}, ${post["image_width"]}x${post["image_height"]}, ${post["file_original"]})";
+	}
+
+	if ($filesize != '') {
+		$filesize = '<span class="filesize">' . $filesize . '</span>';
+	}
+
+	if ($filesize != '') {
+		if ($post['parent'] != TINYIB_NEWTHREAD) {
+			$filehtml .= '<br>';
+		}
+		$filehtml .= <<<EOF
+$filesize
+<br>
+<span id="thumbfile${post['id']}">
+$thumblink
+	<img src="thumb/${post["thumb"]}" alt="${post["id"]}" class="thumb" id="thumbnail${post['id']}" width="${post["thumb_width"]}" height="${post["thumb_height"]}">
+</a>
+</span>
+EOF;
+		if ($expandhtml != '') {
+			$filehtml .= <<<EOF
+<div id="expand${post['id']}" style="display: none;">$expandhtml</div>
+<div id="file${post['id']}" class="thumb" style="display: none;"></div>
+EOF;
+		}
+	}
+	if ($post["parent"] == TINYIB_NEWTHREAD) {
+		$return .= $filehtml;
+	} else {
 		$return .= <<<EOF
 <table>
 <tbody>
@@ -117,32 +166,6 @@ function buildPost($post, $res) {
 	&#0168;
 </td>
 <td class="reply" id="reply${post["id"]}">
-EOF;
-	} elseif ($embed != "") {
-		$return .= <<<EOF
-<span class="filesize">Embed: <a href="#" id="tiembed${post['id']}">${post["file_original"]}</a>&ndash;(${post["file_hex"]})</span>
-<br>
-<span id="thumbembed${post['id']}">
-<a href="#" id="exembed${post['id']}">
-<img src="thumb/${post["thumb"]}" alt="${post["id"]}" class="thumb opthumb" id="thumbnail${post['id']}" width="${post["thumb_width"]}" height="${post["thumb_height"]}">
-</a>
-</span>
-<div id="embed${post['id']}" class="thumb" style="display: none;"></div>
-<script type="text/javascript">
-$("#tiembed${post['id']}, #exembed${post['id']}").click(function(){
-showEmbed('${post['id']}', '$embed');
-return false;
-});
-</script>
-EOF;
-
-	} elseif ($post["file"] != "") {
-		$return .= <<<EOF
-<span class="filesize">File: <a href="src/${post["file"]}">${post["file"]}</a>&ndash;(${post["file_size_formatted"]}, ${post["image_width"]}x${post["image_height"]}, ${post["file_original"]})</span>
-<br>
-<a target="_blank" href="src/${post["file"]}">
-<span id="thumb${post['id']}"><img src="thumb/${post["thumb"]}" alt="${post["id"]}" class="thumb" width="${post["thumb_width"]}" height="${post["thumb_height"]}"></span>
-</a>
 EOF;
 	}
 
@@ -153,7 +176,7 @@ EOF;
 EOF;
 
 	if ($post['subject'] != '') {
-		$return .= '	<span class="filetitle">' . $post['subject'] . '</span> ';
+		$return .= ' <span class="filetitle">' . $post['subject'] . '</span> ';
 	}
 
 	$return .= <<<EOF
@@ -165,34 +188,7 @@ ${post["nameblock"]}
 EOF;
 
 	if ($post['parent'] != TINYIB_NEWTHREAD) {
-		if ($embed != "") {
-			$return .= <<<EOF
-<br>
-<span class="filesize"><a href="#" id="tiembed${post['id']}">${post['file_original']}</a>&ndash;(${post['file_hex']})</span>
-<br>
-<span id="thumbembed${post['id']}">
-<a href="#" id="exembed${post['id']}">
-		<img src="thumb/${post["thumb"]}" alt="${post["id"]}" class="thumb" id="thumbnail${post['id']}" width="${post["thumb_width"]}" height="${post["thumb_height"]}">
-</a>
-</span>
-<div id="embed${post['id']}" class="thumb" style="display: none;"></div>
-<script type="text/javascript">
-$("#tiembed${post['id']}, #exembed${post['id']}").click(function(){
-showEmbed('${post['id']}', '$embed');
-return false;
-});
-</script>
-EOF;
-		} else if ($post["file"] != "") {
-			$return .= <<<EOF
-<br>
-<span class="filesize"><a href="src/${post["file"]}">${post["file"]}</a>&ndash;(${post["file_size_formatted"]}, ${post["image_width"]}x${post["image_height"]}, ${post["file_original"]})</span>
-<br>
-<a target="_blank" href="src/${post["file"]}">
-	<span id="thumb${post["id"]}"><img src="thumb/${post["thumb"]}" alt="${post["id"]}" class="thumb" width="${post["thumb_width"]}" height="${post["thumb_height"]}"></span>
-</a>
-EOF;
-		}
+		$return .= $filehtml;
 	}
 
 	if ($post['parent'] == TINYIB_NEWTHREAD && $res == TINYIB_INDEXPAGE) {

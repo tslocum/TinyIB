@@ -102,7 +102,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	if (isset($_POST['embed']) && trim($_POST['embed']) != '') {
 		list($service, $embed) = getEmbed(trim($_POST['embed']));
 		if (empty($embed) || !isset($embed['html']) || !isset($embed['title']) || !isset($embed['thumbnail_url'])) {
-			fancyDie("Invalid embed URL. Only YouTube, Vimeo, and SoundCloud URLs are supported.");
+			fancyDie("Invalid embed URL. Only " . (implode("/", array_keys(TINYIB_EMBEDS))) . " URLs are supported.");
 		}
 
 		$post['file_hex'] = $service;
