@@ -32,8 +32,7 @@ define('TINYIB_MAXREPLIES', 0);       // Maximum replies before a thread stops b
 // Upload types
 define('TINYIB_PIC', true);           // Enable .jpg, .png and .gif image file upload
 define('TINYIB_SWF', false);          // Enable .swf Flash file upload
-define('TINYIB_WEBM', false);         // Enable .weba and .webm audio/video file upload  (see README for instructions)
-define('TINYIB_EMBED', false);        // Enable embedding  (e.g. YouTube, Vimeo, SoundCloud)
+define('TINYIB_WEBM', false);         // Enable .webm audio/video file upload  (see README for instructions)
 
 // File control
 define('TINYIB_MAXKB', 2048);         // Maximum file size in kilobytes  [0 to disable]
@@ -48,6 +47,12 @@ define('TINYIB_MAXHOP', 250);         // Height
 // Thumbnail size - reply
 define('TINYIB_MAXW', 250);           // Width
 define('TINYIB_MAXH', 250);           // Height
+
+// Embedding - oEmbed API
+define('TINYIB_EMBED', true);        // Enable embedding  (e.g. YouTube, Vimeo, SoundCloud)
+$tinyib_embeds = array('SoundCloud' => 'http://soundcloud.com/oembed?format=json&url=TINYIBEMBED',
+                       'Vimeo'      => 'http://vimeo.com/api/oembed.json?url=TINYIBEMBED',
+                       'YouTube'    => 'http://www.youtube.com/oembed?url=TINYIBEMBED&format=json');
 
 // Tripcode seed - Must not change once set!
 define('TINYIB_TRIPSEED', '');        // Enter some random text  (used when generating secure tripcodes)

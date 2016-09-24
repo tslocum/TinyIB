@@ -54,3 +54,6 @@ if (!defined('TINYIB_DBDRIVER')) {
 if (!defined('TINYIB_DBDSN')) {
 	define('TINYIB_DBDSN', '');
 }
+if (!isset($tinyib_embeds)) {
+	$tinyib_embeds = array('SoundCloud' => 'http://soundcloud.com/oembed?format=json&url=TINYIBEMBED', 'Vimeo' => 'http://vimeo.com/api/oembed.json?url=TINYIBEMBED', 'YouTube' => 'http://www.youtube.com/oembed?url=TINYIBEMBED&format=json');
+}

@@ -13,7 +13,7 @@ For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki)
 
 Features
 ------------
- - GIF, JPG, PNG, SWF and WebA/WebM upload.
+ - GIF, JPG, PNG, SWF and WebM upload.
  - YouTube, Vimeo and SoundCloud embedding.
  - CAPTCHA  (A simple implementation is included, reCAPTCHA is also supported)
  - Reference links >>###
@@ -38,7 +38,7 @@ Installing
     - `git clone git://github.com/tslocum/TinyIB.git ./`
  4. Copy **settings.default.php** to **settings.php**
  5. Configure **settings.php**
-    - To allow WebA/WebM upload:
+    - To allow WebM upload:
       - Ensure your web host is running Linux.
       - Install [mediainfo](http://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
       - Set ``TINYIB_WEBM`` to ``true``.

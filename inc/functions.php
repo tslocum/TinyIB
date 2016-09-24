@@ -3,8 +3,6 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
-define('TINYIB_EMBEDS', array('YouTube' => "http://www.youtube.com/oembed?url=TINYIBEMBED&format=json", 'Vimeo' => "http://vimeo.com/api/oembed.json?url=TINYIBEMBED", 'SoundCloud' => "http://soundcloud.com/oembed?format=json&url=TINYIBEMBED"));
-
 $posts_sql = "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
 	`id` mediumint(7) unsigned NOT NULL auto_increment,
 	`parent` mediumint(7) unsigned NOT NULL,
@@ -525,11 +523,13 @@ function strallpos($haystack, $needle, $offset = 0) {
 }
 
 function isEmbed($file_hex) {
-	return in_array($file_hex, array_keys(TINYIB_EMBEDS));
+	global $tinyib_embeds;
+	return in_array($file_hex, array_keys($tinyib_embeds));
 }
 
 function getEmbed($url) {
-	foreach (TINYIB_EMBEDS as $service => $service_url) {
+	global $tinyib_embeds;
+	foreach ($tinyib_embeds as $service => $service_url) {
 		$service_url = str_ireplace("TINYIBEMBED", urlencode($url), $service_url);
 		$curl = curl_init($service_url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

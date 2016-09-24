@@ -31,7 +31,7 @@ function fancyDie($message) {
 }
 
 if (!file_exists('settings.php')) {
-	fancyDie('Please rename the file settings.default.php to settings.php');
+	fancyDie('Please copy the file settings.default.php to settings.php');
 }
 require 'settings.php';
 
@@ -102,7 +102,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	if (isset($_POST['embed']) && trim($_POST['embed']) != '') {
 		list($service, $embed) = getEmbed(trim($_POST['embed']));
 		if (empty($embed) || !isset($embed['html']) || !isset($embed['title']) || !isset($embed['thumbnail_url'])) {
-			fancyDie("Invalid embed URL. Only " . (implode("/", array_keys(TINYIB_EMBEDS))) . " URLs are supported.");
+			fancyDie("Invalid embed URL. Only " . (implode("/", array_keys($tinyib_embeds))) . " URLs are supported.");
 		}
 
 		$post['file_hex'] = $service;
@@ -162,9 +162,6 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 			if ($file_type == '.jpeg') {
 				$file_type = '.jpg';
 			}
-			if ($file_type == '.weba') {
-				$file_type = '.webm';
-			}
 
 			// Thumbnail type
 			if ($file_type == '.webm') {
@@ -213,21 +210,10 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 			}
 
 			if ($file_mime == "audio/webm" || $file_mime == "video/webm") {
-				$post['image_width'] = intval(shell_exec('mediainfo --Inform="Video;%Width%" ' . $file_location));
-				$post['image_height'] = intval(shell_exec('mediainfo --Inform="Video;%Height%" ' . $file_location));
+				$post['image_width'] = max(0, intval(shell_exec('mediainfo --Inform="Video;%Width%" ' . $file_location)));
+				$post['image_height'] = max(0, intval(shell_exec('mediainfo --Inform="Video;%Height%" ' . $file_location)));
 
-				if ($post['image_width'] <= 0 || $post['image_height'] <= 0) {
-					$post['image_width'] = 0;
-					$post['image_height'] = 0;
-
-					$file_location_old = $file_location;
-					$file_location = substr($file_location, 0, -1) . 'a'; // replace webm with weba
-					rename($file_location_old, $file_location);
-
-					$post['file'] = substr($post['file'], 0, -1) . 'a'; // replace webm with weba
-				}
-
-				if ($file_mime == "video/webm") {
+				if ($post['image_width'] > 0 && $post['image_height'] > 0) {
 					list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
 					shell_exec("ffmpegthumbnailer -s " . max($thumb_maxwidth, $thumb_maxheight) . " -i $file_location -o $thumb_location");
 
@@ -244,11 +230,13 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 					addVideoOverlay($thumb_location);
 				}
 
-				$duration = intval(shell_exec('mediainfo --Inform="' . ($file_mime == 'video/webm' ? 'Video' : 'Audio') . ';%Duration%" ' . $file_location));
-				$mins = floor(round($duration / 1000) / 60);
-				$secs = str_pad(floor(round($duration / 1000) % 60), 2, "0", STR_PAD_LEFT);
+				$duration = intval(shell_exec('mediainfo --Inform="General;%Duration%" ' . $file_location));
+				if ($duration > 0) {
+					$mins = floor(round($duration / 1000) / 60);
+					$secs = str_pad(floor(round($duration / 1000) % 60), 2, "0", STR_PAD_LEFT);
 
-				$post['file_original'] = "$mins:$secs" . ($post['file_original'] != '' ? (', ' . $post['file_original']) : '');
+					$post['file_original'] = "$mins:$secs" . ($post['file_original'] != '' ? (', ' . $post['file_original']) : '');
+				}
 			} else {
 				$file_info = getimagesize($file_location);
 
