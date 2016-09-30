@@ -41,7 +41,6 @@ Installing
     - To allow WebM upload:
       - Ensure your web host is running Linux.
       - Install [mediainfo](http://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
-      - Set ``TINYIB_WEBM`` to ``true``.
     - To require moderation before displaying posts:
       - Ensure your ``TINYIB_DBMODE`` is set to ``mysql``, ``mysqli``, or ``pdo``.
       - Set ``TINYIB_REQMOD`` to ``files`` to require moderation for posts with files attached.

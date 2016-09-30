@@ -157,51 +157,30 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 			$post['file_size'] = $_FILES['file']['size'];
 			$post['file_size_formatted'] = convertBytes($post['file_size']);
 
-			// Uploaded file type
-			$file_type = strtolower(preg_replace('/.*(\..+)/', '\1', $_FILES['file']['name']));
-			if ($file_type == '.jpeg') {
-				$file_type = '.jpg';
-			}
-
-			// Thumbnail type
-			if ($file_type == '.webm') {
-				$thumb_type = '.jpg';
-			} else if ($file_type == '.swf') {
-				$thumb_type = '.png';
-			} else {
-				$thumb_type = $file_type;
-			}
-
-			$file_name = time() . substr(microtime(), 2, 3);
-			$post['file'] = $file_name . $file_type;
-			$post['thumb'] = $file_name . "s" . $thumb_type;
-
-			$file_location = "src/" . $post['file'];
-			$thumb_location = "thumb/" . $post['thumb'];
-
 			checkDuplicateFile($post['file_hex']);
 
-			if (!move_uploaded_file($_FILES['file']['tmp_name'], $file_location)) {
-				fancyDie("Could not copy uploaded file.");
-			}
-
-			if ($file_type == '.webm') {
-				$file_mime_output = shell_exec('file --mime-type ' . $file_location);
-				$file_mime_split = explode(' ', $file_mime_output);
-				$file_mime = strtolower(trim(array_pop($file_mime_split)));
+			$file_mime_split = explode(' ', trim(@shell_exec('file --mime-type ' . $_FILES['file']['tmp_name'])));
+			if (count($file_mime_split) > 0) {
+				$file_mime = strtolower(array_pop($file_mime_split));
 			} else {
-				if (!@getimagesize($file_location)) {
-					@unlink($file_location);
-					fancyDie("Failed to read the size of the uploaded file. Please retry the submission.");
+				if (!@getimagesize($_FILES['file']['tmp_name'])) {
+					fancyDie("Failed to read the MIME type and size of the uploaded file. Please retry the submission.");
 				}
 
-				$file_info = getimagesize($file_location);
+				$file_info = getimagesize($_FILES['file']['tmp_name']);
 				$file_mime = $file_info['mime'];
 			}
 
-			if (!($file_mime == "image/jpeg" || $file_mime == "image/gif" || $file_mime == "image/png" || (TINYIB_WEBM && ($file_mime == "video/webm" || $file_mime == "audio/webm")) || (TINYIB_SWF && ($file_mime == "application/x-shockwave-flash")))) {
-				@unlink($file_location);
+			if (empty($file_mime) || !isset($tinyib_uploads[$file_mime])) {
 				fancyDie(supportedFileTypes());
+			}
+
+			$file_name = time() . substr(microtime(), 2, 3);
+			$post['file'] = $file_name . "." . $tinyib_uploads[$file_mime][0];
+
+			$file_location = "src/" . $post['file'];
+			if (!move_uploaded_file($_FILES['file']['tmp_name'], $file_location)) {
+				fancyDie("Could not copy uploaded file.");
 			}
 
 			if ($_FILES['file']['size'] != filesize($file_location)) {
@@ -215,19 +194,20 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 
 				if ($post['image_width'] > 0 && $post['image_height'] > 0) {
 					list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
-					shell_exec("ffmpegthumbnailer -s " . max($thumb_maxwidth, $thumb_maxheight) . " -i $file_location -o $thumb_location");
+					$post['thumb'] = $file_name . "s.jpg";
+					shell_exec("ffmpegthumbnailer -s " . max($thumb_maxwidth, $thumb_maxheight) . " -i $file_location -o thumb/{$post['thumb']}");
 
-					$thumb_info = getimagesize($thumb_location);
+					$thumb_info = getimagesize("thumb/" . $post['thumb']);
 					$post['thumb_width'] = $thumb_info[0];
 					$post['thumb_height'] = $thumb_info[1];
 
 					if ($post['thumb_width'] <= 0 || $post['thumb_height'] <= 0) {
 						@unlink($file_location);
-						@unlink($thumb_location);
+						@unlink("thumb/" . $post['thumb']);
 						fancyDie("Sorry, your video appears to be corrupt.");
 					}
 
-					addVideoOverlay($thumb_location);
+					addVideoOverlay("thumb/" . $post['thumb']);
 				}
 
 				$duration = intval(shell_exec('mediainfo --Inform="General;%Duration%" ' . $file_location));
@@ -237,41 +217,47 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 
 					$post['file_original'] = "$mins:$secs" . ($post['file_original'] != '' ? (', ' . $post['file_original']) : '');
 				}
-			} else {
+			} else if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif', 'application/x-shockwave-flash'))) {
 				$file_info = getimagesize($file_location);
 
 				$post['image_width'] = $file_info[0];
 				$post['image_height'] = $file_info[1];
+			}
 
+			if (isset($tinyib_uploads[$file_mime][1])) {
+				$thumbfile_split = explode(".", $tinyib_uploads[$file_mime][1]);
+				$post['thumb'] = $file_name . "s." . array_pop($thumbfile_split);
+				if (!copy($tinyib_uploads[$file_mime][1], "thumb/" . $post['thumb'])) {
+					@unlink($file_location);
+					fancyDie("Could not create thumbnail.");
+				}
 				if ($file_mime == "application/x-shockwave-flash") {
-					if (!copy('swf_thumbnail.png', $thumb_location)) {
-						@unlink($file_location);
-						fancyDie("Could not create thumbnail.");
-					}
+					addVideoOverlay("thumb/" . $post['thumb']);
+				}
+			} else if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'))) {
+				$post['thumb'] = $file_name . "s." . $tinyib_uploads[$file_mime][0];
+				list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
 
-					addVideoOverlay($thumb_location);
-				} else {
-					list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
-
-					if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight)) {
-						@unlink($file_location);
-						fancyDie("Could not create thumbnail.");
-					}
+				if (!createThumbnail($file_location, "thumb/" . $post['thumb'], $thumb_maxwidth, $thumb_maxheight)) {
+					@unlink($file_location);
+					fancyDie("Could not create thumbnail.");
 				}
 			}
 
-			$thumb_info = getimagesize($thumb_location);
-			$post['thumb_width'] = $thumb_info[0];
-			$post['thumb_height'] = $thumb_info[1];
+			if ($post['thumb'] != '') {
+				$thumb_info = getimagesize("thumb/" . $post['thumb']);
+				$post['thumb_width'] = $thumb_info[0];
+				$post['thumb_height'] = $thumb_info[1];
+			}
 		}
 	}
 
 	if ($post['file'] == '') { // No file uploaded
 		$allowed = "";
-		if (TINYIB_PIC || TINYIB_SWF || TINYIB_WEBM) {
+		if (!empty($tinyib_uploads)) {
 			$allowed = "file";
 		}
-		if (TINYIB_EMBED) {
+		if (!empty($tinyib_embeds)) {
 			if ($allowed != "") {
 				$allowed .= " or ";
 			}

@@ -18,18 +18,6 @@ if (!defined('TINYIB_MAXWOP')) {
 if (!defined('TINYIB_MAXHOP')) {
 	define('TINYIB_MAXHOP', TINYIB_MAXH);
 }
-if (!defined('TINYIB_PIC')) {
-	define('TINYIB_PIC', true);
-}
-if (!defined('TINYIB_SWF')) {
-	define('TINYIB_SWF', false);
-}
-if (!defined('TINYIB_WEBM')) {
-	define('TINYIB_WEBM', false);
-}
-if (!defined('TINYIB_EMBED')) {
-	define('TINYIB_EMBED', false);
-}
 if (!defined('TINYIB_THUMBNAIL')) {
 	define('TINYIB_THUMBNAIL', 'gd');
 }
@@ -54,6 +42,27 @@ if (!defined('TINYIB_DBDRIVER')) {
 if (!defined('TINYIB_DBDSN')) {
 	define('TINYIB_DBDSN', '');
 }
+if (!isset($tinyib_uploads)) {
+	$tinyib_uploads = array();
+	if (defined('TINYIB_PIC') && TINYIB_PIC) {
+		$tinyib_uploads['image/jpeg'] = array('jpg');
+		$tinyib_uploads['image/pjpeg'] = array('jpg');
+		$tinyib_uploads['image/png'] = array('png');
+		$tinyib_uploads['image/gif'] = array('gif');
+	}
+	if (defined('TINYIB_SWF') && TINYIB_SWF) {
+		$tinyib_uploads['application/x-shockwave-flash'] = array('swf', 'swf_thumbnail.png');
+	}
+	if (defined('TINYIB_WEBM') && TINYIB_WEBM) {
+		$tinyib_uploads['video/webm'] = array('webm');
+		$tinyib_uploads['adio/webm'] = array('webm');
+	}
+}
 if (!isset($tinyib_embeds)) {
-	$tinyib_embeds = array('SoundCloud' => 'http://soundcloud.com/oembed?format=json&url=TINYIBEMBED', 'Vimeo' => 'http://vimeo.com/api/oembed.json?url=TINYIBEMBED', 'YouTube' => 'http://www.youtube.com/oembed?url=TINYIBEMBED&format=json');
+	$tinyib_embeds = array();
+	if (defined('TINYIB_EMBED') && TINYIB_EMBED) {
+		$tinyib_embeds['SoundCloud'] = 'http://soundcloud.com/oembed?format=json&url=TINYIBEMBED';
+		$tinyib_embeds['Vimeo'] = 'http://vimeo.com/api/oembed.json?url=TINYIBEMBED';
+		$tinyib_embeds['YouTube'] = 'http://www.youtube.com/oembed?url=TINYIBEMBED&format=json';
+	}
 }

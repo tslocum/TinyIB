@@ -47,33 +47,18 @@ EOF;
 }
 
 function supportedFileTypes() {
-	$types_allowed = array();
-	if (TINYIB_PIC) {
-		array_push($types_allowed, "GIF", "JPG", "PNG");
-	}
-	if (TINYIB_SWF) {
-		array_push($types_allowed, "SWF");
-	}
-	if (TINYIB_WEBM) {
-		array_push($types_allowed, "WebM");
+	global $tinyib_uploads;
+	if (empty($tinyib_uploads)) {
+		return "";
 	}
 
-	$i = 0;
-	$types_count = count($types_allowed);
-	$types_formatted = "";
-	foreach ($types_allowed as $type) {
-		if (++$i >= $types_count - 1) {
-			$types_formatted .= $type . ($i == $types_count - 1 && $types_count > 1 ? " and " : "");
-		} else {
-			$types_formatted .= $type . ", ";
-		}
-	}
+	$types_allowed = array_map('strtoupper', array_unique(array_column($tinyib_uploads, 0)));
+	$types_last = array_pop($types_allowed);
+	$types_formatted = $types_allowed
+		? implode(', ', $types_allowed) . ' and ' . $types_last
+		: $types_last;
 
-	if ($types_formatted != "") {
-		return "Supported file type" . ($types_count != 1 ? "s are " : " is ") . $types_formatted . ".";
-	}
-
-	return $types_formatted;
+	return "Supported file type" . (count($tinyib_uploads) != 1 ? "s are " : " is ") . $types_formatted . ".";
 }
 
 function makeLinksClickable($text) {
@@ -119,16 +104,16 @@ function buildPost($post, $res) {
 		if ($post['image_width'] > 0 && $post['image_height'] > 0) {
 			$dimensions = 'width="' . $post['image_width'] . '" height="' . $post['image_height'] . '"';
 		}
-                $expandhtml = <<<EOF
+		$expandhtml = <<<EOF
 <video $dimensions style="position: static; pointer-events: inherit; display: inline; max-width: 100%; max-height: 100%;" controls autoplay loop>
 	<source src="$direct_link"></source>
 </video>
 EOF;
-	} else if ($post["file"] != '') {
+	} else if (in_array(substr($post['file'], -4), array('.jpg', '.png', '.gif'))) {
 		$expandhtml = "<a href=\"src/${post["file"]}\" onclick=\"return expandFile(event, '${post['id']}');\"><img src=\"" . ($res == TINYIB_RESPAGE ? "../" : "") . "src/${post["file"]}\" width=\"${post["image_width"]}\" style=\"max-width: 100%;height: auto;\"></a>";
 	}
 
-	$thumblink = "<a href=\"$direct_link\" target=\"_blank\"" . ((substr($post["file"], -4) != '.swf') ? " onclick=\"return expandFile(event, '${post['id']}');\"" : "") . ">";
+	$thumblink = "<a href=\"$direct_link\" target=\"_blank\"" . ((isEmbed($post["file_hex"]) || in_array(substr($post['file'], -4), array('.jpg', '.png', '.gif', 'webm'))) ? " onclick=\"return expandFile(event, '${post['id']}');\"" : "") . ">";
 	$expandhtml = rawurlencode($expandhtml);
 
 	if (isEmbed($post["file_hex"])) {
@@ -237,6 +222,8 @@ EOF;
 }
 
 function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
+	global $tinyib_uploads, $tinyib_embeds;
+
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
 	$maxdimensions = TINYIB_MAXWOP . 'x' . TINYIB_MAXHOP;
 	if (TINYIB_MAXW != TINYIB_MAXWOP || TINYIB_MAXH != TINYIB_MAXHOP) {
@@ -323,7 +310,7 @@ EOF;
 EOF;
 	}
 
-	if (TINYIB_PIC || TINYIB_WEBM || TINYIB_SWF) {
+	if (!empty($tinyib_uploads)) {
 		if (TINYIB_MAXKB > 0) {
 			$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
 			$max_file_size_rules_html = '<li>Maximum file size allowed is ' . TINYIB_MAXKBDESC . '.</li>';
@@ -343,7 +330,7 @@ EOF;
 EOF;
 	}
 
-	if (TINYIB_EMBED) {
+	if (!empty($tinyib_embeds)) {
 		$embed_input_html = <<<EOF
 					<tr>
 						<td class="postblock">
@@ -361,7 +348,7 @@ EOF;
 	}
 
 	$thumbnails_html = '';
-	if (TINYIB_PIC) {
+	if (isset($tinyib_uploads['image/jpeg']) || isset($tinyib_uploads['image/pjpeg']) || isset($tinyib_uploads['image/png']) || isset($tinyib_uploads['image/gif'])) {
 		$thumbnails_html = "<li>Images greater than $maxdimensions will be thumbnailed.</li>";
 	}
 
