@@ -10,7 +10,7 @@
  */
 
 session_start();
-putenv('GDFONTPATH=' . realpath('./fonts/'));
+putenv('GDFONTPATH=' . realpath(dirname(__FILE__)) . '/fonts/');
 $captcha = new SimpleCaptcha();
 $captcha->CreateImage();
 
