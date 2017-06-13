@@ -236,7 +236,14 @@ function checkCAPTCHA() {
 
 		if ($failed_captcha) {
 			$captcha_error = 'Failed CAPTCHA.';
-			if (count($resp->getErrorCodes()) == 1 && $resp->getErrorCodes()[0] == 'missing-input-response') {
+			$error_reason = '';
+
+			if (count($resp->getErrorCodes()) == 1) {
+				$error_codes = $resp->getErrorCodes();
+				$error_reason = $error_codes[0];
+			}
+
+			if ($error_reason == 'missing-input-response') {
 				$captcha_error .= ' Please click the checkbox labeled "I\'m not a robot".';
 			} else {
 				$captcha_error .= ' Reason:';
