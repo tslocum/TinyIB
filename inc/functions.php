@@ -561,3 +561,7 @@ function getEmbed($url) {
 
 	return array('', array());
 }
+
+function installedViaGit() {
+	return is_dir('.git');
+}

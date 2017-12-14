@@ -508,7 +508,8 @@ function adminBar() {
 	if (!$loggedin) {
 		return $return;
 	}
-	return '[<a href="?manage">Status</a>] [' . (($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '') . '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&rawpost">Raw Post</a>] [' . (($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '') . (($isadmin && TINYIB_DBMIGRATE) ? '<a href="?manage&dbmigrate"><b>Migrate Database</b></a>] [' : '') . '<a href="?manage&logout">Log Out</a>] &middot; ' . $return;
+
+	return '[<a href="?manage">Status</a>] [' . (($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '') . '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&rawpost">Raw Post</a>] [' . (($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '') . (($isadmin && installedViaGit()) ? '<a href="?manage&update">Update</a>] [' : '') . (($isadmin && TINYIB_DBMIGRATE) ? '<a href="?manage&dbmigrate"><b>Migrate Database</b></a>] [' : '') . '<a href="?manage&logout">Log Out</a>] &middot; ' . $return;
 }
 
 function managePage($text, $onload = '') {
@@ -832,19 +833,6 @@ EOF;
 	<tr><td>
 		$info
 	</td>
-EOF;
-	if ($isadmin) {
-		$output .= <<<EOF
-	<td valign="top" align="right">
-		<form method="get" action="?">
-			<input type="hidden" name="manage">
-			<input type="hidden" name="update">
-			<input type="submit" value="Update TinyIB" class="managebutton">
-		</form>
-	</td>
-EOF;
-	}
-	$output .= <<<EOF
 	</tr>
 	</tbody>
 	</table>
