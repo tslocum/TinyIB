@@ -108,10 +108,23 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 		$post['file_hex'] = $service;
 		$temp_file = time() . substr(microtime(), 2, 3);
 		$file_location = "thumb/" . $temp_file;
-		file_put_contents($file_location, file_get_contents($embed['thumbnail_url']));
+
+		function url_get_contents ($url) {
+            if (!function_exists('curl_init')){
+                die('CURL is not installed!');
+            }
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $output = curl_exec($ch);
+            curl_close($ch);
+            return $output;
+        }
+
+		file_put_contents($file_location, url_get_contents($embed['thumbnail_url']));
 
 		$file_info = getimagesize($file_location);
-		$file_mime = $file_info['mime'];
+		$file_mime = mime_content_type($file_location);
 		$post['image_width'] = $file_info[0];
 		$post['image_height'] = $file_info[1];
 
@@ -159,7 +172,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 
 			checkDuplicateFile($post['file_hex']);
 
-			$file_mime_split = explode(' ', trim(@shell_exec('file --mime-type ' . $_FILES['file']['tmp_name'])));
+			$file_mime_split = explode(' ', trim(mime_content_type($_FILES['file']['tmp_name'])));
 			if (count($file_mime_split) > 0) {
 				$file_mime = strtolower(array_pop($file_mime_split));
 			} else {
@@ -168,7 +181,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 				}
 
 				$file_info = getimagesize($_FILES['file']['tmp_name']);
-				$file_mime = $file_info['mime'];
+				$file_mime = mime_content_type($file_location);
 			}
 
 			if (empty($file_mime) || !isset($tinyib_uploads[$file_mime])) {
