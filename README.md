@@ -28,10 +28,10 @@ Features
 Installing
 ------------
 
- 1. Verify the following requirements are met:
-    - [PHP](http://php.net) 4 or higher is installed.
-    - [GD Image Processing Library](http://php.net/gd) is installed.
-      - This library is installed by default on most hosts.
+ 1. Verify the following are installed:
+    - [PHP 4.3+](http://php.net)
+    - [GD Image Processing Library](http://php.net/gd)
+      - This library is usually installed by default.
       - If you plan on disabling image uploads to use TinyIB as a text board only, this library is not required.
  2. CD to the directory you wish to install TinyIB.
  3. Run the command:
@@ -76,9 +76,9 @@ Updating
 ------------
 
  1. Obtain the latest release.
- 	- If you installed via Git, run the following command in TinyIB's directory:
- 	  - `git pull`
- 	- Otherwise, [download](https://github.com/tslocum/TinyIB/archive/master.zip) and extract a zipped archive.
+    - If you installed via Git, run the following command in TinyIB's directory:
+      - `git pull`
+    - Otherwise, [download](https://github.com/tslocum/TinyIB/archive/master.zip) and extract a zipped archive.
  2. Note which files were modified.
     - If **settings.default.php** was updated, migrate the changes to **settings.php**
       - Take care to not change the value of **TINYIB_TRIPSEED**, as it would result in different secure tripcodes.
@@ -112,7 +112,9 @@ If there was a warning about AUTO_INCREMENT not being updated, you'll need to up
 Support
 ------------
 
-Contact tslocum@gmail.com
+ 1. Ensure you are running the latest version of TinyIB.
+ 2. Review the [open issues](https://github.com/tslocum/TinyIB/issues).
+ 3. Open a [new issue](https://github.com/tslocum/TinyIB/issues/new).
 
 Contributing
 ------------

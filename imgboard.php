@@ -108,19 +108,6 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 		$post['file_hex'] = $service;
 		$temp_file = time() . substr(microtime(), 2, 3);
 		$file_location = "thumb/" . $temp_file;
-
-		function url_get_contents ($url) {
-            if (!function_exists('curl_init')){
-                die('CURL is not installed!');
-            }
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $output = curl_exec($ch);
-            curl_close($ch);
-            return $output;
-        }
-
 		file_put_contents($file_location, url_get_contents($embed['thumbnail_url']));
 
 		$file_info = getimagesize($file_location);

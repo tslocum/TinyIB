@@ -187,7 +187,7 @@ function writePage($filename, $contents) {
 }
 
 function fixLinksInRes($html) {
-	$search = array(' href="css/', ' src="js/', ' href="src/', ' href="thumb/', ' href="res/', ' href="imgboard.php', ' href="favicon.ico', 'src="thumb/', 'src="inc/',  'src="sticky.png', ' action="imgboard.php');
+	$search = array(' href="css/', ' src="js/', ' href="src/', ' href="thumb/', ' href="res/', ' href="imgboard.php', ' href="favicon.ico', 'src="thumb/', 'src="inc/', 'src="sticky.png', ' action="imgboard.php');
 	$replace = array(' href="../css/', ' src="../js/', ' href="../src/', ' href="../thumb/', ' href="../res/', ' href="../imgboard.php', ' href="../favicon.ico', 'src="../thumb/', 'src="../inc/', 'src="../sticky.png', ' action="../imgboard.php');
 
 	return str_replace($search, $replace, $html);
@@ -529,6 +529,21 @@ function strallpos($haystack, $needle, $offset = 0) {
 	return $result;
 }
 
+function url_get_contents($url) {
+	if (!function_exists('curl_init')) {
+		return file_get_contents($url);
+	}
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	$output = curl_exec($ch);
+	curl_close($ch);
+
+	return $output;
+}
+
 function isEmbed($file_hex) {
 	global $tinyib_embeds;
 	return in_array($file_hex, array_keys($tinyib_embeds));
@@ -538,16 +553,11 @@ function getEmbed($url) {
 	global $tinyib_embeds;
 	foreach ($tinyib_embeds as $service => $service_url) {
 		$service_url = str_ireplace("TINYIBEMBED", urlencode($url), $service_url);
-		$curl = curl_init($service_url);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-		$return = curl_exec($curl);
-		curl_close($curl);
-		$result = json_decode($return, true);
+		$result = json_decode(url_get_contents($service_url), true);
 		if (!empty($result)) {
 			return array($service, $result);
 		}
 	}
 
-	return array('',  array());
+	return array('', array());
 }
