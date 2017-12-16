@@ -30,6 +30,9 @@ if (!defined('TINYIB_CAPTCHA')) {
 if (!defined('TINYIB_REQMOD')) {
 	define('TINYIB_REQMOD', '');
 }
+if (!defined('TINYIB_ALWAYSNOKO')) {
+	define('TINYIB_ALWAYSNOKO', false);
+}
 if (!defined('TINYIB_DBMIGRATE')) {
 	define('TINYIB_DBMIGRATE', false);
 }

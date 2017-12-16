@@ -282,7 +282,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	$post['id'] = insertPost($post);
 
 	if ($post['moderated'] == '1') {
-		if (strtolower($post['email']) == 'noko') {
+		if (TINYIB_ALWAYSNOKO || strtolower($post['email']) == 'noko') {
 			$redirect = 'res/' . ($post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent']) . '.html#' . $post['id'];
 		}
 
