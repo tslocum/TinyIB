@@ -33,6 +33,9 @@ if (!defined('TINYIB_REQMOD')) {
 if (!defined('TINYIB_ALWAYSNOKO')) {
 	define('TINYIB_ALWAYSNOKO', false);
 }
+if (!defined('TINYIB_TIMEZONE')) {
+	define('TINYIB_TIMEZONE', '');
+}
 if (!defined('TINYIB_DBMIGRATE')) {
 	define('TINYIB_DBMIGRATE', false);
 }

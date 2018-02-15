@@ -65,6 +65,10 @@ foreach ($includes as $include) {
 	include $include;
 }
 
+if (TINYIB_TIMEZONE != '') {
+	date_default_timezone_set(TINYIB_TIMEZONE);
+}
+
 $redirect = true;
 // Check if the request is to make a post
 if (isset($_POST['message']) || isset($_POST['file'])) {
