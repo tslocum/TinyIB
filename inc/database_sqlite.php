@@ -36,7 +36,8 @@ if (sqlite_num_rows($result) == 0) {
 		image_height INTEGER NOT NULL DEFAULT '0',
 		thumb TEXT NOT NULL,
 		thumb_width INTEGER NOT NULL DEFAULT '0',
-		thumb_height INTEGER NOT NULL DEFAULT '0'
+		thumb_height INTEGER NOT NULL DEFAULT '0',
+		stickied INTEGER NOT NULL DEFAULT '0'
 	)");
 }
 
@@ -53,7 +54,7 @@ if (sqlite_num_rows($result) == 0) {
 }
 
 // Add stickied column if it isn't present
-sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGER");
+sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGER NOT NULL DEFAULT '0'");
 
 # Post Functions
 function uniquePosts() {

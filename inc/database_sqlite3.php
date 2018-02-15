@@ -37,7 +37,8 @@ if (!$result->fetchArray()) {
 		image_height INTEGER NOT NULL DEFAULT '0',
 		thumb TEXT NOT NULL,
 		thumb_width INTEGER NOT NULL DEFAULT '0',
-		thumb_height INTEGER NOT NULL DEFAULT '0'
+		thumb_height INTEGER NOT NULL DEFAULT '0',
+		stickied INTEGER NOT NULL DEFAULT '0'
 	)");
 }
 
@@ -54,7 +55,7 @@ if (!$result->fetchArray()) {
 }
 
 // Add stickied column if it isn't present
-@$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGER");
+@$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGER NOT NULL DEFAULT '0'");
 
 # Post Functions
 function uniquePosts() {
