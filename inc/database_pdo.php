@@ -13,9 +13,14 @@ if (TINYIB_DBDSN == '') { // Build a default (likely MySQL) DSN
 	$dsn = TINYIB_DBDSN;
 }
 
-$options = array(PDO::ATTR_PERSISTENT => true,
-	PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-	PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$options = array(PDO::ATTR_PERSISTENT => true,
+		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+} else {
+	$options = array(PDO::ATTR_PERSISTENT => true,
+		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+		PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
+}
 
 try {
 	$dbh = new PDO($dsn, TINYIB_DBUSERNAME, TINYIB_DBPASSWORD, $options);
@@ -24,14 +29,28 @@ try {
 }
 
 // Create the posts table if it does not exist
-$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBPOSTS));
-if ($dbh->query("SELECT FOUND_ROWS()")->fetchColumn() == 0) {
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBPOSTS);
+	$posts_exists = $dbh->query($query)->fetchColumn() != 0;
+} else {
+	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBPOSTS));
+	$posts_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
+}
+
+if (!$posts_exists) {
 	$dbh->exec($posts_sql);
 }
 
 // Create the bans table if it does not exist
-$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBBANS));
-if ($dbh->query("SELECT FOUND_ROWS()")->fetchColumn() == 0) {
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBBANS);
+	$bans_exists = $dbh->query($query)->fetchColumn() != 0;
+} else {
+	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBBANS));
+	$bans_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
+}
+
+if (!$bans_exists) {
 	$dbh->exec($bans_sql);
 }
 
