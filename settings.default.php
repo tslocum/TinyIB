@@ -79,7 +79,7 @@ define('TINYIB_DBMIGRATE', false);    // Enable database migration tool  (see RE
 define('TINYIB_DBBANS', 'bans');      // Bans table name (use the same bans table across boards for global bans)
 define('TINYIB_DBPOSTS', TINYIB_BOARD . '_posts'); // Posts table name
 
-// Database configuration - MySQL
+// Database configuration - MySQL / pgSQL
 //   The following only apply when TINYIB_DBMODE is set to mysql, mysqli or pdo with default (blank) TINYIB_DBDSN
 define('TINYIB_DBHOST', 'localhost'); // Hostname
 define('TINYIB_DBPORT', 3306);        // Port  (set to 0 if you are using a UNIX socket as the host)
@@ -89,7 +89,7 @@ define('TINYIB_DBNAME', '');          // Database
 
 // Database configuration - PDO
 //   The following only apply when TINYIB_DBMODE is set to pdo  (see README for instructions)
-define('TINYIB_DBDRIVER', 'mysql');   // PDO driver to use (mysql / sqlite / pgsql / etc.)
+define('TINYIB_DBDRIVER', 'mysql');   // PDO driver to use (mysql / pgsql / sqlite / etc.)
 define('TINYIB_DBDSN', '');           // Enter a custom DSN to override all of the connection/driver settings above  (see README for instructions)
 //                                         When changing this, you should still set TINYIB_DBDRIVER appropriately.
-//                                         If you're using PDO with a MySQL database, you should leave this blank.
+//                                         If you're using PDO with a MySQL or pgSQL database, you should leave this blank.

@@ -1,7 +1,7 @@
-TinyIB - A Lightweight and Efficient [Image Board](http://en.wikipedia.org/wiki/Imageboard) Script
+TinyIB - A Lightweight and Efficient [Image Board](https://en.wikipedia.org/wiki/Imageboard) Script
 ====
 
-**Got database? Get speed.**  Use [MySQL](http://mysql.com) or [SQLite](http://sqlite.org) for an efficient set-up able to handle high amounts of traffic.
+**Got database? Get speed.**  Use [MySQL](https://mysql.com), [PostgreSQL](https://www.postgresql.org) or [SQLite](https://sqlite.org) for an efficient set-up able to handle high amounts of traffic.
 
 **No database?  No problem.**  Store posts as text files for a portable set-up capable of running on virtually any PHP host.
 
@@ -29,8 +29,8 @@ Installing
 ------------
 
  1. Verify the following are installed:
-    - [PHP 4.3+](http://php.net)
-    - [GD Image Processing Library](http://php.net/gd)
+    - [PHP 4.3+](https://php.net)
+    - [GD Image Processing Library](https://php.net/gd)
       - This library is usually installed by default.
       - If you plan on disabling image uploads to use TinyIB as a text board only, this library is not required.
  2. CD to the directory you wish to install TinyIB.
@@ -40,19 +40,19 @@ Installing
  5. Configure **settings.php**
     - To allow WebM upload:
       - Ensure your web host is running Linux.
-      - Install [mediainfo](http://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
+      - Install [mediainfo](https://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
     - To require moderation before displaying posts:
       - Ensure your ``TINYIB_DBMODE`` is set to ``mysql``, ``mysqli``, or ``pdo``.
       - Set ``TINYIB_REQMOD`` to ``files`` to require moderation for posts with files attached.
       - Set ``TINYIB_REQMOD`` to ``all`` to require moderation for all posts.
       - Moderate posts by visiting the management panel.
-    - When setting ``TINYIB_DBMODE`` to ``pdo``, note that PDO mode has been tested on **MySQL databases only**. Theoretically it will work with any applicable driver, but this is not guaranteed.  If you use an alternative driver, please report back regarding how it works.
+    - When setting ``TINYIB_DBMODE`` to ``pdo``, note that only the MySQL and PostgreSQL databases drivers have been tested. Theoretically it will work with any applicable driver, but this is not guaranteed.  If you use an alternative driver, please report back.
     - To use ImageMagick instead of GD when creating thumbnails:
       - Install ImageMagick and ensure that the ``convert`` command is available.
       - Set ``TINYIB_THUMBNAIL`` to ``imagemagick``.
       - **Note:** GIF files will have animated thumbnails, which will often have large file sizes.
     - To remove the play icon from .SWF and .WebM thumbnails, delete or rename **video_overlay.png** 
- 6. [CHMOD](http://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
+ 6. [CHMOD](https://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)
     - ./src/
     - ./thumb/
@@ -119,7 +119,7 @@ Support
 Contributing
 ------------
 
- 1. Read the [GitHub Forking Guide](http://help.github.com/forking/).
+ 1. Read the [GitHub Forking Guide](https://help.github.com/forking/).
  2. Fork TinyIB.
  3. Commit code changes to your forked repository.
  4. Submit a pull request describing your modifications.
