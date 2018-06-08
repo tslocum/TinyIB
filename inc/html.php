@@ -39,7 +39,7 @@ function pageFooter() {
 
 	return <<<EOF
 		<div class="footer">
-			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="https://github.com/tslocum/TinyIB" target="_top">tinyib</a> -
+			- <a href="http://www.2chan.net" target="_top">futaba</a> + <a href="http://www.1chan.net" target="_top">futallaby</a> + <a href="https://gitlab.com/tslocum/tinyib" target="_top">tinyib</a> -
 		</div>
 	</body>
 </html>
@@ -770,15 +770,6 @@ function manageStatus() {
 	$bans = count(allBans());
 	$info = $threads . ' ' . plural('thread', $threads) . ', ' . $bans . ' ' . plural('ban', $bans);
 	$output = '';
-
-	if ($isadmin) {
-		$output .= <<<EOF
-	<fieldset>
-	<legend>Notice</legend>
-	<p>TinyIB has <a href="https://gitlab.com/tslocum/tinyib" target="_blank">moved to GitLab</a>.  If you installed via git, please run <pre>git remote set-url origin https://gitlab.com/tslocum/tinyib.git</pre> to continue receiving updates.</p>
-	</fieldset>
-EOF;
-	}
 
 	if ($isadmin && TINYIB_DBMODE == 'mysql' && function_exists('mysqli_connect')) { // Recommend MySQLi
 		$output .= <<<EOF

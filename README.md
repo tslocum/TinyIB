@@ -1,10 +1,3 @@
-!!! TinyIB has moved to GitLab !!!
-====
-
-Please visit https://gitlab.com/tslocum/tinyib
-
-------------
-
 TinyIB - A Lightweight and Efficient [Image Board](https://en.wikipedia.org/wiki/Imageboard) Script
 ====
 
@@ -12,11 +5,11 @@ TinyIB - A Lightweight and Efficient [Image Board](https://en.wikipedia.org/wiki
 
 **No database?  No problem.**  Store posts as text files for a portable set-up capable of running on virtually any PHP host.
 
-**Not looking for an image board script?**  TinyIB is able to allow new threads without requiring an image, or even disallow images entirely.  See the [Text Board Mode](https://github.com/tslocum/TinyIB/wiki/Text-Board-Mode) wiki page for instructions.
+**Not looking for an image board script?**  TinyIB is able to allow new threads without requiring an image, or even disallow images entirely.  See the [Text Board Mode](https://gitlab.com/tslocum/tinyib/wikis/Text-Board-Mode) wiki page for instructions.
 
-For demos see the [TinyIB Installations](https://github.com/tslocum/TinyIB/wiki) page.
+For demos see the [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) page.
 
-**Database structure was last modified on *15th Sep 2015*.** Are you unable to create new posts?  Run the SQL on [this page](https://github.com/tslocum/TinyIB/wiki/NewSQLStructure) to finish the upgrade process.
+**Database structure was last modified on *15th Sep 2015*.** Are you unable to create new posts?  Run the SQL on [this page](https://gitlab.com/tslocum/tinyib/wikis/NewSQLStructure) to finish the upgrade process.
 
 Features
 ------------
@@ -42,7 +35,7 @@ Installing
       - If you plan on disabling image uploads to use TinyIB as a text board only, this library is not required.
  2. CD to the directory you wish to install TinyIB.
  3. Run the command:
-    - `git clone git://github.com/tslocum/TinyIB.git ./`
+    - `git clone https://gitlab.com/tslocum/tinyib.git ./`
  4. Copy **settings.default.php** to **settings.php**
  5. Configure **settings.php**
     - To allow WebM upload:
@@ -85,14 +78,14 @@ Updating
  1. Obtain the latest release.
     - If you installed via Git, run the following command in TinyIB's directory:
       - `git pull`
-    - Otherwise, [download](https://github.com/tslocum/TinyIB/archive/master.zip) and extract a zipped archive.
+    - Otherwise, [download](https://gitlab.com/tslocum/tinyib/-/archive/master/tinyib-master.zip) and extract a zipped archive.
  2. Note which files were modified.
     - If **settings.default.php** was updated, migrate the changes to **settings.php**
       - Take care to not change the value of **TINYIB_TRIPSEED**, as it would result in different secure tripcodes.
     - If other files were updated, and you have made changes yourself:
-      - Visit [GitHub](https://github.com/tslocum/TinyIB) and review the changes made in the update.
+      - Visit [GitLab](https://gitlab.com/tslocum/tinyib) and review the changes made in the update.
       - Ensure the update does not interfere with your changes.
- 3. Visit [GitHub](https://github.com/tslocum/TinyIB/wiki/NewSQLStructure) and check for new SQL queries which may be required to complete the update.
+ 3. Visit [GitLab](https://gitlab.com/tslocum/tinyib/wikis/NewSQLStructure) and check for new SQL queries which may be required to complete the update.
 
 Migrating
 ------------
@@ -120,13 +113,13 @@ Support
 ------------
 
  1. Ensure you are running the latest version of TinyIB.
- 2. Review the [open issues](https://github.com/tslocum/TinyIB/issues).
- 3. Open a [new issue](https://github.com/tslocum/TinyIB/issues/new).
+ 2. Review the [open issues](https://gitlab.com/tslocum/tinyib/issues).
+ 3. Open a [new issue](https://gitlab.com/tslocum/tinyib/issues/new).
 
 Contributing
 ------------
 
- 1. Read the [GitHub Forking Guide](https://help.github.com/forking/).
+ 1. Read the [GitLab Forking Workflow](https://docs.gitlab.com/ce/workflow/forking_workflow.html).
  2. Fork TinyIB.
  3. Commit code changes to your forked repository.
  4. Submit a pull request describing your modifications.
