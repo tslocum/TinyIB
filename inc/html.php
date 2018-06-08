@@ -771,6 +771,15 @@ function manageStatus() {
 	$info = $threads . ' ' . plural('thread', $threads) . ', ' . $bans . ' ' . plural('ban', $bans);
 	$output = '';
 
+	if ($isadmin) {
+		$output .= <<<EOF
+	<fieldset>
+	<legend>Notice</legend>
+	<p>TinyIB has <a href="https://gitlab.com/tslocum/tinyib" target="_blank">moved to GitLab</a>.  If you installed via git, please run <pre>git remote set-url origin https://gitlab.com/tslocum/tinyib.git</pre> to continue receiving updates.</p>
+	</fieldset>
+EOF;
+	}
+
 	if ($isadmin && TINYIB_DBMODE == 'mysql' && function_exists('mysqli_connect')) { // Recommend MySQLi
 		$output .= <<<EOF
 	<fieldset>

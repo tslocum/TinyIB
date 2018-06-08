@@ -1,3 +1,10 @@
+!!! TinyIB has moved to GitLab !!!
+====
+
+Please visit https://gitlab.com/tslocum/tinyib
+
+------------
+
 TinyIB - A Lightweight and Efficient [Image Board](https://en.wikipedia.org/wiki/Imageboard) Script
 ====
 
