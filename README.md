@@ -1,5 +1,9 @@
-TinyIB - A Lightweight and Efficient [Image Board](https://en.wikipedia.org/wiki/Imageboard) Script
-====
+# TinyIB [![Donate](http://img.shields.io/liberapay/receives/rocketnine.space.svg?logo=liberapay)](https://liberapay.com/rocketnine.space/donate)
+
+A lightweight and efficient [image board](https://en.wikipedia.org/wiki/Imageboard).  See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for demos.
+
+Features
+------------
 
 **Got database? Get speed.**  Use [MySQL](https://mysql.com), [PostgreSQL](https://www.postgresql.org) or [SQLite](https://sqlite.org) for an efficient set-up able to handle high amounts of traffic.
 
@@ -7,12 +11,6 @@ TinyIB - A Lightweight and Efficient [Image Board](https://en.wikipedia.org/wiki
 
 **Not looking for an image board script?**  TinyIB is able to allow new threads without requiring an image, or even disallow images entirely.  See the [Text Board Mode](https://gitlab.com/tslocum/tinyib/wikis/Text-Board-Mode) wiki page for instructions.
 
-For demos see the [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) page.
-
-**Database structure was last modified on *15th Sep 2015*.** Are you unable to create new posts?  Run the SQL on [this page](https://gitlab.com/tslocum/tinyib/wikis/NewSQLStructure) to finish the upgrade process.
-
-Features
-------------
  - GIF, JPG, PNG, SWF and WebM upload.
  - YouTube, Vimeo and SoundCloud embedding.
  - CAPTCHA  (A simple implementation is included, reCAPTCHA is also supported)
@@ -86,6 +84,8 @@ Updating
       - Visit [GitLab](https://gitlab.com/tslocum/tinyib) and review the changes made in the update.
       - Ensure the update does not interfere with your changes.
  3. Visit [GitLab](https://gitlab.com/tslocum/tinyib/wikis/NewSQLStructure) and check for new SQL queries which may be required to complete the update.
+
+**Database structure was last modified on *15th Sep 2015*.**  Are you unable to create new posts?  Run the SQL on [this page](https://gitlab.com/tslocum/tinyib/wikis/NewSQLStructure) to finish the upgrade process.
 
 Migrating
 ------------
