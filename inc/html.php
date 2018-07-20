@@ -475,7 +475,7 @@ function rebuildIndexes() {
 		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', array_reverse($htmlreplies)) . "\n<hr>";
 
 		if (++$i >= TINYIB_THREADSPERPAGE) {
-			$file = ($page == 0) ? 'index.html' : $page . '.html';
+			$file = ($page == 0) ? TINYIB_INDEX : ($page . '.html');
 			writePage($file, buildPage($htmlposts, 0, $pages, $page));
 
 			$page++;
@@ -485,7 +485,7 @@ function rebuildIndexes() {
 	}
 
 	if ($page == 0 || $htmlposts != '') {
-		$file = ($page == 0) ? 'index.html' : $page . '.html';
+		$file = ($page == 0) ? TINYIB_INDEX : ($page . '.html');
 		writePage($file, buildPage($htmlposts, 0, $pages, $page));
 	}
 }

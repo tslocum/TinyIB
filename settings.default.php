@@ -20,6 +20,7 @@ define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass 
 define('TINYIB_REQMOD', '');          // Require moderation before displaying posts: files / all  (see README for instructions, only MySQL is supported)  ['' to disable]
 
 // Board appearance
+define('TINYIB_INDEX', 'index.html'); // Index file
 define('TINYIB_LOGO', '');            // Logo HTML
 define('TINYIB_THREADSPERPAGE', 10);  // Amount of threads shown per index page
 define('TINYIB_PREVIEWREPLIES', 3);   // Amount of replies previewed on index pages

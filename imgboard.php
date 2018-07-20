@@ -540,10 +540,10 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	}
 
 	echo managePage($text, $onload);
-} elseif (!file_exists('index.html') || countThreads() == 0) {
+} elseif (!file_exists(TINYIB_INDEX) || countThreads() == 0) {
 	rebuildIndexes();
 }
 
 if ($redirect) {
-	echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="' . (isset($slow_redirect) ? '3' : '0') . ';url=' . (is_string($redirect) ? $redirect : 'index.html') . '">';
+	echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="' . (isset($slow_redirect) ? '3' : '0') . ';url=' . (is_string($redirect) ? $redirect : TINYIB_INDEX) . '">';
 }

@@ -59,7 +59,7 @@ Installing
  7. Navigate your browser to **imgboard.php** and the following will take place:
     - The database structure will be created.
     - Directories will be verified to be writable.
-    - The file **index.html** will be created containing the new image board.
+    - The board index will be written to ``TINYIB_INDEX``.
 
 Moderating
 ------------
