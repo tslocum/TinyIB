@@ -3,7 +3,7 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
-if (TINYIB_DBDRIVER === 'pgsql') {
+if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 	$posts_sql = 'CREATE TABLE "' . TINYIB_DBPOSTS . '" (
 		"id" bigserial NOT NULL,
 		"parent" integer NOT NULL,
