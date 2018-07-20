@@ -70,6 +70,202 @@ function makeLinksClickable($text) {
 	return $text;
 }
 
+function buildPostForm($parent, $raw_post = false) {
+	global $tinyib_uploads, $tinyib_embeds;
+
+	$form_action = 'imgboard.php';
+	$form_extra = '<input type="hidden" name="parent" value="' . $parent . '"">';
+	$input_extra = '';
+	$rules_extra = '';
+	if ($raw_post) {
+		$form_action = '?';
+		$form_extra = '<input type="hidden" name="rawpost" value="1">';
+		$input_extra = <<<EOF
+					<tr>
+						<td class="postblock">
+							Reply to
+						</td>
+						<td>
+							<input type="text" name="parent" size="28" maxlength="75" value="0" accesskey="t">&nbsp;0 to start a new thread
+						</td>
+					</tr>
+EOF;
+$rules_extra = <<<EOF
+							<ul>
+								<li>Text entered in the Message field will be posted as is with no formatting applied.</li>
+								<li>Line-breaks must be specified with "&lt;br&gt;".</li>
+							</ul><br>
+EOF;
+	}
+
+	$max_file_size_input_html = '';
+	$max_file_size_rules_html = '';
+	$reqmod_html = '';
+	$filetypes_html = '';
+	$file_input_html = '';
+	$embed_input_html = '';
+	$unique_posts_html = '';
+
+	$captcha_html = '';
+	if (TINYIB_CAPTCHA && !$raw_post) {
+		if (TINYIB_CAPTCHA === 'recaptcha') {
+			$captcha_inner_html = '
+<div style="min-height: 80px;">
+	<div class="g-recaptcha" data-sitekey="' . TINYIB_RECAPTCHA_SITE . '"></div>
+	<noscript>
+		<div>
+			<div style="width: 302px; height: 422px; position: relative;">
+				<div style="width: 302px; height: 422px; position: absolute;">
+					<iframe src="https://www.google.com/recaptcha/api/fallback?k=' . TINYIB_RECAPTCHA_SITE . '" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none;"></iframe>
+				</div>
+			</div>
+			<div style="width: 300px; height: 60px; border-style: none;bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px;background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px;">
+				<textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;"></textarea>
+			</div>
+		</div>
+	</noscript>
+</div>';
+		} else { // Simple CAPTCHA
+			$captcha_inner_html = '
+<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;(enter the text below)<br>
+<img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;">';
+		}
+
+		$captcha_html = <<<EOF
+					<tr>
+						<td class="postblock">
+							CAPTCHA
+						</td>
+						<td>
+							$captcha_inner_html
+						</td>
+					</tr>
+EOF;
+	}
+
+	if (!empty($tinyib_uploads)) {
+		if (TINYIB_MAXKB > 0) {
+			$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
+			$max_file_size_rules_html = '<li>Maximum file size allowed is ' . TINYIB_MAXKBDESC . '.</li>';
+		}
+
+		$filetypes_html = '<li>' . supportedFileTypes() . '</li>';
+
+		$file_input_html = <<<EOF
+					<tr>
+						<td class="postblock">
+							File
+						</td>
+						<td>
+							<input type="file" name="file" size="35" accesskey="f">
+						</td>
+					</tr>
+EOF;
+	}
+
+	if (!empty($tinyib_embeds)) {
+		$embed_input_html = <<<EOF
+					<tr>
+						<td class="postblock">
+							Embed
+						</td>
+						<td>
+							<input type="text" name="embed" size="28" accesskey="x" autocomplete="off">&nbsp;&nbsp;(paste a YouTube URL)
+						</td>
+					</tr>
+EOF;
+	}
+
+	if (TINYIB_REQMOD == 'files' || TINYIB_REQMOD == 'all') {
+		$reqmod_html = '<li>All posts' . (TINYIB_REQMOD == 'files' ? ' with a file attached' : '') . ' will be moderated before being shown.</li>';
+	}
+
+	$thumbnails_html = '';
+	if (isset($tinyib_uploads['image/jpeg']) || isset($tinyib_uploads['image/pjpeg']) || isset($tinyib_uploads['image/png']) || isset($tinyib_uploads['image/gif'])) {
+		$maxdimensions = TINYIB_MAXWOP . 'x' . TINYIB_MAXHOP;
+		if (TINYIB_MAXW != TINYIB_MAXWOP || TINYIB_MAXH != TINYIB_MAXHOP) {
+			$maxdimensions .= ' (new thread) or ' . TINYIB_MAXW . 'x' . TINYIB_MAXH . ' (reply)';
+		}
+
+		$thumbnails_html = "<li>Images greater than $maxdimensions will be thumbnailed.</li>";
+	}
+
+	$unique_posts = uniquePosts();
+	if ($unique_posts > 0) {
+		$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>\n";
+	}
+
+	return <<<EOF
+		<div class="postarea">
+			<form name="postform" id="postform" action="$form_action" method="post" enctype="multipart/form-data">
+			$max_file_size_input_html
+			$form_extra
+			<table class="postform">
+				<tbody>
+					$input_extra
+					<tr>
+						<td class="postblock">
+							Name
+						</td>
+						<td>
+							<input type="text" name="name" size="28" maxlength="75" accesskey="n">
+						</td>
+					</tr>
+					<tr>
+						<td class="postblock">
+							E-mail
+						</td>
+						<td>
+							<input type="text" name="email" size="28" maxlength="75" accesskey="e">
+						</td>
+					</tr>
+					<tr>
+						<td class="postblock">
+							Subject
+						</td>
+						<td>
+							<input type="text" name="subject" size="40" maxlength="75" accesskey="s" autocomplete="off">
+							<input type="submit" value="Submit" accesskey="z">
+						</td>
+					</tr>
+					<tr>
+						<td class="postblock">
+							Message
+						</td>
+						<td>
+							<textarea id="message" name="message" cols="48" rows="4" accesskey="m"></textarea>
+						</td>
+					</tr>
+					$captcha_html
+					$file_input_html
+					$embed_input_html
+					<tr>
+						<td class="postblock">
+							Password
+						</td>
+						<td>
+							<input type="password" name="password" id="newpostpassword" size="8" accesskey="p">&nbsp;&nbsp;(for post and file deletion)
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="rules">
+							$rules_extra
+							<ul>
+								$reqmod_html
+								$filetypes_html
+								$max_file_size_rules_html
+								$thumbnails_html
+								$unique_posts_html
+							</ul>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</form>
+		</div>
+EOF;
+}
+
 function buildPost($post, $res) {
 	$return = "";
 	$threadid = ($post['parent'] == TINYIB_NEWTHREAD) ? $post['id'] : $post['parent'];
@@ -222,13 +418,7 @@ EOF;
 }
 
 function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
-	global $tinyib_uploads, $tinyib_embeds;
-
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
-	$maxdimensions = TINYIB_MAXWOP . 'x' . TINYIB_MAXHOP;
-	if (TINYIB_MAXW != TINYIB_MAXWOP || TINYIB_MAXH != TINYIB_MAXHOP) {
-		$maxdimensions .= ' (new thread) or ' . TINYIB_MAXW . 'x' . TINYIB_MAXH . ' (reply)';
-	}
 
 	$postingmode = "";
 	$pagenavigator = "";
@@ -265,97 +455,7 @@ EOF;
 		$postingmode = '&#91;<a href="../">Return</a>&#93;<div class="replymode">Posting mode: Reply</div> ';
 	}
 
-	$max_file_size_input_html = '';
-	$max_file_size_rules_html = '';
-	$reqmod_html = '';
-	$filetypes_html = '';
-	$file_input_html = '';
-	$embed_input_html = '';
-	$unique_posts_html = '';
-
-	$captcha_html = '';
-	if (TINYIB_CAPTCHA) {
-		if (TINYIB_CAPTCHA === 'recaptcha') {
-			$captcha_inner_html = '
-<div style="min-height: 80px;">
-	<div class="g-recaptcha" data-sitekey="' . TINYIB_RECAPTCHA_SITE . '"></div>
-	<noscript>
-		<div>
-			<div style="width: 302px; height: 422px; position: relative;">
-				<div style="width: 302px; height: 422px; position: absolute;">
-					<iframe src="https://www.google.com/recaptcha/api/fallback?k=' . TINYIB_RECAPTCHA_SITE . '" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none;"></iframe>
-				</div>
-			</div>
-			<div style="width: 300px; height: 60px; border-style: none;bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px;background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px;">
-				<textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;"></textarea>
-			</div>
-		</div>
-	</noscript>
-</div>';
-		} else { // Simple CAPTCHA
-			$captcha_inner_html = '
-<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;(enter the text below)<br>
-<img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;">';
-		}
-
-		$captcha_html = <<<EOF
-					<tr>
-						<td class="postblock">
-							CAPTCHA
-						</td>
-						<td>
-							$captcha_inner_html
-						</td>
-					</tr>
-EOF;
-	}
-
-	if (!empty($tinyib_uploads)) {
-		if (TINYIB_MAXKB > 0) {
-			$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
-			$max_file_size_rules_html = '<li>Maximum file size allowed is ' . TINYIB_MAXKBDESC . '.</li>';
-		}
-
-		$filetypes_html = '<li>' . supportedFileTypes() . '</li>';
-
-		$file_input_html = <<<EOF
-					<tr>
-						<td class="postblock">
-							File
-						</td>
-						<td>
-							<input type="file" name="file" size="35" accesskey="f">
-						</td>
-					</tr>
-EOF;
-	}
-
-	if (!empty($tinyib_embeds)) {
-		$embed_input_html = <<<EOF
-					<tr>
-						<td class="postblock">
-							Embed
-						</td>
-						<td>
-							<input type="text" name="embed" size="28" accesskey="x" autocomplete="off">&nbsp;&nbsp;(paste a YouTube URL)
-						</td>
-					</tr>
-EOF;
-	}
-
-	if (TINYIB_REQMOD == 'files' || TINYIB_REQMOD == 'all') {
-		$reqmod_html = '<li>All posts' . (TINYIB_REQMOD == 'files' ? ' with a file attached' : '') . ' will be moderated before being shown.</li>';
-	}
-
-	$thumbnails_html = '';
-	if (isset($tinyib_uploads['image/jpeg']) || isset($tinyib_uploads['image/pjpeg']) || isset($tinyib_uploads['image/png']) || isset($tinyib_uploads['image/gif'])) {
-		$thumbnails_html = "<li>Images greater than $maxdimensions will be thumbnailed.</li>";
-	}
-
-	$unique_posts = uniquePosts();
-	if ($unique_posts > 0) {
-		$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>\n";
-	}
+	$postform = buildPostForm($parent);
 
 	$body = <<<EOF
 	<body>
@@ -368,71 +468,7 @@ EOF;
 		</div>
 		<hr width="90%">
 		$postingmode
-		<div class="postarea">
-			<form name="postform" id="postform" action="imgboard.php" method="post" enctype="multipart/form-data">
-			$max_file_size_input_html
-			<input type="hidden" name="parent" value="$parent">
-			<table class="postform">
-				<tbody>
-					<tr>
-						<td class="postblock">
-							Name
-						</td>
-						<td>
-							<input type="text" name="name" size="28" maxlength="75" accesskey="n">
-						</td>
-					</tr>
-					<tr>
-						<td class="postblock">
-							E-mail
-						</td>
-						<td>
-							<input type="text" name="email" size="28" maxlength="75" accesskey="e">
-						</td>
-					</tr>
-					<tr>
-						<td class="postblock">
-							Subject
-						</td>
-						<td>
-							<input type="text" name="subject" size="40" maxlength="75" accesskey="s" autocomplete="off">
-							<input type="submit" value="Submit" accesskey="z">
-						</td>
-					</tr>
-					<tr>
-						<td class="postblock">
-							Message
-						</td>
-						<td>
-							<textarea id="message" name="message" cols="48" rows="4" accesskey="m"></textarea>
-						</td>
-					</tr>
-					$captcha_html
-					$file_input_html
-					$embed_input_html
-					<tr>
-						<td class="postblock">
-							Password
-						</td>
-						<td>
-							<input type="password" name="password" id="newpostpassword" size="8" accesskey="p">&nbsp;&nbsp;(for post and file deletion)
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="rules">
-							<ul>
-								$reqmod_html
-								$filetypes_html
-								$max_file_size_rules_html
-								$thumbnails_html
-								$unique_posts_html
-							</ul>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			</form>
-		</div>
+		$postform
 		<hr>
 		<form id="delform" action="imgboard.php?delete" method="post">
 		<input type="hidden" name="board" 
@@ -599,91 +635,6 @@ function manageModeratePostForm() {
 	Tick the box next to a post and click "Delete" at the bottom of the page with a blank password.</small><br>
 	</fieldset>
 	</form><br>
-EOF;
-}
-
-function manageRawPostForm() {
-	$max_file_size_input_html = '';
-	if (TINYIB_MAXKB > 0) {
-		$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
-	}
-
-	return <<<EOF
-	<div class="postarea">
-		<form id="tinyib" name="tinyib" method="post" action="?" enctype="multipart/form-data">
-		<input type="hidden" name="rawpost" value="1">
-		$max_file_size_input_html
-		<table class="postform">
-			<tbody>
-				<tr>
-					<td class="postblock">
-						Reply to
-					</td>
-					<td>
-						<input type="text" name="parent" size="28" maxlength="75" value="0" accesskey="t">&nbsp;0 to start a new thread
-					</td>
-				</tr>
-				<tr>
-					<td class="postblock">
-						Name
-					</td>
-					<td>
-						<input type="text" name="name" size="28" maxlength="75" accesskey="n">
-					</td>
-				</tr>
-				<tr>
-					<td class="postblock">
-						E-mail
-					</td>
-					<td>
-						<input type="text" name="email" size="28" maxlength="75" accesskey="e">
-					</td>
-				</tr>
-				<tr>
-					<td class="postblock">
-						Subject
-					</td>
-					<td>
-						<input type="text" name="subject" size="40" maxlength="75" accesskey="s" autocomplete="off">
-						<input type="submit" value="Submit" accesskey="z">
-					</td>
-				</tr>
-				<tr>
-					<td class="postblock">
-						Message
-					</td>
-					<td>
-						<textarea name="message" cols="48" rows="4" accesskey="m"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td class="postblock">
-						File
-					</td>
-					<td>
-						<input type="file" name="file" size="35" accesskey="f">
-					</td>
-				</tr>
-				<tr>
-					<td class="postblock">
-						Password
-					</td>
-					<td>
-						<input type="password" name="password" size="8" accesskey="p">&nbsp;(for post and file deletion)
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" class="rules">
-						<ul>
-							<li>Text entered in the Message field will be posted as is with no formatting applied.</li>
-							<li>Line-breaks must be specified with "&lt;br&gt;".</li>
-						</ul>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		</form>
-	</div>
 EOF;
 }
 

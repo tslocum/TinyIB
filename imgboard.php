@@ -525,7 +525,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 			}
 		} elseif (isset($_GET["rawpost"])) {
 			$onload = manageOnLoad("rawpost");
-			$text .= manageRawPostForm();
+			$text .= buildPostForm(0, true);
 		} elseif (isset($_GET["logout"])) {
 			$_SESSION['tinyib'] = '';
 			session_destroy();
