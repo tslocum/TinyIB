@@ -6,6 +6,7 @@ if (!defined('TINYIB_BOARD')) {
 define('TINYIB_NEWTHREAD', '0');
 define('TINYIB_INDEXPAGE', false);
 define('TINYIB_RESPAGE', true);
+define('TINYIB_WORDBREAK_IDENTIFIER', '@!@TINYIB_WORDBREAK@!@');
 
 // The following are provided for backward compatibility and should not be relied upon
 // Copy new settings from settings.default.php to settings.php
@@ -35,6 +36,9 @@ if (!defined('TINYIB_REQMOD')) {
 }
 if (!defined('TINYIB_ALWAYSNOKO')) {
 	define('TINYIB_ALWAYSNOKO', false);
+}
+if (!defined('TINYIB_WORDBREAK')) {
+	define('TINYIB_WORDBREAK', 0);
 }
 if (!defined('TINYIB_TIMEZONE')) {
 	define('TINYIB_TIMEZONE', '');

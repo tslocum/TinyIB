@@ -74,7 +74,7 @@ function buildPostForm($parent, $raw_post = false) {
 	global $tinyib_uploads, $tinyib_embeds;
 
 	$form_action = 'imgboard.php';
-	$form_extra = '<input type="hidden" name="parent" value="' . $parent . '"">';
+	$form_extra = '<input type="hidden" name="parent" value="' . $parent . '">';
 	$input_extra = '';
 	$rules_extra = '';
 	if ($raw_post) {

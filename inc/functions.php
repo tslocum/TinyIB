@@ -35,7 +35,7 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 	CREATE INDEX ON "' . TINYIB_DBPOSTS . '"("bumped");
 	CREATE INDEX ON "' . TINYIB_DBPOSTS . '"("stickied");
 	CREATE INDEX ON "' . TINYIB_DBPOSTS . '"("moderated");';
-	
+
 	$bans_sql = 'CREATE TABLE "' . TINYIB_DBBANS . '" (
 		"id" bigserial NOT NULL,
 		"ip" varchar(39) NOT NULL,
@@ -77,7 +77,7 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 		KEY `stickied` (`stickied`),
 		KEY `moderated` (`moderated`)
 	)";
-	
+
 	$bans_sql = "CREATE TABLE `" . TINYIB_DBBANS . "` (
 		`id` mediumint(7) unsigned NOT NULL auto_increment,
 		`ip` varchar(39) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -90,8 +90,8 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 }
 
 function cleanString($string) {
-	$search = array("<", ">");
-	$replace = array("&lt;", "&gt;");
+	$search = array("&", "<", ">");
+	$replace = array("&amp;", "&lt;", "&gt;");
 
 	return str_replace($search, $replace, $string);
 }
@@ -247,6 +247,14 @@ function _postLink($matches) {
 
 function postLink($message) {
 	return preg_replace_callback('/&gt;&gt;([0-9]+)/', '_postLink', $message);
+}
+
+function _finishWordBreak($matches) {
+	return '<a' . $matches[1] . 'href="' . str_replace(TINYIB_WORDBREAK_IDENTIFIER, '', $matches[2]) . '"' . $matches[3] . '>' . str_replace(TINYIB_WORDBREAK_IDENTIFIER, '<br>', $matches[4]) . '</a>';
+}
+
+function finishWordBreak($message) {
+	return str_replace(TINYIB_WORDBREAK_IDENTIFIER, '<br>', preg_replace_callback('/<a(.*?)href="([^"]*?)"(.*?)>(.*?)<\/a>/', '_finishWordBreak', $message));
 }
 
 function colorQuote($message) {

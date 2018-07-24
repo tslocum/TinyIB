@@ -25,6 +25,7 @@ define('TINYIB_LOGO', '');            // Logo HTML
 define('TINYIB_THREADSPERPAGE', 10);  // Amount of threads shown per index page
 define('TINYIB_PREVIEWREPLIES', 3);   // Amount of replies previewed on index pages
 define('TINYIB_TRUNCATE', 15);        // Messages are truncated to this many lines on board index pages  [0 to disable]
+define('TINYIB_WORDBREAK', 80);       // Words longer than this many characters will be broken apart  [0 to disable]
 define('TINYIB_TIMEZONE', 'UTC');     // See https://secure.php.net/manual/en/timezones.php - e.g. America/Los_Angeles
 
 // Post control

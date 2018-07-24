@@ -86,19 +86,25 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	}
 
 	$post = newPost(setParent());
+	$rawposttext = '';
+
 	$post['ip'] = $_SERVER['REMOTE_ADDR'];
-
 	list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
-
 	$post['name'] = cleanString(substr($post['name'], 0, 75));
 	$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST['email'], 0, 75)));
 	$post['subject'] = cleanString(substr($_POST['subject'], 0, 75));
+	$post['message'] = $_POST['message'];
 	if ($rawpost) {
+		// Treat message as raw HTML
 		$rawposttext = ($isadmin) ? ' <span style="color: red;">## Admin</span>' : ' <span style="color: purple;">## Mod</span>';
-		$post['message'] = $_POST['message']; // Treat message as raw HTML
 	} else {
-		$rawposttext = '';
-		$post['message'] = str_replace("\n", '<br>', makeLinksClickable(colorQuote(postLink(cleanString(rtrim($_POST['message']))))));
+		if (TINYIB_WORDBREAK > 0) {
+			$post['message'] = preg_replace('/([^\s]{' . TINYIB_WORDBREAK . '})(?=[^\s])/', '$1'.TINYIB_WORDBREAK_IDENTIFIER, $post['message']);
+		}
+		$post['message'] = str_replace("\n", '<br>', makeLinksClickable(colorQuote(postLink(cleanString(rtrim($post['message']))))));
+		if (TINYIB_WORDBREAK > 0) {
+			$post['message'] = finishWordBreak($post['message']);
+		}
 	}
 	$post['password'] = ($_POST['password'] != '') ? md5(md5($_POST['password'])) : '';
 	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $rawposttext);
