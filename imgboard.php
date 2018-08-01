@@ -121,6 +121,10 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $rawposttext);
 
 	if (isset($_POST['embed']) && trim($_POST['embed']) != '' && ($rawpost || !in_array('embed', $hide_fields))) {
+		if (isset($_FILES['file']) && $_FILES['file']['name'] != "") {
+			fancyDie("Embedding a URL and uploading a file at the same time is not supported.");
+		}
+
 		list($service, $embed) = getEmbed(trim($_POST['embed']));
 		if (empty($embed) || !isset($embed['html']) || !isset($embed['title']) || !isset($embed['thumbnail_url'])) {
 			fancyDie("Invalid embed URL. Only " . (implode("/", array_keys($tinyib_embeds))) . " URLs are supported.");
