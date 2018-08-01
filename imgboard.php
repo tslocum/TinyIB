@@ -71,7 +71,7 @@ if (TINYIB_TIMEZONE != '') {
 
 $redirect = true;
 // Check if the request is to make a post
-if (isset($_POST['message']) || isset($_POST['file'])) {
+if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name']) || isset($_POST['email']) || isset($_POST['subject']) || isset($_POST['message']) || isset($_POST['file']) || isset($_POST['embed']) || isset($_POST['password']))) {
 	if (TINYIB_DBMIGRATE) {
 		fancyDie('Posting is currently disabled.<br>Please try again in a few moments.');
 	}
@@ -279,10 +279,10 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 
 	if ($post['file'] == '') { // No file uploaded
 		$allowed = "";
-		if (!empty($tinyib_uploads)) {
+		if (!empty($tinyib_uploads) && ($rawpost || !in_array('file', $hide_fields))) {
 			$allowed = "file";
 		}
-		if (!empty($tinyib_embeds)) {
+		if (!empty($tinyib_embeds) && ($rawpost || !in_array('embed', $hide_fields))) {
 			if ($allowed != "") {
 				$allowed .= " or ";
 			}
@@ -291,8 +291,15 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 		if ($post['parent'] == TINYIB_NEWTHREAD && $allowed != "" && !TINYIB_NOFILEOK) {
 			fancyDie("A $allowed is required to start a thread.");
 		}
-		if (str_replace('<br>', '', $post['message']) == "") {
-			fancyDie("Please enter a message" . ($allowed != "" ? " and/or upload a $allowed" : "") . ".");
+		if (!$rawpost && str_replace('<br>', '', $post['message']) == "") {
+			$die_msg = "";
+			if (!in_array('message', $hide_fields)) {
+				$die_msg .= "enter a message " . ($allowed != "" ? " and/or " : "");
+			}
+			if ($allowed != "") {
+				$die_msg .= "upload a $allowed";
+			}
+			fancyDie("Please $die_msg.");
 		}
 	} else {
 		echo $post['file_original'] . ' uploaded.<br>';
