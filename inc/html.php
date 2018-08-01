@@ -72,6 +72,7 @@ function makeLinksClickable($text) {
 
 function buildPostForm($parent, $raw_post = false) {
 	global $tinyib_uploads, $tinyib_embeds;
+	$hide_fields = $parent == TINYIB_NEWTHREAD ? TINYIB_HIDEFIELDSOP : TINYIB_HIDEFIELDS;
 
 	$form_action = 'imgboard.php';
 	$form_extra = '<input type="hidden" name="parent" value="' . $parent . '">';
@@ -90,7 +91,7 @@ function buildPostForm($parent, $raw_post = false) {
 						</td>
 					</tr>
 EOF;
-$rules_extra = <<<EOF
+		$rules_extra = <<<EOF
 							<ul>
 								<li>Text entered in the Message field will be posted as is with no formatting applied.</li>
 								<li>Line-breaks must be specified with "&lt;br&gt;".</li>
@@ -143,7 +144,7 @@ EOF;
 EOF;
 	}
 
-	if (!empty($tinyib_uploads)) {
+	if (!empty($tinyib_uploads) && ($raw_post || !in_array('file', $hide_fields))) {
 		if (TINYIB_MAXKB > 0) {
 			$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
 			$max_file_size_rules_html = '<li>Maximum file size allowed is ' . TINYIB_MAXKBDESC . '.</li>';
@@ -163,7 +164,7 @@ EOF;
 EOF;
 	}
 
-	if (!empty($tinyib_embeds)) {
+	if (!empty($tinyib_embeds) && ($raw_post || !in_array('embed', $hide_fields))) {
 		$embed_input_html = <<<EOF
 					<tr>
 						<td class="postblock">
@@ -195,7 +196,7 @@ EOF;
 		$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>\n";
 	}
 
-	return <<<EOF
+	$output = <<<EOF
 		<div class="postarea">
 			<form name="postform" id="postform" action="$form_action" method="post" enctype="multipart/form-data">
 			$max_file_size_input_html
@@ -203,6 +204,9 @@ EOF;
 			<table class="postform">
 				<tbody>
 					$input_extra
+EOF;
+	if ($raw_post || !in_array('name', $hide_fields)) {
+		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
 							Name
@@ -211,6 +215,10 @@ EOF;
 							<input type="text" name="name" size="28" maxlength="75" accesskey="n">
 						</td>
 					</tr>
+EOF;
+	}
+	if ($raw_post || !in_array('email', $hide_fields)) {
+		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
 							E-mail
@@ -219,6 +227,10 @@ EOF;
 							<input type="text" name="email" size="28" maxlength="75" accesskey="e">
 						</td>
 					</tr>
+EOF;
+	}
+	if ($raw_post || !in_array('subject', $hide_fields)) {
+		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
 							Subject
@@ -228,6 +240,10 @@ EOF;
 							<input type="submit" value="Submit" accesskey="z">
 						</td>
 					</tr>
+EOF;
+	}
+	if ($raw_post || !in_array('message', $hide_fields)) {
+		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
 							Message
@@ -236,9 +252,16 @@ EOF;
 							<textarea id="message" name="message" cols="48" rows="4" accesskey="m"></textarea>
 						</td>
 					</tr>
+EOF;
+	}
+
+	$output .= <<<EOF
 					$captcha_html
 					$file_input_html
 					$embed_input_html
+EOF;
+	if ($raw_post || !in_array('password', $hide_fields)) {
+		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
 							Password
@@ -247,6 +270,9 @@ EOF;
 							<input type="password" name="password" id="newpostpassword" size="8" accesskey="p">&nbsp;&nbsp;(for post and file deletion)
 						</td>
 					</tr>
+EOF;
+	}
+	$output .= <<<EOF
 					<tr>
 						<td colspan="2" class="rules">
 							$rules_extra
@@ -264,6 +290,8 @@ EOF;
 			</form>
 		</div>
 EOF;
+
+	return $output;
 }
 
 function buildPost($post, $res) {

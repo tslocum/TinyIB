@@ -78,6 +78,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 
 	list($loggedin, $isadmin) = manageCheckLogIn();
 	$rawpost = isRawPost();
+	$rawposttext = '';
 	if (!$loggedin) {
 		checkCAPTCHA();
 		checkBanned();
@@ -86,30 +87,40 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 	}
 
 	$post = newPost(setParent());
-	$rawposttext = '';
+	$hide_fields = $post['parent'] == TINYIB_NEWTHREAD ? TINYIB_HIDEFIELDSOP : TINYIB_HIDEFIELDS;
 
 	$post['ip'] = $_SERVER['REMOTE_ADDR'];
-	list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
-	$post['name'] = cleanString(substr($post['name'], 0, 75));
-	$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST['email'], 0, 75)));
-	$post['subject'] = cleanString(substr($_POST['subject'], 0, 75));
-	$post['message'] = $_POST['message'];
-	if ($rawpost) {
-		// Treat message as raw HTML
-		$rawposttext = ($isadmin) ? ' <span style="color: red;">## Admin</span>' : ' <span style="color: purple;">## Mod</span>';
-	} else {
-		if (TINYIB_WORDBREAK > 0) {
-			$post['message'] = preg_replace('/([^\s]{' . TINYIB_WORDBREAK . '})(?=[^\s])/', '$1'.TINYIB_WORDBREAK_IDENTIFIER, $post['message']);
-		}
-		$post['message'] = str_replace("\n", '<br>', makeLinksClickable(colorQuote(postLink(cleanString(rtrim($post['message']))))));
-		if (TINYIB_WORDBREAK > 0) {
-			$post['message'] = finishWordBreak($post['message']);
+	if ($rawpost || !in_array('name', $hide_fields)) {
+		list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
+		$post['name'] = cleanString(substr($post['name'], 0, 75));
+	}
+	if ($rawpost || !in_array('email', $hide_fields)) {
+		$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST['email'], 0, 75)));
+	}
+	if ($rawpost || !in_array('subject', $hide_fields)) {
+		$post['subject'] = cleanString(substr($_POST['subject'], 0, 75));
+	}
+	if ($rawpost || !in_array('message', $hide_fields)) {
+		$post['message'] = $_POST['message'];
+		if ($rawpost) {
+			// Treat message as raw HTML
+			$rawposttext = ($isadmin) ? ' <span style="color: red;">## Admin</span>' : ' <span style="color: purple;">## Mod</span>';
+		} else {
+			if (TINYIB_WORDBREAK > 0) {
+				$post['message'] = preg_replace('/([^\s]{' . TINYIB_WORDBREAK . '})(?=[^\s])/', '$1' . TINYIB_WORDBREAK_IDENTIFIER, $post['message']);
+			}
+			$post['message'] = str_replace("\n", '<br>', makeLinksClickable(colorQuote(postLink(cleanString(rtrim($post['message']))))));
+			if (TINYIB_WORDBREAK > 0) {
+				$post['message'] = finishWordBreak($post['message']);
+			}
 		}
 	}
-	$post['password'] = ($_POST['password'] != '') ? md5(md5($_POST['password'])) : '';
+	if ($rawpost || !in_array('password', $hide_fields)) {
+		$post['password'] = ($_POST['password'] != '') ? md5(md5($_POST['password'])) : '';
+	}
 	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $rawposttext);
 
-	if (isset($_POST['embed']) && trim($_POST['embed']) != '') {
+	if (isset($_POST['embed']) && trim($_POST['embed']) != '' && ($rawpost || !in_array('embed', $hide_fields))) {
 		list($service, $embed) = getEmbed(trim($_POST['embed']));
 		if (empty($embed) || !isset($embed['html']) || !isset($embed['title']) || !isset($embed['thumbnail_url'])) {
 			fancyDie("Invalid embed URL. Only " . (implode("/", array_keys($tinyib_embeds))) . " URLs are supported.");
@@ -150,7 +161,7 @@ if (isset($_POST['message']) || isset($_POST['file'])) {
 
 		$post['file_original'] = cleanString($embed['title']);
 		$post['file'] = str_ireplace(array('src="https://', 'src="http://'), 'src="//', $embed['html']);
-	} else if (isset($_FILES['file'])) {
+	} else if (isset($_FILES['file']) && ($rawpost || !in_array('file', $hide_fields))) {
 		if ($_FILES['file']['name'] != "") {
 			validateFileUpload();
 

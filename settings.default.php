@@ -22,6 +22,8 @@ define('TINYIB_REQMOD', '');          // Require moderation before displaying po
 // Board appearance
 define('TINYIB_INDEX', 'index.html'); // Index file
 define('TINYIB_LOGO', '');            // Logo HTML
+define('TINYIB_HIDEFIELDSOP',array());// Fields to hide when creating a new thread - e.g. array('name', 'email', 'subject', 'message', 'file', 'embed', 'password')
+define('TINYIB_HIDEFIELDS', array()); // Fields to hide when replying
 define('TINYIB_THREADSPERPAGE', 10);  // Amount of threads shown per index page
 define('TINYIB_PREVIEWREPLIES', 3);   // Amount of replies previewed on index pages
 define('TINYIB_TRUNCATE', 15);        // Messages are truncated to this many lines on board index pages  [0 to disable]
