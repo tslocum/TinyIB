@@ -74,6 +74,20 @@ function buildPostForm($parent, $raw_post = false) {
 	global $tinyib_uploads, $tinyib_embeds;
 	$hide_fields = $parent == TINYIB_NEWTHREAD ? TINYIB_HIDEFIELDSOP : TINYIB_HIDEFIELDS;
 
+	$postform_extra = array('name' => '', 'email' => '', 'subject' => '', 'footer' => '');
+	$input_submit = '<input type="submit" value="Submit" accesskey="z">';
+	if ($raw_post || !in_array('subject', $hide_fields)) {
+		$postform_extra['subject'] = $input_submit;
+	} else if (!in_array('email', $hide_fields)) {
+		$postform_extra['email'] = $input_submit;
+	} else if (!in_array('name', $hide_fields)) {
+		$postform_extra['name'] = $input_submit;
+	} else if (!in_array('email', $hide_fields)) {
+		$postform_extra['email'] = $input_submit;
+	} else {
+		$postform_extra['footer'] = $input_submit;
+	}
+
 	$form_action = 'imgboard.php';
 	$form_extra = '<input type="hidden" name="parent" value="' . $parent . '">';
 	$input_extra = '';
@@ -213,6 +227,7 @@ EOF;
 						</td>
 						<td>
 							<input type="text" name="name" size="28" maxlength="75" accesskey="n">
+							{$postform_extra['name']}
 						</td>
 					</tr>
 EOF;
@@ -225,6 +240,7 @@ EOF;
 						</td>
 						<td>
 							<input type="text" name="email" size="28" maxlength="75" accesskey="e">
+							{$postform_extra['email']}
 						</td>
 					</tr>
 EOF;
@@ -237,7 +253,7 @@ EOF;
 						</td>
 						<td>
 							<input type="text" name="subject" size="40" maxlength="75" accesskey="s" autocomplete="off">
-							<input type="submit" value="Submit" accesskey="z">
+							{$postform_extra['subject']}
 						</td>
 					</tr>
 EOF;
@@ -268,6 +284,18 @@ EOF;
 						</td>
 						<td>
 							<input type="password" name="password" id="newpostpassword" size="8" accesskey="p">&nbsp;&nbsp;(for post and file deletion)
+						</td>
+					</tr>
+EOF;
+	}
+	if ($postform_extra['footer'] != '') {
+		$output .= <<<EOF
+					<tr>
+						<td>
+							&nbsp;
+						</td>
+						<td>
+							{$postform_extra['footer']}
 						</td>
 					</tr>
 EOF;
