@@ -87,7 +87,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	}
 
 	$post = newPost(setParent());
-	$hide_fields = $post['parent'] == TINYIB_NEWTHREAD ? TINYIB_HIDEFIELDSOP : TINYIB_HIDEFIELDS;
+	$hide_fields = $post['parent'] == TINYIB_NEWTHREAD ? $tinyib_hidefieldsop : $tinyib_hidefields;
 
 	$post['ip'] = $_SERVER['REMOTE_ADDR'];
 	if ($rawpost || !in_array('name', $hide_fields)) {
@@ -193,7 +193,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				}
 
 				$file_info = getimagesize($_FILES['file']['tmp_name']);
-				$file_mime = mime_content_type($file_location);
+				$file_mime = mime_content_type($_FILES['file']['tmp_name']);
 			}
 
 			if (empty($file_mime) || !isset($tinyib_uploads[$file_mime])) {

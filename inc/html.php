@@ -71,8 +71,8 @@ function makeLinksClickable($text) {
 }
 
 function buildPostForm($parent, $raw_post = false) {
-	global $tinyib_uploads, $tinyib_embeds;
-	$hide_fields = $parent == TINYIB_NEWTHREAD ? TINYIB_HIDEFIELDSOP : TINYIB_HIDEFIELDS;
+	global $tinyib_hidefieldsop, $tinyib_hidefields, $tinyib_uploads, $tinyib_embeds;
+	$hide_fields = $parent == TINYIB_NEWTHREAD ? $tinyib_hidefieldsop : $tinyib_hidefields;
 
 	$postform_extra = array('name' => '', 'email' => '', 'subject' => '', 'footer' => '');
 	$input_submit = '<input type="submit" value="Submit" accesskey="z">';

@@ -13,12 +13,6 @@ define('TINYIB_WORDBREAK_IDENTIFIER', '@!@TINYIB_WORDBREAK@!@');
 if (!defined('TINYIB_INDEX')) {
 	define('TINYIB_INDEX', 'index.html');
 }
-if (!defined('TINYIB_HIDEFIELDSOP')) {
-	define('TINYIB_HIDEFIELDSOP', array());
-}
-if (!defined('TINYIB_HIDEFIELDS')) {
-	define('TINYIB_HIDEFIELDS', array());
-}
 if (!defined('TINYIB_MAXREPLIES')) {
 	define('TINYIB_MAXREPLIES', 0);
 }
@@ -60,6 +54,12 @@ if (!defined('TINYIB_DBDRIVER')) {
 }
 if (!defined('TINYIB_DBDSN')) {
 	define('TINYIB_DBDSN', '');
+}
+if (!isset($tinyib_hidefieldsop)) {
+	$tinyib_hidefieldsop = array();
+}
+if (!isset($tinyib_hidefields)) {
+	$tinyib_hidefields = array();
 }
 if (!isset($tinyib_uploads)) {
 	$tinyib_uploads = array();
