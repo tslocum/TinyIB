@@ -537,7 +537,11 @@ function fastimagecopyresampled(&$dst_image, &$src_image, $dst_x, $dst_y, $src_x
 }
 
 function addVideoOverlay($thumb_location) {
-	if (file_exists('video_overlay.png')) {
+	if (!file_exists('video_overlay.png')) {
+		return;
+	}
+
+	if (TINYIB_THUMBNAIL == 'gd') {
 		if (substr($thumb_location, -4) == ".jpg") {
 			$thumbnail = imagecreatefromjpeg($thumb_location);
 		} else {
@@ -563,6 +567,10 @@ function addVideoOverlay($thumb_location) {
 		} else {
 			imagepng($thumbnail, $thumb_location);
 		}
+	} else { // imagemagick
+		$discard = '';
+		$exit_status = 1;
+		exec("convert $thumb_location video_overlay.png -gravity center -composite -quality 75 $thumb_location", $discard, $exit_status);
 	}
 }
 
