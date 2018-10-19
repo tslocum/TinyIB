@@ -36,20 +36,21 @@ Installing
     - `git clone https://gitlab.com/tslocum/tinyib.git ./`
  4. Copy **settings.default.php** to **settings.php**
  5. Configure **settings.php**
-    - To allow WebM upload:
-      - Ensure your web host is running Linux.
-      - Install [mediainfo](https://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
+    - When setting ``TINYIB_DBMODE`` to ``flatfile``, note that all post and ban data are exposed as the database is composed of standard text files.  Access to ./inc/flatfile/ should be denied.
+    - When setting ``TINYIB_DBMODE`` to ``pdo``, note that only the MySQL and PostgreSQL databases drivers have been tested. Theoretically it will work with any applicable driver, but this is not guaranteed.  If you use an alternative driver, please report back.
     - To require moderation before displaying posts:
       - Ensure your ``TINYIB_DBMODE`` is set to ``mysql``, ``mysqli``, or ``pdo``.
       - Set ``TINYIB_REQMOD`` to ``files`` to require moderation for posts with files attached.
       - Set ``TINYIB_REQMOD`` to ``all`` to require moderation for all posts.
       - Moderate posts by visiting the management panel.
-    - When setting ``TINYIB_DBMODE`` to ``pdo``, note that only the MySQL and PostgreSQL databases drivers have been tested. Theoretically it will work with any applicable driver, but this is not guaranteed.  If you use an alternative driver, please report back.
+    - To allow WebM upload:
+      - Ensure your web host is running Linux.
+      - Install [mediainfo](https://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
+    - To remove the play icon from .SWF and .WebM thumbnails, delete or rename **video_overlay.png**
     - To use ImageMagick instead of GD when creating thumbnails:
       - Install ImageMagick and ensure that the ``convert`` command is available.
       - Set ``TINYIB_THUMBNAIL`` to ``imagemagick``.
       - **Note:** GIF files will have animated thumbnails, which will often have large file sizes.
-    - To remove the play icon from .SWF and .WebM thumbnails, delete or rename **video_overlay.png** 
  6. [CHMOD](https://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)
     - ./src/
