@@ -235,7 +235,7 @@ class SimpleCaptcha {
 		if (substr($this->wordsFile, 0, 1) == '/') {
 			$wordsfile = $this->wordsFile;
 		} else {
-			$wordsfile = $this->resourcesPath . '/' . $this->wordsFile;
+			$wordsfile = realpath(dirname(__FILE__)) . '/' . $this->resourcesPath . '/' . $this->wordsFile;
 		}
 
 		if (!file_exists($wordsfile)) {
@@ -293,7 +293,7 @@ class SimpleCaptcha {
 			$fontcfg = $this->fonts[array_rand($this->fonts)];
 		}
 
-		$fontfile = $fontcfg['font'];
+		$fontfile = realpath(dirname(__FILE__)) . '/' . $this->resourcesPath . '/' . $fontcfg['font'];
 
 		/** Increase font-size for shortest words: 9% for each glyph missing */
 		$lettersMissing = $this->maxWordLength - strlen($text);
