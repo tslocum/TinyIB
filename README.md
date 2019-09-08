@@ -1,4 +1,5 @@
-# TinyIB [![Donate](http://img.shields.io/liberapay/receives/rocketnine.space.svg?logo=liberapay)](https://liberapay.com/rocketnine.space)
+# TinyIB
+[![Donate](https://img.shields.io/liberapay/receives/rocketnine.space.svg?logo=liberapay)](https://liberapay.com/rocketnine.space)
 
 A lightweight and efficient [image board](https://en.wikipedia.org/wiki/Imageboard).  See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for demos.
 

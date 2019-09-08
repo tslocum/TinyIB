@@ -48,9 +48,9 @@ $tinyib_uploads = array('image/jpeg'                    => array('jpg'),
 
 // oEmbed APIs
 //   Empty array to disable
-$tinyib_embeds = array('SoundCloud' => 'http://soundcloud.com/oembed?format=json&url=TINYIBEMBED',
-                       'Vimeo'      => 'http://vimeo.com/api/oembed.json?url=TINYIBEMBED',
-                       'YouTube'    => 'http://www.youtube.com/oembed?url=TINYIBEMBED&format=json');
+$tinyib_embeds = array('SoundCloud' => 'https://soundcloud.com/oembed?format=json&url=TINYIBEMBED',
+                       'Vimeo'      => 'https://vimeo.com/api/oembed.json?url=TINYIBEMBED',
+                       'YouTube'    => 'https://www.youtube.com/oembed?url=TINYIBEMBED&format=json');
 
 // File control
 define('TINYIB_MAXKB', 2048);         // Maximum file size in kilobytes  [0 to disable]
