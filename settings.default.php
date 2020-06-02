@@ -42,9 +42,11 @@ $tinyib_uploads = array('image/jpeg'                    => array('jpg'),
                         'image/pjpeg'                   => array('jpg'),
                         'image/png'                     => array('png'),
                         'image/gif'                     => array('gif'));
-#                       'application/x-shockwave-flash' => array('swf', 'swf_thumbnail.png'));
-#                       'video/webm'                    => array('webm')); // WebM upload requires mediainfo and ffmpegthumbnailer  (see README for instructions)
-#                       'audio/webm'                    => array('webm'));
+#                       'application/x-shockwave-flash' => array('swf', 'swf_thumbnail.png');
+#                       'video/webm'                    => array('webm'); // Video uploads require mediainfo and ffmpegthumbnailer  (see README for instructions)
+#                       'audio/webm'                    => array('webm');
+#                       'video/mp4'                     => array('mp4');
+#                       'audio/mp4'                     => array('mp4');
 
 // oEmbed APIs
 //   Empty array to disable

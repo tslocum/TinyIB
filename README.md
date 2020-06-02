@@ -12,7 +12,7 @@ Features
 
 **Not looking for an image board script?**  TinyIB is able to allow new threads without requiring an image, or even disallow images entirely.  See the [Text Board Mode](https://gitlab.com/tslocum/tinyib/wikis/Text-Board-Mode) wiki page for instructions.
 
- - GIF, JPG, PNG, SWF and WebM upload.
+ - GIF, JPG, PNG, SWF, MP4 and WebM upload.
  - YouTube, Vimeo and SoundCloud embedding.
  - CAPTCHA  (A simple implementation is included, reCAPTCHA is also supported)
  - Reference links >>###
@@ -44,9 +44,10 @@ Installing
       - Set ``TINYIB_REQMOD`` to ``files`` to require moderation for posts with files attached.
       - Set ``TINYIB_REQMOD`` to ``all`` to require moderation for all posts.
       - Moderate posts by visiting the management panel.
-    - To allow WebM upload:
+    - To allow video uploads:
       - Ensure your web host is running Linux.
       - Install [mediainfo](https://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
+      - Add desired video file types to ``$tinyib_uploads``.
     - To remove the play icon from .SWF and .WebM thumbnails, delete or rename **video_overlay.png**
     - To use ImageMagick instead of GD when creating thumbnails:
       - Install ImageMagick and ensure that the ``convert`` command is available.

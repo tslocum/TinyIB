@@ -351,7 +351,7 @@ function buildPost($post, $res) {
 
 	if (isEmbed($post["file_hex"])) {
 		$expandhtml = $post['file'];
-	} else if (substr($post['file'], -5) == '.webm') {
+	} else if (substr($post['file'], -5) == '.webm' || substr($post['file'], -4) == '.mp4') {
 		$dimensions = 'width="500" height="50"';
 		if ($post['image_width'] > 0 && $post['image_height'] > 0) {
 			$dimensions = 'width="' . $post['image_width'] . '" height="' . $post['image_height'] . '"';
@@ -365,7 +365,7 @@ EOF;
 		$expandhtml = "<a href=\"$direct_link\" onclick=\"return expandFile(event, '${post['id']}');\"><img src=\"" . ($res == TINYIB_RESPAGE ? "../" : "") . "src/${post["file"]}\" width=\"${post["image_width"]}\" style=\"max-width: 100%;height: auto;\"></a>";
 	}
 
-	$thumblink = "<a href=\"$direct_link\" target=\"_blank\"" . ((isEmbed($post["file_hex"]) || in_array(substr($post['file'], -4), array('.jpg', '.png', '.gif', 'webm'))) ? " onclick=\"return expandFile(event, '${post['id']}');\"" : "") . ">";
+	$thumblink = "<a href=\"$direct_link\" target=\"_blank\"" . ((isEmbed($post["file_hex"]) || in_array(substr($post['file'], -4), array('.jpg', '.png', '.gif', 'webm', '.mp4'))) ? " onclick=\"return expandFile(event, '${post['id']}');\"" : "") . ">";
 	$expandhtml = rawurlencode($expandhtml);
 
 	if (isEmbed($post["file_hex"])) {

@@ -23,6 +23,8 @@ ExpiresByType image/jpeg "access plus 2592000 seconds"
 ExpiresByType image/png "access plus 2592000 seconds"
 ExpiresByType audio/webm "access plus 2592000 seconds"
 ExpiresByType video/webm "access plus 2592000 seconds"
+ExpiresByType audio/mp4 "access plus 2592000 seconds"
+ExpiresByType video/mp4 "access plus 2592000 seconds"
 ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
 </IfModule>
 
