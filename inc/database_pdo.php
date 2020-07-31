@@ -54,7 +54,31 @@ if (!$bans_exists) {
 	$dbh->exec($bans_sql);
 }
 
-# Utililty
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$query = "SELECT column_name FROM information_schema.columns WHERE table_name='" . TINYIB_DBPOSTS . "' and column_name='stickied'";
+	$stickied_exists = $dbh->query($query)->fetchColumn() != 0;
+} else {
+	$dbh->query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'stickied'");
+	$stickied_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
+}
+
+if (!$stickied_exists) {
+	$dbh->exec("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN stickied TINYINT(1) NOT NULL DEFAULT '0'");
+}
+
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$query = "SELECT column_name FROM information_schema.columns WHERE table_name='" . TINYIB_DBPOSTS . "' and column_name='locked'";
+	$stickied_exists = $dbh->query($query)->fetchColumn() != 0;
+} else {
+	$dbh->query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'locked'");
+	$stickied_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
+}
+
+if (!$stickied_exists) {
+	$dbh->exec("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
+}
+
+# Utility
 function pdoQuery($sql, $params = false) {
 	global $dbh;
 
@@ -102,13 +126,17 @@ function approvePostByID($id) {
 	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET moderated = ? WHERE id = ?", array('1', $id));
 }
 
+function bumpThreadByID($id) {
+	$now = time();
+	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET bumped = ? WHERE id = ?", array($now, $id));
+}
+
 function stickyThreadByID($id, $setsticky) {
 	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET stickied = ? WHERE id = ?", array($setsticky, $id));
 }
 
-function bumpThreadByID($id) {
-	$now = time();
-	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET bumped = ? WHERE id = ?", array($now, $id));
+function lockThreadByID($id, $setlock) {
+	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET locked = ? WHERE id = ?", array($setlock, $id));
 }
 
 function countThreads() {

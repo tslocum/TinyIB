@@ -28,6 +28,7 @@ define('POST_THUMB', 19);
 define('POST_THUMB_WIDTH', 20);
 define('POST_THUMB_HEIGHT', 21);
 define('POST_STICKIED', 22);
+define('POST_LOCKED', 23);
 
 # Ban Structure
 define('BANS_FILE', '.bans');
@@ -83,8 +84,19 @@ function insertPost($newpost) {
 	$post[POST_THUMB_WIDTH]         = $newpost['thumb_width'];
 	$post[POST_THUMB_HEIGHT]        = $newpost['thumb_height'];
 	$post[POST_STICKIED]            = $newpost['stickied'];
+	$post[POST_LOCKED]              = $newpost['locked'];
 
 	return $GLOBALS['db']->insertWithAutoId(POSTS_FILE, POST_ID, $post);
+}
+
+function bumpThreadByID($id) {
+	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_ID, '=', $id, INTEGER_COMPARISON), 1);
+	if (count($rows) > 0) {
+		foreach ($rows as $post) {
+			$post[POST_BUMPED] = time();
+			$GLOBALS['db']->updateRowById(POSTS_FILE, POST_ID, $post);
+		}
+	}
 }
 
 function stickyThreadByID($id, $setsticky) {
@@ -97,11 +109,11 @@ function stickyThreadByID($id, $setsticky) {
 	}
 }
 
-function bumpThreadByID($id) {
+function lockThreadByID($id, $setlock) {
 	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_ID, '=', $id, INTEGER_COMPARISON), 1);
 	if (count($rows) > 0) {
 		foreach ($rows as $post) {
-			$post[POST_BUMPED] = time();
+			$post[POST_LOCKED] = intval($setlock);
 			$GLOBALS['db']->updateRowById(POSTS_FILE, POST_ID, $post);
 		}
 	}
@@ -139,6 +151,7 @@ function convertPostsToSQLStyle($posts, $singlepost = false) {
 		$post['thumb_width']         = $oldpost[POST_THUMB_WIDTH];
 		$post['thumb_height']        = $oldpost[POST_THUMB_HEIGHT];
 		$post['stickied']            = isset($oldpost[POST_STICKIED]) ? $oldpost[POST_STICKIED] : 0;
+		$post['locked']              = isset($oldpost[POST_LOCKED]) ? $oldpost[POST_LOCKED] : 0;
 
 		if ($post['parent'] == '') {
 			$post['parent'] = TINYIB_NEWTHREAD;

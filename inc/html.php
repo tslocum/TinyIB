@@ -336,6 +336,10 @@ function buildPost($post, $res) {
 		$reflink .= ' <img src="sticky.png" alt="Stickied" title="Stickied" width="16" height="16">';
 	}
 
+	if ($post["locked"] == 1) {
+		$reflink .= ' <img src="lock.png" alt="Locked" title="Locked" width="16" height="16">';
+	}
+
 	if (!isset($post["omitted"])) {
 		$post["omitted"] = 0;
 	}
@@ -703,6 +707,7 @@ function manageModeratePost($post) {
 	$post_or_thread = ($post['parent'] == TINYIB_NEWTHREAD) ? 'Thread' : 'Post';
 
 	$sticky_html = "";
+	$lock_html = "";
 	if ($post["parent"] == TINYIB_NEWTHREAD) {
 		$sticky_set = $post['stickied'] == 1 ? '0' : '1';
 		$sticky_unsticky = $post['stickied'] == 1 ? 'Un-sticky' : 'Sticky';
@@ -717,6 +722,20 @@ function manageModeratePost($post) {
 		<input type="submit" value="$sticky_unsticky Thread" class="managebutton" style="width: 50%;">
 		</form>
 	</td><td><small>$sticky_unsticky_help</small></td></tr>
+EOF;
+
+		$lock_set = $post['locked'] == 1 ? '0' : '1';
+		$lock_label = $post['locked'] == 1 ? 'Unlock' : 'Lock';
+		$lock_help = $post['locked'] == 1 ? 'Allow replying to this thread.' : 'Disallow replying to this thread.';
+		$lock_html = <<<EOF
+	<tr><td align="right" width="50%;">
+		<form method="get" action="?">
+		<input type="hidden" name="manage" value="">
+		<input type="hidden" name="lock" value="${post['id']}">
+		<input type="hidden" name="setlock" value="$lock_set">
+		<input type="submit" value="$lock_label Thread" class="managebutton" style="width: 50%;">
+		</form>
+	</td><td><small>$lock_help</small></td></tr>
 EOF;
 
 		$post_html = "";
@@ -756,6 +775,8 @@ EOF;
 	</td><td><small>$ban_info</small></td></tr>
 
 	$sticky_html
+	
+	$lock_html
 	
 	</table>
 	

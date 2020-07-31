@@ -19,7 +19,7 @@ Features
  - Delete post via password.
  - Management panel:
    - Administrators and moderators use separate passwords.
-     - Moderators are only able to sticky threads, delete posts, and approve posts when necessary.  (See ``TINYIB_REQMOD``)
+     - Moderators are only able to sticky threads, lock threads, delete posts, and approve posts when necessary.  (See ``TINYIB_REQMOD``)
    - Ban offensive/abusive posters across all boards.
    - Post using raw HTML.
    - Upgrade automatically when installed via git.  (Tested on Linux only)
@@ -86,9 +86,6 @@ Updating
     - If other files were updated, and you have made changes yourself:
       - Visit [GitLab](https://gitlab.com/tslocum/tinyib) and review the changes made in the update.
       - Ensure the update does not interfere with your changes.
- 3. Visit [GitLab](https://gitlab.com/tslocum/tinyib/wikis/NewSQLStructure) and check for new SQL queries which may be required to complete the update.
-
-**Database structure was last modified on *15th Sep 2015*.**  Are you unable to create new posts?  Run the SQL on [this page](https://gitlab.com/tslocum/tinyib/wikis/NewSQLStructure) to finish the upgrade process.
 
 Migrating
 ------------

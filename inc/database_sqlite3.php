@@ -57,6 +57,9 @@ if (!$result->fetchArray()) {
 // Add stickied column if it isn't present
 @$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGER NOT NULL DEFAULT '0'");
 
+// Add locked column if it isn't present
+@$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN locked INTEGER NOT NULL DEFAULT '0'");
+
 # Post Functions
 function uniquePosts() {
 	global $db;
@@ -82,14 +85,19 @@ function insertPost($post) {
 	return $db->lastInsertRowID();
 }
 
+function bumpThreadByID($id) {
+	global $db;
+	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET bumped = " . time() . " WHERE id = " . $id);
+}
+
 function stickyThreadByID($id, $setsticky) {
 	global $db;
 	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET stickied = '" . $db->escapeString($setsticky) . "' WHERE id = " . $id);
 }
 
-function bumpThreadByID($id) {
+function lockThreadByID($id, $setlock) {
 	global $db;
-	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET bumped = " . time() . " WHERE id = " . $id);
+	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET locked = '" . $db->escapeString($setlock) . "' WHERE id = " . $id);
 }
 
 function countThreads() {

@@ -27,6 +27,14 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '" . TINYIB_DBBANS . "'")) == 0
 	mysql_query($bans_sql);
 }
 
+if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'stickied'")) == 0) {
+	mysql_query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN stickied TINYINT(1) NOT NULL DEFAULT '0'");
+}
+
+if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'locked'")) == 0) {
+	mysql_query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
+}
+
 # Post Functions
 function uniquePosts() {
 	$row = mysql_fetch_row(mysql_query("SELECT COUNT(DISTINCT(`ip`)) FROM " . TINYIB_DBPOSTS));
@@ -55,12 +63,16 @@ function approvePostByID($id) {
 	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = 1 WHERE `id` = " . $id . " LIMIT 1");
 }
 
+function bumpThreadByID($id) {
+	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `bumped` = " . time() . " WHERE `id` = " . $id . " LIMIT 1");
+}
+
 function stickyThreadByID($id, $setsticky) {
 	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `stickied` = '" . mysql_real_escape_string($setsticky) . "' WHERE `id` = " . $id . " LIMIT 1");
 }
 
-function bumpThreadByID($id) {
-	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `bumped` = " . time() . " WHERE `id` = " . $id . " LIMIT 1");
+function lockThreadByID($id, $setlock) {
+	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `locked` = '" . mysql_real_escape_string($setlock) . "' WHERE `id` = " . $id . " LIMIT 1");
 }
 
 function countThreads() {

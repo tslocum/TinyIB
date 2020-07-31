@@ -27,8 +27,9 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 		"thumb" varchar(255) NOT NULL,
 		"thumb_width" smallint NOT NULL default \'0\',
 		"thumb_height" smallint NOT NULL default \'0\',
-		"stickied" smallint NOT NULL default \'0\',
 		"moderated" smallint NOT NULL default \'1\',
+		"stickied" smallint NOT NULL default \'0\',
+		"locked" smallint NOT NULL default \'0\',
 		PRIMARY KEY	("id")
 	);
 	CREATE INDEX ON "' . TINYIB_DBPOSTS . '"("parent");
@@ -231,8 +232,8 @@ function writePage($filename, $contents) {
 }
 
 function fixLinksInRes($html) {
-	$search = array(' href="css/', ' src="js/', ' href="src/', ' href="thumb/', ' href="res/', ' href="imgboard.php', ' href="favicon.ico', 'src="thumb/', 'src="inc/', 'src="sticky.png', ' action="imgboard.php');
-	$replace = array(' href="../css/', ' src="../js/', ' href="../src/', ' href="../thumb/', ' href="../res/', ' href="../imgboard.php', ' href="../favicon.ico', 'src="../thumb/', 'src="../inc/', 'src="../sticky.png', ' action="../imgboard.php');
+	$search = array(' href="css/', ' src="js/', ' href="src/', ' href="thumb/', ' href="res/', ' href="imgboard.php', ' href="favicon.ico', 'src="thumb/', 'src="inc/', 'src="sticky.png', 'src="lock.png', ' action="imgboard.php');
+	$replace = array(' href="../css/', ' src="../js/', ' href="../src/', ' href="../thumb/', ' href="../res/', ' href="../imgboard.php', ' href="../favicon.ico', 'src="../thumb/', 'src="../inc/', 'src="../sticky.png', 'src="../lock.png', ' action="../imgboard.php');
 
 	return str_replace($search, $replace, $html);
 }

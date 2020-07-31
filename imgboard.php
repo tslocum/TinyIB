@@ -91,6 +91,15 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	$post = newPost(setParent());
 	$hide_fields = $post['parent'] == TINYIB_NEWTHREAD ? $tinyib_hidefieldsop : $tinyib_hidefields;
 
+	if ($post['parent'] != TINYIB_NEWTHREAD && !$loggedin) {
+		$parent = postByID($post['parent']);
+		if (!isset($parent['locked'])) {
+			fancyDie("Invalid parent thread ID supplied, unable to create post.");
+		} else if ($parent['locked'] == 1) {
+			fancyDie('Replies are not allowed to locked threads.');
+		}
+	}
+
 	$post['ip'] = $_SERVER['REMOTE_ADDR'];
 	if ($rawpost || !in_array('name', $hide_fields)) {
 		list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
@@ -443,7 +452,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 								if (!$link) {
 									fancyDie("Could not connect to database: " . ((is_object($link)) ? mysqli_error($link) : (($link_error = mysqli_connect_error()) ? $link_error : '(unknown error)')));
 								}
-								$db_selected = @mysqli_query($link, "USE " . constant('TINYIB_DBNAME'));
+								$db_selected = @mysqli_query($link, "USE " . TINYIB_DBNAME);
 								if (!$db_selected) {
 									fancyDie("Could not select database: " . ((is_object($link)) ? mysqli_error($link) : (($link_error = mysqli_connect_error()) ? $link_error : '(unknown error')));
 								}
@@ -543,10 +552,24 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			if ($_GET['sticky'] > 0) {
 				$post = postByID($_GET['sticky']);
 				if ($post && $post['parent'] == TINYIB_NEWTHREAD) {
-					stickyThreadByID($post['id'], (intval($_GET['setsticky'])));
+					stickyThreadByID($post['id'], intval($_GET['setsticky']));
 					threadUpdated($post['id']);
 
 					$text .= manageInfo('Thread No.' . $post['id'] . ' ' . (intval($_GET['setsticky']) == 1 ? 'stickied' : 'un-stickied') . '.');
+				} else {
+					fancyDie("Sorry, there doesn't appear to be a thread with that ID.");
+				}
+			} else {
+				fancyDie("Form data was lost. Please go back and try again.");
+			}
+		} elseif (isset($_GET['lock']) && isset($_GET['setlock'])) {
+			if ($_GET['lock'] > 0) {
+				$post = postByID($_GET['lock']);
+				if ($post && $post['parent'] == TINYIB_NEWTHREAD) {
+					lockThreadByID($post['id'], intval($_GET['setlock']));
+					threadUpdated($post['id']);
+
+					$text .= manageInfo('Thread No.' . $post['id'] . ' ' . (intval($_GET['setlock']) == 1 ? 'locked' : 'unlocked') . '.');
 				} else {
 					fancyDie("Sorry, there doesn't appear to be a thread with that ID.");
 				}

@@ -56,6 +56,9 @@ if (sqlite_num_rows($result) == 0) {
 // Add stickied column if it isn't present
 sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGER NOT NULL DEFAULT '0'");
 
+// Add locked column if it isn't present
+sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN locked INTEGER NOT NULL DEFAULT '0'");
+
 # Post Functions
 function uniquePosts() {
 	return sqlite_fetch_single(sqlite_query($GLOBALS["db"], "SELECT COUNT(ip) FROM (SELECT DISTINCT ip FROM " . TINYIB_DBPOSTS . ")"));
@@ -77,12 +80,16 @@ function insertPost($post) {
 	return sqlite_last_insert_rowid($GLOBALS["db"]);
 }
 
+function bumpThreadByID($id) {
+	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET bumped = " . time() . " WHERE id = " . $id);
+}
+
 function stickyThreadByID($id, $setsticky) {
 	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET stickied = '" . sqlite_escape_string($setsticky) . "' WHERE id = " . $id);
 }
 
-function bumpThreadByID($id) {
-	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET bumped = " . time() . " WHERE id = " . $id);
+function lockThreadByID($id, $setlock) {
+	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET locked = '" . sqlite_escape_string($setlock) . "' WHERE id = " . $id);
 }
 
 function countThreads() {

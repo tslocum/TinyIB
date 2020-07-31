@@ -11,7 +11,7 @@ $link = @mysqli_connect(TINYIB_DBHOST, TINYIB_DBUSERNAME, TINYIB_DBPASSWORD);
 if (!$link) {
 	fancyDie("Could not connect to database: " . ((is_object($link)) ? mysqli_error($link) : (($link_error = mysqli_connect_error()) ? $link_error : '(unknown error)')));
 }
-$db_selected = @mysqli_query($link, "USE " . constant('TINYIB_DBNAME'));
+$db_selected = @mysqli_query($link, "USE " . TINYIB_DBNAME);
 if (!$db_selected) {
 	fancyDie("Could not select database: " . ((is_object($link)) ? mysqli_error($link) : (($link_error = mysqli_connect_error()) ? $link_error : '(unknown error')));
 }
@@ -25,6 +25,14 @@ if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBPOSTS . 
 // Create the bans table if it does not exist
 if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBBANS . "'")) == 0) {
 	mysqli_query($link, $bans_sql);
+}
+
+if (mysqli_num_rows(mysqli_query($link, "SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'stickied'")) == 0) {
+	mysqli_query($link,"ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN stickied TINYINT(1) NOT NULL DEFAULT '0'");
+}
+
+if (mysqli_num_rows(mysqli_query($link, "SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'locked'")) == 0) {
+	mysqli_query($link,"ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
 }
 
 # Post Functions
@@ -60,14 +68,19 @@ function approvePostByID($id) {
 	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = 1 WHERE `id` = " . $id . " LIMIT 1");
 }
 
+function bumpThreadByID($id) {
+	global $link;
+	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `bumped` = " . time() . " WHERE `id` = " . $id . " LIMIT 1");
+}
+
 function stickyThreadByID($id, $setsticky) {
 	global $link;
 	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `stickied` = '" . mysqli_real_escape_string($link, $setsticky) . "' WHERE `id` = " . $id . " LIMIT 1");
 }
 
-function bumpThreadByID($id) {
+function lockThreadByID($id, $setlock) {
 	global $link;
-	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `bumped` = " . time() . " WHERE `id` = " . $id . " LIMIT 1");
+	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `locked` = '" . mysqli_real_escape_string($link, $setlock) . "' WHERE `id` = " . $id . " LIMIT 1");
 }
 
 function countThreads() {
