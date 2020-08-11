@@ -478,6 +478,7 @@ EOF;
 }
 
 function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
+	$cataloglink = TINYIB_CATALOG ? '[<a href="catalog.html" style="text-decoration: underline;">Catalog</a>]' : '';
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
 
 	$postingmode = "";
@@ -536,7 +537,7 @@ EOF;
 	$body = <<<EOF
 	<body>
 		<div class="adminbar">
-			[<a href="catalog.html" style="text-decoration: underline;">Catalog</a>]
+			$cataloglink
 			[<a href="$managelink" style="text-decoration: underline;">Manage</a>]
 		</div>
 		<div class="logo">

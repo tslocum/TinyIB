@@ -140,6 +140,7 @@ function newPost($parent = TINYIB_NEWTHREAD) {
 		'thumb_width' => '0',
 		'thumb_height' => '0',
 		'stickied' => '0',
+		'locked' => '0',
 		'moderated' => '1');
 }
 
