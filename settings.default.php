@@ -27,6 +27,7 @@ define('TINYIB_PREVIEWREPLIES', 3);   // Amount of replies previewed on index pa
 define('TINYIB_TRUNCATE', 15);        // Messages are truncated to this many lines on board index pages  [0 to disable]
 define('TINYIB_WORDBREAK', 80);       // Words longer than this many characters will be broken apart  [0 to disable]
 define('TINYIB_TIMEZONE', 'UTC');     // See https://secure.php.net/manual/en/timezones.php - e.g. America/Los_Angeles
+define('TINYIB_CATALOG', true);       // Generate catalog page
 $tinyib_hidefieldsop = array();       // Fields to hide when creating a new thread - e.g. array('name', 'email', 'subject', 'message', 'file', 'embed', 'password')
 $tinyib_hidefields = array();         // Fields to hide when replying
 

@@ -503,7 +503,7 @@ function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
 		$pagelinks .= ($pages <= $thispage) ? "<td>Next</td>" : '<td><form method="get" action="' . $next . '.html"><input value="Next" type="submit"></form></td>';
 
 		$pagenavigator = <<<EOF
-<table border="1">
+<table border="1" style="display: inline-block;">
 	<tbody>
 		<tr>
 			$pagelinks
@@ -511,15 +511,32 @@ function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
 	</tbody>
 </table>
 EOF;
+		if (TINYIB_CATALOG) {
+			$pagenavigator .= <<<EOF
+<table border="1" style="display: inline-block;margin-left: 21px;">
+	<tbody>
+		<tr>
+			<td><form method="get" action="catalog.html"><input value="Catalog" type="submit"></form></td>
+		</tr>
+	</tbody>
+</table>
+EOF;
+		}
+	} else if ($parent == -1) {
+		$postingmode = '&#91;<a href="index.html">Return</a>&#93;<div class="replymode">Catalog</div> ';
 	} else {
 		$postingmode = '&#91;<a href="../">Return</a>&#93;<div class="replymode">Posting mode: Reply</div> ';
 	}
 
-	$postform = buildPostForm($parent);
+	$postform = '';
+	if ($parent >= TINYIB_NEWTHREAD) {
+		$postform = buildPostForm($parent);
+	}
 
 	$body = <<<EOF
 	<body>
 		<div class="adminbar">
+			[<a href="catalog.html" style="text-decoration: underline;">Catalog</a>]
 			[<a href="$managelink" style="text-decoration: underline;">Manage</a>]
 		</div>
 		<div class="logo">
@@ -549,6 +566,33 @@ EOF;
 		<br>
 EOF;
 	return pageHeader() . $body . pageFooter();
+}
+
+function buildCatalogPost($post) {
+	$maxwidth = max(100, $post['thumb_width']);
+	$replies = numRepliesToThreadByID($post['id']);
+	$subject = trim($post['subject']) != '' ? $post['subject'] : substr(trim(str_ireplace("\n", '', strip_tags($post['message']))), 0, 75);
+
+	return <<<EOF
+<div class="catalogpost" style="max-width: {$maxwidth}px;">
+	<a href="res/{$post['id']}.html">
+		<img src="thumb/{$post["thumb"]}" alt="{$post["id"]}" width="{$post['thumb_width']}" height="{$post['thumb_height']}" border="0">
+	</a><br>
+	<b>$replies</b><br>
+	$subject
+</div>
+EOF;
+}
+
+function rebuildCatalog() {
+	$threads = allThreads();
+	$htmlposts = '';
+	foreach ($threads as $post) {
+		$htmlposts .= buildCatalogPost($post);
+	}
+	$htmlposts .= '<hr size="1">';
+
+	writePage('catalog.html', buildPage($htmlposts, -1));
 }
 
 function rebuildIndexes() {
@@ -583,6 +627,10 @@ function rebuildIndexes() {
 	if ($page == 0 || $htmlposts != '') {
 		$file = ($page == 0) ? TINYIB_INDEX : ($page . '.html');
 		writePage($file, buildPage($htmlposts, 0, $pages, $page));
+	}
+
+	if (TINYIB_CATALOG) {
+		rebuildCatalog();
 	}
 }
 

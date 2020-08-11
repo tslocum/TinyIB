@@ -43,6 +43,9 @@ if (!defined('TINYIB_WORDBREAK')) {
 if (!defined('TINYIB_TIMEZONE')) {
 	define('TINYIB_TIMEZONE', '');
 }
+if (!defined('TINYIB_CATALOG')) {
+	define('TINYIB_CATALOG', true);
+}
 if (!defined('TINYIB_DBMIGRATE')) {
 	define('TINYIB_DBMIGRATE', false);
 }
