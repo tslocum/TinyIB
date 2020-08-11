@@ -118,6 +118,17 @@ function postsInThreadByID($id, $moderated_only = true) {
 	return $posts;
 }
 
+function imagesInThreadByID($id, $moderated_only = true) {
+	$images = 0;
+	$posts = postsInThreadByID($id, false);
+	foreach ($posts as $post) {
+		if ($post['file'] != '') {
+			$images++;
+		}
+	}
+	return $images;
+}
+
 function postsByHex($hex) {
 	$posts = array();
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT id, parent FROM " . TINYIB_DBPOSTS . " WHERE file_hex = '" . sqlite_escape_string($hex) . "' LIMIT 1"), SQLITE_ASSOC);

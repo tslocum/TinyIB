@@ -105,6 +105,17 @@ function postsInThreadByID($id, $moderated_only = true) {
 	return $posts;
 }
 
+function imagesInThreadByID($id, $moderated_only = true) {
+	$images = 0;
+	$posts = postsInThreadByID($id, false);
+	foreach ($posts as $post) {
+		if ($post['file'] != '') {
+			$images++;
+		}
+	}
+	return $images;
+}
+
 function postsByHex($hex) {
 	$posts = array();
 	$result = mysql_query("SELECT `id`, `parent` FROM `" . TINYIB_DBPOSTS . "` WHERE `file_hex` = '" . mysql_real_escape_string($hex) . "' AND `moderated` = 1 LIMIT 1");

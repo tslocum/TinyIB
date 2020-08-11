@@ -117,6 +117,17 @@ function postsInThreadByID($id, $moderated_only = true) {
 	return $posts;
 }
 
+function imagesInThreadByID($id, $moderated_only = true) {
+	$images = 0;
+	$posts = postsInThreadByID($id, false);
+	foreach ($posts as $post) {
+		if ($post['file'] != '') {
+			$images++;
+		}
+	}
+	return $images;
+}
+
 function postsByHex($hex) {
 	global $link;
 	$posts = array();

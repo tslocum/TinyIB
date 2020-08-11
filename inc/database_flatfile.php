@@ -184,6 +184,17 @@ function postsInThreadByID($id, $moderated_only = true) {
 	return convertPostsToSQLStyle($rows);
 }
 
+function imagesInThreadByID($id, $moderated_only = true) {
+	$images = 0;
+	$posts = postsInThreadByID($id, false);
+	foreach ($posts as $post) {
+		if ($post['file'] != '') {
+			$images++;
+		}
+	}
+	return $images;
+}
+
 function postsByHex($hex) {
 	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_FILE_HEX, '=', $hex, STRING_COMPARISON), 1);
 	return convertPostsToSQLStyle($rows);

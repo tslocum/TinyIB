@@ -46,6 +46,9 @@ if (!defined('TINYIB_TIMEZONE')) {
 if (!defined('TINYIB_CATALOG')) {
 	define('TINYIB_CATALOG', true);
 }
+if (!defined('TINYIB_JSON')) {
+	define('TINYIB_JSON', true);
+}
 if (!defined('TINYIB_DBMIGRATE')) {
 	define('TINYIB_DBMIGRATE', false);
 }

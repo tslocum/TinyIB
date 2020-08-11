@@ -623,6 +623,10 @@ function rebuildIndexes() {
 			$i = 0;
 			$htmlposts = '';
 		}
+
+		if (TINYIB_JSON) {
+			writePage("res/" . $thread['id'] . '.json', buildThreadNoJSON($thread['id']));
+		}
 	}
 
 	if ($page == 0 || $htmlposts != '') {
@@ -632,6 +636,11 @@ function rebuildIndexes() {
 
 	if (TINYIB_CATALOG) {
 		rebuildCatalog();
+	}
+
+	if (TINYIB_JSON) {
+		writePage('threads.json', buildThreadsJSON());
+		writePage('catalog.json', buildCatalogJSON());
 	}
 }
 
