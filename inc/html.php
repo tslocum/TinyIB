@@ -623,10 +623,6 @@ function rebuildIndexes() {
 			$i = 0;
 			$htmlposts = '';
 		}
-
-		if (TINYIB_JSON) {
-			writePage("res/" . $thread['id'] . '.json', buildThreadNoJSON($thread['id']));
-		}
 	}
 
 	if ($page == 0 || $htmlposts != '') {
@@ -639,12 +635,14 @@ function rebuildIndexes() {
 	}
 
 	if (TINYIB_JSON) {
-		writePage('threads.json', buildThreadsJSON());
+		writePage('threads.json', buildIndexJSON());
 		writePage('catalog.json', buildCatalogJSON());
 	}
 }
 
 function rebuildThread($id) {
+	$id = intval($id);
+
 	$htmlposts = "";
 	$posts = postsInThreadByID($id);
 	foreach ($posts as $post) {
@@ -654,6 +652,10 @@ function rebuildThread($id) {
 	$htmlposts .= "\n<hr>";
 
 	writePage('res/' . $id . '.html', fixLinksInRes(buildPage($htmlposts, $id)));
+
+	if (TINYIB_JSON) {
+		writePage('res/' . $id . '.json', buildSingleThreadJSON($id));
+	}
 }
 
 function adminBar() {
@@ -942,4 +944,62 @@ EOF;
 
 function manageInfo($text) {
 	return '<div class="manageinfo">' . $text . '</div>';
+}
+
+function encodeJSON($array) {
+	if (version_compare(phpversion(), '5.4.0', '>')) {
+		return json_encode($array, JSON_PRETTY_PRINT);
+	}
+	return json_encode($array);
+}
+
+function buildSinglePostJSON($post) {
+	$name = $post['name'];
+	if ($name == '') {
+		$name = 'Anonymous';
+	}
+
+	$output = array('id' => $post['id'], 'parent' => $post['parent'], 'timestamp' => $post['timestamp'], 'bumped' => $post['bumped'], 'name' => $name, 'tripcode' => $post['tripcode'], 'subject' => $post['subject'], 'message' => $post['message'], 'file' => $post['file'], 'file_hex' => $post['file_hex'], 'file_original' => $post['file_original'], 'file_size' => $post['file_size'], 'file_size_formated' => $post['file_size_formatted'], 'image_width' => $post['image_width'], 'image_height' => $post['image_height'], 'thumb' => $post['thumb'], 'thumb_width' => $post['thumb_width'], 'thumb_height' => $post['thumb_height']);
+
+	if($post['parent'] == TINYIB_NEWTHREAD) {
+		$replies = count(postsInThreadByID($post['id'])) - 1;
+		$images = imagesInThreadByID($post['id']);
+
+		$output = array_merge($output, array('stickied' => $post['stickied'], 'locked' => $post['locked'], 'replies' => $replies, 'images' => $images));
+	}
+
+	return $output;
+}
+
+function buildIndexJSON() {
+	$output = array('threads' => array());
+
+	$threads = allThreads();
+	foreach ($threads as $thread) {
+		array_push($output['threads'], array('id' => $thread['id'], 'subject' => $thread['subject'], 'bumped' => $thread['bumped']));
+	}
+
+	return encodeJSON($output);
+}
+
+function buildCatalogJSON() {
+	$output = array('threads' => array());
+
+	$threads = allThreads();
+	foreach ($threads as $post) {
+		array_push($output['threads'], buildSinglePostJSON($post));
+	}
+
+	return encodeJSON($output);
+}
+
+function buildSingleThreadJSON($id) {
+	$output = array('posts' => array());
+
+	$posts = postsInThreadByID($id);
+	foreach ($posts as $post) {
+		array_push($output['posts'], buildSinglePostJSON($post));
+	}
+
+	return encodeJSON($output);
 }

@@ -78,7 +78,7 @@ if (!$stickied_exists) {
 	$dbh->exec("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
 }
 
-# Utility
+// Utility
 function pdoQuery($sql, $params = false) {
 	global $dbh;
 
@@ -92,7 +92,7 @@ function pdoQuery($sql, $params = false) {
 	return $statement;
 }
 
-# Post Functions
+// Post Functions
 function uniquePosts() {
 	$result = pdoQuery("SELECT COUNT(DISTINCT(ip)) FROM " . TINYIB_DBPOSTS);
 	return (int)$result->fetchColumn();
@@ -218,12 +218,13 @@ function deletePostByID($id) {
 function trimThreads() {
 	$limit = (int)TINYIB_MAXTHREADS;
 	if ($limit > 0) {
-		$results = pdoQuery("SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1 ORDER BY stickied DESC, bumped DESC LIMIT 100 OFFSET " . $limit
-		);
-		# old mysql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT $limit,100
-		# mysql, postgresql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT 100 OFFSET $limit
-		# oracle: SELECT id FROM ( SELECT id, rownum FROM $table ORDER BY bumped) WHERE rownum >= $limit
-		# MSSQL: WITH ts AS (SELECT ROWNUMBER() OVER (ORDER BY bumped) AS 'rownum', * FROM $table) SELECT id FROM ts WHERE rownum >= $limit
+		$results = pdoQuery("SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1 ORDER BY stickied DESC, bumped DESC LIMIT 100 OFFSET " . $limit);
+		/*
+		old mysql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT $limit,100
+		mysql, postgresql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT 100 OFFSET $limit
+		oracle: SELECT id FROM ( SELECT id, rownum FROM $table ORDER BY bumped) WHERE rownum >= $limit
+		MSSQL: WITH ts AS (SELECT ROWNUMBER() OVER (ORDER BY bumped) AS 'rownum', * FROM $table) SELECT id FROM ts WHERE rownum >= $limit
+		*/
 		foreach ($results as $post) {
 			deletePostByID($post['id']);
 		}
@@ -235,7 +236,7 @@ function lastPostByIP() {
 	return $result->fetch(PDO::FETCH_ASSOC);
 }
 
-# Ban Functions
+// Ban Functions
 function banByID($id) {
 	$result = pdoQuery("SELECT * FROM " . TINYIB_DBBANS . " WHERE id = ?", array($id));
 	return $result->fetch(PDO::FETCH_ASSOC);

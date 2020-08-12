@@ -60,7 +60,7 @@ if (!$result->fetchArray()) {
 // Add locked column if it isn't present
 @$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN locked INTEGER NOT NULL DEFAULT '0'");
 
-# Post Functions
+// Post Functions
 function uniquePosts() {
 	global $db;
 	return $db->querySingle("SELECT COUNT(ip) FROM (SELECT DISTINCT ip FROM " . TINYIB_DBPOSTS . ")");
@@ -199,7 +199,7 @@ function lastPostByIP() {
 	}
 }
 
-# Ban Functions
+// Ban Functions
 function banByID($id) {
 	global $db;
 	$result = $db->query("SELECT * FROM " . TINYIB_DBBANS . " WHERE id = '" . $db->escapeString($id) . "' LIMIT 1");

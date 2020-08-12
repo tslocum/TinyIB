@@ -59,7 +59,7 @@ sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGE
 // Add locked column if it isn't present
 sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN locked INTEGER NOT NULL DEFAULT '0'");
 
-# Post Functions
+// Post Functions
 function uniquePosts() {
 	return sqlite_fetch_single(sqlite_query($GLOBALS["db"], "SELECT COUNT(ip) FROM (SELECT DISTINCT ip FROM " . TINYIB_DBPOSTS . ")"));
 }
@@ -182,7 +182,7 @@ function lastPostByIP() {
 	}
 }
 
-# Ban Functions
+// Ban Functions
 function banByID($id) {
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBBANS . " WHERE id = '" . sqlite_escape_string($id) . "' LIMIT 1"), SQLITE_ASSOC);
 	foreach ($result as $ban) {

@@ -3,7 +3,7 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
-# Post Structure
+// Post Structure
 define('POSTS_FILE', '.posts');
 define('POST_ID', 0);
 define('POST_PARENT', 1);
@@ -30,7 +30,7 @@ define('POST_THUMB_HEIGHT', 21);
 define('POST_STICKIED', 22);
 define('POST_LOCKED', 23);
 
-# Ban Structure
+// Ban Structure
 define('BANS_FILE', '.bans');
 define('BAN_ID', 0);
 define('BAN_IP', 1);
@@ -42,7 +42,7 @@ require_once 'flatfile/flatfile.php';
 $db = new Flatfile();
 $db->datadir = 'inc/flatfile/';
 
-# Post Functions
+// Post Functions
 function uniquePosts() {
 	return 0; // Unsupported by this database option
 }
@@ -242,7 +242,7 @@ function lastPostByIP() {
 	return convertPostsToSQLStyle($rows, true);
 }
 
-# Ban Functions
+// Ban Functions
 function banByID($id) {
 	return convertBansToSQLStyle($GLOBALS['db']->selectWhere(BANS_FILE, new SimpleWhereClause(BAN_ID, '=', $id, INTEGER_COMPARISON), 1), true);
 }

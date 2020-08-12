@@ -35,7 +35,7 @@ if (mysqli_num_rows(mysqli_query($link, "SHOW COLUMNS FROM `" . TINYIB_DBPOSTS .
 	mysqli_query($link,"ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
 }
 
-# Post Functions
+// Post Functions
 function uniquePosts() {
 	global $link;
 	$row = mysqli_fetch_row(mysqli_query($link, "SELECT COUNT(DISTINCT(`ip`)) FROM " . TINYIB_DBPOSTS));
@@ -194,7 +194,7 @@ function lastPostByIP() {
 	}
 }
 
-# Ban Functions
+// Ban Functions
 function banByID($id) {
 	global $link;
 	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "' LIMIT 1");

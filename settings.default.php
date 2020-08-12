@@ -1,12 +1,15 @@
 <?php
-# TinyIB
-#
-# https://gitlab.com/tslocum/tinyib
-#
-# Contact the author via trevor@rocketnine.space if you need support.
-# See README for instructions on configuring, moderating and upgrading your board.
-#
-# Set TINYIB_DBMODE to a MySQL-related mode if it's available.  By default it's set to flatfile, which can be very slow.
+/*
+TinyIB
+https://gitlab.com/tslocum/tinyib
+
+Support:
+https://gitlab.com/tslocum/tinyib/issues
+
+See README for instructions on configuring, moderating and upgrading your board.
+
+Set TINYIB_DBMODE to a MySQL-related mode if it's available.  By default it's set to flatfile, which can be very slow.
+*/
 
 // Administrator/moderator credentials
 define('TINYIB_ADMINPASS', '');       // Administrators have full access to the board
@@ -28,7 +31,7 @@ define('TINYIB_TRUNCATE', 15);        // Messages are truncated to this many lin
 define('TINYIB_WORDBREAK', 80);       // Words longer than this many characters will be broken apart  [0 to disable]
 define('TINYIB_TIMEZONE', 'UTC');     // See https://secure.php.net/manual/en/timezones.php - e.g. America/Los_Angeles
 define('TINYIB_CATALOG', true);       // Generate catalog page
-define('TINYIB_JSON', true);          // Write JSON files (threads.json, catalog.json, etc.)
+define('TINYIB_JSON', true);          // Generate JSON files
 $tinyib_hidefieldsop = array();       // Fields to hide when creating a new thread - e.g. array('name', 'email', 'subject', 'message', 'file', 'embed', 'password')
 $tinyib_hidefields = array();         // Fields to hide when replying
 
@@ -44,11 +47,11 @@ $tinyib_uploads = array('image/jpeg'                    => array('jpg'),
                         'image/pjpeg'                   => array('jpg'),
                         'image/png'                     => array('png'),
                         'image/gif'                     => array('gif'));
-#                       'application/x-shockwave-flash' => array('swf', 'swf_thumbnail.png');
-#                       'video/webm'                    => array('webm'); // Video uploads require mediainfo and ffmpegthumbnailer  (see README for instructions)
-#                       'audio/webm'                    => array('webm');
-#                       'video/mp4'                     => array('mp4');
-#                       'audio/mp4'                     => array('mp4');
+//                      'application/x-shockwave-flash' => array('swf', 'swf_thumbnail.png');
+//                      'video/webm'                    => array('webm'); // Video uploads require mediainfo and ffmpegthumbnailer  (see README for instructions)
+//                      'audio/webm'                    => array('webm');
+//                      'video/mp4'                     => array('mp4');
+//                      'audio/mp4'                     => array('mp4');
 
 // oEmbed APIs
 //   Empty array to disable
