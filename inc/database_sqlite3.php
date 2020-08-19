@@ -7,7 +7,7 @@ if (!extension_loaded('sqlite3')) {
 	fancyDie("SQLite3 extension is either not installed or loaded");
 }
 
-$db = new SQLite3('tinyib.db');
+$db = new SQLite3(TINYIB_DBPATH);
 if (!$db) {
 	fancyDie("Could not connect to database: " . $db->lastErrorMsg());
 }

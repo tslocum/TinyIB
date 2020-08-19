@@ -98,6 +98,10 @@ define('TINYIB_DBUSERNAME', '');      // Username
 define('TINYIB_DBPASSWORD', '');      // Password
 define('TINYIB_DBNAME', '');          // Database
 
+// Database configuration - SQLite3, SQLite
+//   The following only apply when TINYIB_DBMODE is set to sqlite3 or sqlite
+define('TINYIB_DBPATH', 'tinyib.db');  // Sqlite DB path
+
 // Database configuration - PDO
 //   The following only apply when TINYIB_DBMODE is set to pdo  (see README for instructions)
 define('TINYIB_DBDRIVER', 'mysql');   // PDO driver to use (mysql / pgsql / sqlite / etc.)
