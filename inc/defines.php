@@ -61,6 +61,9 @@ if (!defined('TINYIB_DBDRIVER')) {
 if (!defined('TINYIB_DBDSN')) {
 	define('TINYIB_DBDSN', '');
 }
+if (!defined('TINYIB_DBPATH')) {
+	define('TINYIB_DBPATH', 'tinyib.db');
+}
 if (!isset($tinyib_hidefieldsop)) {
 	$tinyib_hidefieldsop = array();
 }
