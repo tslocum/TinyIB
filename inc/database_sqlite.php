@@ -7,7 +7,7 @@ if (!function_exists('sqlite_open')) {
 	fancyDie("SQLite library is not installed");
 }
 
-if (!$db = sqlite_open('tinyib.db', 0666, $error)) {
+if (!$db = sqlite_open(TINYIB_DBPATH, 0666, $error)) {
 	fancyDie("Could not connect to database: " . $error);
 }
 
