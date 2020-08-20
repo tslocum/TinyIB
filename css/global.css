@@ -139,3 +139,7 @@ hr {
 .adminbar a:link, .adminbar a:visited, .adminbar a:active, .adminbar a:hover {
 	text-decoration: none;
 }
+
+#switchStylesheet {
+	margin-left: 5px;
+}

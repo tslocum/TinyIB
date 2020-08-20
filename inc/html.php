@@ -23,7 +23,7 @@ EOF;
 		</title>
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/global.css">
-		<link rel="stylesheet" type="text/css" href="css/futaba.css" title="Futaba">
+		<link rel="stylesheet" type="text/css" href="css/futaba.css" title="Futaba" id="mainStylesheet">
 		<link rel="alternate stylesheet" type="text/css" href="css/burichan.css" title="Burichan">
 		<script src="js/jquery.js"></script>
 		<script src="js/tinyib.js"></script>
@@ -539,6 +539,7 @@ EOF;
 		<div class="adminbar">
 			$cataloglink
 			[<a href="$managelink" style="text-decoration: underline;">Manage</a>]
+			<select id="switchStylesheet"><option value="">Style</option><option value="futaba">Futaba</option><option value="burichan">Burichan</option></select>
 		</div>
 		<div class="logo">
 EOF;
