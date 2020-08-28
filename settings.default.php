@@ -11,6 +11,9 @@ See README for instructions on configuring, moderating and upgrading your board.
 Set TINYIB_DBMODE to a MySQL-related mode if it's available.  By default it's set to flatfile, which can be very slow.
 */
 
+// Internationalization
+define('TINYIB_LOCALE', '');          // Locale  (see README for instructions)
+
 // Administrator/moderator credentials
 define('TINYIB_ADMINPASS', '');       // Administrators have full access to the board
 define('TINYIB_MODPASS', '');         // Moderators only have access to delete (and moderate if TINYIB_REQMOD is set) posts  ['' to disable]

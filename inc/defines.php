@@ -10,6 +10,9 @@ define('TINYIB_WORDBREAK_IDENTIFIER', '@!@TINYIB_WORDBREAK@!@');
 
 // The following are provided for backward compatibility and should not be relied upon
 // Copy new settings from settings.default.php to settings.php
+if (!defined('TINYIB_LOCALE')) {
+	define('TINYIB_LOCALE', '');
+}
 if (!defined('TINYIB_INDEX')) {
 	define('TINYIB_INDEX', 'index.html');
 }

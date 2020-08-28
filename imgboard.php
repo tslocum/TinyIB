@@ -60,12 +60,24 @@ if (!file_exists('settings.php')) {
 }
 require 'settings.php';
 
+if (function_exists('_')) {
+	if (defined('TINYIB_LOCALE')) {
+		setlocale(LC_ALL, TINYIB_LOCALE);
+	}
+	bindtextdomain('tinyib', 'locale');
+	textdomain('tinyib');
+} else {
+	function _($string) {
+		return $string;
+	}
+}
+
 if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
-	fancyDie('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured.');
+	fancyDie(_('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured.'));
 }
 
 if (TINYIB_CAPTCHA === 'recaptcha' && (TINYIB_RECAPTCHA_SITE == '' || TINYIB_RECAPTCHA_SECRET == '')) {
-	fancyDie('TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured.');
+	fancyDie(_('TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured.'));
 }
 
 // Check directories are writable by the script
@@ -75,7 +87,7 @@ if (TINYIB_DBMODE == 'flatfile') {
 }
 foreach ($writedirs as $dir) {
 	if (!is_writable($dir)) {
-		fancyDie("Directory '" . $dir . "' can not be written to.  Please modify its permissions.");
+		fancyDie(sprintf(_("Directory '%s' can not be written to.  Please modify its permissions."), $dir));
 	}
 }
 
@@ -83,7 +95,7 @@ $includes = array("inc/defines.php", "inc/functions.php", "inc/html.php");
 if (in_array(TINYIB_DBMODE, array('flatfile', 'mysql', 'mysqli', 'sqlite', 'sqlite3', 'pdo'))) {
 	$includes[] = 'inc/database_' . TINYIB_DBMODE . '.php';
 } else {
-	fancyDie("Unknown database mode specified.");
+	fancyDie(_('Unknown database mode specified.'));
 }
 
 foreach ($includes as $include) {
@@ -98,7 +110,7 @@ $redirect = true;
 // Check if the request is to make a post
 if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name']) || isset($_POST['email']) || isset($_POST['subject']) || isset($_POST['message']) || isset($_POST['file']) || isset($_POST['embed']) || isset($_POST['password']))) {
 	if (TINYIB_DBMIGRATE) {
-		fancyDie('Posting is currently disabled.<br>Please try again in a few moments.');
+		fancyDie(_('Posting is currently disabled.<br>Please try again in a few moments.'));
 	}
 
 	list($loggedin, $isadmin) = manageCheckLogIn();
@@ -117,9 +129,9 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	if ($post['parent'] != TINYIB_NEWTHREAD && !$loggedin) {
 		$parent = postByID($post['parent']);
 		if (!isset($parent['locked'])) {
-			fancyDie("Invalid parent thread ID supplied, unable to create post.");
+			fancyDie(_('Invalid parent thread ID supplied, unable to create post.'));
 		} else if ($parent['locked'] == 1) {
-			fancyDie('Replies are not allowed to locked threads.');
+			fancyDie(_('Replies are not allowed to locked threads.'));
 		}
 	}
 
@@ -156,12 +168,12 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 	if (isset($_POST['embed']) && trim($_POST['embed']) != '' && ($rawpost || !in_array('embed', $hide_fields))) {
 		if (isset($_FILES['file']) && $_FILES['file']['name'] != "") {
-			fancyDie("Embedding a URL and uploading a file at the same time is not supported.");
+			fancyDie(_('Embedding a URL and uploading a file at the same time is not supported.'));
 		}
 
 		list($service, $embed) = getEmbed(trim($_POST['embed']));
 		if (empty($embed) || !isset($embed['html']) || !isset($embed['title']) || !isset($embed['thumbnail_url'])) {
-			fancyDie("Invalid embed URL. Only " . (implode("/", array_keys($tinyib_embeds))) . " URLs are supported.");
+			fancyDie(sprintf(_('Invalid embed URL. Only %s URLs are supported.'), implode('/', array_keys($tinyib_embeds))));
 		}
 
 		$post['file_hex'] = $service;
@@ -181,14 +193,14 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		} else if ($file_mime == "image/png") {
 			$post['thumb'] = $temp_file . '.png';
 		} else {
-			fancyDie("Error while processing audio/video.");
+			fancyDie(_('Error while processing audio/video.'));
 		}
 		$thumb_location = "thumb/" . $post['thumb'];
 
 		list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
 
 		if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight)) {
-			fancyDie("Could not create thumbnail.");
+			fancyDie(_('Could not create thumbnail.'));
 		}
 
 		addVideoOverlay($thumb_location);
@@ -204,11 +216,11 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			validateFileUpload();
 
 			if (!is_file($_FILES['file']['tmp_name']) || !is_readable($_FILES['file']['tmp_name'])) {
-				fancyDie("File transfer failure. Please retry the submission.");
+				fancyDie(_('File transfer failure. Please retry the submission.'));
 			}
 
 			if ((TINYIB_MAXKB > 0) && (filesize($_FILES['file']['tmp_name']) > (TINYIB_MAXKB * 1024))) {
-				fancyDie("That file is larger than " . TINYIB_MAXKBDESC . ".");
+				fancyDie(sprintf(_('That file is larger than %s.'), TINYIB_MAXKBDESC));
 			}
 
 			$post['file_original'] = trim(htmlentities(substr($_FILES['file']['name'], 0, 50), ENT_QUOTES));
@@ -223,7 +235,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				$file_mime = strtolower(array_pop($file_mime_split));
 			} else {
 				if (!@getimagesize($_FILES['file']['tmp_name'])) {
-					fancyDie("Failed to read the MIME type and size of the uploaded file. Please retry the submission.");
+					fancyDie(_('Failed to read the MIME type and size of the uploaded file. Please retry the submission.'));
 				}
 
 				$file_info = getimagesize($_FILES['file']['tmp_name']);
@@ -239,12 +251,12 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 			$file_location = "src/" . $post['file'];
 			if (!move_uploaded_file($_FILES['file']['tmp_name'], $file_location)) {
-				fancyDie("Could not copy uploaded file.");
+				fancyDie(_('Could not copy uploaded file.'));
 			}
 
 			if ($_FILES['file']['size'] != filesize($file_location)) {
 				@unlink($file_location);
-				fancyDie("File transfer failure. Please go back and try again.");
+				fancyDie(_('File transfer failure. Please go back and try again.'));
 			}
 
 			if ($file_mime == "audio/webm" || $file_mime == "video/webm" || $file_mime == "audio/mp4" || $file_mime == "video/mp4") {
@@ -263,7 +275,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					if ($post['thumb_width'] <= 0 || $post['thumb_height'] <= 0) {
 						@unlink($file_location);
 						@unlink("thumb/" . $post['thumb']);
-						fancyDie("Sorry, your video appears to be corrupt.");
+						fancyDie(_('Sorry, your video appears to be corrupt.'));
 					}
 
 					addVideoOverlay("thumb/" . $post['thumb']);
@@ -288,7 +300,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				$post['thumb'] = $file_name . "s." . array_pop($thumbfile_split);
 				if (!copy($tinyib_uploads[$file_mime][1], "thumb/" . $post['thumb'])) {
 					@unlink($file_location);
-					fancyDie("Could not create thumbnail.");
+					fancyDie(_('Could not create thumbnail.'));
 				}
 				if ($file_mime == "application/x-shockwave-flash") {
 					addVideoOverlay("thumb/" . $post['thumb']);
@@ -299,7 +311,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 				if (!createThumbnail($file_location, "thumb/" . $post['thumb'], $thumb_maxwidth, $thumb_maxheight)) {
 					@unlink($file_location);
-					fancyDie("Could not create thumbnail.");
+					fancyDie(_('Could not create thumbnail.'));
 				}
 			}
 
@@ -323,7 +335,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			$allowed .= "embed URL";
 		}
 		if ($post['parent'] == TINYIB_NEWTHREAD && $allowed != "" && !TINYIB_NOFILEOK) {
-			fancyDie("A $allowed is required to start a thread.");
+			fancyDie(sprintf(_('A %s is required to start a thread.'), $allowed));
 		}
 		if (!$rawpost && str_replace('<br>', '', $post['message']) == "") {
 			$die_msg = "";
@@ -336,12 +348,12 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			fancyDie("Please $die_msg.");
 		}
 	} else {
-		echo $post['file_original'] . ' uploaded.<br>';
+		echo sprintf(_('%s uploaded.'), $post['file_original']) . '<br>';
 	}
 
 	if (!$loggedin && (($post['file'] != '' && TINYIB_REQMOD == 'files') || TINYIB_REQMOD == 'all')) {
 		$post['moderated'] = '0';
-		echo 'Your ' . ($post['parent'] == TINYIB_NEWTHREAD ? 'thread' : 'post') . ' will be shown <b>once it has been approved</b>.<br>';
+		echo sprintf(_('Your %s will be shown <b>once it has been approved</b>.'), $post['parent'] == TINYIB_NEWTHREAD ? 'thread' : 'post') . '<br>';
 		$slow_redirect = true;
 	}
 
@@ -354,7 +366,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 		trimThreads();
 
-		echo 'Updating thread...<br>';
+		echo _('Updating thread...') . '<br>';
 		if ($post['parent'] != TINYIB_NEWTHREAD) {
 			rebuildThread($post['parent']);
 
@@ -367,17 +379,17 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			rebuildThread($post['id']);
 		}
 
-		echo 'Updating index...<br>';
+		echo _('Updating index...') . '<br>';
 		rebuildIndexes();
 	}
 // Check if the request is to delete a post and/or its associated image
 } elseif (isset($_GET['delete']) && !isset($_GET['manage'])) {
 	if (!isset($_POST['delete'])) {
-		fancyDie('Tick the box next to a post and click "Delete" to delete it.');
+		fancyDie(_('Tick the box next to a post and click "Delete" to delete it.'));
 	}
 
 	if (TINYIB_DBMIGRATE) {
-		fancyDie('Post deletion is currently disabled.<br>Please try again in a few moments.');
+		fancyDie(_('Post deletion is currently disabled.<br>Please try again in a few moments.'));
 	}
 
 	$post = postByID($_POST['delete']);
@@ -394,12 +406,12 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			} else {
 				threadUpdated($post['parent']);
 			}
-			fancyDie('Post deleted.');
+			fancyDie(_('Post deleted.'));
 		} else {
-			fancyDie('Invalid password.');
+			fancyDie(_('Invalid password.'));
 		}
 	} else {
-		fancyDie('Sorry, an invalid post identifier was sent.  Please go back, refresh the page, and try again.');
+		fancyDie(_('Sorry, an invalid post identifier was sent. Please go back, refresh the page, and try again.'));
 	}
 
 	$redirect = false;
@@ -423,7 +435,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					rebuildThread($thread['id']);
 				}
 				rebuildIndexes();
-				$text .= manageInfo('Rebuilt board.');
+				$text .= manageInfo(_('Rebuilt board.'));
 			} elseif (isset($_GET['bans'])) {
 				clearExpiredBans();
 
@@ -431,7 +443,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					if ($_POST['ip'] != '') {
 						$banexists = banByIP($_POST['ip']);
 						if ($banexists) {
-							fancyDie('Sorry, there is already a ban on record for that IP address.');
+							fancyDie(_('Sorry, there is already a ban on record for that IP address.'));
 						}
 
 						$ban = array();
@@ -440,13 +452,13 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 						$ban['reason'] = $_POST['reason'];
 
 						insertBan($ban);
-						$text .= manageInfo('Ban record added for ' . $ban['ip']);
+						$text .= manageInfo(sprintf(_('Ban record added for %s'), $ban['ip']));
 					}
 				} elseif (isset($_GET['lift'])) {
 					$ban = banByID($_GET['lift']);
 					if ($ban) {
 						deleteBanByID($_GET['lift']);
-						$text .= manageInfo('Ban record lifted for ' . $ban['ip']);
+						$text .= manageInfo(sprintf(_('Ban record lifted for %s'), $ban['ip']));
 					}
 				}
 
@@ -538,9 +550,9 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				if ($post['parent'] != TINYIB_NEWTHREAD) {
 					rebuildThread($post['parent']);
 				}
-				$text .= manageInfo('Post No.' . $post['id'] . ' deleted.');
+				$text .= manageInfo(sprintf(_('Post No.%d deleted.'), $post['id']));
 			} else {
-				fancyDie("Sorry, there doesn't appear to be a post with that ID.");
+				fancyDie(_("Sorry, there doesn't appear to be a post with that ID."));
 			}
 		} elseif (isset($_GET['approve'])) {
 			if ($_GET['approve'] > 0) {
@@ -554,9 +566,9 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					}
 					threadUpdated($thread_id);
 
-					$text .= manageInfo('Post No.' . $post['id'] . ' approved.');
+					$text .= manageInfo(sprintf(_('Post No.%d approved.'), $post['id']));
 				} else {
-					fancyDie("Sorry, there doesn't appear to be a post with that ID.");
+					fancyDie(_("Sorry, there doesn't appear to be a post with that ID."));
 				}
 			}
 		} elseif (isset($_GET['moderate'])) {
@@ -565,7 +577,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				if ($post) {
 					$text .= manageModeratePost($post);
 				} else {
-					fancyDie("Sorry, there doesn't appear to be a post with that ID.");
+					fancyDie(_("Sorry, there doesn't appear to be a post with that ID."));
 				}
 			} else {
 				$onload = manageOnLoad('moderate');
@@ -580,10 +592,10 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 					$text .= manageInfo('Thread No.' . $post['id'] . ' ' . (intval($_GET['setsticky']) == 1 ? 'stickied' : 'un-stickied') . '.');
 				} else {
-					fancyDie("Sorry, there doesn't appear to be a thread with that ID.");
+					fancyDie(_("Sorry, there doesn't appear to be a post with that ID."));
 				}
 			} else {
-				fancyDie("Form data was lost. Please go back and try again.");
+				fancyDie(_('Form data was lost. Please go back and try again.'));
 			}
 		} elseif (isset($_GET['lock']) && isset($_GET['setlock'])) {
 			if ($_GET['lock'] > 0) {
@@ -594,10 +606,10 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 					$text .= manageInfo('Thread No.' . $post['id'] . ' ' . (intval($_GET['setlock']) == 1 ? 'locked' : 'unlocked') . '.');
 				} else {
-					fancyDie("Sorry, there doesn't appear to be a thread with that ID.");
+					fancyDie(_("Sorry, there doesn't appear to be a post with that ID."));
 				}
 			} else {
-				fancyDie("Form data was lost. Please go back and try again.");
+				fancyDie(_('Form data was lost. Please go back and try again.'));
 			}
 		} elseif (isset($_GET["rawpost"])) {
 			$onload = manageOnLoad("rawpost");

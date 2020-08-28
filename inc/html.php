@@ -58,7 +58,11 @@ function supportedFileTypes() {
 		? implode(', ', $types_allowed) . ' and ' . $types_last
 		: $types_last;
 
-	return "Supported file type" . (count($tinyib_uploads) != 1 ? "s are " : " is ") . $types_formatted . ".";
+	if (count($tinyib_uploads) == 1) {
+		return sprintf(_('Supported file type is %s'), $types_formatted);
+	} else {
+		return sprintf(_('Supported file types are %s.'), $types_formatted);
+	}
 }
 
 function makeLinksClickable($text) {
@@ -93,22 +97,27 @@ function buildPostForm($parent, $raw_post = false) {
 	$input_extra = '';
 	$rules_extra = '';
 	if ($raw_post) {
+		$txt_reply_to = _('Reply to');
+		$txt_new_thread = _('0 to start a new thread');
+		$txt_info_1 = _('Text entered in the Message field will be posted as is with no formatting applied.');
+		$txt_info_2 = _('Line-breaks must be specified with "&lt;br&gt;".');
+
 		$form_action = '?';
 		$form_extra = '<input type="hidden" name="rawpost" value="1">';
 		$input_extra = <<<EOF
 					<tr>
 						<td class="postblock">
-							Reply to
+							$txt_reply_to
 						</td>
 						<td>
-							<input type="text" name="parent" size="28" maxlength="75" value="0" accesskey="t">&nbsp;0 to start a new thread
+							<input type="text" name="parent" size="28" maxlength="75" value="0" accesskey="t">&nbsp;$txt_new_thread
 						</td>
 					</tr>
 EOF;
 		$rules_extra = <<<EOF
 							<ul>
-								<li>Text entered in the Message field will be posted as is with no formatting applied.</li>
-								<li>Line-breaks must be specified with "&lt;br&gt;".</li>
+								<li>$txt_info_1</li>
+								<li>$txt_info_2</li>
 							</ul><br>
 EOF;
 	}
@@ -142,14 +151,15 @@ EOF;
 </div>';
 		} else { // Simple CAPTCHA
 			$captcha_inner_html = '
-<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;(enter the text below)<br>
+<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;' . _('(enter the text below)') . '<br>
 <img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;">';
 		}
 
+		$txt_captcha = _('CAPTCHA');
 		$captcha_html = <<<EOF
 					<tr>
 						<td class="postblock">
-							CAPTCHA
+							$txt_captcha
 						</td>
 						<td>
 							$captcha_inner_html
@@ -161,15 +171,16 @@ EOF;
 	if (!empty($tinyib_uploads) && ($raw_post || !in_array('file', $hide_fields))) {
 		if (TINYIB_MAXKB > 0) {
 			$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
-			$max_file_size_rules_html = '<li>Maximum file size allowed is ' . TINYIB_MAXKBDESC . '.</li>';
+			$max_file_size_rules_html = '<li>' . sprintf(_('Maximum file size allowed is %s.'), TINYIB_MAXKBDESC) . '</li>';
 		}
 
 		$filetypes_html = '<li>' . supportedFileTypes() . '</li>';
 
+		$txt_file = _('File');
 		$file_input_html = <<<EOF
 					<tr>
 						<td class="postblock">
-							File
+							$txt_file
 						</td>
 						<td>
 							<input type="file" name="file" size="35" accesskey="f">
@@ -179,13 +190,15 @@ EOF;
 	}
 
 	if (!empty($tinyib_embeds) && ($raw_post || !in_array('embed', $hide_fields))) {
+		$txt_embed = _('Embed');
+		$txt_embed_help = _('(paste a YouTube URL)');
 		$embed_input_html = <<<EOF
 					<tr>
 						<td class="postblock">
-							Embed
+							$txt_embed
 						</td>
 						<td>
-							<input type="text" name="embed" size="28" accesskey="x" autocomplete="off">&nbsp;&nbsp;(paste a YouTube URL)
+							<input type="text" name="embed" size="28" accesskey="x" autocomplete="off">&nbsp;&nbsp;$txt_embed_help
 						</td>
 					</tr>
 EOF;
@@ -202,12 +215,12 @@ EOF;
 			$maxdimensions .= ' (new thread) or ' . TINYIB_MAXW . 'x' . TINYIB_MAXH . ' (reply)';
 		}
 
-		$thumbnails_html = "<li>Images greater than $maxdimensions will be thumbnailed.</li>";
+		$thumbnails_html = '<li>' . sprintf(_('Images greater than %s will be thumbnailed.'), $maxdimensions) . '</li>';
 	}
 
 	$unique_posts = uniquePosts();
 	if ($unique_posts > 0) {
-		$unique_posts_html = "<li>Currently $unique_posts unique user posts.</li>\n";
+		$unique_posts_html = '<li>' . printf(_('Currently %s unique user posts.'), $unique_posts) . '</li>' . "\n";
 	}
 
 	$output = <<<EOF
@@ -220,10 +233,11 @@ EOF;
 					$input_extra
 EOF;
 	if ($raw_post || !in_array('name', $hide_fields)) {
+		$txt_name = _('Name');
 		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
-							Name
+							$txt_name
 						</td>
 						<td>
 							<input type="text" name="name" size="28" maxlength="75" accesskey="n">
@@ -233,10 +247,11 @@ EOF;
 EOF;
 	}
 	if ($raw_post || !in_array('email', $hide_fields)) {
+		$txt_email = _('E-mail');
 		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
-							E-mail
+							$txt_email
 						</td>
 						<td>
 							<input type="text" name="email" size="28" maxlength="75" accesskey="e">
@@ -246,10 +261,11 @@ EOF;
 EOF;
 	}
 	if ($raw_post || !in_array('subject', $hide_fields)) {
+		$txt_subject = _('Subject');
 		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
-							Subject
+							$txt_subject
 						</td>
 						<td>
 							<input type="text" name="subject" size="40" maxlength="75" accesskey="s" autocomplete="off">
@@ -259,10 +275,11 @@ EOF;
 EOF;
 	}
 	if ($raw_post || !in_array('message', $hide_fields)) {
+		$txt_message = _('Message');
 		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
-							Message
+							$txt_message
 						</td>
 						<td>
 							<textarea id="message" name="message" cols="48" rows="4" accesskey="m"></textarea>
@@ -277,13 +294,15 @@ EOF;
 					$embed_input_html
 EOF;
 	if ($raw_post || !in_array('password', $hide_fields)) {
+		$txt_password = _('Password');
+		$txt_password_help = _('(for post and file deletion)');
 		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
-							Password
+							$txt_password
 						</td>
 						<td>
-							<input type="password" name="password" id="newpostpassword" size="8" accesskey="p">&nbsp;&nbsp;(for post and file deletion)
+							<input type="password" name="password" id="newpostpassword" size="8" accesskey="p">&nbsp;&nbsp;$txt_password_help
 						</td>
 					</tr>
 EOF;
@@ -350,7 +369,7 @@ function buildPost($post, $res) {
 	$direct_link = isEmbed($post["file_hex"]) ? "#" : (($res == TINYIB_RESPAGE ? "../" : "") . "src/" . $post["file"]);
 
 	if ($post['parent'] == TINYIB_NEWTHREAD && $post["file"] != '') {
-		$filesize .= isEmbed($post['file_hex']) ? 'Embed: ' : 'File: ';
+		$filesize .= (isEmbed($post['file_hex']) ? _('Embed:') : _('File:')) . ' ';
 	}
 
 	if (isEmbed($post["file_hex"])) {
@@ -447,13 +466,13 @@ EOF;
 	}
 
 	if ($post['parent'] == TINYIB_NEWTHREAD && $res == TINYIB_INDEXPAGE) {
-		$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">Reply</a>]";
+		$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">" . _("Reply") . "</a>]";
 	}
 
 	if (TINYIB_TRUNCATE > 0 && !$res && substr_count($post['message'], '<br>') > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
 		$br_offsets = strallpos($post['message'], '<br>');
 		$post['message'] = substr($post['message'], 0, $br_offsets[TINYIB_TRUNCATE - 1]);
-		$post['message'] .= '<br><span class="omittedposts">Post truncated.  Click Reply to view.</span><br>';
+		$post['message'] .= '<br><span class="omittedposts">' . _('Post truncated.  Click Reply to view.') . '</span><br>';
 	}
 	$return .= <<<EOF
 <div class="message">
@@ -463,7 +482,11 @@ EOF;
 
 	if ($post['parent'] == TINYIB_NEWTHREAD) {
 		if ($res == TINYIB_INDEXPAGE && $post['omitted'] > 0) {
-			$return .= '<span class="omittedposts">' . $post['omitted'] . ' ' . plural('post', $post['omitted']) . ' omitted. Click Reply to view.</span>';
+			if ($post['omitted'] == 1) {
+				$return .= '<span class="omittedposts">' . _('1 post omitted. Click Reply to view.') . '</span>';
+			} else {
+				$return .= '<span class="omittedposts">' . sprintf(_('%d posts omitted. Click Reply to view.'), $post['omitted']) . '</span>';
+			}
 		}
 	} else {
 		$return .= <<<EOF
@@ -478,7 +501,7 @@ EOF;
 }
 
 function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
-	$cataloglink = TINYIB_CATALOG ? '[<a href="catalog.html" style="text-decoration: underline;">Catalog</a>]' : '';
+	$cataloglink = TINYIB_CATALOG ? ('[<a href="catalog.html" style="text-decoration: underline;">' . _('Catalog') . '</a>]') : '';
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
 
 	$postingmode = "";
@@ -488,7 +511,7 @@ function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
 		$previous = ($thispage == 1) ? "index" : $thispage - 1;
 		$next = $thispage + 1;
 
-		$pagelinks = ($thispage == 0) ? "<td>Previous</td>" : '<td><form method="get" action="' . $previous . '.html"><input value="Previous" type="submit"></form></td>';
+		$pagelinks = ($thispage == 0) ? ('<td>' . _('Previous') . '</td>') : ('<td><form method="get" action="' . $previous . '.html"><input value="' . _('Previous') . '" type="submit"></form></td>');
 
 		$pagelinks .= "<td>";
 		for ($i = 0; $i <= $pages; $i++) {
@@ -501,7 +524,7 @@ function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
 		}
 		$pagelinks .= "</td>";
 
-		$pagelinks .= ($pages <= $thispage) ? "<td>Next</td>" : '<td><form method="get" action="' . $next . '.html"><input value="Next" type="submit"></form></td>';
+		$pagelinks .= ($pages <= $thispage) ? ('<td>' . _('Next') . '</td>') : ('<td><form method="get" action="' . $next . '.html"><input value="' . _('Next') . '" type="submit"></form></td>');
 
 		$pagenavigator = <<<EOF
 <table border="1" style="display: inline-block;">
@@ -524,9 +547,9 @@ EOF;
 EOF;
 		}
 	} else if ($parent == -1) {
-		$postingmode = '&#91;<a href="index.html">Return</a>&#93;<div class="replymode">Catalog</div> ';
+		$postingmode = '&#91;<a href="index.html">Return</a>&#93;<div class="replymode">' . _('Catalog') . '</div> ';
 	} else {
-		$postingmode = '&#91;<a href="../">Return</a>&#93;<div class="replymode">Posting mode: Reply</div> ';
+		$postingmode = '&#91;<a href="../">Return</a>&#93;<div class="replymode">' . _('Posting mode: Reply') . '</div> ';
 	}
 
 	$postform = '';
@@ -534,12 +557,15 @@ EOF;
 		$postform = buildPostForm($parent);
 	}
 
+	$txt_manage = _('Manage');
+	$txt_style = _('Style');
+	$txt_delete = _('Delete Post');
 	$body = <<<EOF
 	<body>
 		<div class="adminbar">
 			$cataloglink
-			[<a href="$managelink" style="text-decoration: underline;">Manage</a>]
-			<select id="switchStylesheet"><option value="">Style</option><option value="futaba">Futaba</option><option value="burichan">Burichan</option></select>
+			[<a href="$managelink" style="text-decoration: underline;">$txt_manage</a>]
+			<select id="switchStylesheet"><option value="">$txt_style</option><option value="futaba">Futaba</option><option value="burichan">Burichan</option></select>
 		</div>
 		<div class="logo">
 EOF;
@@ -558,7 +584,7 @@ EOF;
 			<tbody>
 				<tr>
 					<td>
-						Delete Post <input type="password" name="password" id="deletepostpassword" size="8" placeholder="Password">&nbsp;<input name="deletepost" value="Delete" type="submit">
+						$txt_delete <input type="password" name="password" id="deletepostpassword" size="8" placeholder="Password">&nbsp;<input name="deletepost" value="Delete" type="submit">
 					</td>
 				</tr>
 			</tbody>
@@ -671,6 +697,7 @@ function adminBar() {
 
 function managePage($text, $onload = '') {
 	$adminbar = adminBar();
+	$txt_manage_mode = _('Manage mode');
 	$body = <<<EOF
 	<body$onload>
 		<div class="adminbar">
@@ -681,7 +708,7 @@ EOF;
 	$body .= TINYIB_LOGO . TINYIB_BOARDDESC . <<<EOF
 		</div>
 		<hr width="90%">
-		<div class="replymode">Manage mode</div>
+		<div class="replymode">$txt_manage_mode</div>
 		$text
 		<hr>
 EOF;
@@ -702,13 +729,15 @@ function manageOnLoad($page) {
 }
 
 function manageLogInForm() {
+	$txt_login = _('Log In');
+	$txt_login_prompt = _('Enter an administrator or moderator password');
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="post" action="?manage">
 	<fieldset>
-	<legend align="center">Enter an administrator or moderator password</legend>
+	<legend align="center">$txt_login_prompt</legend>
 	<div class="login">
 	<input type="password" id="managepassword" name="managepassword"><br>
-	<input type="submit" value="Log In" class="managebutton">
+	<input type="submit" value="$txt_login" class="managebutton">
 	</div>
 	</fieldset>
 	</form>
@@ -717,13 +746,19 @@ EOF;
 }
 
 function manageBanForm() {
+	$txt_ban = _('Ban an IP address');
+	$txt_ban_ip = _('IP Address:');
+	$txt_ban_expire = _('Expire(sec):');
+	$txt_ban_reason = _('Reason:');
+	$txt_ban_never = _('never');
+	$txt_ban_optional = _('optional');
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="post" action="?manage&bans">
 	<fieldset>
-	<legend>Ban an IP address</legend>
-	<label for="ip">IP Address:</label> <input type="text" name="ip" id="ip" value="${_GET['bans']}"> <input type="submit" value="Submit" class="managebutton"><br>
-	<label for="expire">Expire(sec):</label> <input type="text" name="expire" id="expire" value="0">&nbsp;&nbsp;<small><a href="#" onclick="document.tinyib.expire.value='3600';return false;">1hr</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='86400';return false;">1d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='172800';return false;">2d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='604800';return false;">1w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='1209600';return false;">2w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='2592000';return false;">30d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='0';return false;">never</a></small><br>
-	<label for="reason">Reason:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" name="reason" id="reason">&nbsp;&nbsp;<small>optional</small>
+	<legend></legend>
+	<label for="ip">$txt_ban_ip</label> <input type="text" name="ip" id="ip" value="${_GET['bans']}"> <input type="submit" value="Submit" class="managebutton"><br>
+	<label for="expire">$txt_ban_expire</label> <input type="text" name="expire" id="expire" value="0">&nbsp;&nbsp;<small><a href="#" onclick="document.tinyib.expire.value='3600';return false;">1hr</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='86400';return false;">1d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='172800';return false;">2d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='604800';return false;">1w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='1209600';return false;">2w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='2592000';return false;">30d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='0';return false;">$txt_ban_never</a></small><br>
+	<label for="reason">$txt_ban_reason&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" name="reason" id="reason">&nbsp;&nbsp;<small>$txt_ban_optional</small>
 	<legend>
 	</fieldset>
 	</form><br>
@@ -734,11 +769,11 @@ function manageBansTable() {
 	$text = '';
 	$allbans = allBans();
 	if (count($allbans) > 0) {
-		$text .= '<table border="1"><tr><th>IP Address</th><th>Set At</th><th>Expires</th><th>Reason Provided</th><th>&nbsp;</th></tr>';
+		$text .= '<table border="1"><tr><th>' . _('IP Address') . '</th><th>' . _('Set At') . '</th><th>' . _('Expires') . '</th><th>' . _('Reason') . '</th><th>&nbsp;</th></tr>';
 		foreach ($allbans as $ban) {
-			$expire = ($ban['expire'] > 0) ? date('y/m/d(D)H:i:s', $ban['expire']) : 'Does not expire';
+			$expire = ($ban['expire'] > 0) ? date('y/m/d(D)H:i:s', $ban['expire']) : _('Does not expire');
 			$reason = ($ban['reason'] == '') ? '&nbsp;' : htmlentities($ban['reason']);
-			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . date('y/m/d(D)H:i:s', $ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">lift</a></td></tr>';
+			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . date('y/m/d(D)H:i:s', $ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">' . _('lift') . '</a></td></tr>';
 		}
 		$text .= '</table>';
 	}
@@ -957,7 +992,7 @@ function encodeJSON($array) {
 function buildSinglePostJSON($post) {
 	$name = $post['name'];
 	if ($name == '') {
-		$name = 'Anonymous';
+		$name = _('Anonymous');
 	}
 
 	$output = array('id' => $post['id'], 'parent' => $post['parent'], 'timestamp' => $post['timestamp'], 'bumped' => $post['bumped'], 'name' => $name, 'tripcode' => $post['tripcode'], 'subject' => $post['subject'], 'message' => $post['message'], 'file' => $post['file'], 'file_hex' => $post['file_hex'], 'file_original' => $post['file_original'], 'file_size' => $post['file_size'], 'file_size_formated' => $post['file_size_formatted'], 'image_width' => $post['image_width'], 'image_height' => $post['image_height'], 'thumb' => $post['thumb'], 'thumb_width' => $post['thumb_width'], 'thumb_height' => $post['thumb_height']);
