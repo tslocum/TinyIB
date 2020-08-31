@@ -1,4 +1,5 @@
 # TinyIB
+[![Translate](https://hosted.weblate.org/widgets/tinyib/-/tinyib/svg-badge.svg)](https://hosted.weblate.org/projects/tinyib/tinyib/)
 [![Donate](https://img.shields.io/liberapay/receives/rocketnine.space.svg?logo=liberapay)](https://liberapay.com/rocketnine.space)
 
 A lightweight and efficient [image board](https://en.wikipedia.org/wiki/Imageboard).  See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for demos.
@@ -24,7 +25,7 @@ Features
    - Post using raw HTML.
    - Upgrade automatically when installed via git.  (Tested on Linux only)
 
-Installing
+Install
 ------------
 
  1. Verify the following are installed:
@@ -55,6 +56,7 @@ Installing
       - **Note:** GIF files will have animated thumbnails, which will often have large file sizes.
     - To use TINYIB in another language:
       - Set ``TINYIB_LOCALE`` to a language code found in `locale/`.
+      - Ensure your PHP installation supports [Gettext](https://www.php.net/manual/en/book.gettext.php).
  6. [CHMOD](https://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)
     - ./src/
@@ -66,7 +68,7 @@ Installing
     - Directories will be verified to be writable.
     - The board index will be written to ``TINYIB_INDEX``.
 
-Moderating
+Moderate
 ------------
 
  1. If you are not logged in already, log in to the management panel by clicking **[Manage]**.
@@ -75,7 +77,7 @@ Moderating
  4. Click **Delete** with the password field blank.
     - From this page you are able to delete the post and/or ban the author.
 
-Updating
+Update
 ------------
 
  1. Obtain the latest release.
@@ -89,7 +91,7 @@ Updating
       - Visit [GitLab](https://gitlab.com/tslocum/tinyib) and review the changes made in the update.
       - Ensure the update does not interfere with your changes.
 
-Migrating
+Migrate
 ------------
 
 TinyIB includes a database migration tool, which currently only supports migrating from flat file to MySQL.  While the migration is in progress, visitors will not be able to create or delete posts.
@@ -118,7 +120,12 @@ Support
  2. Review the [open issues](https://gitlab.com/tslocum/tinyib/issues).
  3. Open a [new issue](https://gitlab.com/tslocum/tinyib/issues/new).
 
-Contributing
+Translate
+------------
+
+Translation is handled [online](https://hosted.weblate.org/projects/tinyib/tinyib/).
+
+Contribute
 ------------
 
  1. Read the [GitLab Forking Workflow](https://docs.gitlab.com/ce/workflow/forking_workflow.html).
