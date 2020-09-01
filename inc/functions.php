@@ -211,7 +211,7 @@ function nameAndTripcode($name) {
 
 function nameBlock($name, $tripcode, $email, $timestamp, $rawposttext) {
 	$output = '<span class="postername">';
-	$output .= ($name == '' && $tripcode == '') ? _('Anonymous') : $name;
+	$output .= ($name == '' && $tripcode == '') ? __('Anonymous') : $name;
 
 	if ($tripcode != '') {
 		$output .= '</span><span class="postertrip">!' . $tripcode;
@@ -320,9 +320,9 @@ function checkCAPTCHA() {
 		$captcha_solution = isset($_SESSION['tinyibcaptcha']) ? strtolower(trim($_SESSION['tinyibcaptcha'])) : '';
 
 		if ($captcha == '') {
-			fancyDie(_('Please enter the CAPTCHA text.'));
+			fancyDie(__('Please enter the CAPTCHA text.'));
 		} else if ($captcha != $captcha_solution) {
-			fancyDie(_('Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to retrieve a new CAPTCHA.'));
+			fancyDie(__('Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to retrieve a new CAPTCHA.'));
 		}
 	}
 }
@@ -353,7 +353,7 @@ function checkFlood() {
 
 function checkMessageSize() {
 	if (strlen($_POST["message"]) > 8000) {
-		fancyDie(sprintf(_('Please shorten your message, or post it in multiple parts. Your message is %1$d characters long, and the maximum allowed is %2$d.'), strlen($_POST["message"]), 8000));
+		fancyDie(sprintf(__('Please shorten your message, or post it in multiple parts. Your message is %1$d characters long, and the maximum allowed is %2$d.'), strlen($_POST["message"]), 8000));
 	}
 }
 
@@ -384,7 +384,7 @@ function setParent() {
 	if (isset($_POST["parent"])) {
 		if ($_POST["parent"] != TINYIB_NEWTHREAD) {
 			if (!threadExistsByID($_POST['parent'])) {
-				fancyDie(_('Invalid parent thread ID supplied, unable to create post.'));
+				fancyDie(__('Invalid parent thread ID supplied, unable to create post.'));
 			}
 
 			return $_POST["parent"];
@@ -410,25 +410,25 @@ function validateFileUpload() {
 		case UPLOAD_ERR_OK:
 			break;
 		case UPLOAD_ERR_FORM_SIZE:
-			fancyDie(sprintf(_('That file is larger than %s.'), TINYIB_MAXKBDESC));
+			fancyDie(sprintf(__('That file is larger than %s.'), TINYIB_MAXKBDESC));
 			break;
 		case UPLOAD_ERR_INI_SIZE:
-			fancyDie(sprintf(_('The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini.'), ini_get('upload_max_filesize')));
+			fancyDie(sprintf(__('The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini.'), ini_get('upload_max_filesize')));
 			break;
 		case UPLOAD_ERR_PARTIAL:
-			fancyDie(_('The uploaded file was only partially uploaded.'));
+			fancyDie(__('The uploaded file was only partially uploaded.'));
 			break;
 		case UPLOAD_ERR_NO_FILE:
-			fancyDie(_('No file was uploaded.'));
+			fancyDie(__('No file was uploaded.'));
 			break;
 		case UPLOAD_ERR_NO_TMP_DIR:
-			fancyDie(_('Missing a temporary folder.'));
+			fancyDie(__('Missing a temporary folder.'));
 			break;
 		case UPLOAD_ERR_CANT_WRITE:
-			fancyDie(_('Failed to write file to disk'));
+			fancyDie(__('Failed to write file to disk'));
 			break;
 		default:
-			fancyDie(_('Unable to save the uploaded file.'));
+			fancyDie(__('Unable to save the uploaded file.'));
 	}
 }
 
@@ -436,7 +436,7 @@ function checkDuplicateFile($hex) {
 	$hexmatches = postsByHex($hex);
 	if (count($hexmatches) > 0) {
 		foreach ($hexmatches as $hexmatch) {
-			fancyDie(sprintf(_('Duplicate file uploaded. That file has already been posted <a href="%s">here</a>.'), 'res/' . (($hexmatch['parent'] == TINYIB_NEWTHREAD) ? $hexmatch['id'] : $hexmatch['parent'])) . '.html#' . $hexmatch['id']);
+			fancyDie(sprintf(__('Duplicate file uploaded. That file has already been posted <a href="%s">here</a>.'), 'res/' . (($hexmatch['parent'] == TINYIB_NEWTHREAD) ? $hexmatch['id'] : $hexmatch['parent'])) . '.html#' . $hexmatch['id']);
 		}
 	}
 }
@@ -467,7 +467,7 @@ function createThumbnail($file_location, $thumb_location, $new_w, $new_h) {
 		}
 
 		if (!$src_img) {
-			fancyDie(_('Unable to read the uploaded file while creating its thumbnail. A common cause for this is an incorrect extension when the file is actually of a different type.'));
+			fancyDie(__('Unable to read the uploaded file while creating its thumbnail. A common cause for this is an incorrect extension when the file is actually of a different type.'));
 		}
 
 		$old_x = imageSX($src_img);

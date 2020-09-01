@@ -59,9 +59,9 @@ function supportedFileTypes() {
 		: $types_last;
 
 	if (count($tinyib_uploads) == 1) {
-		return sprintf(_('Supported file type is %s'), $types_formatted);
+		return sprintf(__('Supported file type is %s'), $types_formatted);
 	} else {
-		return sprintf(_('Supported file types are %s.'), $types_formatted);
+		return sprintf(__('Supported file types are %s.'), $types_formatted);
 	}
 }
 
@@ -97,10 +97,10 @@ function buildPostForm($parent, $raw_post = false) {
 	$input_extra = '';
 	$rules_extra = '';
 	if ($raw_post) {
-		$txt_reply_to = _('Reply to');
-		$txt_new_thread = _('0 to start a new thread');
-		$txt_info_1 = _('Text entered in the Message field will be posted as is with no formatting applied.');
-		$txt_info_2 = _('Line-breaks must be specified with "&lt;br&gt;".');
+		$txt_reply_to = __('Reply to');
+		$txt_new_thread = __('0 to start a new thread');
+		$txt_info_1 = __('Text entered in the Message field will be posted as is with no formatting applied.');
+		$txt_info_2 = __('Line-breaks must be specified with "&lt;br&gt;".');
 
 		$form_action = '?';
 		$form_extra = '<input type="hidden" name="rawpost" value="1">';
@@ -151,11 +151,11 @@ EOF;
 </div>';
 		} else { // Simple CAPTCHA
 			$captcha_inner_html = '
-<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;' . _('(enter the text below)') . '<br>
+<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;' . __('(enter the text below)') . '<br>
 <img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;">';
 		}
 
-		$txt_captcha = _('CAPTCHA');
+		$txt_captcha = __('CAPTCHA');
 		$captcha_html = <<<EOF
 					<tr>
 						<td class="postblock">
@@ -171,12 +171,12 @@ EOF;
 	if (!empty($tinyib_uploads) && ($raw_post || !in_array('file', $hide_fields))) {
 		if (TINYIB_MAXKB > 0) {
 			$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
-			$max_file_size_rules_html = '<li>' . sprintf(_('Maximum file size allowed is %s.'), TINYIB_MAXKBDESC) . '</li>';
+			$max_file_size_rules_html = '<li>' . sprintf(__('Maximum file size allowed is %s.'), TINYIB_MAXKBDESC) . '</li>';
 		}
 
 		$filetypes_html = '<li>' . supportedFileTypes() . '</li>';
 
-		$txt_file = _('File');
+		$txt_file = __('File');
 		$file_input_html = <<<EOF
 					<tr>
 						<td class="postblock">
@@ -190,8 +190,8 @@ EOF;
 	}
 
 	if (!empty($tinyib_embeds) && ($raw_post || !in_array('embed', $hide_fields))) {
-		$txt_embed = _('Embed');
-		$txt_embed_help = _('(paste a YouTube URL)');
+		$txt_embed = __('Embed');
+		$txt_embed_help = __('(paste a YouTube URL)');
 		$embed_input_html = <<<EOF
 					<tr>
 						<td class="postblock">
@@ -215,12 +215,12 @@ EOF;
 			$maxdimensions .= ' (new thread) or ' . TINYIB_MAXW . 'x' . TINYIB_MAXH . ' (reply)';
 		}
 
-		$thumbnails_html = '<li>' . sprintf(_('Images greater than %s will be thumbnailed.'), $maxdimensions) . '</li>';
+		$thumbnails_html = '<li>' . sprintf(__('Images greater than %s will be thumbnailed.'), $maxdimensions) . '</li>';
 	}
 
 	$unique_posts = uniquePosts();
 	if ($unique_posts > 0) {
-		$unique_posts_html = '<li>' . printf(_('Currently %s unique user posts.'), $unique_posts) . '</li>' . "\n";
+		$unique_posts_html = '<li>' . printf(__('Currently %s unique user posts.'), $unique_posts) . '</li>' . "\n";
 	}
 
 	$output = <<<EOF
@@ -233,7 +233,7 @@ EOF;
 					$input_extra
 EOF;
 	if ($raw_post || !in_array('name', $hide_fields)) {
-		$txt_name = _('Name');
+		$txt_name = __('Name');
 		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
@@ -247,7 +247,7 @@ EOF;
 EOF;
 	}
 	if ($raw_post || !in_array('email', $hide_fields)) {
-		$txt_email = _('E-mail');
+		$txt_email = __('E-mail');
 		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
@@ -261,7 +261,7 @@ EOF;
 EOF;
 	}
 	if ($raw_post || !in_array('subject', $hide_fields)) {
-		$txt_subject = _('Subject');
+		$txt_subject = __('Subject');
 		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
@@ -275,7 +275,7 @@ EOF;
 EOF;
 	}
 	if ($raw_post || !in_array('message', $hide_fields)) {
-		$txt_message = _('Message');
+		$txt_message = __('Message');
 		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
@@ -294,8 +294,8 @@ EOF;
 					$embed_input_html
 EOF;
 	if ($raw_post || !in_array('password', $hide_fields)) {
-		$txt_password = _('Password');
-		$txt_password_help = _('(for post and file deletion)');
+		$txt_password = __('Password');
+		$txt_password_help = __('(for post and file deletion)');
 		$output .= <<<EOF
 					<tr>
 						<td class="postblock">
@@ -369,7 +369,7 @@ function buildPost($post, $res) {
 	$direct_link = isEmbed($post["file_hex"]) ? "#" : (($res == TINYIB_RESPAGE ? "../" : "") . "src/" . $post["file"]);
 
 	if ($post['parent'] == TINYIB_NEWTHREAD && $post["file"] != '') {
-		$filesize .= (isEmbed($post['file_hex']) ? _('Embed:') : _('File:')) . ' ';
+		$filesize .= (isEmbed($post['file_hex']) ? __('Embed:') : __('File:')) . ' ';
 	}
 
 	if (isEmbed($post["file_hex"])) {
@@ -466,13 +466,13 @@ EOF;
 	}
 
 	if ($post['parent'] == TINYIB_NEWTHREAD && $res == TINYIB_INDEXPAGE) {
-		$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">" . _("Reply") . "</a>]";
+		$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">" . __("Reply") . "</a>]";
 	}
 
 	if (TINYIB_TRUNCATE > 0 && !$res && substr_count($post['message'], '<br>') > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
 		$br_offsets = strallpos($post['message'], '<br>');
 		$post['message'] = substr($post['message'], 0, $br_offsets[TINYIB_TRUNCATE - 1]);
-		$post['message'] .= '<br><span class="omittedposts">' . _('Post truncated.  Click Reply to view.') . '</span><br>';
+		$post['message'] .= '<br><span class="omittedposts">' . __('Post truncated.  Click Reply to view.') . '</span><br>';
 	}
 	$return .= <<<EOF
 <div class="message">
@@ -483,9 +483,9 @@ EOF;
 	if ($post['parent'] == TINYIB_NEWTHREAD) {
 		if ($res == TINYIB_INDEXPAGE && $post['omitted'] > 0) {
 			if ($post['omitted'] == 1) {
-				$return .= '<span class="omittedposts">' . _('1 post omitted. Click Reply to view.') . '</span>';
+				$return .= '<span class="omittedposts">' . __('1 post omitted. Click Reply to view.') . '</span>';
 			} else {
-				$return .= '<span class="omittedposts">' . sprintf(_('%d posts omitted. Click Reply to view.'), $post['omitted']) . '</span>';
+				$return .= '<span class="omittedposts">' . sprintf(__('%d posts omitted. Click Reply to view.'), $post['omitted']) . '</span>';
 			}
 		}
 	} else {
@@ -501,7 +501,7 @@ EOF;
 }
 
 function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
-	$cataloglink = TINYIB_CATALOG ? ('[<a href="catalog.html" style="text-decoration: underline;">' . _('Catalog') . '</a>]') : '';
+	$cataloglink = TINYIB_CATALOG ? ('[<a href="catalog.html" style="text-decoration: underline;">' . __('Catalog') . '</a>]') : '';
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
 
 	$postingmode = "";
@@ -511,7 +511,7 @@ function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
 		$previous = ($thispage == 1) ? "index" : $thispage - 1;
 		$next = $thispage + 1;
 
-		$pagelinks = ($thispage == 0) ? ('<td>' . _('Previous') . '</td>') : ('<td><form method="get" action="' . $previous . '.html"><input value="' . _('Previous') . '" type="submit"></form></td>');
+		$pagelinks = ($thispage == 0) ? ('<td>' . __('Previous') . '</td>') : ('<td><form method="get" action="' . $previous . '.html"><input value="' . __('Previous') . '" type="submit"></form></td>');
 
 		$pagelinks .= "<td>";
 		for ($i = 0; $i <= $pages; $i++) {
@@ -524,7 +524,7 @@ function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
 		}
 		$pagelinks .= "</td>";
 
-		$pagelinks .= ($pages <= $thispage) ? ('<td>' . _('Next') . '</td>') : ('<td><form method="get" action="' . $next . '.html"><input value="' . _('Next') . '" type="submit"></form></td>');
+		$pagelinks .= ($pages <= $thispage) ? ('<td>' . __('Next') . '</td>') : ('<td><form method="get" action="' . $next . '.html"><input value="' . __('Next') . '" type="submit"></form></td>');
 
 		$pagenavigator = <<<EOF
 <table border="1" style="display: inline-block;">
@@ -547,9 +547,9 @@ EOF;
 EOF;
 		}
 	} else if ($parent == -1) {
-		$postingmode = '&#91;<a href="index.html">Return</a>&#93;<div class="replymode">' . _('Catalog') . '</div> ';
+		$postingmode = '&#91;<a href="index.html">Return</a>&#93;<div class="replymode">' . __('Catalog') . '</div> ';
 	} else {
-		$postingmode = '&#91;<a href="../">Return</a>&#93;<div class="replymode">' . _('Posting mode: Reply') . '</div> ';
+		$postingmode = '&#91;<a href="../">Return</a>&#93;<div class="replymode">' . __('Posting mode: Reply') . '</div> ';
 	}
 
 	$postform = '';
@@ -557,9 +557,9 @@ EOF;
 		$postform = buildPostForm($parent);
 	}
 
-	$txt_manage = _('Manage');
-	$txt_style = _('Style');
-	$txt_delete = _('Delete Post');
+	$txt_manage = __('Manage');
+	$txt_style = __('Style');
+	$txt_delete = __('Delete Post');
 	$body = <<<EOF
 	<body>
 		<div class="adminbar">
@@ -697,7 +697,7 @@ function adminBar() {
 
 function managePage($text, $onload = '') {
 	$adminbar = adminBar();
-	$txt_manage_mode = _('Manage mode');
+	$txt_manage_mode = __('Manage mode');
 	$body = <<<EOF
 	<body$onload>
 		<div class="adminbar">
@@ -729,8 +729,8 @@ function manageOnLoad($page) {
 }
 
 function manageLogInForm() {
-	$txt_login = _('Log In');
-	$txt_login_prompt = _('Enter an administrator or moderator password');
+	$txt_login = __('Log In');
+	$txt_login_prompt = __('Enter an administrator or moderator password');
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="post" action="?manage">
 	<fieldset>
@@ -746,12 +746,12 @@ EOF;
 }
 
 function manageBanForm() {
-	$txt_ban = _('Ban an IP address');
-	$txt_ban_ip = _('IP Address:');
-	$txt_ban_expire = _('Expire(sec):');
-	$txt_ban_reason = _('Reason:');
-	$txt_ban_never = _('never');
-	$txt_ban_optional = _('optional');
+	$txt_ban = __('Ban an IP address');
+	$txt_ban_ip = __('IP Address:');
+	$txt_ban_expire = __('Expire(sec):');
+	$txt_ban_reason = __('Reason:');
+	$txt_ban_never = __('never');
+	$txt_ban_optional = __('optional');
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="post" action="?manage&bans">
 	<fieldset>
@@ -769,11 +769,11 @@ function manageBansTable() {
 	$text = '';
 	$allbans = allBans();
 	if (count($allbans) > 0) {
-		$text .= '<table border="1"><tr><th>' . _('IP Address') . '</th><th>' . _('Set At') . '</th><th>' . _('Expires') . '</th><th>' . _('Reason') . '</th><th>&nbsp;</th></tr>';
+		$text .= '<table border="1"><tr><th>' . __('IP Address') . '</th><th>' . __('Set At') . '</th><th>' . __('Expires') . '</th><th>' . __('Reason') . '</th><th>&nbsp;</th></tr>';
 		foreach ($allbans as $ban) {
-			$expire = ($ban['expire'] > 0) ? date('y/m/d(D)H:i:s', $ban['expire']) : _('Does not expire');
+			$expire = ($ban['expire'] > 0) ? date('y/m/d(D)H:i:s', $ban['expire']) : __('Does not expire');
 			$reason = ($ban['reason'] == '') ? '&nbsp;' : htmlentities($ban['reason']);
-			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . date('y/m/d(D)H:i:s', $ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">' . _('lift') . '</a></td></tr>';
+			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . date('y/m/d(D)H:i:s', $ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">' . __('lift') . '</a></td></tr>';
 		}
 		$text .= '</table>';
 	}
@@ -992,7 +992,7 @@ function encodeJSON($array) {
 function buildSinglePostJSON($post) {
 	$name = $post['name'];
 	if ($name == '') {
-		$name = _('Anonymous');
+		$name = __('Anonymous');
 	}
 
 	$output = array('id' => $post['id'], 'parent' => $post['parent'], 'timestamp' => $post['timestamp'], 'bumped' => $post['bumped'], 'name' => $name, 'tripcode' => $post['tripcode'], 'subject' => $post['subject'], 'message' => $post['message'], 'file' => $post['file'], 'file_hex' => $post['file_hex'], 'file_original' => $post['file_original'], 'file_size' => $post['file_size'], 'file_size_formated' => $post['file_size_formatted'], 'image_width' => $post['image_width'], 'image_height' => $post['image_height'], 'thumb' => $post['thumb'], 'thumb_width' => $post['thumb_width'], 'thumb_height' => $post['thumb_height']);
