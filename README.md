@@ -18,6 +18,9 @@ Features
  - CAPTCHA  (A simple implementation is included, reCAPTCHA is also supported)
  - Reference links >>###
  - Delete post via password.
+ - [Translations](https://hosted.weblate.org/projects/tinyib/tinyib/):
+   - French
+   - Norwegian
  - Management panel:
    - Administrators and moderators use separate passwords.
      - Moderators are only able to sticky threads, lock threads, delete posts, and approve posts when necessary.  (See ``TINYIB_REQMOD``)
@@ -56,7 +59,7 @@ Install
       - **Note:** GIF files will have animated thumbnails, which will often have large file sizes.
     - To use TINYIB in another language:
       - Set ``TINYIB_LOCALE`` to a language code found in `locale/`.
-      - Ensure your PHP installation supports [Gettext](https://www.php.net/manual/en/book.gettext.php).
+      - Ensure you are running PHP 5.4+.
  6. [CHMOD](https://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)
     - ./src/

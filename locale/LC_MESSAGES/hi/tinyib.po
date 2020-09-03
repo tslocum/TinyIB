@@ -1,0 +1,434 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2020-08-28 16:18-0700\n"
+"PO-Revision-Date: 2020-08-28 16:18-0700\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Poedit 2.3.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: imgboard.php\n"
+"X-Poedit-SearchPath-1: inc/html.php\n"
+"X-Poedit-SearchPath-2: inc/functions.php\n"
+
+#: imgboard.php:74
+msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
+msgstr ""
+
+#: imgboard.php:78
+msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
+msgstr ""
+
+#: imgboard.php:88
+#, php-format
+msgid "Directory '%s' can not be written to.  Please modify its permissions."
+msgstr ""
+
+#: imgboard.php:96
+msgid "Unknown database mode specified."
+msgstr ""
+
+#: imgboard.php:111
+msgid "Posting is currently disabled.<br>Please try again in a few moments."
+msgstr ""
+
+#: imgboard.php:130 inc/functions.php:387
+msgid "Invalid parent thread ID supplied, unable to create post."
+msgstr ""
+
+#: imgboard.php:132
+msgid "Replies are not allowed to locked threads."
+msgstr ""
+
+#: imgboard.php:169
+msgid "Embedding a URL and uploading a file at the same time is not supported."
+msgstr ""
+
+#: imgboard.php:174
+#, php-format
+msgid "Invalid embed URL. Only %s URLs are supported."
+msgstr ""
+
+#: imgboard.php:194
+msgid "Error while processing audio/video."
+msgstr ""
+
+#: imgboard.php:201 imgboard.php:301 imgboard.php:312
+msgid "Could not create thumbnail."
+msgstr ""
+
+#: imgboard.php:217
+msgid "File transfer failure. Please retry the submission."
+msgstr ""
+
+#: imgboard.php:221 inc/functions.php:413
+#, php-format
+msgid "That file is larger than %s."
+msgstr ""
+
+#: imgboard.php:236
+msgid ""
+"Failed to read the MIME type and size of the uploaded file. Please retry the "
+"submission."
+msgstr ""
+
+#: imgboard.php:252
+msgid "Could not copy uploaded file."
+msgstr ""
+
+#: imgboard.php:257
+msgid "File transfer failure. Please go back and try again."
+msgstr ""
+
+#: imgboard.php:276
+msgid "Sorry, your video appears to be corrupt."
+msgstr ""
+
+#: imgboard.php:336
+#, php-format
+msgid "A %s is required to start a thread."
+msgstr ""
+
+#: imgboard.php:349
+#, php-format
+msgid "%s uploaded."
+msgstr ""
+
+#: imgboard.php:354
+#, php-format
+msgid "Your %s will be shown <b>once it has been approved</b>."
+msgstr ""
+
+#: imgboard.php:367
+msgid "Updating thread..."
+msgstr ""
+
+#: imgboard.php:380
+msgid "Updating index..."
+msgstr ""
+
+#: imgboard.php:386
+msgid "Tick the box next to a post and click \"Delete\" to delete it."
+msgstr ""
+
+#: imgboard.php:390
+msgid ""
+"Post deletion is currently disabled.<br>Please try again in a few moments."
+msgstr ""
+
+#: imgboard.php:407
+msgid "Post deleted."
+msgstr ""
+
+#: imgboard.php:409
+msgid "Invalid password."
+msgstr ""
+
+#: imgboard.php:412
+msgid ""
+"Sorry, an invalid post identifier was sent. Please go back, refresh the "
+"page, and try again."
+msgstr ""
+
+#: imgboard.php:436
+msgid "Rebuilt board."
+msgstr ""
+
+#: imgboard.php:444
+msgid "Sorry, there is already a ban on record for that IP address."
+msgstr ""
+
+#: imgboard.php:453
+#, php-format
+msgid "Ban record added for %s"
+msgstr ""
+
+#: imgboard.php:459
+#, php-format
+msgid "Ban record lifted for %s"
+msgstr ""
+
+#: imgboard.php:551
+#, php-format
+msgid "Post No.%d deleted."
+msgstr ""
+
+#: imgboard.php:553 imgboard.php:569 imgboard.php:578 imgboard.php:593
+#: imgboard.php:607
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr ""
+
+#: imgboard.php:567
+#, php-format
+msgid "Post No.%d approved."
+msgstr ""
+
+#: imgboard.php:596 imgboard.php:610
+msgid "Form data was lost. Please go back and try again."
+msgstr ""
+
+#: inc/functions.php:214 inc/html.php:995
+msgid "Anonymous"
+msgstr ""
+
+#: inc/functions.php:323
+msgid "Please enter the CAPTCHA text."
+msgstr ""
+
+#: inc/functions.php:325
+msgid ""
+"Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
+"retrieve a new CAPTCHA."
+msgstr ""
+
+#: inc/functions.php:356
+#, php-format
+msgid ""
+"Please shorten your message, or post it in multiple parts. Your message is "
+"%1$d characters long, and the maximum allowed is %2$d."
+msgstr ""
+
+#: inc/functions.php:416
+#, php-format
+msgid ""
+"The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
+msgstr ""
+
+#: inc/functions.php:419
+msgid "The uploaded file was only partially uploaded."
+msgstr ""
+
+#: inc/functions.php:422
+msgid "No file was uploaded."
+msgstr ""
+
+#: inc/functions.php:425
+msgid "Missing a temporary folder."
+msgstr ""
+
+#: inc/functions.php:428
+msgid "Failed to write file to disk"
+msgstr ""
+
+#: inc/functions.php:431
+msgid "Unable to save the uploaded file."
+msgstr ""
+
+#: inc/functions.php:439
+#, php-format
+msgid ""
+"Duplicate file uploaded. That file has already been posted <a href=\"%s"
+"\">here</a>."
+msgstr ""
+
+#: inc/functions.php:470
+msgid ""
+"Unable to read the uploaded file while creating its thumbnail. A common "
+"cause for this is an incorrect extension when the file is actually of a "
+"different type."
+msgstr ""
+
+#: inc/html.php:62
+#, php-format
+msgid "Supported file type is %s"
+msgstr ""
+
+#: inc/html.php:64
+#, php-format
+msgid "Supported file types are %s."
+msgstr ""
+
+#: inc/html.php:100
+msgid "Reply to"
+msgstr ""
+
+#: inc/html.php:101
+msgid "0 to start a new thread"
+msgstr ""
+
+#: inc/html.php:102
+msgid ""
+"Text entered in the Message field will be posted as is with no formatting "
+"applied."
+msgstr ""
+
+#: inc/html.php:103
+msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
+msgstr ""
+
+#: inc/html.php:154
+msgid "(enter the text below)"
+msgstr ""
+
+#: inc/html.php:158
+msgid "CAPTCHA"
+msgstr ""
+
+#: inc/html.php:174
+#, php-format
+msgid "Maximum file size allowed is %s."
+msgstr ""
+
+#: inc/html.php:179
+msgid "File"
+msgstr ""
+
+#: inc/html.php:193
+msgid "Embed"
+msgstr ""
+
+#: inc/html.php:194
+msgid "(paste a YouTube URL)"
+msgstr ""
+
+#: inc/html.php:218
+#, php-format
+msgid "Images greater than %s will be thumbnailed."
+msgstr ""
+
+#: inc/html.php:223
+#, php-format
+msgid "Currently %s unique user posts."
+msgstr ""
+
+#: inc/html.php:236
+msgid "Name"
+msgstr ""
+
+#: inc/html.php:250
+msgid "E-mail"
+msgstr ""
+
+#: inc/html.php:264
+msgid "Subject"
+msgstr ""
+
+#: inc/html.php:278
+msgid "Message"
+msgstr ""
+
+#: inc/html.php:297
+msgid "Password"
+msgstr ""
+
+#: inc/html.php:298
+msgid "(for post and file deletion)"
+msgstr ""
+
+#: inc/html.php:372
+msgid "Embed:"
+msgstr ""
+
+#: inc/html.php:372
+msgid "File:"
+msgstr ""
+
+#: inc/html.php:469
+msgid "Reply"
+msgstr ""
+
+#: inc/html.php:475
+msgid "Post truncated.  Click Reply to view."
+msgstr ""
+
+#: inc/html.php:486
+msgid "1 post omitted. Click Reply to view."
+msgstr ""
+
+#: inc/html.php:488
+#, php-format
+msgid "%d posts omitted. Click Reply to view."
+msgstr ""
+
+#: inc/html.php:504 inc/html.php:550
+msgid "Catalog"
+msgstr ""
+
+#: inc/html.php:514
+msgid "Previous"
+msgstr ""
+
+#: inc/html.php:527
+msgid "Next"
+msgstr ""
+
+#: inc/html.php:552
+msgid "Posting mode: Reply"
+msgstr ""
+
+#: inc/html.php:560
+msgid "Manage"
+msgstr ""
+
+#: inc/html.php:561
+msgid "Style"
+msgstr ""
+
+#: inc/html.php:562
+msgid "Delete Post"
+msgstr ""
+
+#: inc/html.php:700
+msgid "Manage mode"
+msgstr ""
+
+#: inc/html.php:732
+msgid "Log In"
+msgstr ""
+
+#: inc/html.php:733
+msgid "Enter an administrator or moderator password"
+msgstr ""
+
+#: inc/html.php:749
+msgid "Ban an IP address"
+msgstr ""
+
+#: inc/html.php:750
+msgid "IP Address:"
+msgstr ""
+
+#: inc/html.php:751
+msgid "Expire(sec):"
+msgstr ""
+
+#: inc/html.php:752
+msgid "Reason:"
+msgstr ""
+
+#: inc/html.php:753
+msgid "never"
+msgstr ""
+
+#: inc/html.php:754
+msgid "optional"
+msgstr ""
+
+#: inc/html.php:772
+msgid "IP Address"
+msgstr ""
+
+#: inc/html.php:772
+msgid "Set At"
+msgstr ""
+
+#: inc/html.php:772
+msgid "Expires"
+msgstr ""
+
+#: inc/html.php:772
+msgid "Reason"
+msgstr ""
+
+#: inc/html.php:774
+msgid "Does not expire"
+msgstr ""
+
+#: inc/html.php:776
+msgid "lift"
+msgstr ""
