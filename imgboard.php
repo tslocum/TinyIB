@@ -68,7 +68,7 @@ if (TINYIB_LOCALE == '') {
 	}
 } else {
 	require 'inc/gettext/src/autoloader.php';
-	$translations = Translations::fromPoFile('locale/' . TINYIB_LOCALE . '/LC_MESSAGES/tinyib.po');
+	$translations = Translations::fromPoFile('locale/' . TINYIB_LOCALE . '/tinyib.po');
 	$translator = new Translator();
 	$translator->loadTranslations($translations);
 	$translator->register();
