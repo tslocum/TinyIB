@@ -1,8 +1,8 @@
-# TinyIB
+# TinyIB - Lightweight and efficient [imageboard](https://en.wikipedia.org/wiki/Imageboard)
 [![Translate](https://hosted.weblate.org/widgets/tinyib/-/tinyib/svg-badge.svg)](https://hosted.weblate.org/projects/tinyib/tinyib/)
 [![Donate](https://img.shields.io/liberapay/receives/rocketnine.space.svg?logo=liberapay)](https://liberapay.com/rocketnine.space)
 
-A lightweight and efficient [image board](https://en.wikipedia.org/wiki/Imageboard).  See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for demos.
+See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for demos.
 
 Features
 ------------
@@ -18,15 +18,16 @@ Features
  - CAPTCHA  (A simple implementation is included, reCAPTCHA is also supported)
  - Reference links >>###
  - Delete post via password.
- - [Translations](https://hosted.weblate.org/projects/tinyib/tinyib/):
-   - French
-   - Norwegian
  - Management panel:
    - Administrators and moderators use separate passwords.
      - Moderators are only able to sticky threads, lock threads, delete posts, and approve posts when necessary.  (See ``TINYIB_REQMOD``)
    - Ban offensive/abusive posters across all boards.
    - Post using raw HTML.
    - Upgrade automatically when installed via git.  (Tested on Linux only)
+ - [Translations](https://hosted.weblate.org/projects/tinyib/tinyib/):
+   - French
+   - German
+   - Norwegian
 
 Install
 ------------
