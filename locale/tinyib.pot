@@ -1,7 +1,8 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-08-28 16:18-0700\n"
+"POT-Creation-Date: 2020-09-06 09:41-0700\n"
 "PO-Revision-Date: 2020-08-28 16:18-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,167 +13,168 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
 "X-Poedit-SearchPath-2: inc/functions.php\n"
 
-#: imgboard.php:74
+#: imgboard.php:78
 msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
 msgstr ""
 
-#: imgboard.php:78
+#: imgboard.php:82
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgstr ""
 
-#: imgboard.php:88
+#: imgboard.php:92
 #, php-format
 msgid "Directory '%s' can not be written to.  Please modify its permissions."
 msgstr ""
 
-#: imgboard.php:96
+#: imgboard.php:100
 msgid "Unknown database mode specified."
 msgstr ""
 
-#: imgboard.php:111
+#: imgboard.php:115
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
 msgstr ""
 
-#: imgboard.php:130 inc/functions.php:387
+#: imgboard.php:134 inc/functions.php:387
 msgid "Invalid parent thread ID supplied, unable to create post."
 msgstr ""
 
-#: imgboard.php:132
+#: imgboard.php:136
 msgid "Replies are not allowed to locked threads."
 msgstr ""
 
-#: imgboard.php:169
+#: imgboard.php:173
 msgid "Embedding a URL and uploading a file at the same time is not supported."
 msgstr ""
 
-#: imgboard.php:174
+#: imgboard.php:178
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
 msgstr ""
 
-#: imgboard.php:194
+#: imgboard.php:198
 msgid "Error while processing audio/video."
 msgstr ""
 
-#: imgboard.php:201 imgboard.php:301 imgboard.php:312
+#: imgboard.php:205 imgboard.php:305 imgboard.php:316
 msgid "Could not create thumbnail."
 msgstr ""
 
-#: imgboard.php:217
+#: imgboard.php:221
 msgid "File transfer failure. Please retry the submission."
 msgstr ""
 
-#: imgboard.php:221 inc/functions.php:413
+#: imgboard.php:225 inc/functions.php:413
 #, php-format
 msgid "That file is larger than %s."
 msgstr ""
 
-#: imgboard.php:236
+#: imgboard.php:240
 msgid ""
 "Failed to read the MIME type and size of the uploaded file. Please retry the "
 "submission."
 msgstr ""
 
-#: imgboard.php:252
+#: imgboard.php:256
 msgid "Could not copy uploaded file."
 msgstr ""
 
-#: imgboard.php:257
+#: imgboard.php:261
 msgid "File transfer failure. Please go back and try again."
 msgstr ""
 
-#: imgboard.php:276
+#: imgboard.php:280
 msgid "Sorry, your video appears to be corrupt."
 msgstr ""
 
-#: imgboard.php:336
+#: imgboard.php:340
 #, php-format
 msgid "A %s is required to start a thread."
 msgstr ""
 
-#: imgboard.php:349
+#: imgboard.php:353
 #, php-format
 msgid "%s uploaded."
 msgstr ""
 
-#: imgboard.php:354
+#: imgboard.php:358
 #, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr ""
 
-#: imgboard.php:367
+#: imgboard.php:371
 msgid "Updating thread..."
 msgstr ""
 
-#: imgboard.php:380
+#: imgboard.php:384
 msgid "Updating index..."
 msgstr ""
 
-#: imgboard.php:386
+#: imgboard.php:390
 msgid "Tick the box next to a post and click \"Delete\" to delete it."
 msgstr ""
 
-#: imgboard.php:390
+#: imgboard.php:394
 msgid ""
 "Post deletion is currently disabled.<br>Please try again in a few moments."
 msgstr ""
 
-#: imgboard.php:407
+#: imgboard.php:411
 msgid "Post deleted."
 msgstr ""
 
-#: imgboard.php:409
+#: imgboard.php:413
 msgid "Invalid password."
 msgstr ""
 
-#: imgboard.php:412
+#: imgboard.php:416
 msgid ""
 "Sorry, an invalid post identifier was sent. Please go back, refresh the "
 "page, and try again."
 msgstr ""
 
-#: imgboard.php:436
+#: imgboard.php:440
 msgid "Rebuilt board."
 msgstr ""
 
-#: imgboard.php:444
+#: imgboard.php:448
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr ""
 
-#: imgboard.php:453
+#: imgboard.php:457
 #, php-format
 msgid "Ban record added for %s"
 msgstr ""
 
-#: imgboard.php:459
+#: imgboard.php:463
 #, php-format
 msgid "Ban record lifted for %s"
 msgstr ""
 
-#: imgboard.php:551
+#: imgboard.php:555
 #, php-format
 msgid "Post No.%d deleted."
 msgstr ""
 
-#: imgboard.php:553 imgboard.php:569 imgboard.php:578 imgboard.php:593
-#: imgboard.php:607
+#: imgboard.php:557 imgboard.php:573 imgboard.php:582 imgboard.php:597
+#: imgboard.php:611
 msgid "Sorry, there doesn't appear to be a post with that ID."
 msgstr ""
 
-#: imgboard.php:567
+#: imgboard.php:571
 #, php-format
 msgid "Post No.%d approved."
 msgstr ""
 
-#: imgboard.php:596 imgboard.php:610
+#: imgboard.php:600 imgboard.php:614
 msgid "Form data was lost. Please go back and try again."
 msgstr ""
 
-#: inc/functions.php:214 inc/html.php:995
+#: inc/functions.php:214 inc/html.php:1022
 msgid "Anonymous"
 msgstr ""
 
@@ -241,6 +243,10 @@ msgstr ""
 #: inc/html.php:64
 #, php-format
 msgid "Supported file types are %s."
+msgstr ""
+
+#: inc/html.php:82 inc/html.php:774 inc/html.php:804
+msgid "Submit"
 msgstr ""
 
 #: inc/html.php:100
@@ -312,7 +318,7 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: inc/html.php:297
+#: inc/html.php:297 inc/html.php:563
 msgid "Password"
 msgstr ""
 
@@ -345,7 +351,7 @@ msgstr ""
 msgid "%d posts omitted. Click Reply to view."
 msgstr ""
 
-#: inc/html.php:504 inc/html.php:550
+#: inc/html.php:504 inc/html.php:539 inc/html.php:551
 msgid "Catalog"
 msgstr ""
 
@@ -357,78 +363,210 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: inc/html.php:552
+#: inc/html.php:551 inc/html.php:553 inc/html.php:694
+msgid "Return"
+msgstr ""
+
+#: inc/html.php:553
 msgid "Posting mode: Reply"
 msgstr ""
 
-#: inc/html.php:560
+#: inc/html.php:561
 msgid "Manage"
 msgstr ""
 
-#: inc/html.php:561
+#: inc/html.php:562
 msgid "Style"
 msgstr ""
 
-#: inc/html.php:562
+#: inc/html.php:564 inc/html.php:946
+msgid "Delete"
+msgstr ""
+
+#: inc/html.php:565
 msgid "Delete Post"
 msgstr ""
 
-#: inc/html.php:700
+#: inc/html.php:699 inc/html.php:973
+msgid "Status"
+msgstr ""
+
+#: inc/html.php:701
+msgid "Bans"
+msgstr ""
+
+#: inc/html.php:703
+msgid "Moderate Post"
+msgstr ""
+
+#: inc/html.php:703
+msgid "Raw Post"
+msgstr ""
+
+#: inc/html.php:705
+msgid "Rebuild All<"
+msgstr ""
+
+#: inc/html.php:708
+msgid "Update"
+msgstr ""
+
+#: inc/html.php:711
+msgid "Migrate Database"
+msgstr ""
+
+#: inc/html.php:713
+msgid "Log Out"
+msgstr ""
+
+#: inc/html.php:719
 msgid "Manage mode"
 msgstr ""
 
-#: inc/html.php:732
+#: inc/html.php:751
 msgid "Log In"
 msgstr ""
 
-#: inc/html.php:733
+#: inc/html.php:752
 msgid "Enter an administrator or moderator password"
 msgstr ""
 
-#: inc/html.php:749
+#: inc/html.php:768
 msgid "Ban an IP address"
 msgstr ""
 
-#: inc/html.php:750
+#: inc/html.php:769
 msgid "IP Address:"
 msgstr ""
 
-#: inc/html.php:751
+#: inc/html.php:770
 msgid "Expire(sec):"
 msgstr ""
 
-#: inc/html.php:752
+#: inc/html.php:771
 msgid "Reason:"
 msgstr ""
 
-#: inc/html.php:753
+#: inc/html.php:772
 msgid "never"
 msgstr ""
 
-#: inc/html.php:754
+#: inc/html.php:773
 msgid "optional"
 msgstr ""
 
-#: inc/html.php:772
+#: inc/html.php:792
 msgid "IP Address"
 msgstr ""
 
-#: inc/html.php:772
+#: inc/html.php:792
 msgid "Set At"
 msgstr ""
 
-#: inc/html.php:772
+#: inc/html.php:792
 msgid "Expires"
 msgstr ""
 
-#: inc/html.php:772
+#: inc/html.php:792
 msgid "Reason"
 msgstr ""
 
-#: inc/html.php:774
+#: inc/html.php:794
 msgid "Does not expire"
 msgstr ""
 
-#: inc/html.php:776
+#: inc/html.php:796
 msgid "lift"
+msgstr ""
+
+#: inc/html.php:823
+msgid "This will delete the entire thread below."
+msgstr ""
+
+#: inc/html.php:823
+msgid "This will delete the post below."
+msgstr ""
+
+#: inc/html.php:824
+msgid "Thread"
+msgstr ""
+
+#: inc/html.php:824
+msgid "Post"
+msgstr ""
+
+#: inc/html.php:830
+msgid "Un-sticky"
+msgstr ""
+
+#: inc/html.php:830
+msgid "Sticky"
+msgstr ""
+
+#: inc/html.php:831
+msgid "Return this thread to a normal state."
+msgstr ""
+
+#: inc/html.php:831
+msgid "Keep this thread at the top of the board."
+msgstr ""
+
+#: inc/html.php:845
+msgid "Unlock"
+msgstr ""
+
+#: inc/html.php:845
+msgid "Lock"
+msgstr ""
+
+#: inc/html.php:846
+msgid "Allow replying to this thread."
+msgstr ""
+
+#: inc/html.php:846
+msgid "Disallow replying to this thread."
+msgstr ""
+
+#: inc/html.php:867
+msgid "Action"
+msgstr ""
+
+#: inc/html.php:918
+msgid "thread"
+msgstr ""
+
+#: inc/html.php:918
+msgid "threads"
+msgstr ""
+
+#: inc/html.php:918
+msgid "ban"
+msgstr ""
+
+#: inc/html.php:918
+msgid "bans"
+msgstr ""
+
+#: inc/html.php:942
+msgid "Approve"
+msgstr ""
+
+#: inc/html.php:944
+msgid "More Info"
+msgstr ""
+
+#: inc/html.php:952
+msgid "Pending posts"
+msgstr ""
+
+#: inc/html.php:970
+msgid "Moderate"
+msgstr ""
+
+#: inc/html.php:974
+msgid "Info"
+msgstr ""
+
+#: inc/html.php:975
+msgid "Recent posts"
 msgstr ""

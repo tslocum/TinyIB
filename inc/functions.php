@@ -105,7 +105,7 @@ function cleanString($string) {
 	return str_replace($search, $replace, $string);
 }
 
-function plural($singular, $count, $plural = 's') {
+function plural($count, $singular, $plural) {
 	if ($plural == 's') {
 		$plural = $singular . $plural;
 	}
@@ -345,7 +345,7 @@ function checkFlood() {
 		$lastpost = lastPostByIP();
 		if ($lastpost) {
 			if ((time() - $lastpost['timestamp']) < TINYIB_DELAY) {
-				fancyDie("Please wait a moment before posting again.  You will be able to make another post in " . (TINYIB_DELAY - (time() - $lastpost['timestamp'])) . " " . plural("second", (TINYIB_DELAY - (time() - $lastpost['timestamp']))) . ".");
+				fancyDie("Please wait a moment before posting again.  You will be able to make another post in " . (TINYIB_DELAY - (time() - $lastpost['timestamp'])) . " " . plural(TINYIB_DELAY - (time() - $lastpost['timestamp']), "second", "seconds") . ".");
 			}
 		}
 	}

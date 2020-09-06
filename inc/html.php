@@ -79,7 +79,7 @@ function buildPostForm($parent, $raw_post = false) {
 	$hide_fields = $parent == TINYIB_NEWTHREAD ? $tinyib_hidefieldsop : $tinyib_hidefields;
 
 	$postform_extra = array('name' => '', 'email' => '', 'subject' => '', 'footer' => '');
-	$input_submit = '<input type="submit" value="Submit" accesskey="z">';
+	$input_submit = '<input type="submit" value="' . __('Submit') . '" accesskey="z">';
 	if ($raw_post || !in_array('subject', $hide_fields)) {
 		$postform_extra['subject'] = $input_submit;
 	} else if (!in_array('email', $hide_fields)) {
@@ -536,20 +536,21 @@ function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
 </table>
 EOF;
 		if (TINYIB_CATALOG) {
+			$txt_catalog = __('Catalog');
 			$pagenavigator .= <<<EOF
 <table border="1" style="display: inline-block;margin-left: 21px;">
 	<tbody>
 		<tr>
-			<td><form method="get" action="catalog.html"><input value="Catalog" type="submit"></form></td>
+			<td><form method="get" action="catalog.html"><input value="$txt_catalog" type="submit"></form></td>
 		</tr>
 	</tbody>
 </table>
 EOF;
 		}
 	} else if ($parent == -1) {
-		$postingmode = '&#91;<a href="index.html">Return</a>&#93;<div class="replymode">' . __('Catalog') . '</div> ';
+		$postingmode = '&#91;<a href="index.html">' . __('Return') . '</a>&#93;<div class="replymode">' . __('Catalog') . '</div> ';
 	} else {
-		$postingmode = '&#91;<a href="../">Return</a>&#93;<div class="replymode">' . __('Posting mode: Reply') . '</div> ';
+		$postingmode = '&#91;<a href="../">' . __('Return') . '</a>&#93;<div class="replymode">' . __('Posting mode: Reply') . '</div> ';
 	}
 
 	$postform = '';
@@ -559,7 +560,9 @@ EOF;
 
 	$txt_manage = __('Manage');
 	$txt_style = __('Style');
-	$txt_delete = __('Delete Post');
+	$txt_password = __('Password');
+	$txt_delete = __('Delete');
+	$txt_delete_post = __('Delete Post');
 	$body = <<<EOF
 	<body>
 		<div class="adminbar">
@@ -584,7 +587,7 @@ EOF;
 			<tbody>
 				<tr>
 					<td>
-						$txt_delete <input type="password" name="password" id="deletepostpassword" size="8" placeholder="Password">&nbsp;<input name="deletepost" value="Delete" type="submit">
+						$txt_delete_post <input type="password" name="password" id="deletepostpassword" size="8" placeholder="$txt_password">&nbsp;<input name="deletepost" value="$txt_delete" type="submit">
 					</td>
 				</tr>
 			</tbody>
@@ -687,12 +690,28 @@ function rebuildThread($id) {
 
 function adminBar() {
 	global $loggedin, $isadmin, $returnlink;
-	$return = '[<a href="' . $returnlink . '" style="text-decoration: underline;">Return</a>]';
+
+	$return = '[<a href="' . $returnlink . '" style="text-decoration: underline;">' . __('Return') . '</a>]';
 	if (!$loggedin) {
 		return $return;
 	}
 
-	return '[<a href="?manage">Status</a>] [' . (($isadmin) ? '<a href="?manage&bans">Bans</a>] [' : '') . '<a href="?manage&moderate">Moderate Post</a>] [<a href="?manage&rawpost">Raw Post</a>] [' . (($isadmin) ? '<a href="?manage&rebuildall">Rebuild All</a>] [' : '') . (($isadmin && installedViaGit()) ? '<a href="?manage&update">Update</a>] [' : '') . (($isadmin && TINYIB_DBMIGRATE) ? '<a href="?manage&dbmigrate"><b>Migrate Database</b></a>] [' : '') . '<a href="?manage&logout">Log Out</a>] &middot; ' . $return;
+	$output = '[<a href="?manage">' . __('Status') . '</a>] [';
+	if ($isadmin) {
+		$output.= '<a href="?manage&bans">' . __('Bans') . '</a>] [';
+	}
+	$output.= '<a href="?manage&moderate">' . __('Moderate Post') . '</a>] [<a href="?manage&rawpost">' . __('Raw Post') . '</a>] [';
+	if ($isadmin) {
+		$output.= '<a href="?manage&rebuildall">' . __('Rebuild All<') . '/a>] [';
+	}
+	if ($isadmin && installedViaGit()) {
+		$output .= '<a href="?manage&update">' . __('Update') . '</a>] [';
+	}
+	if ($isadmin && TINYIB_DBMIGRATE) {
+		$output.= '<a href="?manage&dbmigrate"><b>' . __('Migrate Database') . '</b></a>] [';
+	}
+	$output.= '<a href="?manage&logout">' . __('Log Out') . '</a>] &middot; ' . $return;
+	return $output;
 }
 
 function managePage($text, $onload = '') {
@@ -752,11 +771,12 @@ function manageBanForm() {
 	$txt_ban_reason = __('Reason:');
 	$txt_ban_never = __('never');
 	$txt_ban_optional = __('optional');
+	$txt_submit = __('Submit');
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="post" action="?manage&bans">
 	<fieldset>
 	<legend></legend>
-	<label for="ip">$txt_ban_ip</label> <input type="text" name="ip" id="ip" value="${_GET['bans']}"> <input type="submit" value="Submit" class="managebutton"><br>
+	<label for="ip">$txt_ban_ip</label> <input type="text" name="ip" id="ip" value="${_GET['bans']}"> <input type="submit" value="$txt_submit" class="managebutton"><br>
 	<label for="expire">$txt_ban_expire</label> <input type="text" name="expire" id="expire" value="0">&nbsp;&nbsp;<small><a href="#" onclick="document.tinyib.expire.value='3600';return false;">1hr</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='86400';return false;">1d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='172800';return false;">2d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='604800';return false;">1w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='1209600';return false;">2w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='2592000';return false;">30d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='0';return false;">$txt_ban_never</a></small><br>
 	<label for="reason">$txt_ban_reason&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" name="reason" id="reason">&nbsp;&nbsp;<small>$txt_ban_optional</small>
 	<legend>
@@ -781,12 +801,13 @@ function manageBansTable() {
 }
 
 function manageModeratePostForm() {
+	$txt_submit = __('Submit');
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="get" action="?">
 	<input type="hidden" name="manage" value="">
 	<fieldset>
 	<legend>Moderate a post</legend>
-	<div valign="top"><label for="moderate">Post ID:</label> <input type="text" name="moderate" id="moderate"> <input type="submit" value="Submit" class="managebutton"></div><br>
+	<div valign="top"><label for="moderate">Post ID:</label> <input type="text" name="moderate" id="moderate"> <input type="submit" value="$txt_submit" class="managebutton"></div><br>
 	<small><b>Tip:</b> While browsing the image board, you can easily moderate a post if you are logged in:<br>
 	Tick the box next to a post and click "Delete" at the bottom of the page with a blank password.</small><br>
 	</fieldset>
@@ -799,15 +820,15 @@ function manageModeratePost($post) {
 	$ban = banByIP($post['ip']);
 	$ban_disabled = (!$ban && $isadmin) ? '' : ' disabled';
 	$ban_info = (!$ban) ? ((!$isadmin) ? 'Only an administrator may ban an IP address.' : ('IP address: ' . $post["ip"])) : (' A ban record already exists for ' . $post['ip']);
-	$delete_info = ($post['parent'] == TINYIB_NEWTHREAD) ? 'This will delete the entire thread below.' : 'This will delete the post below.';
-	$post_or_thread = ($post['parent'] == TINYIB_NEWTHREAD) ? 'Thread' : 'Post';
+	$delete_info = ($post['parent'] == TINYIB_NEWTHREAD) ? __('This will delete the entire thread below.') : __('This will delete the post below.');
+	$post_or_thread = ($post['parent'] == TINYIB_NEWTHREAD) ? __('Thread') : __('Post');
 
 	$sticky_html = "";
 	$lock_html = "";
 	if ($post["parent"] == TINYIB_NEWTHREAD) {
 		$sticky_set = $post['stickied'] == 1 ? '0' : '1';
-		$sticky_unsticky = $post['stickied'] == 1 ? 'Un-sticky' : 'Sticky';
-		$sticky_unsticky_help = $post['stickied'] == 1 ? 'Return this thread to a normal state.' : 'Keep this thread at the top of the board.';
+		$sticky_unsticky = $post['stickied'] == 1 ? __('Un-sticky') : __('Sticky');
+		$sticky_unsticky_help = $post['stickied'] == 1 ? __('Return this thread to a normal state.') : __('Keep this thread at the top of the board.');
 		$sticky_html = <<<EOF
 	<tr><td colspan="2">&nbsp;</td></tr>
 	<tr><td align="right" width="50%;">
@@ -821,8 +842,8 @@ function manageModeratePost($post) {
 EOF;
 
 		$lock_set = $post['locked'] == 1 ? '0' : '1';
-		$lock_label = $post['locked'] == 1 ? 'Unlock' : 'Lock';
-		$lock_help = $post['locked'] == 1 ? 'Allow replying to this thread.' : 'Disallow replying to this thread.';
+		$lock_label = $post['locked'] == 1 ? __('Unlock') : __('Lock');
+		$lock_help = $post['locked'] == 1 ? __('Allow replying to this thread.') : __('Disallow replying to this thread.');
 		$lock_html = <<<EOF
 	<tr><td align="right" width="50%;">
 		<form method="get" action="?">
@@ -843,12 +864,13 @@ EOF;
 		$post_html = buildPost($post, TINYIB_INDEXPAGE);
 	}
 
+	$txt_action = __('Action');
 	return <<<EOF
 	<fieldset>
 	<legend>Moderating No.${post['id']}</legend>
 	
 	<fieldset>
-	<legend>Action</legend>
+	<legend>$txt_action</legend>
 	
 	<table border="0" cellspacing="0" cellpadding="0" width="100%">
 	<tr><td align="right" width="50%;">
@@ -892,7 +914,8 @@ function manageStatus() {
 	global $isadmin;
 	$threads = countThreads();
 	$bans = count(allBans());
-	$info = $threads . ' ' . plural('thread', $threads) . ', ' . $bans . ' ' . plural('ban', $bans);
+
+	$info = $threads . ' ' . plural($threads, __('thread'), __('threads')) . ', ' . $bans . ' ' . plural($bans, __('ban'), __('bans'));
 	$output = '';
 
 	if ($isadmin && TINYIB_DBMODE == 'mysql' && function_exists('mysqli_connect')) { // Recommend MySQLi
@@ -916,19 +939,20 @@ EOF;
 			}
 			$reqmod_post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right">
 			<table border="0"><tr><td>
-			<form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="approve" value="' . $post['id'] . '"><input type="submit" value="Approve" class="managebutton"></form>
+			<form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="approve" value="' . $post['id'] . '"><input type="submit" value="' . __('Approve') . '" class="managebutton"></form>
 			</td><td>
-			<form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="More Info" class="managebutton"></form>
+			<form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="' . __('More Info') . '" class="managebutton"></form>
 			</td></tr><tr><td align="right" colspan="2">
-			<form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="delete" value="' . $post['id'] . '"><input type="submit" value="Delete" class="managebutton"></form>
+			<form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="delete" value="' . $post['id'] . '"><input type="submit" value="' . __('Delete') . '" class="managebutton"></form>
 			</td></tr></table>
 			</td></tr>';
 		}
 
 		if ($reqmod_post_html != '') {
+			$txt_pending = __('Pending posts');
 			$reqmod_html = <<<EOF
 	<fieldset>
-	<legend>Pending posts</legend>
+	<legend>$txt_pending</legend>
 	<table border="0" cellspacing="0" cellpadding="0" width="100%">
 	$reqmod_post_html
 	</table>
@@ -943,15 +967,18 @@ EOF;
 		if ($post_html != '') {
 			$post_html .= '<tr><td colspan="2"><hr></td></tr>';
 		}
-		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="Moderate" class="managebutton"></form></td></tr>';
+		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="' . __('Moderate') . '" class="managebutton"></form></td></tr>';
 	}
 
+	$txt_status = __('Status');
+	$txt_info = __('Info');
+	$txt_recent_posts = __('Recent posts');
 	$output .= <<<EOF
 	<fieldset>
-	<legend>Status</legend>
+	<legend>$txt_status</legend>
 	
 	<fieldset>
-	<legend>Info</legend>
+	<legend>$txt_info</legend>
 	<table border="0" cellspacing="0" cellpadding="0" width="100%">
 	<tbody>
 	<tr><td>
@@ -965,7 +992,7 @@ EOF;
 	$reqmod_html
 	
 	<fieldset>
-	<legend>Recent posts</legend>
+	<legend>$txt_recent_posts</legend>
 	<table border="0" cellspacing="0" cellpadding="0" width="100%">
 	$post_html
 	</table>
