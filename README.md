@@ -27,6 +27,7 @@ Features
  - [Translations](https://hosted.weblate.org/projects/tinyib/tinyib/):
    - French
    - German
+   - Italian
    - Norwegian
 
 Install

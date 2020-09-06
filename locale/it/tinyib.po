@@ -1,16 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-08-28 16:18-0700\n"
-"PO-Revision-Date: 2020-08-28 16:18-0700\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-09-06 16:42+0000\n"
+"Last-Translator: Igor Calì <igor.cali0@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/tinyib/tinyib/it/"
+">\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Weblate 4.3-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -241,7 +243,7 @@ msgstr ""
 #: inc/html.php:64
 #, php-format
 msgid "Supported file types are %s."
-msgstr ""
+msgstr "I tipi di file supportati sono %s."
 
 #: inc/html.php:100
 msgid "Reply to"
@@ -284,12 +286,12 @@ msgstr ""
 
 #: inc/html.php:194
 msgid "(paste a YouTube URL)"
-msgstr ""
+msgstr "(incolla un URL YouTube)"
 
 #: inc/html.php:218
 #, php-format
 msgid "Images greater than %s will be thumbnailed."
-msgstr ""
+msgstr "Per le immagini più grandi di %s verranno create delle miniature."
 
 #: inc/html.php:223
 #, php-format
@@ -298,7 +300,7 @@ msgstr ""
 
 #: inc/html.php:236
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: inc/html.php:250
 msgid "E-mail"
@@ -306,11 +308,11 @@ msgstr ""
 
 #: inc/html.php:264
 msgid "Subject"
-msgstr ""
+msgstr "Titolo"
 
 #: inc/html.php:278
 msgid "Message"
-msgstr ""
+msgstr "Messaggio"
 
 #: inc/html.php:297
 msgid "Password"
@@ -318,7 +320,7 @@ msgstr ""
 
 #: inc/html.php:298
 msgid "(for post and file deletion)"
-msgstr ""
+msgstr "(per il post e la rimozione file)"
 
 #: inc/html.php:372
 msgid "Embed:"
@@ -330,7 +332,7 @@ msgstr ""
 
 #: inc/html.php:469
 msgid "Reply"
-msgstr ""
+msgstr "Rispondi"
 
 #: inc/html.php:475
 msgid "Post truncated.  Click Reply to view."
@@ -347,15 +349,15 @@ msgstr ""
 
 #: inc/html.php:504 inc/html.php:550
 msgid "Catalog"
-msgstr ""
+msgstr "Catalogo"
 
 #: inc/html.php:514
 msgid "Previous"
-msgstr ""
+msgstr "Precedente"
 
 #: inc/html.php:527
 msgid "Next"
-msgstr ""
+msgstr "Prossimo"
 
 #: inc/html.php:552
 msgid "Posting mode: Reply"
@@ -363,19 +365,19 @@ msgstr ""
 
 #: inc/html.php:560
 msgid "Manage"
-msgstr ""
+msgstr "Gestisci"
 
 #: inc/html.php:561
 msgid "Style"
-msgstr ""
+msgstr "Stile"
 
 #: inc/html.php:562
 msgid "Delete Post"
-msgstr ""
+msgstr "Cancella post"
 
 #: inc/html.php:700
 msgid "Manage mode"
-msgstr ""
+msgstr "Modalità di gestione"
 
 #: inc/html.php:732
 msgid "Log In"
