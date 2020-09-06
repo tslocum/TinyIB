@@ -132,6 +132,8 @@ Translation is handled [online](https://hosted.weblate.org/projects/tinyib/tinyi
 Contribute
 ------------
 
+**Note:** Please do not submit translations as pull requests.  See above.
+
  1. Read the [GitLab Forking Workflow](https://docs.gitlab.com/ce/workflow/forking_workflow.html).
  2. Fork TinyIB.
  3. Commit code changes to your forked repository.
