@@ -791,9 +791,9 @@ function manageBansTable() {
 	if (count($allbans) > 0) {
 		$text .= '<table border="1"><tr><th>' . __('IP Address') . '</th><th>' . __('Set At') . '</th><th>' . __('Expires') . '</th><th>' . __('Reason') . '</th><th>&nbsp;</th></tr>';
 		foreach ($allbans as $ban) {
-			$expire = ($ban['expire'] > 0) ? date('y/m/d(D)H:i:s', $ban['expire']) : __('Does not expire');
+			$expire = ($ban['expire'] > 0) ? date(TINYIB_DATEFMT, $ban['expire']) : __('Does not expire');
 			$reason = ($ban['reason'] == '') ? '&nbsp;' : htmlentities($ban['reason']);
-			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . date('y/m/d(D)H:i:s', $ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">' . __('lift') . '</a></td></tr>';
+			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . date(TINYIB_DATEFMT, $ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">' . __('lift') . '</a></td></tr>';
 		}
 		$text .= '</table>';
 	}

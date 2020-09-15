@@ -35,6 +35,7 @@ define('TINYIB_WORDBREAK', 80);       // Words longer than this many characters 
 define('TINYIB_TIMEZONE', 'UTC');     // See https://secure.php.net/manual/en/timezones.php - e.g. America/Los_Angeles
 define('TINYIB_CATALOG', true);       // Generate catalog page
 define('TINYIB_JSON', true);          // Generate JSON files
+define('TINYIB_DATEFMT', 'y/m/d(D)H:i:s'); // Date format  (see php.net/date)
 $tinyib_hidefieldsop = array();       // Fields to hide when creating a new thread - e.g. array('name', 'email', 'subject', 'message', 'file', 'embed', 'password')
 $tinyib_hidefields = array();         // Fields to hide when replying
 $tinyib_capcodes = array(array('Admin', 'red'), array('Mod', 'purple')); // Administrator and moderator capcode label and color
