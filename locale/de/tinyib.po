@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-08-28 16:18-0700\n"
-"PO-Revision-Date: 2020-09-06 16:42+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2020-09-08 11:36+0000\n"
+"Last-Translator: Georg Eitler <funer@gmx.at>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tinyib/tinyib/de/>"
 "\n"
 "Language: de\n"
@@ -86,7 +86,7 @@ msgid ""
 "Failed to read the MIME type and size of the uploaded file. Please retry the "
 "submission."
 msgstr ""
-"Fehler beim auslesen des MIME-typs und größe der upgeloadeten Datei. Bitte "
+"Fehler beim auslesen des MIME-typs und größe der hochgeladenen Datei. Bitte "
 "versuche es erneut."
 
 #: imgboard.php:252
@@ -288,7 +288,7 @@ msgstr ""
 
 #: inc/html.php:103
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
-msgstr ""
+msgstr "Zeilen-umbrüche müssen mit \"&lt;br&gt;\" spezifiziert werden."
 
 #: inc/html.php:154
 msgid "(enter the text below)"
@@ -363,16 +363,16 @@ msgstr "Antworten"
 
 #: inc/html.php:475
 msgid "Post truncated.  Click Reply to view."
-msgstr ""
+msgstr "Post gekürzt. Klicke Antworten um ihn Anzuzeigen."
 
 #: inc/html.php:486
 msgid "1 post omitted. Click Reply to view."
-msgstr ""
+msgstr "1 Post weggelassen. Klicke Antworten um ihn Anzuzeigen."
 
 #: inc/html.php:488
 #, php-format
 msgid "%d posts omitted. Click Reply to view."
-msgstr ""
+msgstr "%d Posts weggelassen. Klicke Antworten um sie Anzuzeigen."
 
 #: inc/html.php:504 inc/html.php:550
 msgid "Catalog"
@@ -388,7 +388,7 @@ msgstr "Weiter"
 
 #: inc/html.php:552
 msgid "Posting mode: Reply"
-msgstr ""
+msgstr "Post modus: Antworten"
 
 #: inc/html.php:560
 msgid "Manage"
@@ -404,7 +404,7 @@ msgstr "Post löschen"
 
 #: inc/html.php:700
 msgid "Manage mode"
-msgstr ""
+msgstr "Verwaltungsmodus"
 
 #: inc/html.php:732
 msgid "Log In"
@@ -412,11 +412,11 @@ msgstr "Anmelden"
 
 #: inc/html.php:733
 msgid "Enter an administrator or moderator password"
-msgstr ""
+msgstr "Gib ein Administrator oder Moderator Passwort ein"
 
 #: inc/html.php:749
 msgid "Ban an IP address"
-msgstr ""
+msgstr "Banne eine IP-Adresse"
 
 #: inc/html.php:750
 msgid "IP Address:"
@@ -424,7 +424,7 @@ msgstr "IP-Adresse:"
 
 #: inc/html.php:751
 msgid "Expire(sec):"
-msgstr ""
+msgstr "Ablaufen(sek):"
 
 #: inc/html.php:752
 msgid "Reason:"
@@ -444,11 +444,11 @@ msgstr "IP-Adresse"
 
 #: inc/html.php:772
 msgid "Set At"
-msgstr ""
+msgstr "Setzen bei"
 
 #: inc/html.php:772
 msgid "Expires"
-msgstr ""
+msgstr "Läuft ab"
 
 #: inc/html.php:772
 msgid "Reason"
@@ -456,8 +456,144 @@ msgstr "Grund"
 
 #: inc/html.php:774
 msgid "Does not expire"
-msgstr ""
+msgstr "Läuft nicht ab"
 
 #: inc/html.php:776
 msgid "lift"
-msgstr ""
+msgstr "aufheben"
+
+#: inc/html.php:830
+msgid "Un-sticky"
+msgstr "Nicht mehr Sticky"
+
+#: inc/html.php:82 inc/html.php:774 inc/html.php:804
+msgid "Submit"
+msgstr "Absenden"
+
+#: inc/html.php:823
+msgid "This will delete the post below."
+msgstr "Dies wird den Post darunter löschen."
+
+#: inc/html.php:823
+msgid "This will delete the entire thread below."
+msgstr "Dies wird das Ganze Thema darunter löschen."
+
+#: inc/html.php:705
+msgid "Rebuild All<"
+msgstr "Alles neu Strukturieren<"
+
+#: inc/html.php:703
+msgid "Raw Post"
+msgstr "Unbearbeiteter Post"
+
+#: inc/html.php:703
+msgid "Moderate Post"
+msgstr "Moderiere Post"
+
+#: inc/html.php:701
+msgid "Bans"
+msgstr "Bans"
+
+#: inc/html.php:699 inc/html.php:973
+msgid "Status"
+msgstr "Status"
+
+#: inc/html.php:564 inc/html.php:946
+msgid "Delete"
+msgstr "Löschen"
+
+#: inc/html.php:551 inc/html.php:553 inc/html.php:694
+msgid "Return"
+msgstr "Zurück"
+
+#: inc/html.php:708
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: inc/html.php:711
+msgid "Migrate Database"
+msgstr "Datenbank migrieren"
+
+#: inc/html.php:713
+msgid "Log Out"
+msgstr "Abmelden"
+
+#: inc/html.php:824
+msgid "Thread"
+msgstr "Thema"
+
+#: inc/html.php:824
+msgid "Post"
+msgstr "Post"
+
+#: inc/html.php:830
+msgid "Sticky"
+msgstr "Sticky"
+
+#: inc/html.php:831
+msgid "Return this thread to a normal state."
+msgstr "Dieses Thema auf Normalzustand zurücksetzen."
+
+#: inc/html.php:831
+msgid "Keep this thread at the top of the board."
+msgstr "Dieses Thema am Anfang des Boards behalten."
+
+#: inc/html.php:845
+msgid "Unlock"
+msgstr "Entsperren"
+
+#: inc/html.php:845
+msgid "Lock"
+msgstr "Sperren"
+
+#: inc/html.php:846
+msgid "Allow replying to this thread."
+msgstr "Antworten zu diesem Thema erlauben."
+
+#: inc/html.php:846
+msgid "Disallow replying to this thread."
+msgstr "Antworten zu diesem Thema verweigern."
+
+#: inc/html.php:867
+msgid "Action"
+msgstr "Aktion"
+
+#: inc/html.php:918
+msgid "thread"
+msgstr "Thema"
+
+#: inc/html.php:918
+msgid "threads"
+msgstr "Themen"
+
+#: inc/html.php:918
+msgid "ban"
+msgstr "Ban"
+
+#: inc/html.php:918
+msgid "bans"
+msgstr "Bans"
+
+#: inc/html.php:942
+msgid "Approve"
+msgstr "Genehmigen"
+
+#: inc/html.php:944
+msgid "More Info"
+msgstr "Mehr Information"
+
+#: inc/html.php:952
+msgid "Pending posts"
+msgstr "Vorbehaltene Posts"
+
+#: inc/html.php:970
+msgid "Moderate"
+msgstr "Moderieren"
+
+#: inc/html.php:974
+msgid "Info"
+msgstr "Information"
+
+#: inc/html.php:975
+msgid "Recent posts"
+msgstr "Neue Posts"

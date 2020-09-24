@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-08-28 16:18-0700\n"
-"PO-Revision-Date: 2020-09-03 01:57+0000\n"
+"PO-Revision-Date: 2020-09-08 11:36+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/tinyib/"
 "tinyib/nb_NO/>\n"
@@ -467,3 +467,139 @@ msgstr "Utløper ikke"
 #, fuzzy
 msgid "lift"
 msgstr "løft"
+
+#: inc/html.php:831
+msgid "Keep this thread at the top of the board."
+msgstr "Behold denne tråden på toppen av oppslagstavlen."
+
+#: inc/html.php:975
+msgid "Recent posts"
+msgstr "Nylige poster"
+
+#: inc/html.php:974
+msgid "Info"
+msgstr "Info"
+
+#: inc/html.php:970
+msgid "Moderate"
+msgstr "Moderer"
+
+#: inc/html.php:952
+msgid "Pending posts"
+msgstr "Ventende poster"
+
+#: inc/html.php:944
+msgid "More Info"
+msgstr "Mer info"
+
+#: inc/html.php:942
+msgid "Approve"
+msgstr "Tillat"
+
+#: inc/html.php:918
+msgid "bans"
+msgstr "bannlysninger"
+
+#: inc/html.php:918
+msgid "ban"
+msgstr "bannlysning"
+
+#: inc/html.php:918
+msgid "threads"
+msgstr "tråder"
+
+#: inc/html.php:918
+msgid "thread"
+msgstr "tråd"
+
+#: inc/html.php:867
+msgid "Action"
+msgstr "Handling"
+
+#: inc/html.php:846
+msgid "Disallow replying to this thread."
+msgstr "Ikke tillat svar i denne tråden."
+
+#: inc/html.php:846
+msgid "Allow replying to this thread."
+msgstr "Tillat svar i denne tråden."
+
+#: inc/html.php:845
+msgid "Lock"
+msgstr "Lås"
+
+#: inc/html.php:845
+msgid "Unlock"
+msgstr "Lås opp"
+
+#: inc/html.php:831
+msgid "Return this thread to a normal state."
+msgstr "Gjør denne tråden normal igjen."
+
+#: inc/html.php:830
+msgid "Sticky"
+msgstr "Fest"
+
+#: inc/html.php:830
+msgid "Un-sticky"
+msgstr "Opphev festing"
+
+#: inc/html.php:824
+msgid "Post"
+msgstr "Post"
+
+#: inc/html.php:824
+msgid "Thread"
+msgstr "Tråd"
+
+#: inc/html.php:823
+msgid "This will delete the post below."
+msgstr "Dette vil slette posten nedenfor."
+
+#: inc/html.php:823
+msgid "This will delete the entire thread below."
+msgstr "Dette vil slette hele tråden nedenfor."
+
+#: inc/html.php:713
+msgid "Log Out"
+msgstr "Logg ut"
+
+#: inc/html.php:711
+msgid "Migrate Database"
+msgstr "Flytt database"
+
+#: inc/html.php:708
+msgid "Update"
+msgstr "Oppdater"
+
+#: inc/html.php:705
+msgid "Rebuild All<"
+msgstr "Gjenoppbygg alle"
+
+#: inc/html.php:703
+msgid "Raw Post"
+msgstr "Rå post"
+
+#: inc/html.php:703
+msgid "Moderate Post"
+msgstr "Moderer post"
+
+#: inc/html.php:701
+msgid "Bans"
+msgstr "Bannlysninger"
+
+#: inc/html.php:699 inc/html.php:973
+msgid "Status"
+msgstr "Status"
+
+#: inc/html.php:564 inc/html.php:946
+msgid "Delete"
+msgstr "Slett"
+
+#: inc/html.php:551 inc/html.php:553 inc/html.php:694
+msgid "Return"
+msgstr "Tilbake"
+
+#: inc/html.php:82 inc/html.php:774 inc/html.php:804
+msgid "Submit"
+msgstr "Send inn"

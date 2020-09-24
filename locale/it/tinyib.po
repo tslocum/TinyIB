@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-08-28 16:18-0700\n"
-"PO-Revision-Date: 2020-09-06 16:42+0000\n"
+"PO-Revision-Date: 2020-09-14 08:36+0000\n"
 "Last-Translator: Igor Calì <igor.cali0@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/tinyib/tinyib/it/"
 ">\n"
@@ -251,7 +251,7 @@ msgstr ""
 
 #: inc/html.php:101
 msgid "0 to start a new thread"
-msgstr ""
+msgstr "0  per iniziare un nuovo argomento"
 
 #: inc/html.php:102
 msgid ""
@@ -296,7 +296,7 @@ msgstr "Per le immagini più grandi di %s verranno create delle miniature."
 #: inc/html.php:223
 #, php-format
 msgid "Currently %s unique user posts."
-msgstr ""
+msgstr "Attualmente ci sono %s post utente unici."
 
 #: inc/html.php:236
 msgid "Name"
@@ -381,11 +381,11 @@ msgstr "Modalità di gestione"
 
 #: inc/html.php:732
 msgid "Log In"
-msgstr ""
+msgstr "Accedi"
 
 #: inc/html.php:733
 msgid "Enter an administrator or moderator password"
-msgstr ""
+msgstr "Inserisci la password di amministratore o moderatore"
 
 #: inc/html.php:749
 msgid "Ban an IP address"
@@ -434,3 +434,67 @@ msgstr ""
 #: inc/html.php:776
 msgid "lift"
 msgstr ""
+
+#: inc/html.php:970
+msgid "Moderate"
+msgstr "Modera"
+
+#: inc/html.php:713
+msgid "Log Out"
+msgstr "Esci"
+
+#: inc/html.php:708
+msgid "Update"
+msgstr "Aggiorna"
+
+#: inc/html.php:705
+msgid "Rebuild All<"
+msgstr "Ricompila tutto"
+
+#: inc/html.php:703
+msgid "Raw Post"
+msgstr "Post grezzo"
+
+#: inc/html.php:703
+msgid "Moderate Post"
+msgstr "Modera post"
+
+#: inc/html.php:701
+msgid "Bans"
+msgstr "Bloccati"
+
+#: inc/html.php:975
+msgid "Recent posts"
+msgstr "Post recenti"
+
+#: inc/html.php:918
+msgid "bans"
+msgstr "bloccati"
+
+#: inc/html.php:918
+msgid "ban"
+msgstr "bloccato"
+
+#: inc/html.php:918
+msgid "thread"
+msgstr "argomento"
+
+#: inc/html.php:918
+msgid "threads"
+msgstr "argomenti"
+
+#: inc/html.php:699 inc/html.php:973
+msgid "Status"
+msgstr "Stato"
+
+#: inc/html.php:551 inc/html.php:553 inc/html.php:694
+msgid "Return"
+msgstr "Indietro"
+
+#: inc/html.php:564 inc/html.php:946
+msgid "Delete"
+msgstr "Cancella"
+
+#: inc/html.php:82 inc/html.php:774 inc/html.php:804
+msgid "Submit"
+msgstr "Invia"
