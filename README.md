@@ -25,6 +25,7 @@ Features
    - Post using raw HTML.
    - Upgrade automatically when installed via git.  (Tested on Linux only)
  - [Translations](https://hosted.weblate.org/projects/tinyib/tinyib/):
+   - Dutch
    - French
    - German
    - Italian

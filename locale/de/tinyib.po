@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-08-28 16:18-0700\n"
-"PO-Revision-Date: 2020-09-08 11:36+0000\n"
+"PO-Revision-Date: 2020-09-27 03:41+0000\n"
 "Last-Translator: Georg Eitler <funer@gmx.at>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tinyib/tinyib/de/>"
 "\n"
@@ -203,6 +203,8 @@ msgid ""
 "Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
 "retrieve a new CAPTCHA."
 msgstr ""
+"Inkorrekter CAPTCHA text. Bitte versuche es erneut.<br>Klicke aud das Bild "
+"um einen neuen CAPTCHA anzufordern."
 
 #: inc/functions.php:356
 #, php-format
@@ -211,7 +213,7 @@ msgid ""
 "%1$d characters long, and the maximum allowed is %2$d."
 msgstr ""
 "Bitte kürze deine Nachricht, oder veröffentliche sie in mehreren Teilen. "
-"Deine Nachricht ist %1$d Zeichen lang, und das Maximal zulässig ist %2$d."
+"Deine Nachricht ist %1$d Zeichen lang, die Maximal zulässig sind %2$d."
 
 #: inc/functions.php:416
 #, php-format
@@ -479,8 +481,8 @@ msgid "This will delete the entire thread below."
 msgstr "Dies wird das Ganze Thema darunter löschen."
 
 #: inc/html.php:705
-msgid "Rebuild All<"
-msgstr "Alles neu Strukturieren<"
+msgid "Rebuild All"
+msgstr "Alles neu Strukturieren"
 
 #: inc/html.php:703
 msgid "Raw Post"

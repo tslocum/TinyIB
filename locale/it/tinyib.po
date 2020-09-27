@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-08-28 16:18-0700\n"
-"PO-Revision-Date: 2020-09-14 08:36+0000\n"
+"PO-Revision-Date: 2020-09-27 14:29+0000\n"
 "Last-Translator: Igor Calì <igor.cali0@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/tinyib/tinyib/it/"
 ">\n"
@@ -139,7 +139,7 @@ msgstr ""
 
 #: imgboard.php:436
 msgid "Rebuilt board."
-msgstr ""
+msgstr "Bacheca ricompilata."
 
 #: imgboard.php:444
 msgid "Sorry, there is already a ban on record for that IP address."
@@ -251,7 +251,7 @@ msgstr ""
 
 #: inc/html.php:101
 msgid "0 to start a new thread"
-msgstr "0  per iniziare un nuovo argomento"
+msgstr "0 per iniziare un nuovo argomento"
 
 #: inc/html.php:102
 msgid ""
@@ -448,7 +448,7 @@ msgid "Update"
 msgstr "Aggiorna"
 
 #: inc/html.php:705
-msgid "Rebuild All<"
+msgid "Rebuild All"
 msgstr "Ricompila tutto"
 
 #: inc/html.php:703

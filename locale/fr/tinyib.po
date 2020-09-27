@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-08-28 16:18-0700\n"
-"PO-Revision-Date: 2020-09-08 11:36+0000\n"
+"PO-Revision-Date: 2020-09-27 03:41+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/tinyib/tinyib/fr/>"
 "\n"
@@ -329,7 +329,7 @@ msgstr "Les images supérieures à %s seront affichées en miniature."
 #: inc/html.php:223
 #, php-format
 msgid "Currently %s unique user posts."
-msgstr "Actuellement %s  publications d’utilisateurs uniques."
+msgstr "Actuellement %s publications d’utilisateurs uniques."
 
 #: inc/html.php:236
 msgid "Name"
@@ -489,8 +489,8 @@ msgid "Return this thread to a normal state."
 msgstr "Faire revenir ce fil à un état normal."
 
 #: inc/html.php:705
-msgid "Rebuild All<"
-msgstr "Tout reconstruire <"
+msgid "Rebuild All"
+msgstr "Tout reconstruire"
 
 #: inc/html.php:701
 msgid "Bans"
