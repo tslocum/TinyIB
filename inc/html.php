@@ -702,7 +702,7 @@ function adminBar() {
 	}
 	$output.= '<a href="?manage&moderate">' . __('Moderate Post') . '</a>] [<a href="?manage&rawpost">' . __('Raw Post') . '</a>] [';
 	if ($isadmin) {
-		$output.= '<a href="?manage&rebuildall">' . __('Rebuild All<') . '/a>] [';
+		$output.= '<a href="?manage&rebuildall">' . __('Rebuild All') . '</a>] [';
 	}
 	if ($isadmin && installedViaGit()) {
 		$output .= '<a href="?manage&update">' . __('Update') . '</a>] [';
