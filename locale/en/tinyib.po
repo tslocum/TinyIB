@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-09-27 07:27-0700\n"
-"PO-Revision-Date: 2020-09-27 07:28-0700\n"
+"POT-Creation-Date: 2020-10-01 13:45-0700\n"
+"PO-Revision-Date: 2020-10-01 13:45-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -173,7 +173,7 @@ msgstr ""
 msgid "Form data was lost. Please go back and try again."
 msgstr ""
 
-#: inc/functions.php:214 inc/html.php:1022
+#: inc/functions.php:214 inc/html.php:1024
 msgid "Anonymous"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Supported file types are %s."
 msgstr ""
 
-#: inc/html.php:82 inc/html.php:774 inc/html.php:804
+#: inc/html.php:82 inc/html.php:776 inc/html.php:806
 msgid "Submit"
 msgstr ""
 
@@ -291,281 +291,297 @@ msgstr ""
 msgid "(paste a YouTube URL)"
 msgstr ""
 
-#: inc/html.php:218
+#: inc/html.php:208
+msgid "All posts are moderated before being shown."
+msgstr ""
+
+#: inc/html.php:210
+msgid "All posts with a file attached are moderated before being shown."
+msgstr ""
+
+#: inc/html.php:220
 #, php-format
 msgid "Images greater than %s will be thumbnailed."
 msgstr ""
 
-#: inc/html.php:223
+#: inc/html.php:225
 #, php-format
 msgid "Currently %s unique user posts."
 msgstr ""
 
-#: inc/html.php:236
+#: inc/html.php:238
 msgid "Name"
 msgstr ""
 
-#: inc/html.php:250
+#: inc/html.php:252
 msgid "E-mail"
 msgstr ""
 
-#: inc/html.php:264
+#: inc/html.php:266
 msgid "Subject"
 msgstr ""
 
-#: inc/html.php:278
+#: inc/html.php:280
 msgid "Message"
 msgstr ""
 
-#: inc/html.php:297 inc/html.php:563
+#: inc/html.php:299 inc/html.php:565
 msgid "Password"
 msgstr ""
 
-#: inc/html.php:298
+#: inc/html.php:300
 msgid "(for post and file deletion)"
 msgstr ""
 
-#: inc/html.php:372
+#: inc/html.php:357
+msgid "Stickied"
+msgstr ""
+
+#: inc/html.php:361
+msgid "Locked"
+msgstr ""
+
+#: inc/html.php:374
 msgid "Embed:"
 msgstr ""
 
-#: inc/html.php:372
+#: inc/html.php:374
 msgid "File:"
 msgstr ""
 
-#: inc/html.php:469
+#: inc/html.php:471
 msgid "Reply"
 msgstr ""
 
-#: inc/html.php:475
-msgid "Post truncated.  Click Reply to view."
-msgstr ""
-
-#: inc/html.php:486
-msgid "1 post omitted. Click Reply to view."
+#: inc/html.php:477
+msgid "Post truncated. Click Reply to view."
 msgstr ""
 
 #: inc/html.php:488
+msgid "1 post omitted. Click Reply to view."
+msgstr ""
+
+#: inc/html.php:490
 #, php-format
 msgid "%d posts omitted. Click Reply to view."
 msgstr ""
 
-#: inc/html.php:504 inc/html.php:539 inc/html.php:551
+#: inc/html.php:506 inc/html.php:541 inc/html.php:553
 msgid "Catalog"
 msgstr ""
 
-#: inc/html.php:514
+#: inc/html.php:516
 msgid "Previous"
 msgstr ""
 
-#: inc/html.php:527
+#: inc/html.php:529
 msgid "Next"
 msgstr ""
 
-#: inc/html.php:551 inc/html.php:553 inc/html.php:694
+#: inc/html.php:553 inc/html.php:555 inc/html.php:696
 msgid "Return"
 msgstr ""
 
-#: inc/html.php:553
+#: inc/html.php:555
 msgid "Posting mode: Reply"
 msgstr ""
 
-#: inc/html.php:561
+#: inc/html.php:563
 msgid "Manage"
 msgstr ""
 
-#: inc/html.php:562
+#: inc/html.php:564
 msgid "Style"
 msgstr ""
 
-#: inc/html.php:564 inc/html.php:946
+#: inc/html.php:566 inc/html.php:948
 msgid "Delete"
 msgstr ""
 
-#: inc/html.php:565
+#: inc/html.php:567
 msgid "Delete Post"
 msgstr ""
 
-#: inc/html.php:699 inc/html.php:973
+#: inc/html.php:701 inc/html.php:975
 msgid "Status"
 msgstr ""
 
-#: inc/html.php:701
+#: inc/html.php:703
 msgid "Bans"
 msgstr ""
 
-#: inc/html.php:703
+#: inc/html.php:705
 msgid "Moderate Post"
 msgstr ""
 
-#: inc/html.php:703
+#: inc/html.php:705
 msgid "Raw Post"
 msgstr ""
 
-#: inc/html.php:705
+#: inc/html.php:707
 msgid "Rebuild All"
 msgstr ""
 
-#: inc/html.php:708
+#: inc/html.php:710
 msgid "Update"
 msgstr ""
 
-#: inc/html.php:711
+#: inc/html.php:713
 msgid "Migrate Database"
 msgstr ""
 
-#: inc/html.php:713
+#: inc/html.php:715
 msgid "Log Out"
 msgstr ""
 
-#: inc/html.php:719
+#: inc/html.php:721
 msgid "Manage mode"
 msgstr ""
 
-#: inc/html.php:751
+#: inc/html.php:753
 msgid "Log In"
 msgstr ""
 
-#: inc/html.php:752
+#: inc/html.php:754
 msgid "Enter an administrator or moderator password"
 msgstr ""
 
-#: inc/html.php:768
+#: inc/html.php:770
 msgid "Ban an IP address"
 msgstr ""
 
-#: inc/html.php:769
+#: inc/html.php:771
 msgid "IP Address:"
 msgstr ""
 
-#: inc/html.php:770
+#: inc/html.php:772
 msgid "Expire(sec):"
 msgstr ""
 
-#: inc/html.php:771
+#: inc/html.php:773
 msgid "Reason:"
 msgstr ""
 
-#: inc/html.php:772
+#: inc/html.php:774
 msgid "never"
 msgstr ""
 
-#: inc/html.php:773
+#: inc/html.php:775
 msgid "optional"
 msgstr ""
 
-#: inc/html.php:792
+#: inc/html.php:794
 msgid "IP Address"
 msgstr ""
 
-#: inc/html.php:792
+#: inc/html.php:794
 msgid "Set At"
 msgstr ""
 
-#: inc/html.php:792
+#: inc/html.php:794
 msgid "Expires"
 msgstr ""
 
-#: inc/html.php:792
+#: inc/html.php:794
 msgid "Reason"
 msgstr ""
 
-#: inc/html.php:794
+#: inc/html.php:796
 msgid "Does not expire"
 msgstr ""
 
-#: inc/html.php:796
+#: inc/html.php:798
 msgid "lift"
 msgstr ""
 
-#: inc/html.php:823
+#: inc/html.php:825
 msgid "This will delete the entire thread below."
 msgstr ""
 
-#: inc/html.php:823
+#: inc/html.php:825
 msgid "This will delete the post below."
 msgstr ""
 
-#: inc/html.php:824
+#: inc/html.php:826
 msgid "Thread"
 msgstr ""
 
-#: inc/html.php:824
+#: inc/html.php:826
 msgid "Post"
 msgstr ""
 
-#: inc/html.php:830
+#: inc/html.php:832
 msgid "Un-sticky"
 msgstr ""
 
-#: inc/html.php:830
+#: inc/html.php:832
 msgid "Sticky"
 msgstr ""
 
-#: inc/html.php:831
+#: inc/html.php:833
 msgid "Return this thread to a normal state."
 msgstr ""
 
-#: inc/html.php:831
+#: inc/html.php:833
 msgid "Keep this thread at the top of the board."
 msgstr ""
 
-#: inc/html.php:845
+#: inc/html.php:847
 msgid "Unlock"
 msgstr ""
 
-#: inc/html.php:845
+#: inc/html.php:847
 msgid "Lock"
 msgstr ""
 
-#: inc/html.php:846
+#: inc/html.php:848
 msgid "Allow replying to this thread."
 msgstr ""
 
-#: inc/html.php:846
+#: inc/html.php:848
 msgid "Disallow replying to this thread."
 msgstr ""
 
-#: inc/html.php:867
+#: inc/html.php:869
 msgid "Action"
 msgstr ""
 
-#: inc/html.php:918
+#: inc/html.php:920
 msgid "thread"
 msgstr ""
 
-#: inc/html.php:918
+#: inc/html.php:920
 msgid "threads"
 msgstr ""
 
-#: inc/html.php:918
+#: inc/html.php:920
 msgid "ban"
 msgstr ""
 
-#: inc/html.php:918
+#: inc/html.php:920
 msgid "bans"
 msgstr ""
 
-#: inc/html.php:942
+#: inc/html.php:944
 msgid "Approve"
 msgstr ""
 
-#: inc/html.php:944
+#: inc/html.php:946
 msgid "More Info"
 msgstr ""
 
-#: inc/html.php:952
+#: inc/html.php:954
 msgid "Pending posts"
 msgstr ""
 
-#: inc/html.php:970
+#: inc/html.php:972
 msgid "Moderate"
 msgstr ""
 
-#: inc/html.php:974
+#: inc/html.php:976
 msgid "Info"
 msgstr ""
 
-#: inc/html.php:975
+#: inc/html.php:977
 msgid "Recent posts"
 msgstr ""

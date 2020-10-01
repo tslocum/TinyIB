@@ -204,9 +204,11 @@ EOF;
 EOF;
 	}
 
-	if (TINYIB_REQMOD == 'files' || TINYIB_REQMOD == 'all') {
-		$reqmod_html = '<li>All posts' . (TINYIB_REQMOD == 'files' ? ' with a file attached' : '') . ' will be moderated before being shown.</li>';
-	}
+    if (TINYIB_REQMOD == 'all') {
+        $reqmod_html = '<li>' . __('All posts are moderated before being shown.') . '</li>';
+    } else if (TINYIB_REQMOD == 'files') {
+        $reqmod_html = '<li>' . __('All posts with a file attached are moderated before being shown.') . '</li>';
+    }
 
 	$thumbnails_html = '';
 	if (isset($tinyib_uploads['image/jpeg']) || isset($tinyib_uploads['image/pjpeg']) || isset($tinyib_uploads['image/png']) || isset($tinyib_uploads['image/gif'])) {
@@ -352,11 +354,11 @@ function buildPost($post, $res) {
 	}
 
 	if ($post["stickied"] == 1) {
-		$reflink .= ' <img src="sticky.png" alt="Stickied" title="Stickied" width="16" height="16">';
+		$reflink .= ' <img src="sticky.png" alt="' . __('Stickied') . '" title="' . __('Stickied') . '" width="16" height="16">';
 	}
 
 	if ($post["locked"] == 1) {
-		$reflink .= ' <img src="lock.png" alt="Locked" title="Locked" width="16" height="16">';
+		$reflink .= ' <img src="lock.png" alt="' . __('Locked') . '" title="' . __('Locked') . '" width="16" height="16">';
 	}
 
 	if (!isset($post["omitted"])) {
@@ -472,7 +474,7 @@ EOF;
 	if (TINYIB_TRUNCATE > 0 && !$res && substr_count($post['message'], '<br>') > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
 		$br_offsets = strallpos($post['message'], '<br>');
 		$post['message'] = substr($post['message'], 0, $br_offsets[TINYIB_TRUNCATE - 1]);
-		$post['message'] .= '<br><span class="omittedposts">' . __('Post truncated.  Click Reply to view.') . '</span><br>';
+		$post['message'] .= '<br><span class="omittedposts">' . __('Post truncated. Click Reply to view.') . '</span><br>';
 	}
 	$return .= <<<EOF
 <div class="message">
@@ -922,7 +924,7 @@ function manageStatus() {
 		$output .= <<<EOF
 	<fieldset>
 	<legend>Notice</legend>
-	<p><b>TINYIB_DBMODE</b> is currently <b>mysql</b> in <b>settings.php</b>, but <a href="http://www.php.net/manual/en/book.mysqli.php">MySQLi</a> is installed.  Please change it to <b>mysqli</b>.  This will not affect your data.</p>
+	<p><b>TINYIB_DBMODE</b> is currently <b>mysql</b> in <b>settings.php</b>, but <a href="http://www.php.net/manual/en/book.mysqli.php">MySQLi</a> is installed. Please change it to <b>mysqli</b>. This will not affect your data.</p>
 	</fieldset>
 EOF;
 	}
