@@ -75,6 +75,7 @@ $tinyib_embeds = array('SoundCloud' => 'https://soundcloud.com/oembed?format=jso
 define('TINYIB_MAXKB', 2048);         // Maximum file size in kilobytes  [0 to disable]
 define('TINYIB_MAXKBDESC', '2 MB');   // Human-readable representation of the maximum file size
 define('TINYIB_THUMBNAIL', 'gd');     // Thumbnail method to use: gd / imagemagick  (see README for instructions)
+define('TINYIB_UPLOADVIAURL', false); // Allow files to be uploaded via URL
 define('TINYIB_NOFILEOK', false);     // Allow the creation of new threads without uploading a file
 
 // Thumbnail size - new thread

@@ -28,6 +28,9 @@ if (!defined('TINYIB_MAXHOP')) {
 if (!defined('TINYIB_THUMBNAIL')) {
 	define('TINYIB_THUMBNAIL', 'gd');
 }
+if (!defined('TINYIB_UPLOADVIAURL')) {
+    define('TINYIB_UPLOADVIAURL', false);
+}
 if (!defined('TINYIB_NOFILEOK')) {
 	define('TINYIB_NOFILEOK', false);
 }

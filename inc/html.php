@@ -189,9 +189,13 @@ EOF;
 EOF;
 	}
 
-	if (!empty($tinyib_embeds) && ($raw_post || !in_array('embed', $hide_fields))) {
+	$embeds_enabled = !empty($tinyib_embeds) && ($raw_post || !in_array('embed', $hide_fields));
+	if (TINYIB_UPLOADVIAURL || $embeds_enabled) {
 		$txt_embed = __('Embed');
-		$txt_embed_help = __('(paste a YouTube URL)');
+		$txt_embed_help = '';
+		if ($embeds_enabled) {
+			$txt_embed_help = __('(paste a YouTube URL)');
+		}
 		$embed_input_html = <<<EOF
 					<tr>
 						<td class="postblock">
@@ -204,11 +208,11 @@ EOF;
 EOF;
 	}
 
-    if (TINYIB_REQMOD == 'all') {
-        $reqmod_html = '<li>' . __('All posts are moderated before being shown.') . '</li>';
-    } else if (TINYIB_REQMOD == 'files') {
-        $reqmod_html = '<li>' . __('All posts with a file attached are moderated before being shown.') . '</li>';
-    }
+	if (TINYIB_REQMOD == 'all') {
+		$reqmod_html = '<li>' . __('All posts are moderated before being shown.') . '</li>';
+	} else if (TINYIB_REQMOD == 'files') {
+		$reqmod_html = '<li>' . __('All posts with a file attached are moderated before being shown.') . '</li>';
+	}
 
 	$thumbnails_html = '';
 	if (isset($tinyib_uploads['image/jpeg']) || isset($tinyib_uploads['image/pjpeg']) || isset($tinyib_uploads['image/png']) || isset($tinyib_uploads['image/gif'])) {
@@ -222,7 +226,7 @@ EOF;
 
 	$unique_posts = uniquePosts();
 	if ($unique_posts > 0) {
-		$unique_posts_html = '<li>' . printf(__('Currently %s unique user posts.'), $unique_posts) . '</li>' . "\n";
+		$unique_posts_html = '<li>' . sprintf(__('Currently %s unique user posts.'), $unique_posts) . '</li>' . "\n";
 	}
 
 	$output = <<<EOF
@@ -700,19 +704,19 @@ function adminBar() {
 
 	$output = '[<a href="?manage">' . __('Status') . '</a>] [';
 	if ($isadmin) {
-		$output.= '<a href="?manage&bans">' . __('Bans') . '</a>] [';
+		$output .= '<a href="?manage&bans">' . __('Bans') . '</a>] [';
 	}
-	$output.= '<a href="?manage&moderate">' . __('Moderate Post') . '</a>] [<a href="?manage&rawpost">' . __('Raw Post') . '</a>] [';
+	$output .= '<a href="?manage&moderate">' . __('Moderate Post') . '</a>] [<a href="?manage&rawpost">' . __('Raw Post') . '</a>] [';
 	if ($isadmin) {
-		$output.= '<a href="?manage&rebuildall">' . __('Rebuild All') . '</a>] [';
+		$output .= '<a href="?manage&rebuildall">' . __('Rebuild All') . '</a>] [';
 	}
 	if ($isadmin && installedViaGit()) {
 		$output .= '<a href="?manage&update">' . __('Update') . '</a>] [';
 	}
 	if ($isadmin && TINYIB_DBMIGRATE) {
-		$output.= '<a href="?manage&dbmigrate"><b>' . __('Migrate Database') . '</b></a>] [';
+		$output .= '<a href="?manage&dbmigrate"><b>' . __('Migrate Database') . '</b></a>] [';
 	}
-	$output.= '<a href="?manage&logout">' . __('Log Out') . '</a>] &middot; ' . $return;
+	$output .= '<a href="?manage&logout">' . __('Log Out') . '</a>] &middot; ' . $return;
 	return $output;
 }
 
@@ -1026,7 +1030,7 @@ function buildSinglePostJSON($post) {
 
 	$output = array('id' => $post['id'], 'parent' => $post['parent'], 'timestamp' => $post['timestamp'], 'bumped' => $post['bumped'], 'name' => $name, 'tripcode' => $post['tripcode'], 'subject' => $post['subject'], 'message' => $post['message'], 'file' => $post['file'], 'file_hex' => $post['file_hex'], 'file_original' => $post['file_original'], 'file_size' => $post['file_size'], 'file_size_formated' => $post['file_size_formatted'], 'image_width' => $post['image_width'], 'image_height' => $post['image_height'], 'thumb' => $post['thumb'], 'thumb_width' => $post['thumb_width'], 'thumb_height' => $post['thumb_height']);
 
-	if($post['parent'] == TINYIB_NEWTHREAD) {
+	if ($post['parent'] == TINYIB_NEWTHREAD) {
 		$replies = count(postsInThreadByID($post['id'])) - 1;
 		$images = imagesInThreadByID($post['id']);
 
