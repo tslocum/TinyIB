@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-08-28 16:18-0700\n"
-"PO-Revision-Date: 2020-09-08 11:36+0000\n"
+"PO-Revision-Date: 2020-10-08 23:26+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/tinyib/"
 "tinyib/nb_NO/>\n"
@@ -170,7 +170,7 @@ msgstr "Bannlysning av %s opphevet"
 #: imgboard.php:551
 #, php-format
 msgid "Post No.%d deleted."
-msgstr "Post nummer %s slettet."
+msgstr "Post nummer %d slettet."
 
 #: imgboard.php:553 imgboard.php:569 imgboard.php:578 imgboard.php:593
 #: imgboard.php:607
