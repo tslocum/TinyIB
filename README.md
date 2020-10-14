@@ -4,8 +4,7 @@
 
 See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for demos.
 
-Features
-------------
+## Features
 
 **Got database? Get speed.**  Use [MySQL](https://mysql.com), [PostgreSQL](https://www.postgresql.org) or [SQLite](https://sqlite.org) for an efficient set-up able to handle high amounts of traffic.
 
@@ -31,8 +30,14 @@ Features
    - Italian
    - Norwegian
 
-Install
-------------
+## Donate
+
+Please consider supporting the continued development of TinyIB.
+
+- [LiberaPay](https://liberapay.com/rocketnine.space)
+- [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TEP9HT98XK7QA)
+
+## Install
 
  1. Verify the following are installed:
     - [PHP 5.3+](https://php.net)
@@ -73,8 +78,7 @@ Install
     - Directories will be verified to be writable.
     - The board index will be written to ``TINYIB_INDEX``.
 
-Moderate
-------------
+## Moderate
 
  1. If you are not logged in already, log in to the management panel by clicking **[Manage]**.
  2. On the board, tick the checkbox next to the offending post.
@@ -82,8 +86,7 @@ Moderate
  4. Click **Delete** with the password field blank.
     - From this page you are able to delete the post and/or ban the author.
 
-Update
-------------
+## Update
 
  1. Obtain the latest release.
     - If you installed via Git, run the following command in TinyIB's directory:
@@ -96,10 +99,11 @@ Update
       - Visit [GitLab](https://gitlab.com/tslocum/tinyib) and review the changes made in the update.
       - Ensure the update does not interfere with your changes.
 
-Migrate
-------------
+## Migrate
 
-TinyIB includes a database migration tool, which currently only supports migrating from flat file to MySQL or SQLite.  While the migration is in progress, visitors will not be able to create or delete posts.
+TinyIB includes a database migration tool.
+
+While the migration is in progress, visitors will not be able to create or delete posts.
 
  1. Edit **settings.php**
     - Set ``TINYIB_DBMIGRATE`` to the desired ``TINYIB_DBMODE`` after the migration.
@@ -113,20 +117,17 @@ TinyIB includes a database migration tool, which currently only supports migrati
       - Set ``TINYIB_DBMIGRATE`` to a blank string (``''``).
     - Click **Rebuild All** and ensure the board still looks the way it should.
 
-Support
-------------
+## Support
 
  1. Ensure you are running the latest version of TinyIB.
  2. Review the [open issues](https://gitlab.com/tslocum/tinyib/issues).
  3. Open a [new issue](https://gitlab.com/tslocum/tinyib/issues/new).
 
-Translate
-------------
+## Translate
 
 Translation is handled [online](https://hosted.weblate.org/projects/tinyib/tinyib/).
 
-Contribute
-------------
+## Contribute
 
 **Note:** Please do not submit translations as pull requests.  See above.
 
