@@ -3,63 +3,6 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
-if (!extension_loaded('sqlite3')) {
-	fancyDie("SQLite3 extension is either not installed or loaded");
-}
-
-$db = new SQLite3(TINYIB_DBPATH);
-if (!$db) {
-	fancyDie("Could not connect to database: " . $db->lastErrorMsg());
-}
-
-// Create the posts table if it does not exist
-$result = $db->query("SELECT name FROM sqlite_master WHERE type='table' AND name='" . TINYIB_DBPOSTS . "'");
-if (!$result->fetchArray()) {
-	$db->exec("CREATE TABLE " . TINYIB_DBPOSTS . " (
-		id INTEGER PRIMARY KEY,
-		parent INTEGER NOT NULL,
-		timestamp TIMESTAMP NOT NULL,
-		bumped TIMESTAMP NOT NULL,
-		ip TEXT NOT NULL,
-		name TEXT NOT NULL,
-		tripcode TEXT NOT NULL,
-		email TEXT NOT NULL,
-		nameblock TEXT NOT NULL,
-		subject TEXT NOT NULL,
-		message TEXT NOT NULL,
-		password TEXT NOT NULL,
-		file TEXT NOT NULL,
-		file_hex TEXT NOT NULL,
-		file_original TEXT NOT NULL,
-		file_size INTEGER NOT NULL DEFAULT '0',
-		file_size_formatted TEXT NOT NULL,
-		image_width INTEGER NOT NULL DEFAULT '0',
-		image_height INTEGER NOT NULL DEFAULT '0',
-		thumb TEXT NOT NULL,
-		thumb_width INTEGER NOT NULL DEFAULT '0',
-		thumb_height INTEGER NOT NULL DEFAULT '0',
-		stickied INTEGER NOT NULL DEFAULT '0'
-	)");
-}
-
-// Create the bans table if it does not exist
-$result = $db->query("SELECT name FROM sqlite_master WHERE type='table' AND name='" . TINYIB_DBBANS . "'");
-if (!$result->fetchArray()) {
-	$db->exec("CREATE TABLE " . TINYIB_DBBANS . " (
-		id INTEGER PRIMARY KEY,
-		ip TEXT NOT NULL,
-		timestamp TIMESTAMP NOT NULL,
-		expire TIMESTAMP NOT NULL,
-		reason TEXT NOT NULL
-	)");
-}
-
-// Add stickied column if it isn't present
-@$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGER NOT NULL DEFAULT '0'");
-
-// Add locked column if it isn't present
-@$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN locked INTEGER NOT NULL DEFAULT '0'");
-
 // Post Functions
 function uniquePosts() {
 	global $db;
@@ -83,6 +26,11 @@ function insertPost($post) {
 	global $db;
 	$db->exec("INSERT INTO " . TINYIB_DBPOSTS . " (parent, timestamp, bumped, ip, name, tripcode, email, nameblock, subject, message, password, file, file_hex, file_original, file_size, file_size_formatted, image_width, image_height, thumb, thumb_width, thumb_height) VALUES (" . $post['parent'] . ", " . time() . ", " . time() . ", '" . $_SERVER['REMOTE_ADDR'] . "', '" . $db->escapeString($post['name']) . "', '" . $db->escapeString($post['tripcode']) . "',	'" . $db->escapeString($post['email']) . "',	'" . $db->escapeString($post['nameblock']) . "', '" . $db->escapeString($post['subject']) . "', '" . $db->escapeString($post['message']) . "', '" . $db->escapeString($post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . $db->escapeString($post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ")");
 	return $db->lastInsertRowID();
+}
+
+function approvePostByID($id) {
+	global $db;
+	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET moderated = 1 WHERE id = " . $id);
 }
 
 function bumpThreadByID($id) {

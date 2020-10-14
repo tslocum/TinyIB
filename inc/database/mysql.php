@@ -3,38 +3,6 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
-if (!function_exists('mysql_connect')) {
-	fancyDie("MySQL library is not installed");
-}
-
-$link = mysql_connect(TINYIB_DBHOST, TINYIB_DBUSERNAME, TINYIB_DBPASSWORD);
-if (!$link) {
-	fancyDie("Could not connect to database: " . mysql_error());
-}
-$db_selected = mysql_select_db(TINYIB_DBNAME, $link);
-if (!$db_selected) {
-	fancyDie("Could not select database: " . mysql_error());
-}
-mysql_query("SET NAMES 'utf8'");
-
-// Create the posts table if it does not exist
-if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '" . TINYIB_DBPOSTS . "'")) == 0) {
-	mysql_query($posts_sql);
-}
-
-// Create the bans table if it does not exist
-if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '" . TINYIB_DBBANS . "'")) == 0) {
-	mysql_query($bans_sql);
-}
-
-if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'stickied'")) == 0) {
-	mysql_query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN stickied TINYINT(1) NOT NULL DEFAULT '0'");
-}
-
-if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'locked'")) == 0) {
-	mysql_query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
-}
-
 // Post Functions
 function uniquePosts() {
 	$row = mysql_fetch_row(mysql_query("SELECT COUNT(DISTINCT(`ip`)) FROM " . TINYIB_DBPOSTS));

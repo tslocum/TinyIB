@@ -3,95 +3,6 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
-if (TINYIB_DBDSN == '') { // Build a default (likely MySQL) DSN
-	$dsn = TINYIB_DBDRIVER . ":host=" . TINYIB_DBHOST;
-	if (TINYIB_DBPORT > 0) {
-		$dsn .= ";port=" . TINYIB_DBPORT;
-	}
-	$dsn .= ";dbname=" . TINYIB_DBNAME;
-} else { // Use a custom DSN
-	$dsn = TINYIB_DBDSN;
-}
-
-if (TINYIB_DBDRIVER === 'pgsql') {
-	$options = array(PDO::ATTR_PERSISTENT => true,
-		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
-} else {
-	$options = array(PDO::ATTR_PERSISTENT => true,
-		PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-		PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-}
-
-try {
-	$dbh = new PDO($dsn, TINYIB_DBUSERNAME, TINYIB_DBPASSWORD, $options);
-} catch (PDOException $e) {
-	fancyDie("Failed to connect to the database: " . $e->getMessage());
-}
-
-// Create the posts table if it does not exist
-if (TINYIB_DBDRIVER === 'pgsql') {
-	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBPOSTS);
-	$posts_exists = $dbh->query($query)->fetchColumn() != 0;
-} else {
-	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBPOSTS));
-	$posts_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
-}
-
-if (!$posts_exists) {
-	$dbh->exec($posts_sql);
-}
-
-// Create the bans table if it does not exist
-if (TINYIB_DBDRIVER === 'pgsql') {
-	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBBANS);
-	$bans_exists = $dbh->query($query)->fetchColumn() != 0;
-} else {
-	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBBANS));
-	$bans_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
-}
-
-if (!$bans_exists) {
-	$dbh->exec($bans_sql);
-}
-
-if (TINYIB_DBDRIVER === 'pgsql') {
-	$query = "SELECT column_name FROM information_schema.columns WHERE table_name='" . TINYIB_DBPOSTS . "' and column_name='stickied'";
-	$stickied_exists = $dbh->query($query)->fetchColumn() != 0;
-} else {
-	$dbh->query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'stickied'");
-	$stickied_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
-}
-
-if (!$stickied_exists) {
-	$dbh->exec("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN stickied TINYINT(1) NOT NULL DEFAULT '0'");
-}
-
-if (TINYIB_DBDRIVER === 'pgsql') {
-	$query = "SELECT column_name FROM information_schema.columns WHERE table_name='" . TINYIB_DBPOSTS . "' and column_name='locked'";
-	$stickied_exists = $dbh->query($query)->fetchColumn() != 0;
-} else {
-	$dbh->query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'locked'");
-	$stickied_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
-}
-
-if (!$stickied_exists) {
-	$dbh->exec("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
-}
-
-// Utility
-function pdoQuery($sql, $params = false) {
-	global $dbh;
-
-	if ($params) {
-		$statement = $dbh->prepare($sql);
-		$statement->execute($params);
-	} else {
-		$statement = $dbh->query($sql);
-	}
-
-	return $statement;
-}
-
 // Post Functions
 function uniquePosts() {
 	$result = pdoQuery("SELECT COUNT(DISTINCT(ip)) FROM " . TINYIB_DBPOSTS);
@@ -123,7 +34,7 @@ function insertPost($post) {
 }
 
 function approvePostByID($id) {
-	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET moderated = ? WHERE id = ?", array('1', $id));
+	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET moderated = 1 WHERE id = ?", array($id));
 }
 
 function bumpThreadByID($id) {

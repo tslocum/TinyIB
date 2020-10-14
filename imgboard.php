@@ -83,10 +83,102 @@ if (TINYIB_CAPTCHA === 'recaptcha' && (TINYIB_RECAPTCHA_SITE == '' || TINYIB_REC
 	fancyDie(__('TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured.'));
 }
 
+$database_modes = array('flatfile', 'mysql', 'mysqli', 'sqlite', 'sqlite3', 'pdo');
+if (!in_array(TINYIB_DBMODE, $database_modes)) {
+	fancyDie(__('Unknown database mode specified.'));
+}
+
+if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
+	$posts_sql = 'CREATE TABLE "' . TINYIB_DBPOSTS . '" (
+		"id" bigserial NOT NULL,
+		"parent" integer NOT NULL,
+		"timestamp" integer NOT NULL,
+		"bumped" integer NOT NULL,
+		"ip" varchar(39) NOT NULL,
+		"name" varchar(75) NOT NULL,
+		"tripcode" varchar(10) NOT NULL,
+		"email" varchar(75) NOT NULL,
+		"nameblock" varchar(255) NOT NULL,
+		"subject" varchar(75) NOT NULL,
+		"message" text NOT NULL,
+		"password" varchar(255) NOT NULL,
+		"file" text NOT NULL,
+		"file_hex" varchar(75) NOT NULL,
+		"file_original" varchar(255) NOT NULL,
+		"file_size" integer NOT NULL default \'0\',
+		"file_size_formatted" varchar(75) NOT NULL,
+		"image_width" smallint NOT NULL default \'0\',
+		"image_height" smallint NOT NULL default \'0\',
+		"thumb" varchar(255) NOT NULL,
+		"thumb_width" smallint NOT NULL default \'0\',
+		"thumb_height" smallint NOT NULL default \'0\',
+		"moderated" smallint NOT NULL default \'1\',
+		"stickied" smallint NOT NULL default \'0\',
+		"locked" smallint NOT NULL default \'0\',
+		PRIMARY KEY	("id")
+	);
+	CREATE INDEX ON "' . TINYIB_DBPOSTS . '"("parent");
+	CREATE INDEX ON "' . TINYIB_DBPOSTS . '"("bumped");
+	CREATE INDEX ON "' . TINYIB_DBPOSTS . '"("stickied");
+	CREATE INDEX ON "' . TINYIB_DBPOSTS . '"("moderated");';
+
+	$bans_sql = 'CREATE TABLE "' . TINYIB_DBBANS . '" (
+		"id" bigserial NOT NULL,
+		"ip" varchar(39) NOT NULL,
+		"timestamp" integer NOT NULL,
+		"expire" integer NOT NULL,
+		"reason" text NOT NULL,
+		PRIMARY KEY	("id")
+	);
+	CREATE INDEX ON "' . TINYIB_DBBANS . '"("ip");';
+} else {
+	$posts_sql = "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
+		`id` mediumint(7) unsigned NOT NULL auto_increment,
+		`parent` mediumint(7) unsigned NOT NULL,
+		`timestamp` int(20) NOT NULL,
+		`bumped` int(20) NOT NULL,
+		`ip` varchar(39) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`name` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`tripcode` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`email` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`nameblock` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`subject` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`message` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`file` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`file_hex` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`file_original` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`file_size` int(20) unsigned NOT NULL default '0',
+		`file_size_formatted` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`image_width` smallint(5) unsigned NOT NULL default '0',
+		`image_height` smallint(5) unsigned NOT NULL default '0',
+		`thumb` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`thumb_width` smallint(5) unsigned NOT NULL default '0',
+		`thumb_height` smallint(5) unsigned NOT NULL default '0',
+		`stickied` tinyint(1) NOT NULL default '0',
+		`moderated` tinyint(1) NOT NULL default '1',
+		PRIMARY KEY	(`id`),
+		KEY `parent` (`parent`),
+		KEY `bumped` (`bumped`),
+		KEY `stickied` (`stickied`),
+		KEY `moderated` (`moderated`)
+	)";
+
+	$bans_sql = "CREATE TABLE `" . TINYIB_DBBANS . "` (
+		`id` mediumint(7) unsigned NOT NULL auto_increment,
+		`ip` varchar(39) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`timestamp` int(20) NOT NULL,
+		`expire` int(20) NOT NULL,
+		`reason` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		PRIMARY KEY	(`id`),
+		KEY `ip` (`ip`)
+	)";
+}
+
 // Check directories are writable by the script
-$writedirs = array("res", "src", "thumb");
+$writedirs = array('res', 'src', 'thumb');
 if (TINYIB_DBMODE == 'flatfile') {
-	$writedirs[] = "inc/flatfile";
+	$writedirs[] = 'inc/database/flatfile';
 }
 foreach ($writedirs as $dir) {
 	if (!is_writable($dir)) {
@@ -94,15 +186,9 @@ foreach ($writedirs as $dir) {
 	}
 }
 
-$includes = array("inc/defines.php", "inc/functions.php", "inc/html.php");
-if (in_array(TINYIB_DBMODE, array('flatfile', 'mysql', 'mysqli', 'sqlite', 'sqlite3', 'pdo'))) {
-	$includes[] = 'inc/database_' . TINYIB_DBMODE . '.php';
-} else {
-	fancyDie(__('Unknown database mode specified.'));
-}
-
+$includes = array('inc/defines.php', 'inc/functions.php', 'inc/html.php', 'inc/database/' . TINYIB_DBMODE . '_link.php', 'inc/database/' . TINYIB_DBMODE . '.php');
 foreach ($includes as $include) {
-	include $include;
+	require $include;
 }
 
 if (TINYIB_TIMEZONE != '') {
@@ -395,62 +481,38 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					<p>If you installed TinyIB without Git, you must <a href="https://gitlab.com/tslocum/tinyib">update manually</a>.  If you did install with Git, ensure the script has read and write access to the <b>.git</b> folder.</p>';
 				}
 			} elseif (isset($_GET['dbmigrate'])) {
-				if (TINYIB_DBMIGRATE) {
+				if (TINYIB_DBMIGRATE !== '' && TINYIB_DBMIGRATE !== false) {
 					if (isset($_GET['go'])) {
-						if (TINYIB_DBMODE == 'flatfile') {
-							if (function_exists('mysqli_connect')) {
-								$link = @mysqli_connect(TINYIB_DBHOST, TINYIB_DBUSERNAME, TINYIB_DBPASSWORD);
-								if (!$link) {
-									fancyDie("Could not connect to database: " . ((is_object($link)) ? mysqli_error($link) : (($link_error = mysqli_connect_error()) ? $link_error : '(unknown error)')));
-								}
-								$db_selected = @mysqli_query($link, "USE " . TINYIB_DBNAME);
-								if (!$db_selected) {
-									fancyDie("Could not select database: " . ((is_object($link)) ? mysqli_error($link) : (($link_error = mysqli_connect_error()) ? $link_error : '(unknown error')));
-								}
-
-								if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBPOSTS . "'")) == 0) {
-									if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBBANS . "'")) == 0) {
-										mysqli_query($link, $posts_sql);
-										mysqli_query($link, $bans_sql);
-
-										$max_id = 0;
-										$threads = allThreads();
-										foreach ($threads as $thread) {
-											$posts = postsInThreadByID($thread['id']);
-											foreach ($posts as $post) {
-												mysqli_query($link, "INSERT INTO `" . TINYIB_DBPOSTS . "` (`id`, `parent`, `timestamp`, `bumped`, `ip`, `name`, `tripcode`, `email`, `nameblock`, `subject`, `message`, `password`, `file`, `file_hex`, `file_original`, `file_size`, `file_size_formatted`, `image_width`, `image_height`, `thumb`, `thumb_width`, `thumb_height`, `stickied`) VALUES (" . $post['id'] . ", " . $post['parent'] . ", " . time() . ", " . time() . ", '" . $_SERVER['REMOTE_ADDR'] . "', '" . mysqli_real_escape_string($link, $post['name']) . "', '" . mysqli_real_escape_string($link, $post['tripcode']) . "',	'" . mysqli_real_escape_string($link, $post['email']) . "',	'" . mysqli_real_escape_string($link, $post['nameblock']) . "', '" . mysqli_real_escape_string($link, $post['subject']) . "', '" . mysqli_real_escape_string($link, $post['message']) . "', '" . mysqli_real_escape_string($link, $post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . mysqli_real_escape_string($link, $post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ", " . $post['stickied'] . ")");
-												$max_id = max($max_id, $post['id']);
-											}
-										}
-										if ($max_id > 0 && !mysqli_query($link, "ALTER TABLE `" . TINYIB_DBPOSTS . "` AUTO_INCREMENT = " . ($max_id + 1))) {
-											$text .= '<p><b>Warning:</b> Unable to update the AUTO_INCREMENT value for table ' . TINYIB_DBPOSTS . ', please set it to ' . ($max_id + 1) . '.</p>';
-										}
-
-										$max_id = 0;
-										$bans = allBans();
-										foreach ($bans as $ban) {
-											$max_id = max($max_id, $ban['id']);
-											mysqli_query($link, "INSERT INTO `" . TINYIB_DBBANS . "` (`id`, `ip`, `timestamp`, `expire`, `reason`) VALUES ('" . mysqli_real_escape_string($link, $ban['id']) . "', '" . mysqli_real_escape_string($link, $ban['ip']) . "', '" . mysqli_real_escape_string($link, $ban['timestamp']) . "', '" . mysqli_real_escape_string($link, $ban['expire']) . "', '" . mysqli_real_escape_string($link, $ban['reason']) . "')");
-										}
-										if ($max_id > 0 && !mysqli_query($link, "ALTER TABLE `" . TINYIB_DBBANS . "` AUTO_INCREMENT = " . ($max_id + 1))) {
-											$text .= '<p><b>Warning:</b> Unable to update the AUTO_INCREMENT value for table ' . TINYIB_DBBANS . ', please set it to ' . ($max_id + 1) . '.</p>';
-										}
-
-										$text .= '<p><b>Database migration complete</b>.  Set TINYIB_DBMODE to mysqli and TINYIB_DBMIGRATE to false, then click <b>Rebuild All</b> above and ensure everything looks the way it should.</p>';
-									} else {
-										fancyDie('Bans table (' . TINYIB_DBBANS . ') already exists!  Please DROP this table and try again.');
-									}
-								} else {
-									fancyDie('Posts table (' . TINYIB_DBPOSTS . ') already exists!  Please DROP this table and try again.');
-								}
-							} else {
-								fancyDie('Please install the <a href="http://php.net/manual/en/book.mysqli.php">MySQLi extension</a> and try again.');
-							}
-						} else {
-							fancyDie('Set TINYIB_DBMODE to flatfile and enter in your MySQL settings in settings.php before migrating.');
+						if (TINYIB_DBMODE == TINYIB_DBMIGRATE) {
+							fancyDie('Set TINYIB_DBMIGRATE to the desired TINYIB_DBMODE and enter in any database related settings in settings.php before migrating.');
 						}
+
+						$mysql_modes = array('mysql', 'mysqli');
+						if (in_array(TINYIB_DBMODE, $mysql_modes) && in_array(TINYIB_DBMIGRATE, $mysql_modes)) {
+							fancyDie('TINYIB_DBMODE and TINYIB_DBMIGRATE are both set to MySQL database modes. No migration is necessary.');
+						}
+
+						if (!in_array(TINYIB_DBMIGRATE, $database_modes)) {
+							fancyDie(__('Unknown database mode specified.'));
+						}
+						require 'inc/database/' . TINYIB_DBMIGRATE . '_link.php';
+
+						$threads = allThreads();
+						foreach ($threads as $thread) {
+							$posts = postsInThreadByID($thread['id']);
+							foreach ($posts as $post) {
+								migratePost($post);
+							}
+						}
+
+						$bans = allBans();
+						foreach ($bans as $ban) {
+							migrateBan($ban);
+						}
+
+						echo '<p><b>Database migration complete</b>.  Set TINYIB_DBMODE to mysqli and TINYIB_DBMIGRATE to false, then click <b>Rebuild All</b> above and ensure everything looks the way it should.</p>';
 					} else {
-						$text .= '<p>This tool currently only supports migration from a flat file database to MySQL.  Your original database will not be deleted.  If the migration fails, disable the tool and your board will be unaffected.  See the <a href="https://gitlab.com/tslocum/tinyib#migrating" target="_blank">README</a> <small>(<a href="README.md" target="_blank">alternate link</a>)</small> for instructions.</a><br><br><a href="?manage&dbmigrate&go"><b>Start the migration</b></a></p>';
+						$text .= '<p>Your original database will not be deleted.  If the migration fails, disable the tool and your board will be unaffected.  See the <a href="https://gitlab.com/tslocum/tinyib#migrating" target="_blank">README</a> <small>(<a href="README.md" target="_blank">alternate link</a>)</small> for instructions.</a><br><br><a href="?manage&dbmigrate&go"><b>Start the migration</b></a></p>';
 					}
 				} else {
 					fancyDie('Set TINYIB_DBMIGRATE to true in settings.php to use this feature.');

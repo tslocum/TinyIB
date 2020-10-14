@@ -35,7 +35,7 @@ Install
 ------------
 
  1. Verify the following are installed:
-    - [PHP 4.3+](https://php.net)
+    - [PHP 5.3+](https://php.net)
     - [GD Image Processing Library](https://php.net/gd)
       - This library is usually installed by default.
       - If you plan on disabling image uploads to use TinyIB as a text board only, this library is not required.
@@ -44,10 +44,9 @@ Install
     - `git clone https://gitlab.com/tslocum/tinyib.git ./`
  4. Copy **settings.default.php** to **settings.php**
  5. Configure **settings.php**
-    - When setting ``TINYIB_DBMODE`` to ``flatfile``, note that all post and ban data are exposed as the database is composed of standard text files.  Access to ./inc/flatfile/ should be denied.
+    - When setting ``TINYIB_DBMODE`` to ``flatfile``, note that all post and ban data are exposed as the database is composed of standard text files.  Access to ./inc/database/flatfile/ should be denied.
     - When setting ``TINYIB_DBMODE`` to ``pdo``, note that only the MySQL and PostgreSQL databases drivers have been tested. Theoretically it will work with any applicable driver, but this is not guaranteed.  If you use an alternative driver, please report back.
     - To require moderation before displaying posts:
-      - Ensure your ``TINYIB_DBMODE`` is set to ``mysql``, ``mysqli``, or ``pdo``.
       - Set ``TINYIB_REQMOD`` to ``files`` to require moderation for posts with files attached.
       - Set ``TINYIB_REQMOD`` to ``all`` to require moderation for all posts.
       - Moderate posts by visiting the management panel.
@@ -68,7 +67,7 @@ Install
     - ./src/
     - ./thumb/
     - ./res/
-    - ./inc/flatfile/ (only if you use the ``flatfile`` database mode)
+    - ./inc/database/flatfile/ (only if you use the ``flatfile`` database mode)
  7. Navigate your browser to **imgboard.php** and the following will take place:
     - The database structure will be created.
     - Directories will be verified to be writable.
@@ -100,24 +99,19 @@ Update
 Migrate
 ------------
 
-TinyIB includes a database migration tool, which currently only supports migrating from flat file to MySQL.  While the migration is in progress, visitors will not be able to create or delete posts.
+TinyIB includes a database migration tool, which currently only supports migrating from flat file to MySQL or SQLite.  While the migration is in progress, visitors will not be able to create or delete posts.
 
  1. Edit **settings.php**
-    - Ensure ``TINYIB_DBMODE`` is still set to ``flatfile``.
-    - Set ``TINYIB_DBMIGRATE`` to ``true``.
-    - Configure all MySQL-related settings.
+    - Set ``TINYIB_DBMIGRATE`` to the desired ``TINYIB_DBMODE`` after the migration.
+    - Configure all settings related to the desired ``TINYIB_DBMODE``.
  2. Open the management panel.
  3. Click **Migrate Database**
  4. Click **Start the migration**
  5. If the migration was successful:
     - Edit **settings.php**
-      - Set ``TINYIB_DBMODE`` to ``mysqli``.
-      - Set ``TINYIB_DBMIGRATE`` to ``false``.
+      - Set ``TINYIB_DBMODE`` to the mode previously specified as ``TINYIB_DBMIGRATE``.
+      - Set ``TINYIB_DBMIGRATE`` to a blank string (``''``).
     - Click **Rebuild All** and ensure the board still looks the way it should.
-
-If there was a warning about AUTO_INCREMENT not being updated, you'll need to update it manually via a more privileged MySQL user.  Run the following query for one or both of the tables, dependant of the warnings you were issued:
-
-``ALTER TABLE (table name) AUTO_INCREMENT = (value to be set)``
 
 Support
 ------------
