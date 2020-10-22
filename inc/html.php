@@ -430,7 +430,7 @@ EOF;
 EOF;
 		}
 	}
-	if ($post["parent"] == TINYIB_NEWTHREAD) {
+	if ($post['parent'] == TINYIB_NEWTHREAD) {
 		$return .= $filehtml;
 	} else {
 		$return .= <<<EOF
@@ -766,19 +766,25 @@ EOF;
 }
 
 function manageBanForm() {
-	$txt_ban = __('Ban an IP address');
-	$txt_ban_ip = __('IP Address:');
-	$txt_ban_expire = __('Expire(sec):');
-	$txt_ban_reason = __('Reason:');
+	$txt_ban = __('Add a ban');
+	$txt_ban_ip = __('IP Address');
+	$txt_ban_expire = __('Expire(sec)');
+	$txt_ban_reason = __('Reason');
 	$txt_ban_never = __('never');
 	$txt_ban_optional = __('optional');
 	$txt_submit = __('Submit');
+	$txt_1h = __('1 hour');
+	$txt_1d = __('1 day');
+	$txt_2d = __('2 days');
+	$txt_1w = __('1 week');
+	$txt_2w = __('2 weeks');
+	$txt_1m = __('1 month');
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="post" action="?manage&bans">
 	<fieldset>
-	<legend></legend>
+	<legend>$txt_ban</legend>
 	<label for="ip">$txt_ban_ip</label> <input type="text" name="ip" id="ip" value="${_GET['bans']}"> <input type="submit" value="$txt_submit" class="managebutton"><br>
-	<label for="expire">$txt_ban_expire</label> <input type="text" name="expire" id="expire" value="0">&nbsp;&nbsp;<small><a href="#" onclick="document.tinyib.expire.value='3600';return false;">1hr</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='86400';return false;">1d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='172800';return false;">2d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='604800';return false;">1w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='1209600';return false;">2w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='2592000';return false;">30d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='0';return false;">$txt_ban_never</a></small><br>
+	<label for="expire">$txt_ban_expire</label> <input type="text" name="expire" id="expire" value="0">&nbsp;&nbsp;<small><a href="#" onclick="document.tinyib.expire.value='3600';return false;">$txt_1h</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='86400';return false;">$txt_1d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='172800';return false;">$txt_2d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='604800';return false;">$txt_1w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='1209600';return false;">$txt_2w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='2592000';return false;">$txt_1m</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='0';return false;">$txt_ban_never</a></small><br>
 	<label for="reason">$txt_ban_reason&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" name="reason" id="reason">&nbsp;&nbsp;<small>$txt_ban_optional</small>
 	<legend>
 	</fieldset>
@@ -802,15 +808,20 @@ function manageBansTable() {
 }
 
 function manageModeratePostForm() {
+	$txt_moderate = __('Moderate a post');
+	$txt_postid = __('Post ID');
 	$txt_submit = __('Submit');
+	$txt_tip = __('Tip:');
+	$txt_tiptext1 = __('While browsing the image board, you can easily moderate a post if you are logged in.');
+	$txt_tiptext2 = __('Tick the box next to a post and click "Delete" at the bottom of the page with a blank password.');
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="get" action="?">
 	<input type="hidden" name="manage" value="">
 	<fieldset>
-	<legend>Moderate a post</legend>
-	<div valign="top"><label for="moderate">Post ID:</label> <input type="text" name="moderate" id="moderate"> <input type="submit" value="$txt_submit" class="managebutton"></div><br>
-	<small><b>Tip:</b> While browsing the image board, you can easily moderate a post if you are logged in:<br>
-	Tick the box next to a post and click "Delete" at the bottom of the page with a blank password.</small><br>
+	<legend>$txt_moderate</legend>
+	<div valign="top"><label for="moderate">$txt_postid</label> <input type="text" name="moderate" id="moderate"> <input type="submit" value="$txt_submit" class="managebutton"></div><br>
+	<b>$txt_tip</b> $txt_tiptext1<br>
+	$txt_tiptext2<br>
 	</fieldset>
 	</form><br>
 EOF;
@@ -820,13 +831,21 @@ function manageModeratePost($post) {
 	global $isadmin;
 	$ban = banByIP($post['ip']);
 	$ban_disabled = (!$ban && $isadmin) ? '' : ' disabled';
-	$ban_info = (!$ban) ? ((!$isadmin) ? 'Only an administrator may ban an IP address.' : ('IP address: ' . $post["ip"])) : (' A ban record already exists for ' . $post['ip']);
+	if ($ban) {
+		$ban_info = sprintf(__(' A ban record already exists for %s'), $post['ip']);
+	} else {
+		if (!$isadmin) {
+			$ban_info = __('Only an administrator may ban an IP address.');
+		} else {
+			$ban_info = sprintf(__('IP address: %s'), $post['ip']);
+		}
+	}
 	$delete_info = ($post['parent'] == TINYIB_NEWTHREAD) ? __('This will delete the entire thread below.') : __('This will delete the post below.');
 	$post_or_thread = ($post['parent'] == TINYIB_NEWTHREAD) ? __('Thread') : __('Post');
 
 	$sticky_html = "";
 	$lock_html = "";
-	if ($post["parent"] == TINYIB_NEWTHREAD) {
+	if ($post['parent'] == TINYIB_NEWTHREAD) {
 		$sticky_set = $post['stickied'] == 1 ? '0' : '1';
 		$sticky_unsticky = $post['stickied'] == 1 ? __('Un-sticky') : __('Sticky');
 		$sticky_unsticky_help = $post['stickied'] == 1 ? __('Return this thread to a normal state.') : __('Keep this thread at the top of the board.');
@@ -837,7 +856,7 @@ function manageModeratePost($post) {
 		<input type="hidden" name="manage" value="">
 		<input type="hidden" name="sticky" value="${post['id']}">
 		<input type="hidden" name="setsticky" value="$sticky_set">
-		<input type="submit" value="$sticky_unsticky Thread" class="managebutton" style="width: 50%;">
+		<input type="submit" value="$sticky_unsticky" class="managebutton" style="width: 50%;">
 		</form>
 	</td><td><small>$sticky_unsticky_help</small></td></tr>
 EOF;
@@ -851,7 +870,7 @@ EOF;
 		<input type="hidden" name="manage" value="">
 		<input type="hidden" name="lock" value="${post['id']}">
 		<input type="hidden" name="setlock" value="$lock_set">
-		<input type="submit" value="$lock_label Thread" class="managebutton" style="width: 50%;">
+		<input type="submit" value="$lock_label" class="managebutton" style="width: 50%;">
 		</form>
 	</td><td><small>$lock_help</small></td></tr>
 EOF;
@@ -865,10 +884,17 @@ EOF;
 		$post_html = buildPost($post, TINYIB_INDEXPAGE);
 	}
 
+	$txt_moderating = sprintf(__('Moderating No.%d'), post['id']);
 	$txt_action = __('Action');
+	if ($post['parent'] == TINYIB_NEWTHREAD) {
+		$txt_delete = __('Delete thread');
+	} else {
+		$txt_delete = __('Delete post');
+	}
+	$txt_ban = __('Ban poster');
 	return <<<EOF
 	<fieldset>
-	<legend>Moderating No.${post['id']}</legend>
+	<legend>$txt_moderating</legend>
 	
 	<fieldset>
 	<legend>$txt_action</legend>
@@ -879,7 +905,7 @@ EOF;
 	<form method="get" action="?">
 	<input type="hidden" name="manage" value="">
 	<input type="hidden" name="delete" value="${post['id']}">
-	<input type="submit" value="Delete $post_or_thread" class="managebutton" style="width: 50%;">
+	<input type="submit" value="$txt_delete" class="managebutton" style="width: 50%;">
 	</form>
 	
 	</td><td><small>$delete_info</small></td></tr>
@@ -888,7 +914,7 @@ EOF;
 	<form method="get" action="?">
 	<input type="hidden" name="manage" value="">
 	<input type="hidden" name="bans" value="${post['ip']}">
-	<input type="submit" value="Ban Poster" class="managebutton" style="width: 50%;"$ban_disabled>
+	<input type="submit" value="$txt_ban" class="managebutton" style="width: 50%;"$ban_disabled>
 	</form>
 	
 	</td><td><small>$ban_info</small></td></tr>

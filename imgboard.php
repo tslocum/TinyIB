@@ -55,7 +55,11 @@ if (version_compare(phpversion(), '5.3.0', '<')) {
 }
 
 function fancyDie($message) {
-	die('<body text="#800000" bgcolor="#FFFFEE" align="center"><br><div style="display: inline-block; background-color: #F0E0D6;font-size: 1.25em;font-family: Tahoma, Geneva, sans-serif;padding: 7px;border: 1px solid #D9BFB7;border-left: none;border-top: none;">' . $message . '</div><br><br>- <a href="javascript:history.go(-1)">Click here to go back</a> -</body>');
+	$back = 'Click here to go back';
+	if (function_exists('__')) {
+		$back = __('Click here to go back');
+	}
+	die('<body text="#800000" bgcolor="#FFFFEE" align="center"><br><div style="display: inline-block; background-color: #F0E0D6;font-size: 1.25em;font-family: Tahoma, Geneva, sans-serif;padding: 7px;border: 1px solid #D9BFB7;border-left: none;border-top: none;">' . $message . '</div><br><br>- <a href="javascript:history.go(-1)">' . $back . '</a> -</body>');
 }
 
 if (!file_exists('settings.php')) {
@@ -327,28 +331,28 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	}
 
 	if ($post['file'] == '') { // No file uploaded
-		$allowed = "";
-		if (!empty($tinyib_uploads) && ($rawpost || !in_array('file', $hide_fields))) {
-			$allowed = "file";
-		}
-		if (!empty($tinyib_embeds) && ($rawpost || !in_array('embed', $hide_fields))) {
-			if ($allowed != "") {
-				$allowed .= " or ";
-			}
-			$allowed .= "embed URL";
+		$file_ok = !empty($tinyib_uploads) && ($rawpost || !in_array('file', $hide_fields));
+		$embed_ok = !empty($tinyib_embeds) && ($rawpost || !in_array('embed', $hide_fields));
+		$allowed = '';
+		if ($file_ok && $embed_ok) {
+			$allowed = __('upload a file or embed a URL');
+		} else if ($file_ok) {
+			$allowed = __('upload a file');
+		} else if ($embed_ok) {
+			$allowed = __('embed a URL');
 		}
 		if ($post['parent'] == TINYIB_NEWTHREAD && $allowed != "" && !TINYIB_NOFILEOK) {
-			fancyDie(sprintf(__('A %s is required to start a thread.'), $allowed));
+			fancyDie(sprintf(__('Please %s to start a new thread.'), $allowed));
 		}
 		if (!$rawpost && str_replace('<br>', '', $post['message']) == "") {
-			$die_msg = "";
-			if (!in_array('message', $hide_fields)) {
-				$die_msg .= "enter a message " . ($allowed != "" ? " and/or " : "");
+			$message_ok = !in_array('message', $hide_fields);
+			if ($message_ok) {
+				if ($allowed != '') {
+					fancyDie(sprintf(__('Please enter a message and/or %s.'), $allowed));
+				}
+				fancyDie(__('Please enter a message.'));
 			}
-			if ($allowed != "") {
-				$die_msg .= "upload a $allowed";
-			}
-			fancyDie("Please $die_msg.");
+			fancyDie(sprintf(__('Please %s.'), $allowed));
 		}
 	} else {
 		echo sprintf(__('%s uploaded.'), $post['file_original']) . '<br>';
