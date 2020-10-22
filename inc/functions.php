@@ -136,7 +136,7 @@ function nameBlock($name, $tripcode, $email, $timestamp, $rawposttext) {
 		$output = '<a href="mailto:' . $email . '">' . $output . '</a>';
 	}
 
-	return $output . $rawposttext . ' ' . date(TINYIB_DATEFMT, $timestamp);
+	return $output . $rawposttext . ' ' . strftime(TINYIB_DATEFMT, $timestamp);
 }
 
 function writePage($filename, $contents) {
@@ -244,7 +244,7 @@ function checkBanned() {
 	$ban = banByIP($_SERVER['REMOTE_ADDR']);
 	if ($ban) {
 		if ($ban['expire'] == 0 || $ban['expire'] > time()) {
-			$expire = ($ban['expire'] > 0) ? ('<br>This ban will expire ' . date(TINYIB_DATEFMT, $ban['expire'])) : '<br>This ban is permanent and will not expire.';
+			$expire = ($ban['expire'] > 0) ? ('<br>This ban will expire ' . strftime(TINYIB_DATEFMT, $ban['expire'])) : '<br>This ban is permanent and will not expire.';
 			$reason = ($ban['reason'] == '') ? '' : ('<br>Reason: ' . $ban['reason']);
 			fancyDie('Your IP address ' . $ban['ip'] . ' has been banned from posting on this image board.  ' . $expire . $reason);
 		} else {

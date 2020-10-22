@@ -53,16 +53,11 @@ function supportedFileTypes() {
 	}
 
 	$types_allowed = array_map('strtoupper', array_unique(array_column($tinyib_uploads, 0)));
-	$types_last = array_pop($types_allowed);
-	$types_formatted = $types_allowed
-		? implode(', ', $types_allowed) . ' and ' . $types_last
-		: $types_last;
-
-	if (count($tinyib_uploads) == 1) {
-		return sprintf(__('Supported file type is %s'), $types_formatted);
-	} else {
-		return sprintf(__('Supported file types are %s.'), $types_formatted);
+	if (count($types_allowed) == 1) {
+		return sprintf(__('Supported file type is %s'), $types_allowed[0]);
 	}
+	$last_type = array_pop($types_allowed);
+	return sprintf(__('Supported file types are %1$s and %2$s.'), implode(', ', $types_allowed), $last_type);
 }
 
 function makeLinksClickable($text) {
@@ -797,9 +792,9 @@ function manageBansTable() {
 	if (count($allbans) > 0) {
 		$text .= '<table border="1"><tr><th>' . __('IP Address') . '</th><th>' . __('Set At') . '</th><th>' . __('Expires') . '</th><th>' . __('Reason') . '</th><th>&nbsp;</th></tr>';
 		foreach ($allbans as $ban) {
-			$expire = ($ban['expire'] > 0) ? date(TINYIB_DATEFMT, $ban['expire']) : __('Does not expire');
+			$expire = ($ban['expire'] > 0) ? strftime(TINYIB_DATEFMT, $ban['expire']) : __('Does not expire');
 			$reason = ($ban['reason'] == '') ? '&nbsp;' : htmlentities($ban['reason']);
-			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . date(TINYIB_DATEFMT, $ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">' . __('lift') . '</a></td></tr>';
+			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . strftime(TINYIB_DATEFMT, $ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">' . __('lift') . '</a></td></tr>';
 		}
 		$text .= '</table>';
 	}

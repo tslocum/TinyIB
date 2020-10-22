@@ -56,7 +56,7 @@ if (!defined('TINYIB_JSON')) {
 	define('TINYIB_JSON', true);
 }
 if (!defined('TINYIB_DATEFMT')) {
-	define('TINYIB_DATEFMT', 'y/m/d(D)H:i:s');
+	define('TINYIB_DATEFMT', '%g/%m/%d(%a)%H:%M:%S');
 }
 if (!defined('TINYIB_DBMIGRATE')) {
 	define('TINYIB_DBMIGRATE', false);
