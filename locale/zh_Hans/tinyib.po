@@ -1,0 +1,592 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
+"POT-Creation-Date: 2020-10-01 13:45-0700\n"
+"PO-Revision-Date: 2020-10-17 16:26+0000\n"
+"Last-Translator: Michael Mai <michaelmai2000@gmail.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"tinyib/tinyib/zh_Hans/>\n"
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.3.1-dev\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: imgboard.php\n"
+"X-Poedit-SearchPath-1: inc/functions.php\n"
+"X-Poedit-SearchPath-2: inc/html.php\n"
+
+#: imgboard.php:78
+msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
+msgstr ""
+
+#: imgboard.php:82
+msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
+msgstr ""
+
+#: imgboard.php:92
+#, php-format
+msgid "Directory '%s' can not be written to.  Please modify its permissions."
+msgstr "无法写入字典 '%s'。请修改其权限。"
+
+#: imgboard.php:100
+msgid "Unknown database mode specified."
+msgstr "设置了未知的数据库模式。"
+
+#: imgboard.php:115
+msgid "Posting is currently disabled.<br>Please try again in a few moments."
+msgstr "现在发帖功能已被禁用。<br>请稍等片刻再重试。"
+
+#: imgboard.php:134 inc/functions.php:387
+msgid "Invalid parent thread ID supplied, unable to create post."
+msgstr "提供的上级帖子ID无效，无法创建帖子。"
+
+#: imgboard.php:136
+msgid "Replies are not allowed to locked threads."
+msgstr "不允许回复已锁定的帖子。"
+
+#: imgboard.php:173
+msgid "Embedding a URL and uploading a file at the same time is not supported."
+msgstr "不支持同时嵌入URL和上传文件。"
+
+#: imgboard.php:178
+#, php-format
+msgid "Invalid embed URL. Only %s URLs are supported."
+msgstr "无效的嵌入网址。仅支持 %s URL。"
+
+#: imgboard.php:198
+msgid "Error while processing audio/video."
+msgstr "处理音频/视频时发生错误。"
+
+#: imgboard.php:205 imgboard.php:305 imgboard.php:316
+msgid "Could not create thumbnail."
+msgstr "无法创建缩略图。"
+
+#: imgboard.php:221
+msgid "File transfer failure. Please retry the submission."
+msgstr "文件传输失败。请重试。"
+
+#: imgboard.php:225 inc/functions.php:413
+#, php-format
+msgid "That file is larger than %s."
+msgstr "该文件大于 %s 。"
+
+#: imgboard.php:240
+msgid ""
+"Failed to read the MIME type and size of the uploaded file. Please retry the "
+"submission."
+msgstr "无法读取已上传文件的MIME类型和大小。请重试。"
+
+#: imgboard.php:256
+msgid "Could not copy uploaded file."
+msgstr "无法复制已上传的文件。"
+
+#: imgboard.php:261
+msgid "File transfer failure. Please go back and try again."
+msgstr "文件传输失败。请返回并重试。"
+
+#: imgboard.php:280
+msgid "Sorry, your video appears to be corrupt."
+msgstr "抱歉，你上传的视频已经损坏。"
+
+#: imgboard.php:340
+#, php-format
+msgid "A %s is required to start a thread."
+msgstr ""
+
+#: imgboard.php:353
+#, php-format
+msgid "%s uploaded."
+msgstr "%s 已上传。"
+
+#: imgboard.php:358
+#, fuzzy, php-format
+msgid "Your %s will be shown <b>once it has been approved</b>."
+msgstr "你的 %s 会被显示。<b>只要它被通过了。</b>"
+
+#: imgboard.php:371
+msgid "Updating thread..."
+msgstr "正在更新帖子..."
+
+#: imgboard.php:384
+#, fuzzy
+msgid "Updating index..."
+msgstr "正在更新索引..."
+
+#: imgboard.php:390
+msgid "Tick the box next to a post and click \"Delete\" to delete it."
+msgstr "勾选帖子旁边的选框，然后点击“删除”来删除帖子。"
+
+#: imgboard.php:394
+msgid ""
+"Post deletion is currently disabled.<br>Please try again in a few moments."
+msgstr "删贴已禁用。<br>请你稍后再试。"
+
+#: imgboard.php:411
+msgid "Post deleted."
+msgstr "已删除帖子。"
+
+#: imgboard.php:413
+msgid "Invalid password."
+msgstr "无效的密码。"
+
+#: imgboard.php:416
+#, fuzzy
+msgid ""
+"Sorry, an invalid post identifier was sent. Please go back, refresh the "
+"page, and try again."
+msgstr "抱歉，帖子ID非法。请返回，刷新页面并重试。"
+
+#: imgboard.php:440
+#, fuzzy
+msgid "Rebuilt board."
+msgstr "重建版聊。"
+
+#: imgboard.php:448
+msgid "Sorry, there is already a ban on record for that IP address."
+msgstr "抱歉，此ID已被禁用。"
+
+#: imgboard.php:457
+#, php-format
+msgid "Ban record added for %s"
+msgstr "添加了对 %s 的禁令"
+
+#: imgboard.php:463
+#, php-format
+msgid "Ban record lifted for %s"
+msgstr "解除了对 %s 的禁令"
+
+#: imgboard.php:555
+#, php-format
+msgid "Post No.%d deleted."
+msgstr "帖子 ID%d 已删除。"
+
+#: imgboard.php:557 imgboard.php:573 imgboard.php:582 imgboard.php:597
+#: imgboard.php:611
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr "抱歉，似乎没有带该 ID 的帖子。"
+
+#: imgboard.php:571
+#, php-format
+msgid "Post No.%d approved."
+msgstr "帖子 %d 已被批准。"
+
+#: imgboard.php:600 imgboard.php:614
+msgid "Form data was lost. Please go back and try again."
+msgstr "表单数据丢失。请返回并重试。"
+
+#: inc/functions.php:214 inc/html.php:1024
+msgid "Anonymous"
+msgstr "匿名"
+
+#: inc/functions.php:323
+msgid "Please enter the CAPTCHA text."
+msgstr "请输入验证码文本。"
+
+#: inc/functions.php:325
+msgid ""
+"Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
+"retrieve a new CAPTCHA."
+msgstr "输入了错误的验证码文本。请重试。<br>单击图像以获取新的验证码。"
+
+#: inc/functions.php:356
+#, php-format
+msgid ""
+"Please shorten your message, or post it in multiple parts. Your message is "
+"%1$d characters long, and the maximum allowed is %2$d."
+msgstr ""
+
+#: inc/functions.php:416
+#, php-format
+msgid ""
+"The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
+msgstr ""
+
+#: inc/functions.php:419
+msgid "The uploaded file was only partially uploaded."
+msgstr ""
+
+#: inc/functions.php:422
+msgid "No file was uploaded."
+msgstr ""
+
+#: inc/functions.php:425
+msgid "Missing a temporary folder."
+msgstr ""
+
+#: inc/functions.php:428
+msgid "Failed to write file to disk"
+msgstr ""
+
+#: inc/functions.php:431
+msgid "Unable to save the uploaded file."
+msgstr ""
+
+#: inc/functions.php:439
+#, php-format
+msgid ""
+"Duplicate file uploaded. That file has already been posted <a href=\"%s"
+"\">here</a>."
+msgstr ""
+
+#: inc/functions.php:470
+msgid ""
+"Unable to read the uploaded file while creating its thumbnail. A common "
+"cause for this is an incorrect extension when the file is actually of a "
+"different type."
+msgstr ""
+
+#: inc/html.php:62
+#, php-format
+msgid "Supported file type is %s"
+msgstr ""
+
+#: inc/html.php:64
+#, php-format
+msgid "Supported file types are %s."
+msgstr ""
+
+#: inc/html.php:82 inc/html.php:776 inc/html.php:806
+msgid "Submit"
+msgstr ""
+
+#: inc/html.php:100
+msgid "Reply to"
+msgstr ""
+
+#: inc/html.php:101
+msgid "0 to start a new thread"
+msgstr ""
+
+#: inc/html.php:102
+msgid ""
+"Text entered in the Message field will be posted as is with no formatting "
+"applied."
+msgstr ""
+
+#: inc/html.php:103
+msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
+msgstr ""
+
+#: inc/html.php:154
+msgid "(enter the text below)"
+msgstr ""
+
+#: inc/html.php:158
+msgid "CAPTCHA"
+msgstr ""
+
+#: inc/html.php:174
+#, php-format
+msgid "Maximum file size allowed is %s."
+msgstr ""
+
+#: inc/html.php:179
+msgid "File"
+msgstr ""
+
+#: inc/html.php:193
+msgid "Embed"
+msgstr ""
+
+#: inc/html.php:194
+msgid "(paste a YouTube URL)"
+msgstr ""
+
+#: inc/html.php:208
+msgid "All posts are moderated before being shown."
+msgstr ""
+
+#: inc/html.php:210
+msgid "All posts with a file attached are moderated before being shown."
+msgstr ""
+
+#: inc/html.php:220
+#, php-format
+msgid "Images greater than %s will be thumbnailed."
+msgstr ""
+
+#: inc/html.php:225
+#, php-format
+msgid "Currently %s unique user posts."
+msgstr ""
+
+#: inc/html.php:238
+msgid "Name"
+msgstr ""
+
+#: inc/html.php:252
+msgid "E-mail"
+msgstr ""
+
+#: inc/html.php:266
+msgid "Subject"
+msgstr ""
+
+#: inc/html.php:280
+msgid "Message"
+msgstr ""
+
+#: inc/html.php:299 inc/html.php:565
+msgid "Password"
+msgstr ""
+
+#: inc/html.php:300
+msgid "(for post and file deletion)"
+msgstr ""
+
+#: inc/html.php:357
+msgid "Stickied"
+msgstr ""
+
+#: inc/html.php:361
+msgid "Locked"
+msgstr ""
+
+#: inc/html.php:374
+msgid "Embed:"
+msgstr ""
+
+#: inc/html.php:374
+msgid "File:"
+msgstr ""
+
+#: inc/html.php:471
+msgid "Reply"
+msgstr ""
+
+#: inc/html.php:477
+msgid "Post truncated. Click Reply to view."
+msgstr ""
+
+#: inc/html.php:488
+msgid "1 post omitted. Click Reply to view."
+msgstr ""
+
+#: inc/html.php:490
+#, php-format
+msgid "%d posts omitted. Click Reply to view."
+msgstr ""
+
+#: inc/html.php:506 inc/html.php:541 inc/html.php:553
+msgid "Catalog"
+msgstr ""
+
+#: inc/html.php:516
+msgid "Previous"
+msgstr ""
+
+#: inc/html.php:529
+msgid "Next"
+msgstr ""
+
+#: inc/html.php:553 inc/html.php:555 inc/html.php:696
+msgid "Return"
+msgstr ""
+
+#: inc/html.php:555
+msgid "Posting mode: Reply"
+msgstr ""
+
+#: inc/html.php:563
+msgid "Manage"
+msgstr ""
+
+#: inc/html.php:564
+msgid "Style"
+msgstr ""
+
+#: inc/html.php:566 inc/html.php:948
+msgid "Delete"
+msgstr ""
+
+#: inc/html.php:567
+msgid "Delete Post"
+msgstr ""
+
+#: inc/html.php:701 inc/html.php:975
+msgid "Status"
+msgstr ""
+
+#: inc/html.php:703
+msgid "Bans"
+msgstr ""
+
+#: inc/html.php:705
+msgid "Moderate Post"
+msgstr ""
+
+#: inc/html.php:705
+msgid "Raw Post"
+msgstr ""
+
+#: inc/html.php:707
+msgid "Rebuild All"
+msgstr ""
+
+#: inc/html.php:710
+msgid "Update"
+msgstr ""
+
+#: inc/html.php:713
+msgid "Migrate Database"
+msgstr ""
+
+#: inc/html.php:715
+msgid "Log Out"
+msgstr ""
+
+#: inc/html.php:721
+msgid "Manage mode"
+msgstr ""
+
+#: inc/html.php:753
+msgid "Log In"
+msgstr ""
+
+#: inc/html.php:754
+msgid "Enter an administrator or moderator password"
+msgstr ""
+
+#: inc/html.php:770
+msgid "Ban an IP address"
+msgstr ""
+
+#: inc/html.php:771
+msgid "IP Address:"
+msgstr ""
+
+#: inc/html.php:772
+msgid "Expire(sec):"
+msgstr ""
+
+#: inc/html.php:773
+msgid "Reason:"
+msgstr ""
+
+#: inc/html.php:774
+msgid "never"
+msgstr ""
+
+#: inc/html.php:775
+msgid "optional"
+msgstr ""
+
+#: inc/html.php:794
+msgid "IP Address"
+msgstr ""
+
+#: inc/html.php:794
+msgid "Set At"
+msgstr ""
+
+#: inc/html.php:794
+msgid "Expires"
+msgstr ""
+
+#: inc/html.php:794
+msgid "Reason"
+msgstr ""
+
+#: inc/html.php:796
+msgid "Does not expire"
+msgstr ""
+
+#: inc/html.php:798
+msgid "lift"
+msgstr ""
+
+#: inc/html.php:825
+msgid "This will delete the entire thread below."
+msgstr ""
+
+#: inc/html.php:825
+msgid "This will delete the post below."
+msgstr ""
+
+#: inc/html.php:826
+msgid "Thread"
+msgstr ""
+
+#: inc/html.php:826
+msgid "Post"
+msgstr ""
+
+#: inc/html.php:832
+msgid "Un-sticky"
+msgstr ""
+
+#: inc/html.php:832
+msgid "Sticky"
+msgstr ""
+
+#: inc/html.php:833
+msgid "Return this thread to a normal state."
+msgstr ""
+
+#: inc/html.php:833
+msgid "Keep this thread at the top of the board."
+msgstr ""
+
+#: inc/html.php:847
+msgid "Unlock"
+msgstr ""
+
+#: inc/html.php:847
+msgid "Lock"
+msgstr ""
+
+#: inc/html.php:848
+msgid "Allow replying to this thread."
+msgstr ""
+
+#: inc/html.php:848
+msgid "Disallow replying to this thread."
+msgstr ""
+
+#: inc/html.php:869
+msgid "Action"
+msgstr ""
+
+#: inc/html.php:920
+msgid "thread"
+msgstr ""
+
+#: inc/html.php:920
+msgid "threads"
+msgstr ""
+
+#: inc/html.php:920
+msgid "ban"
+msgstr ""
+
+#: inc/html.php:920
+msgid "bans"
+msgstr ""
+
+#: inc/html.php:944
+msgid "Approve"
+msgstr ""
+
+#: inc/html.php:946
+msgid "More Info"
+msgstr ""
+
+#: inc/html.php:954
+msgid "Pending posts"
+msgstr ""
+
+#: inc/html.php:972
+msgid "Moderate"
+msgstr ""
+
+#: inc/html.php:976
+msgid "Info"
+msgstr ""
+
+#: inc/html.php:977
+msgid "Recent posts"
+msgstr ""

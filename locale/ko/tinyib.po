@@ -1,16 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-08-28 16:18-0700\n"
-"PO-Revision-Date: 2020-08-28 16:18-0700\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-10-20 04:26+0000\n"
+"Last-Translator: uhwGhGFaJd <uhwGhGFaJd@gmail.com>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/tinyib/tinyib/ko/>"
+"\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Weblate 4.3.1-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -18,76 +20,76 @@ msgstr ""
 
 #: imgboard.php:74
 msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
-msgstr ""
+msgstr "TINYIB_TRIPSEED 및 TINYIB_ADMINPASS 를 설정해야 합니다."
 
 #: imgboard.php:78
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
-msgstr ""
+msgstr "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  를 설정해야 합니다."
 
 #: imgboard.php:88
 #, php-format
 msgid "Directory '%s' can not be written to.  Please modify its permissions."
-msgstr ""
+msgstr "'%s' 경로에 쓸 수 없습니다. 권한을 수정하십시오."
 
 #: imgboard.php:96
 msgid "Unknown database mode specified."
-msgstr ""
+msgstr "알 수없는 데이터베이스 모드가 지정되었습니다."
 
 #: imgboard.php:111
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
-msgstr ""
+msgstr "현재 글작성이 금지되어 있습니다. <br> 몇분뒤 다시 시도하세요."
 
 #: imgboard.php:130 inc/functions.php:387
 msgid "Invalid parent thread ID supplied, unable to create post."
-msgstr ""
+msgstr "잘못된 상위 스레드 ID가 제공되어 게시물을 작성할 수 없습니다."
 
 #: imgboard.php:132
 msgid "Replies are not allowed to locked threads."
-msgstr ""
+msgstr "댓글을 작성할 수 없습니다 이 쓰래드는 잠겨있습니다."
 
 #: imgboard.php:169
 msgid "Embedding a URL and uploading a file at the same time is not supported."
-msgstr ""
+msgstr "URL 삽입과 동시에 파일 업로드는 지원되지 않습니다."
 
 #: imgboard.php:174
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
-msgstr ""
+msgstr "잘못된 embed 주소입니다 %s 주소만 지원합니다."
 
 #: imgboard.php:194
 msgid "Error while processing audio/video."
-msgstr ""
+msgstr "오디오 / 비디오를 처리하는 동안 오류가 발생했습니다."
 
 #: imgboard.php:201 imgboard.php:301 imgboard.php:312
 msgid "Could not create thumbnail."
-msgstr ""
+msgstr "썸네일을 생성할 수 없습니다."
 
 #: imgboard.php:217
 msgid "File transfer failure. Please retry the submission."
-msgstr ""
+msgstr "파일 전송 실패. 제출을 다시 시도하십시오."
 
 #: imgboard.php:221 inc/functions.php:413
 #, php-format
 msgid "That file is larger than %s."
-msgstr ""
+msgstr "해당 파일이 %s보다 큽니다."
 
 #: imgboard.php:236
 msgid ""
 "Failed to read the MIME type and size of the uploaded file. Please retry the "
 "submission."
-msgstr ""
+msgstr "업로드 된 파일의 MIME 유형 및 크기를 읽지 못했습니다. 제출을 다시 시도하십시오."
 
 #: imgboard.php:252
 msgid "Could not copy uploaded file."
-msgstr ""
+msgstr "업로드 된 파일을 복사 할 수 없습니다."
 
 #: imgboard.php:257
 msgid "File transfer failure. Please go back and try again."
-msgstr ""
+msgstr "파일 전송 실패. 돌아가서 다시 시도하십시오."
 
 #: imgboard.php:276
 msgid "Sorry, your video appears to be corrupt."
-msgstr ""
+msgstr "죄송합니다. 동영상이 손상된 것 같습니다."
 
 #: imgboard.php:336
 #, php-format

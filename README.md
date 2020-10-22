@@ -24,10 +24,12 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
    - Post using raw HTML.
    - Upgrade automatically when installed via git.  (Tested on Linux only)
  - [Translations](https://hosted.weblate.org/projects/tinyib/tinyib/):
+   - Chinese
    - Dutch
    - French
    - German
    - Italian
+   - Korean
    - Norwegian
    - Spanish (Mexico)
 
