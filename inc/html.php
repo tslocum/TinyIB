@@ -602,13 +602,19 @@ EOF;
 
 function buildCatalogPost($post) {
 	$maxwidth = max(100, $post['thumb_width']);
+	$thumb = '#' . $post['id'];
+	if ($post['thumb'] != '') {
+		$thumb = <<<EOF
+		<img src="thumb/{$post['thumb']}" alt="{$post['id']}" width="{$post['thumb_width']}" height="{$post['thumb_height']}" border="0">
+EOF;
+	}
 	$replies = numRepliesToThreadByID($post['id']);
 	$subject = trim($post['subject']) != '' ? $post['subject'] : substr(trim(str_ireplace("\n", '', strip_tags($post['message']))), 0, 75);
-
+	
 	return <<<EOF
 <div class="catalogpost" style="max-width: {$maxwidth}px;">
 	<a href="res/{$post['id']}.html">
-		<img src="thumb/{$post["thumb"]}" alt="{$post["id"]}" width="{$post['thumb_width']}" height="{$post['thumb_height']}" border="0">
+		$thumb
 	</a><br>
 	<b>$replies</b><br>
 	$subject
@@ -884,7 +890,7 @@ EOF;
 		$post_html = buildPost($post, TINYIB_INDEXPAGE);
 	}
 
-	$txt_moderating = sprintf(__('Moderating No.%d'), post['id']);
+	$txt_moderating = sprintf(__('Moderating No.%d'), $post['id']);
 	$txt_action = __('Action');
 	if ($post['parent'] == TINYIB_NEWTHREAD) {
 		$txt_delete = __('Delete thread');

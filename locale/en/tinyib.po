@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2020-10-22 09:04-0700\n"
-"PO-Revision-Date: 2020-10-22 09:04-0700\n"
+"POT-Creation-Date: 2020-10-22 09:12-0700\n"
+"PO-Revision-Date: 2020-10-22 09:12-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -185,7 +185,7 @@ msgstr ""
 msgid "Form data was lost. Please go back and try again."
 msgstr ""
 
-#: inc/functions.php:127 inc/html.php:1049
+#: inc/functions.php:127 inc/html.php:1055
 msgid "Anonymous"
 msgstr ""
 
@@ -278,7 +278,7 @@ msgstr ""
 msgid "Supported file types are %1$s and %2$s."
 msgstr ""
 
-#: inc/html.php:77 inc/html.php:775 inc/html.php:813
+#: inc/html.php:77 inc/html.php:781 inc/html.php:819
 msgid "Submit"
 msgstr ""
 
@@ -412,7 +412,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: inc/html.php:552 inc/html.php:554 inc/html.php:695
+#: inc/html.php:552 inc/html.php:554 inc/html.php:701
 msgid "Return"
 msgstr ""
 
@@ -428,7 +428,7 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
-#: inc/html.php:565 inc/html.php:973
+#: inc/html.php:565 inc/html.php:979
 msgid "Delete"
 msgstr ""
 
@@ -436,257 +436,257 @@ msgstr ""
 msgid "Delete Post"
 msgstr ""
 
-#: inc/html.php:700 inc/html.php:1000
+#: inc/html.php:706 inc/html.php:1006
 msgid "Status"
 msgstr ""
 
-#: inc/html.php:702
+#: inc/html.php:708
 msgid "Bans"
 msgstr ""
 
-#: inc/html.php:704
+#: inc/html.php:710
 msgid "Moderate Post"
 msgstr ""
 
-#: inc/html.php:704
+#: inc/html.php:710
 msgid "Raw Post"
 msgstr ""
 
-#: inc/html.php:706
+#: inc/html.php:712
 msgid "Rebuild All"
 msgstr ""
 
-#: inc/html.php:709
+#: inc/html.php:715
 msgid "Update"
 msgstr ""
 
-#: inc/html.php:712
+#: inc/html.php:718
 msgid "Migrate Database"
 msgstr ""
 
-#: inc/html.php:714
+#: inc/html.php:720
 msgid "Log Out"
 msgstr ""
 
-#: inc/html.php:720
+#: inc/html.php:726
 msgid "Manage mode"
 msgstr ""
 
-#: inc/html.php:752
+#: inc/html.php:758
 msgid "Log In"
 msgstr ""
 
-#: inc/html.php:753
+#: inc/html.php:759
 msgid "Enter an administrator or moderator password"
 msgstr ""
 
-#: inc/html.php:769
+#: inc/html.php:775
 msgid "Add a ban"
 msgstr ""
 
-#: inc/html.php:770 inc/html.php:799
+#: inc/html.php:776 inc/html.php:805
 msgid "IP Address"
 msgstr ""
 
-#: inc/html.php:771
+#: inc/html.php:777
 msgid "Expire(sec)"
 msgstr ""
 
-#: inc/html.php:772 inc/html.php:799
+#: inc/html.php:778 inc/html.php:805
 msgid "Reason"
 msgstr ""
 
-#: inc/html.php:773
+#: inc/html.php:779
 msgid "never"
 msgstr ""
 
-#: inc/html.php:774
+#: inc/html.php:780
 msgid "optional"
 msgstr ""
 
-#: inc/html.php:776
+#: inc/html.php:782
 msgid "1 hour"
 msgstr ""
 
-#: inc/html.php:777
+#: inc/html.php:783
 msgid "1 day"
 msgstr ""
 
-#: inc/html.php:778
+#: inc/html.php:784
 msgid "2 days"
 msgstr ""
 
-#: inc/html.php:779
+#: inc/html.php:785
 msgid "1 week"
 msgstr ""
 
-#: inc/html.php:780
+#: inc/html.php:786
 msgid "2 weeks"
 msgstr ""
 
-#: inc/html.php:781
+#: inc/html.php:787
 msgid "1 month"
 msgstr ""
 
-#: inc/html.php:799
+#: inc/html.php:805
 msgid "Set At"
 msgstr ""
 
-#: inc/html.php:799
+#: inc/html.php:805
 msgid "Expires"
 msgstr ""
 
-#: inc/html.php:801
+#: inc/html.php:807
 msgid "Does not expire"
 msgstr ""
 
-#: inc/html.php:803
+#: inc/html.php:809
 msgid "lift"
 msgstr ""
 
-#: inc/html.php:811
+#: inc/html.php:817
 msgid "Moderate a post"
 msgstr ""
 
-#: inc/html.php:812
+#: inc/html.php:818
 msgid "Post ID"
 msgstr ""
 
-#: inc/html.php:814
+#: inc/html.php:820
 msgid "Tip:"
 msgstr ""
 
-#: inc/html.php:815
+#: inc/html.php:821
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
 "logged in."
 msgstr ""
 
-#: inc/html.php:816
+#: inc/html.php:822
 msgid ""
 "Tick the box next to a post and click \"Delete\" at the bottom of the page "
 "with a blank password."
 msgstr ""
 
-#: inc/html.php:835
+#: inc/html.php:841
 #, php-format
 msgid " A ban record already exists for %s"
 msgstr ""
 
-#: inc/html.php:838
+#: inc/html.php:844
 msgid "Only an administrator may ban an IP address."
 msgstr ""
 
-#: inc/html.php:840
+#: inc/html.php:846
 #, php-format
 msgid "IP address: %s"
 msgstr ""
 
-#: inc/html.php:843
+#: inc/html.php:849
 msgid "This will delete the entire thread below."
 msgstr ""
 
-#: inc/html.php:843
+#: inc/html.php:849
 msgid "This will delete the post below."
 msgstr ""
 
-#: inc/html.php:844
+#: inc/html.php:850
 msgid "Thread"
 msgstr ""
 
-#: inc/html.php:844
+#: inc/html.php:850
 msgid "Post"
 msgstr ""
 
-#: inc/html.php:850
+#: inc/html.php:856
 msgid "Un-sticky"
 msgstr ""
 
-#: inc/html.php:850
+#: inc/html.php:856
 msgid "Sticky"
 msgstr ""
 
-#: inc/html.php:851
+#: inc/html.php:857
 msgid "Return this thread to a normal state."
 msgstr ""
 
-#: inc/html.php:851
+#: inc/html.php:857
 msgid "Keep this thread at the top of the board."
 msgstr ""
 
-#: inc/html.php:865
+#: inc/html.php:871
 msgid "Unlock"
 msgstr ""
 
-#: inc/html.php:865
+#: inc/html.php:871
 msgid "Lock"
 msgstr ""
 
-#: inc/html.php:866
+#: inc/html.php:872
 msgid "Allow replying to this thread."
 msgstr ""
 
-#: inc/html.php:866
+#: inc/html.php:872
 msgid "Disallow replying to this thread."
 msgstr ""
 
-#: inc/html.php:887
+#: inc/html.php:893
 #, php-format
 msgid "Moderating No.%d"
 msgstr ""
 
-#: inc/html.php:888
+#: inc/html.php:894
 msgid "Action"
 msgstr ""
 
-#: inc/html.php:890
+#: inc/html.php:896
 msgid "Delete thread"
 msgstr ""
 
-#: inc/html.php:892
+#: inc/html.php:898
 msgid "Delete post"
 msgstr ""
 
-#: inc/html.php:894
+#: inc/html.php:900
 msgid "Ban poster"
 msgstr ""
 
-#: inc/html.php:945
+#: inc/html.php:951
 msgid "thread"
 msgstr ""
 
-#: inc/html.php:945
+#: inc/html.php:951
 msgid "threads"
 msgstr ""
 
-#: inc/html.php:945
+#: inc/html.php:951
 msgid "ban"
 msgstr ""
 
-#: inc/html.php:945
+#: inc/html.php:951
 msgid "bans"
 msgstr ""
 
-#: inc/html.php:969
+#: inc/html.php:975
 msgid "Approve"
 msgstr ""
 
-#: inc/html.php:971
+#: inc/html.php:977
 msgid "More Info"
 msgstr ""
 
-#: inc/html.php:979
+#: inc/html.php:985
 msgid "Pending posts"
 msgstr ""
 
-#: inc/html.php:997
+#: inc/html.php:1003
 msgid "Moderate"
 msgstr ""
 
-#: inc/html.php:1001
+#: inc/html.php:1007
 msgid "Info"
 msgstr ""
 
-#: inc/html.php:1002
+#: inc/html.php:1008
 msgid "Recent posts"
 msgstr ""
