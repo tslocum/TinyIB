@@ -37,6 +37,9 @@ if (!defined('TINYIB_NOFILEOK')) {
 if (!defined('TINYIB_CAPTCHA')) {
 	define('TINYIB_CAPTCHA', '');
 }
+if (!defined('TINYIB_MANAGECAPTCHA')) {
+	define('TINYIB_MANAGECAPTCHA', '');
+}
 if (!defined('TINYIB_REQMOD')) {
 	define('TINYIB_REQMOD', '');
 }

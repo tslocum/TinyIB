@@ -80,14 +80,6 @@ if (!defined('TINYIB_LOCALE') || TINYIB_LOCALE == '') {
 	$translator->register();
 }
 
-if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
-	fancyDie(__('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured.'));
-}
-
-if (TINYIB_CAPTCHA === 'recaptcha' && (TINYIB_RECAPTCHA_SITE == '' || TINYIB_RECAPTCHA_SECRET == '')) {
-	fancyDie(__('TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured.'));
-}
-
 $database_modes = array('flatfile', 'mysql', 'mysqli', 'sqlite', 'sqlite3', 'pdo');
 if (!in_array(TINYIB_DBMODE, $database_modes)) {
 	fancyDie(__('Unknown database mode specified.'));
@@ -196,6 +188,14 @@ foreach ($includes as $include) {
 	require $include;
 }
 
+if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
+	fancyDie(__('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured.'));
+}
+
+if ((TINYIB_CAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') && (TINYIB_RECAPTCHA_SITE == '' || TINYIB_RECAPTCHA_SECRET == '')) {
+	fancyDie(__('TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured.'));
+}
+
 if (TINYIB_TIMEZONE != '') {
 	date_default_timezone_set(TINYIB_TIMEZONE);
 }
@@ -211,7 +211,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	$rawpost = isRawPost();
 	$rawposttext = '';
 	if (!$loggedin) {
-		checkCAPTCHA();
+		checkCAPTCHA(TINYIB_CAPTCHA);
 		checkBanned();
 		checkMessageSize();
 		checkFlood();

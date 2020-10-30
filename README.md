@@ -14,7 +14,9 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
 
  - GIF, JPG, PNG, SWF, MP4 and WebM upload.
  - YouTube, Vimeo and SoundCloud embedding.
- - CAPTCHA  (A simple implementation is included, reCAPTCHA is also supported)
+ - CAPTCHA
+   - A simple, self-hosted implementation is included
+   - [ReCAPTCHA](https://www.google.com/recaptcha/about/) is supported but [not recommended](https://nearcyan.com/you-probably-dont-need-recaptcha/)
  - Reference links >>###
  - Delete post via password.
  - Management panel:

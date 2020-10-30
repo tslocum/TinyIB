@@ -196,8 +196,8 @@ function deletePostImages($post) {
 	}
 }
 
-function checkCAPTCHA() {
-	if (TINYIB_CAPTCHA === 'recaptcha') {
+function checkCAPTCHA($mode) {
+	if ($mode === 'recaptcha') {
 		require_once 'inc/recaptcha/autoload.php';
 
 		$captcha = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : '';
@@ -228,7 +228,7 @@ function checkCAPTCHA() {
 			}
 			fancyDie($captcha_error);
 		}
-	} else if (TINYIB_CAPTCHA) { // Simple CAPTCHA
+	} else if ($mode) { // Simple CAPTCHA
 		$captcha = isset($_POST['captcha']) ? strtolower(trim($_POST['captcha'])) : '';
 		$captcha_solution = isset($_SESSION['tinyibcaptcha']) ? strtolower(trim($_SESSION['tinyibcaptcha'])) : '';
 
@@ -274,10 +274,14 @@ function manageCheckLogIn() {
 	$loggedin = false;
 	$isadmin = false;
 	if (isset($_POST['managepassword'])) {
+		checkCAPTCHA(TINYIB_MANAGECAPTCHA);
+
 		if ($_POST['managepassword'] === TINYIB_ADMINPASS) {
 			$_SESSION['tinyib'] = TINYIB_ADMINPASS;
 		} elseif (TINYIB_MODPASS != '' && $_POST['managepassword'] === TINYIB_MODPASS) {
 			$_SESSION['tinyib'] = TINYIB_MODPASS;
+		} else {
+			fancyDie(__('Invalid password.'));
 		}
 	}
 

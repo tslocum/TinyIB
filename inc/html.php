@@ -4,7 +4,7 @@ if (!defined('TINYIB_BOARD')) {
 }
 
 function pageHeader() {
-	$js_captcha = TINYIB_CAPTCHA === 'recaptcha' ? '<script src="https://www.google.com/recaptcha/api.js" async defer></script>' : '';
+	$js_captcha = (TINYIB_CAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') ? '<script src="https://www.google.com/recaptcha/api.js" async defer></script>' : '';
 
 	$return = <<<EOF
 <!DOCTYPE html>
@@ -610,7 +610,7 @@ EOF;
 	}
 	$replies = numRepliesToThreadByID($post['id']);
 	$subject = trim($post['subject']) != '' ? $post['subject'] : substr(trim(str_ireplace("\n", '', strip_tags($post['message']))), 0, 75);
-	
+
 	return <<<EOF
 <div class="catalogpost" style="max-width: {$maxwidth}px;">
 	<a href="res/{$post['id']}.html">
@@ -757,12 +757,38 @@ function manageOnLoad($page) {
 function manageLogInForm() {
 	$txt_login = __('Log In');
 	$txt_login_prompt = __('Enter an administrator or moderator password');
+	$captcha_inner_html = '';
+	if (TINYIB_MANAGECAPTCHA === 'recaptcha') {
+		$captcha_inner_html = '
+<br>
+<div style="min-height: 80px;">
+	<div class="g-recaptcha" data-sitekey="' . TINYIB_RECAPTCHA_SITE . '"></div>
+	<noscript>
+		<div>
+			<div style="width: 302px; height: 422px; position: relative;">
+				<div style="width: 302px; height: 422px; position: absolute;">
+					<iframe src="https://www.google.com/recaptcha/api/fallback?k=' . TINYIB_RECAPTCHA_SITE . '" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none;"></iframe>
+				</div>
+			</div>
+			<div style="width: 300px; height: 60px; border-style: none;bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px;background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px;">
+				<textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;"></textarea>
+			</div>
+		</div>
+	</noscript>
+</div><br><br>';
+	} else if (TINYIB_MANAGECAPTCHA) { // Simple CAPTCHA
+		$captcha_inner_html = '
+<br>
+<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;' . __('(enter the text below)') . '<br>
+<img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;"><br><br>';
+	}
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="post" action="?manage">
 	<fieldset>
 	<legend align="center">$txt_login_prompt</legend>
 	<div class="login">
 	<input type="password" id="managepassword" name="managepassword"><br>
+	$captcha_inner_html
 	<input type="submit" value="$txt_login" class="managebutton">
 	</div>
 	</fieldset>
