@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-10-22 09:12-0700\n"
-"PO-Revision-Date: 2020-09-27 03:41+0000\n"
-"Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/tinyib/tinyib/fr/"
-">\n"
+"PO-Revision-Date: 2020-11-05 09:26+0000\n"
+"Last-Translator: Estébastien Robespi <estebastien@mailbox.org>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/tinyib/tinyib/fr/>"
+"\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: imgboard.php:60
 msgid "Click here to go back"
-msgstr ""
+msgstr "Retour en cliquant ici"
 
 #: imgboard.php:84
 msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
@@ -76,7 +76,7 @@ msgstr "Ce fichier est plus lourd que %s."
 
 #: imgboard.php:280 imgboard.php:286
 msgid "Failed to download file at specified URL."
-msgstr ""
+msgstr "Le téléchargement depuis cet URL a échoué."
 
 #: imgboard.php:308
 msgid "Error while processing audio/video."
@@ -88,37 +88,34 @@ msgstr "Impossible de créer la miniature."
 
 #: imgboard.php:338
 msgid "upload a file or embed a URL"
-msgstr ""
+msgstr "déposer un fichier ou encapsuler un URL"
 
 #: imgboard.php:340
 msgid "upload a file"
-msgstr ""
+msgstr "déposer un fichier"
 
 #: imgboard.php:342
 msgid "embed a URL"
-msgstr ""
+msgstr "encapsuler un URL"
 
 #: imgboard.php:345
-#, fuzzy, php-format
-#| msgid "0 to start a new thread"
+#, php-format
 msgid "Please %s to start a new thread."
-msgstr "0 pour démarrer un nouveau fil"
+msgstr "%s pour démarrer un nouveau fil."
 
 #: imgboard.php:351
 #, php-format
 msgid "Please enter a message and/or %s."
-msgstr ""
+msgstr "Veuillez saisir un message et/ou %s."
 
 #: imgboard.php:353
-#, fuzzy
-#| msgid "Please enter the CAPTCHA text."
 msgid "Please enter a message."
-msgstr "Veuillez saisir le texte du CAPTCHA."
+msgstr "Veuillez saisir un message."
 
 #: imgboard.php:355
 #, php-format
 msgid "Please %s."
-msgstr ""
+msgstr "Veuillez %s."
 
 #: imgboard.php:358
 #, php-format
@@ -310,10 +307,9 @@ msgid "Supported file type is %s"
 msgstr "Le type de fichier pris en charge est %s"
 
 #: inc/html.php:60
-#, fuzzy, php-format
-#| msgid "Supported file types are %s."
+#, php-format
 msgid "Supported file types are %1$s and %2$s."
-msgstr "Les types de fichier pris en charge sont %s."
+msgstr "Les types de fichier pris en charge sont %1$s et %2$s."
 
 #: inc/html.php:77 inc/html.php:781 inc/html.php:819
 msgid "Submit"
@@ -366,11 +362,12 @@ msgstr "(coller une URL YouTube)"
 
 #: inc/html.php:207
 msgid "All posts are moderated before being shown."
-msgstr ""
+msgstr "Tous les messages sont lus par un modérateur avant publication."
 
 #: inc/html.php:209
 msgid "All posts with a file attached are moderated before being shown."
 msgstr ""
+"Les messages avec fichier joint sont lus par un modérateur avant publication."
 
 #: inc/html.php:219
 #, php-format
@@ -407,14 +404,10 @@ msgid "(for post and file deletion)"
 msgstr "(pour la suppression de publications et de fichiers)"
 
 #: inc/html.php:356
-#, fuzzy
-#| msgid "Sticky"
 msgid "Stickied"
 msgstr "Épinglé"
 
 #: inc/html.php:360
-#, fuzzy
-#| msgid "Lock"
 msgid "Locked"
 msgstr "Verrouiller"
 
@@ -431,10 +424,8 @@ msgid "Reply"
 msgstr "Répondre"
 
 #: inc/html.php:476
-#, fuzzy
-#| msgid "Post truncated.  Click Reply to view."
 msgid "Post truncated. Click Reply to view."
-msgstr "Publication tronquée.  Cliquez sur Répondre pour voir."
+msgstr "Publication tronquée. Cliquez sur Répondre pour voir."
 
 #: inc/html.php:487
 msgid "1 post omitted. Click Reply to view."
@@ -527,17 +518,15 @@ msgstr "Saisissez un mot de passe administrateur ou modérateur"
 
 #: inc/html.php:775
 msgid "Add a ban"
-msgstr ""
+msgstr "Bannir"
 
 #: inc/html.php:776 inc/html.php:805
 msgid "IP Address"
 msgstr "Adresse IP"
 
 #: inc/html.php:777
-#, fuzzy
-#| msgid "Expire(sec):"
 msgid "Expire(sec)"
-msgstr "Expire (en s) :"
+msgstr "Bannir pour"
 
 #: inc/html.php:778 inc/html.php:805
 msgid "Reason"
@@ -553,27 +542,27 @@ msgstr "facultatif"
 
 #: inc/html.php:782
 msgid "1 hour"
-msgstr ""
+msgstr "1 heure"
 
 #: inc/html.php:783
 msgid "1 day"
-msgstr ""
+msgstr "1 jour"
 
 #: inc/html.php:784
 msgid "2 days"
-msgstr ""
+msgstr "2 jours"
 
 #: inc/html.php:785
 msgid "1 week"
-msgstr ""
+msgstr "1 semaine"
 
 #: inc/html.php:786
 msgid "2 weeks"
-msgstr ""
+msgstr "2 semaines"
 
 #: inc/html.php:787
 msgid "1 month"
-msgstr ""
+msgstr "1 mois"
 
 #: inc/html.php:805
 msgid "Set At"
@@ -592,52 +581,45 @@ msgid "lift"
 msgstr "lever"
 
 #: inc/html.php:817
-#, fuzzy
-#| msgid "Moderate Post"
 msgid "Moderate a post"
-msgstr "Modérer la publication"
+msgstr "Modérer une publication"
 
 #: inc/html.php:818
-#, fuzzy
-#| msgid "Post"
 msgid "Post ID"
-msgstr "Publication"
+msgstr "Identifiant de publication"
 
 #: inc/html.php:820
 msgid "Tip:"
-msgstr ""
+msgstr "Astuce :"
 
 #: inc/html.php:821
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
 "logged in."
 msgstr ""
+"En surfant dans le forum, vous pouvez modérer facilement en étant connecté."
 
 #: inc/html.php:822
-#, fuzzy
-#| msgid "Tick the box next to a post and click \"Delete\" to delete it."
 msgid ""
 "Tick the box next to a post and click \"Delete\" at the bottom of the page "
 "with a blank password."
 msgstr ""
-"Cochez la case à côté d’une publication et cliquez sur « Supprimer » pour la "
-"supprimer."
+"Cochez la case à côté d’une publication et cliquez sur « Supprimer » en bas "
+"de la page avec un mot-de-passe vide."
 
 #: inc/html.php:841
-#, fuzzy, php-format
-#| msgid "Ban record added for %s"
+#, php-format
 msgid " A ban record already exists for %s"
-msgstr "Enregistrement d'interdiction ajouté pour %s"
+msgstr " %s est déjà banni(e)"
 
 #: inc/html.php:844
 msgid "Only an administrator may ban an IP address."
-msgstr ""
+msgstr "L'administrateur est le seul à pouvoir bannir une adresse IP."
 
 #: inc/html.php:846
-#, fuzzy, php-format
-#| msgid "IP Address:"
+#, php-format
 msgid "IP address: %s"
-msgstr "Adresse IP :"
+msgstr "Adresse IP : %s"
 
 #: inc/html.php:849
 msgid "This will delete the entire thread below."
@@ -688,30 +670,25 @@ msgid "Disallow replying to this thread."
 msgstr "Ne pas autoriser les réponses sur ce fil."
 
 #: inc/html.php:893
-#, fuzzy, php-format
-#| msgid "Moderate Post"
+#, php-format
 msgid "Moderating No.%d"
-msgstr "Modérer la publication"
+msgstr "N° %d en modération"
 
 #: inc/html.php:894
 msgid "Action"
 msgstr "Action"
 
 #: inc/html.php:896
-#, fuzzy
-#| msgid "Delete Post"
 msgid "Delete thread"
-msgstr "Supprimer la publication"
+msgstr "Supprimer le file de publication"
 
 #: inc/html.php:898
-#, fuzzy
-#| msgid "Delete Post"
 msgid "Delete post"
 msgstr "Supprimer la publication"
 
 #: inc/html.php:900
 msgid "Ban poster"
-msgstr ""
+msgstr "Bannir l'auteur"
 
 #: inc/html.php:951
 msgid "thread"
