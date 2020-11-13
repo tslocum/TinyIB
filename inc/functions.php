@@ -278,7 +278,7 @@ function checkBanned() {
 		if ($ban['expire'] == 0 || $ban['expire'] > time()) {
 			$expire = ($ban['expire'] > 0) ? ('<br>This ban will expire ' . strftime(TINYIB_DATEFMT, $ban['expire'])) : '<br>This ban is permanent and will not expire.';
 			$reason = ($ban['reason'] == '') ? '' : ('<br>Reason: ' . $ban['reason']);
-			fancyDie('Your IP address ' . $ban['ip'] . ' has been banned from posting on this image board.  ' . $expire . $reason);
+			fancyDie('Your IP address ' . $_SERVER['REMOTE_ADDR'] . ' has been banned from posting on this image board.  ' . $expire . $reason);
 		} else {
 			clearExpiredBans();
 		}
