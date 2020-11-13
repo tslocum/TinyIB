@@ -55,6 +55,16 @@ if (sqlite_num_rows($result) == 0) {
 	)");
 }
 
+// Create the reports table if it does not exist
+$result = sqlite_query($db, "SELECT name FROM sqlite_master WHERE type='table' AND name='" . TINYIB_DBREPORTS . "'");
+if (sqlite_num_rows($result) == 0) {
+	sqlite_query($db, "CREATE TABLE " . TINYIB_DBREPORTS . " (
+		id INTEGER PRIMARY KEY,
+		ip TEXT NOT NULL,
+		post INTEGER NOT NULL
+	)");
+}
+
 // Add moderated column if it isn't present
 sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN moderated INTEGER NOT NULL DEFAULT '0'");
 

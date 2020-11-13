@@ -27,6 +27,11 @@ if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBBANS . "
 	mysqli_query($link, $bans_sql);
 }
 
+// Create the reports table if it does not exist
+if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBREPORTS . "'")) == 0) {
+	mysqli_query($link, $reports_sql);
+}
+
 if (mysqli_num_rows(mysqli_query($link, "SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'stickied'")) == 0) {
 	mysqli_query($link, "ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN stickied TINYINT(1) NOT NULL DEFAULT '0'");
 }

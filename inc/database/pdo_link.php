@@ -36,7 +36,6 @@ if (TINYIB_DBDRIVER === 'pgsql') {
 	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBPOSTS));
 	$posts_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
 }
-
 if (!$posts_exists) {
 	$dbh->exec($posts_sql);
 }
@@ -49,9 +48,20 @@ if (TINYIB_DBDRIVER === 'pgsql') {
 	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBBANS));
 	$bans_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
 }
-
 if (!$bans_exists) {
 	$dbh->exec($bans_sql);
+}
+
+// Create the reports table if it does not exist
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBREPORTS);
+	$reports_exists = $dbh->query($query)->fetchColumn() != 0;
+} else {
+	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBREPORTS));
+	$reports_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
+}
+if (!$reports_exists) {
+	$dbh->exec($reports_sql);
 }
 
 if (TINYIB_DBDRIVER === 'pgsql') {
