@@ -52,6 +52,7 @@ if (!file_exists('settings.php')) {
 	fancyDie('Please copy the file settings.default.php to settings.php');
 }
 require 'settings.php';
+require 'inc/defines.php';
 
 if (!defined('TINYIB_LOCALE') || TINYIB_LOCALE == '') {
 	function __($string) {
@@ -183,7 +184,7 @@ foreach ($writedirs as $dir) {
 	}
 }
 
-$includes = array('inc/defines.php', 'inc/functions.php', 'inc/html.php', 'inc/database/' . TINYIB_DBMODE . '_link.php', 'inc/database/' . TINYIB_DBMODE . '.php');
+$includes = array('inc/functions.php', 'inc/html.php', 'inc/database/' . TINYIB_DBMODE . '_link.php', 'inc/database/' . TINYIB_DBMODE . '.php');
 foreach ($includes as $include) {
 	require $include;
 }
