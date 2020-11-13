@@ -35,6 +35,9 @@ if (mysqli_num_rows(mysqli_query($link, "SHOW COLUMNS FROM `" . TINYIB_DBPOSTS .
 	mysqli_query($link, "ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
 }
 
+mysqli_query($link, "ALTER TABLE `" . TINYIB_DBPOSTS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
+mysqli_query($link, "ALTER TABLE `" . TINYIB_DBBANS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
+
 if (function_exists('insertPost')) {
 	function migratePost($post) {
 		global $link;
@@ -43,6 +46,11 @@ if (function_exists('insertPost')) {
 
 	function migrateBan($ban) {
 		global $link;
-		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBBANS . " (id, ip, timestamp, expire, reason) VALUES (" . $ban['id'] . "', '" . mysqli_real_escape_string($link, $ban['ip']) . "', '" . $ban['timestamp'] . "', '" . $ban['expire'] . "', '" . mysqli_real_escape_string($link, $ban['reason']) . "')");
+		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBBANS . " (id, ip, timestamp, expire, reason) VALUES (" . mysqli_real_escape_string($link, $ban['id']) . "', '" . mysqli_real_escape_string($link, $ban['ip']) . "', '" . mysqli_real_escape_string($link, $ban['timestamp']) . "', '" . mysqli_real_escape_string($link, $ban['expire']) . "', '" . mysqli_real_escape_string($link, $ban['reason']) . "')");
+	}
+
+	function migrateReport($report) {
+		global $link;
+		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBREPORTS . " (id, ip, post) VALUES ('" . mysqli_real_escape_string($link, $report['id']) . "', '" . mysqli_real_escape_string($link, $report['ip']) . "', '" . mysqli_real_escape_string($link, $report['post']) . "')");
 	}
 }

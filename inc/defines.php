@@ -29,7 +29,7 @@ if (!defined('TINYIB_THUMBNAIL')) {
 	define('TINYIB_THUMBNAIL', 'gd');
 }
 if (!defined('TINYIB_UPLOADVIAURL')) {
-    define('TINYIB_UPLOADVIAURL', false);
+	define('TINYIB_UPLOADVIAURL', false);
 }
 if (!defined('TINYIB_NOFILEOK')) {
 	define('TINYIB_NOFILEOK', false);
@@ -39,6 +39,9 @@ if (!defined('TINYIB_CAPTCHA')) {
 }
 if (!defined('TINYIB_MANAGECAPTCHA')) {
 	define('TINYIB_MANAGECAPTCHA', '');
+}
+if (!defined('TINYIB_REPORT')) {
+	define('TINYIB_REPORT', '');
 }
 if (!defined('TINYIB_REQMOD')) {
 	define('TINYIB_REQMOD', '');
@@ -63,6 +66,9 @@ if (!defined('TINYIB_DATEFMT')) {
 }
 if (!defined('TINYIB_DBMIGRATE')) {
 	define('TINYIB_DBMIGRATE', false);
+}
+if (!defined('TINYIB_DBREPORTS')) {
+	define('TINYIB_DBREPORTS', TINYIB_BOARD . '_reports');
 }
 if (!defined('TINYIB_DBPORT')) {
 	define('TINYIB_DBPORT', 3306);

@@ -3,7 +3,7 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
-// Post Functions
+// Post functions
 function uniquePosts() {
 	$result = pdoQuery("SELECT COUNT(DISTINCT(ip)) FROM " . TINYIB_DBPOSTS);
 	return (int)$result->fetchColumn();
@@ -26,7 +26,7 @@ function insertPost($post) {
 	$now = time();
 	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBPOSTS . " (parent, timestamp, bumped, ip, name, tripcode, email,   nameblock, subject, message, password,   file, file_hex, file_original, file_size, file_size_formatted, image_width, image_height, thumb, thumb_width, thumb_height, moderated) " .
 		" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-	$stm->execute(array($post['parent'], $now, $now, $_SERVER['REMOTE_ADDR'], $post['name'], $post['tripcode'], $post['email'],
+	$stm->execute(array($post['parent'], $now, $now, hashData($_SERVER['REMOTE_ADDR']), $post['name'], $post['tripcode'], $post['email'],
 		$post['nameblock'], $post['subject'], $post['message'], $post['password'],
 		$post['file'], $post['file_hex'], $post['file_original'], $post['file_size'], $post['file_size_formatted'],
 		$post['image_width'], $post['image_height'], $post['thumb'], $post['thumb_width'], $post['thumb_height'], $post['moderated']));
@@ -108,22 +108,7 @@ function latestPosts($moderated = true) {
 }
 
 function deletePostByID($id) {
-	$posts = postsInThreadByID($id, false);
-	foreach ($posts as $post) {
-		if ($post['id'] != $id) {
-			deletePostImages($post);
-			pdoQuery("DELETE FROM " . TINYIB_DBPOSTS . " WHERE id = ?", array($id));
-		} else {
-			$thispost = $post;
-		}
-	}
-	if (isset($thispost)) {
-		if ($thispost['parent'] == TINYIB_NEWTHREAD) {
-			@unlink('res/' . $thispost['id'] . '.html');
-		}
-		deletePostImages($thispost);
-		pdoQuery("DELETE FROM " . TINYIB_DBPOSTS . " WHERE id = ?", array($thispost['id']));
-	}
+	pdoQuery("DELETE FROM " . TINYIB_DBPOSTS . " WHERE id = ?", array($id));
 }
 
 function trimThreads() {
@@ -137,7 +122,7 @@ function trimThreads() {
 		MSSQL: WITH ts AS (SELECT ROWNUMBER() OVER (ORDER BY bumped) AS 'rownum', * FROM $table) SELECT id FROM ts WHERE rownum >= $limit
 		*/
 		foreach ($results as $post) {
-			deletePostByID($post['id']);
+			deletePost($post['id']);
 		}
 	}
 }
@@ -147,14 +132,14 @@ function lastPostByIP() {
 	return $result->fetch(PDO::FETCH_ASSOC);
 }
 
-// Ban Functions
+// Ban functions
 function banByID($id) {
 	$result = pdoQuery("SELECT * FROM " . TINYIB_DBBANS . " WHERE id = ?", array($id));
 	return $result->fetch(PDO::FETCH_ASSOC);
 }
 
 function banByIP($ip) {
-	$result = pdoQuery("SELECT * FROM " . TINYIB_DBBANS . " WHERE ip = ? LIMIT 1", array($ip));
+	$result = pdoQuery("SELECT * FROM " . TINYIB_DBBANS . " WHERE ip = ? OR ip = ? LIMIT 1", array($ip, hashData($ip)));
 	return $result->fetch(PDO::FETCH_ASSOC);
 }
 
@@ -171,7 +156,7 @@ function insertBan($ban) {
 	global $dbh;
 	$now = time();
 	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBBANS . " (ip, timestamp, expire, reason) VALUES (?, ?, ?, ?)");
-	$stm->execute(array($ban['ip'], $now, $ban['expire'], $ban['reason']));
+	$stm->execute(array(hashData($ban['ip']), $now, $ban['expire'], $ban['reason']));
 	return $dbh->lastInsertId();
 }
 
@@ -182,4 +167,42 @@ function clearExpiredBans() {
 
 function deleteBanByID($id) {
 	pdoQuery("DELETE FROM " . TINYIB_DBBANS . " WHERE id = ?", array($id));
+}
+
+// Report functions
+function reportByIP($post, $ip) {
+	$result = pdoQuery("SELECT * FROM " . TINYIB_DBREPORTS . " WHERE post = ? AND (ip = ? OR ip = ?) LIMIT 1", array($post, $ip, hashData($ip)));
+	return $result->fetch(PDO::FETCH_ASSOC);
+}
+
+function reportsByPost($post) {
+	$reports = array();
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBREPORTS . " WHERE post = ?", array($post));
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$reports[] = $row;
+	}
+	return $reports;
+}
+
+function allReports() {
+	$reports = array();
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBREPORTS . " ORDER BY post ASC");
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$reports[] = $row;
+	}
+	return $reports;
+}
+
+function insertReport($report) {
+	global $dbh;
+	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBREPORTS . " (ip, post) VALUES (?, ?)");
+	$stm->execute(array(hashData($report['ip']), $report['post']));
+}
+
+function deleteReportsByPost($post) {
+	pdoQuery("DELETE FROM " . TINYIB_DBREPORTS . " WHERE post = ?", array($post));
+}
+
+function deleteReportsByIP($ip) {
+	pdoQuery("DELETE FROM " . TINYIB_DBREPORTS . " WHERE ip = ? OR ip = ?", array($ip, hashData($ip)));
 }

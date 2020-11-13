@@ -466,6 +466,10 @@ EOF;
 		$return .= $filehtml;
 	}
 
+	if (TINYIB_REPORT) {
+		$return .= "&nbsp;[<a href=\"imgboard.php?report=${post["id"]}\">" . __("Report") . "</a>]";
+	}
+
 	if ($post['parent'] == TINYIB_NEWTHREAD && $res == TINYIB_INDEXPAGE) {
 		$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">" . __("Reply") . "</a>]";
 	}
@@ -680,12 +684,16 @@ function rebuildIndexes() {
 function rebuildThread($id) {
 	$id = intval($id);
 
-	$htmlposts = "";
 	$posts = postsInThreadByID($id);
+	if (count($posts) == 0) {
+		@unlink('res/' . $id . '.html');
+		return;
+	}
+
+	$htmlposts = "";
 	foreach ($posts as $post) {
 		$htmlposts .= buildPost($post, TINYIB_RESPAGE);
 	}
-
 	$htmlposts .= "\n<hr>";
 
 	writePage('res/' . $id . '.html', fixLinksInRes(buildPage($htmlposts, $id)));
@@ -924,6 +932,24 @@ EOF;
 		$txt_delete = __('Delete post');
 	}
 	$txt_ban = __('Ban poster');
+
+	$report_html = '';
+	$reports = reportsByPost($post['id']);
+	if (TINYIB_REPORT && count($reports) > 0) {
+		$txt_clear_reports = __('Clear reports');
+		$report_info = count($reports) . ' ' . plural(count($reports), __('report'), __('reports'));
+		$report_html = <<<EOF
+<tr><td align="right" width="50%;">
+	
+<form method="get" action="?">
+<input type="hidden" name="manage" value="">
+<input type="hidden" name="clearreports" value="${post['id']}">
+<input type="submit" value="$txt_clear_reports" class="managebutton" style="width: 50%;">
+</form>
+
+</td><td><small>$report_info</small></td></tr>
+EOF;
+	}
 	return <<<EOF
 	<fieldset>
 	<legend>$txt_moderating</legend>
@@ -955,6 +981,8 @@ EOF;
 	
 	$lock_html
 	
+	$report_html
+	
 	</table>
 	
 	</fieldset>
@@ -973,15 +1001,20 @@ function manageStatus() {
 	global $isadmin;
 	$threads = countThreads();
 	$bans = count(allBans());
+	$reports = allReports();
 
-	$info = $threads . ' ' . plural($threads, __('thread'), __('threads')) . ', ' . $bans . ' ' . plural($bans, __('ban'), __('bans'));
+	$info = $threads . ' ' . plural($threads, __('thread'), __('threads'));
+	if (TINYIB_REPORT) {
+		$info .= ', ' . count($reports). ' ' . plural(count($reports), __('report'), __('reports'));
+	}
+	$info .= ', ' . $bans . ' ' . plural($bans, __('ban'), __('bans'));
+
 	$output = '';
-
 	if ($isadmin && TINYIB_DBMODE == 'mysql' && function_exists('mysqli_connect')) { // Recommend MySQLi
 		$output .= <<<EOF
 	<fieldset>
 	<legend>Notice</legend>
-	<p><b>TINYIB_DBMODE</b> is currently <b>mysql</b> in <b>settings.php</b>, but <a href="http://www.php.net/manual/en/book.mysqli.php">MySQLi</a> is installed. Please change it to <b>mysqli</b>. This will not affect your data.</p>
+	<p><b>TINYIB_DBMODE</b> is currently set to <b>mysql</b> in <b>settings.php</b>, but <a href="http://www.php.net/manual/en/book.mysqli.php">MySQLi</a> is installed. Please change it to <b>mysqli</b>. This will not affect your data.</p>
 	</fieldset>
 EOF;
 	}
@@ -1020,8 +1053,21 @@ EOF;
 		}
 	}
 
+	if (TINYIB_REPORT && !empty($reports)) {
+		$posts = array();
+		foreach ($reports as $report) {
+			$post = postByID($report['post']);
+			if (empty($post)) {
+				continue;
+			}
+			$posts[] = $post;
+		}
+		$txt_recent_posts = __('Reported posts');
+	} else {
+		$posts = latestPosts(true);
+		$txt_recent_posts = __('Recent posts');
+	}
 	$post_html = '';
-	$posts = latestPosts(true);
 	foreach ($posts as $post) {
 		if ($post_html != '') {
 			$post_html .= '<tr><td colspan="2"><hr></td></tr>';
@@ -1031,7 +1077,6 @@ EOF;
 
 	$txt_status = __('Status');
 	$txt_info = __('Info');
-	$txt_recent_posts = __('Recent posts');
 	$output .= <<<EOF
 	<fieldset>
 	<legend>$txt_status</legend>
@@ -1069,10 +1114,7 @@ function manageInfo($text) {
 }
 
 function encodeJSON($array) {
-	if (version_compare(phpversion(), '5.4.0', '>')) {
-		return json_encode($array, JSON_PRETTY_PRINT);
-	}
-	return json_encode($array);
+	return json_encode($array, JSON_PRETTY_PRINT);
 }
 
 function buildSinglePostJSON($post) {

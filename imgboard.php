@@ -40,20 +40,6 @@ if (function_exists('ob_get_level')) {
 	}
 }
 
-if (version_compare(phpversion(), '5.3.0', '<')) {
-	if (get_magic_quotes_gpc()) {
-		foreach ($_GET as $key => $val) {
-			$_GET[$key] = stripslashes($val);
-		}
-		foreach ($_POST as $key => $val) {
-			$_POST[$key] = stripslashes($val);
-		}
-	}
-	if (get_magic_quotes_runtime()) {
-		set_magic_quotes_runtime(0);
-	}
-}
-
 function fancyDie($message) {
 	$back = 'Click here to go back';
 	if (function_exists('__')) {
@@ -91,7 +77,7 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 		"parent" integer NOT NULL,
 		"timestamp" integer NOT NULL,
 		"bumped" integer NOT NULL,
-		"ip" varchar(39) NOT NULL,
+		"ip" varchar(255) NOT NULL,
 		"name" varchar(75) NOT NULL,
 		"tripcode" varchar(10) NOT NULL,
 		"email" varchar(75) NOT NULL,
@@ -121,20 +107,27 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 
 	$bans_sql = 'CREATE TABLE "' . TINYIB_DBBANS . '" (
 		"id" bigserial NOT NULL,
-		"ip" varchar(39) NOT NULL,
+		"ip" varchar(255) NOT NULL,
 		"timestamp" integer NOT NULL,
 		"expire" integer NOT NULL,
 		"reason" text NOT NULL,
 		PRIMARY KEY	("id")
 	);
 	CREATE INDEX ON "' . TINYIB_DBBANS . '"("ip");';
+
+	$reports_sql = 'CREATE TABLE "' . TINYIB_DBREPORTS . '" (
+		"id" bigserial NOT NULL,
+		"ip" varchar(255) NOT NULL,
+		"post" integer NOT NULL,
+		PRIMARY KEY	("id")
+	);';
 } else {
 	$posts_sql = "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
 		`id` mediumint(7) unsigned NOT NULL auto_increment,
 		`parent` mediumint(7) unsigned NOT NULL,
 		`timestamp` int(20) NOT NULL,
 		`bumped` int(20) NOT NULL,
-		`ip` varchar(39) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		`name` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		`tripcode` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		`email` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
@@ -163,12 +156,19 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 
 	$bans_sql = "CREATE TABLE `" . TINYIB_DBBANS . "` (
 		`id` mediumint(7) unsigned NOT NULL auto_increment,
-		`ip` varchar(39) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		`timestamp` int(20) NOT NULL,
 		`expire` int(20) NOT NULL,
 		`reason` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		PRIMARY KEY	(`id`),
 		KEY `ip` (`ip`)
+	)";
+
+	$reports_sql = "CREATE TABLE `" . TINYIB_DBREPORTS . "` (
+		`id` mediumint(7) unsigned NOT NULL auto_increment,
+		`ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`post` int(20) NOT NULL,
+		PRIMARY KEY	(`id`)
 	)";
 }
 
@@ -199,6 +199,8 @@ if ((TINYIB_CAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') && 
 if (TINYIB_TIMEZONE != '') {
 	date_default_timezone_set(TINYIB_TIMEZONE);
 }
+
+$bcrypt_salt = '$2y$12$' . str_replace('+', '.', str_pad(substr(base64_encode(TINYIB_TRIPSEED), 0, 22), 22, "="));
 
 $redirect = true;
 // Check if the request is to make a post
@@ -256,7 +258,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		}
 	}
 	if ($rawpost || !in_array('password', $hide_fields)) {
-		$post['password'] = ($_POST['password'] != '') ? md5(md5($_POST['password'])) : '';
+		$post['password'] = ($_POST['password'] != '') ? hashData($_POST['password']) : '';
 	}
 	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $rawposttext);
 
@@ -389,6 +391,26 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		echo __('Updating index...') . '<br>';
 		rebuildIndexes();
 	}
+// Check if the request is to report a post
+} elseif (isset($_GET['report']) && !isset($_GET['manage'])) {
+	if (!TINYIB_REPORT) {
+		fancyDie(__('Reporting is disabled.'));
+	}
+
+	$post = postByID($_GET['report']);
+	if (!$post) {
+		fancyDie(__('Sorry, an invalid post identifier was sent. Please go back, refresh the page, and try again.'));
+	}
+
+	$report = reportByIP($post['id'], $_SERVER['REMOTE_ADDR']);
+	if (!empty($report)) {
+		fancyDie(__('You have already submitted a report for that post.'));
+	}
+
+	$report = array('ip' => $_SERVER['REMOTE_ADDR'], 'post' => $post['id']);
+	insertReport($report);
+
+	fancyDie(__('Post reported.'));
 // Check if the request is to delete a post and/or its associated image
 } elseif (isset($_GET['delete']) && !isset($_GET['manage'])) {
 	if (!isset($_POST['delete'])) {
@@ -406,8 +428,8 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		if ($loggedin && $_POST['password'] == '') {
 			// Redirect to post moderation page
 			echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . basename($_SERVER['PHP_SELF']) . '?manage&moderate=' . $_POST['delete'] . '">';
-		} elseif ($post['password'] != '' && md5(md5($_POST['password'])) == $post['password']) {
-			deletePostByID($post['id']);
+		} elseif ($post['password'] != '' && (hashData($_POST['password']) == $post['password'] || md5(md5($_POST['password'])) == $post['password'])) {
+			deletePost($post['id']);
 			if ($post['parent'] == TINYIB_NEWTHREAD) {
 				threadUpdated($post['id']);
 			} else {
@@ -528,10 +550,11 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		if (isset($_GET['delete'])) {
 			$post = postByID($_GET['delete']);
 			if ($post) {
-				deletePostByID($post['id']);
-				rebuildIndexes();
-				if ($post['parent'] != TINYIB_NEWTHREAD) {
-					rebuildThread($post['parent']);
+				deletePost($post['id']);
+				if ($post['parent'] == TINYIB_NEWTHREAD) {
+					threadUpdated($post['id']);
+				} else {
+					threadUpdated($post['parent']);
 				}
 				$text .= manageInfo(sprintf(__('Post No.%d deleted.'), $post['id']));
 			} else {
@@ -593,6 +616,17 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				}
 			} else {
 				fancyDie(__('Form data was lost. Please go back and try again.'));
+			}
+		} elseif (isset($_GET['clearreports'])) {
+			if ($_GET['clearreports'] > 0) {
+				$post = postByID($_GET['clearreports']);
+				if ($post) {
+					deleteReportsByPost($post['id']);
+
+					$text .= manageInfo(__('Reports cleared.'));
+				} else {
+					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
+				}
 			}
 		} elseif (isset($_GET["rawpost"])) {
 			$onload = manageOnLoad("rawpost");

@@ -25,6 +25,7 @@ define('TINYIB_BOARDDESC', 'TinyIB'); // Displayed at the top of every page
 define('TINYIB_ALWAYSNOKO', false);   // Redirect to thread after posting
 define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass a CAPTCHA when posting: simple / recaptcha  (click Rebuild All in the management panel after enabling)  ['' to disable]
 define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to pass a CAPTCHA when logging in to the management panel: simple / recaptcha  ['' to disable]
+define('TINYIB_REPORT', false);       // Allow users to report posts
 define('TINYIB_REQMOD', '');          // Require moderation before displaying posts: files / all  ['' to disable]
 
 // Board appearance
@@ -89,7 +90,7 @@ define('TINYIB_MAXW', 250);           // Width
 define('TINYIB_MAXH', 250);           // Height
 
 // Tripcode seed - Must not change once set!
-define('TINYIB_TRIPSEED', '');        // Enter some random text  (used when generating secure tripcodes)
+define('TINYIB_TRIPSEED', '');        // Enter some random text  (used when generating secure tripcodes, hashing passwords and hashing IP addresses)
 
 // CAPTCHA
 //   The following only apply when TINYIB_CAPTCHA is set to recaptcha
@@ -104,6 +105,7 @@ define('TINYIB_DBMODE', 'flatfile');  // Mode
 define('TINYIB_DBMIGRATE', false);    // Enable database migration tool  (see README for instructions)
 define('TINYIB_DBBANS', 'bans');      // Bans table name (use the same bans table across boards for global bans)
 define('TINYIB_DBPOSTS', TINYIB_BOARD . '_posts'); // Posts table name
+define('TINYIB_DBREPORTS', TINYIB_BOARD . '_reports'); // Reports table name
 
 // Database configuration - MySQL / pgSQL
 //   The following only apply when TINYIB_DBMODE is set to mysql, mysqli or pdo with default (blank) TINYIB_DBDSN

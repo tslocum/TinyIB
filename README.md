@@ -18,7 +18,8 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
    - A simple, self-hosted implementation is included.
    - [ReCAPTCHA](https://www.google.com/recaptcha/about/) is supported but [not recommended](https://nearcyan.com/you-probably-dont-need-recaptcha/).
  - Reference links. `>>###`
- - Delete post via password.
+ - Delete posts via password.
+ - Report posts.
  - Management panel:
    - Administrators and moderators use separate passwords.
      - Moderators are only able to sticky threads, lock threads, delete posts, and approve posts when necessary.  (See ``TINYIB_REQMOD``)
@@ -45,7 +46,7 @@ Please consider supporting the continued development of TinyIB.
 ## Install
 
  1. Verify the following are installed:
-    - [PHP 5.3+](https://php.net)
+    - [PHP 5.5+](https://php.net)
     - [GD Image Processing Library](https://php.net/gd)
       - This library is usually installed by default.
       - If you plan on disabling image uploads to use TinyIB as a text board only, this library is not required.
@@ -54,7 +55,7 @@ Please consider supporting the continued development of TinyIB.
     - `git clone https://gitlab.com/tslocum/tinyib.git ./`
  4. Copy **settings.default.php** to **settings.php**
  5. Configure **settings.php**
-    - When setting ``TINYIB_DBMODE`` to ``flatfile``, note that all post and ban data are exposed as the database is composed of standard text files.  Access to ./inc/database/flatfile/ should be denied.
+    - When setting ``TINYIB_DBMODE`` to ``flatfile``, note that all post, report and ban data are exposed as the database is composed of standard text files.  Access to ./inc/database/flatfile/ should be denied.
     - When setting ``TINYIB_DBMODE`` to ``pdo``, note that only the MySQL and PostgreSQL databases drivers have been tested. Theoretically it will work with any applicable driver, but this is not guaranteed.  If you use an alternative driver, please report back.
     - To require moderation before displaying posts:
       - Set ``TINYIB_REQMOD`` to ``files`` to require moderation for posts with files attached.
@@ -99,7 +100,7 @@ Please consider supporting the continued development of TinyIB.
     - Otherwise, [download](https://gitlab.com/tslocum/tinyib/-/archive/master/tinyib-master.zip) and extract a zipped archive.
  2. Note which files were modified.
     - If **settings.default.php** was updated, migrate the changes to **settings.php**
-      - Take care to not change the value of **TINYIB_TRIPSEED**, as it would result in different secure tripcodes.
+      - Take care to not change the value of `TINYIB_TRIPSEED`, as it is used to generate secure tripcodes, hash passwords and hash IP addresses.
     - If other files were updated, and you have made changes yourself:
       - Visit [GitLab](https://gitlab.com/tslocum/tinyib) and review the changes made in the update.
       - Ensure the update does not interfere with your changes.

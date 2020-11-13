@@ -65,6 +65,9 @@ if (!$result->fetchArray()) {
 // Add locked column if it isn't present
 @$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN locked INTEGER NOT NULL DEFAULT '0'");
 
+@$db->exec("ALTER TABLE `" . TINYIB_DBPOSTS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
+@$db->exec("ALTER TABLE `" . TINYIB_DBBANS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
+
 if (function_exists('insertPost')) {
 	function migratePost($post) {
 		global $db;
@@ -73,6 +76,11 @@ if (function_exists('insertPost')) {
 
 	function migrateBan($ban) {
 		global $db;
-		$db->exec("INSERT INTO " . TINYIB_DBBANS . " (id, ip, timestamp, expire, reason) VALUES (" . $ban['id'] . ", '" . $db->escapeString($ban['ip']) . "', " . $ban['timestamp'] . ", " . $ban['expire'] . ", '" . $db->escapeString($ban['reason']) . "')");
+		$db->exec("INSERT INTO " . TINYIB_DBBANS . " (id, ip, timestamp, expire, reason) VALUES (" . $db->escapeString($ban['id']) . ", '" . $db->escapeString($ban['ip']) . "', " . $db->escapeString($ban['timestamp']) . ", " . $db->escapeString($ban['expire']) . ", '" . $db->escapeString($ban['reason']) . "')");
+	}
+
+	function migrateReport($report) {
+		global $db;
+		$db->exec("INSERT INTO " . TINYIB_DBREPORTS . " (id, ip, post) VALUES ('" . $db->escapeString($report['id']) . "', '" . $db->escapeString($report['ip']) . "', '" . $db->escapeString($report['post']) . "')");
 	}
 }

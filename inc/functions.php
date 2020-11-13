@@ -11,6 +11,14 @@ if (!function_exists('array_column')) {
 	}
 }
 
+function hashData($data) {
+	global $bcrypt_salt;
+	if (substr($data, 0, 4) == '$2y$') {
+		return $data;
+	}
+	return crypt($data, $bcrypt_salt);
+}
+
 function cleanString($string) {
 	$search = array("&", "<", ">");
 	$replace = array("&amp;", "&lt;", "&gt;");
@@ -196,6 +204,30 @@ function deletePostImages($post) {
 	}
 }
 
+function deletePost($id) {
+	$id = intval($id);
+
+	$posts = postsInThreadByID($id, false);
+	$op = array();
+	foreach ($posts as $post) {
+		if ($post['parent'] == TINYIB_NEWTHREAD) {
+			$op = $post;
+			continue;
+		}
+
+		deletePostImages($post);
+		deleteReportsByPost($post['id']);
+		deletePostByID($post['id']);
+	}
+	if (!empty($op)) {
+		deletePostImages($op);
+		deleteReportsByPost($op['id']);
+		deletePostByID($op['id']);
+	}
+
+	@unlink('res/' . $id . '.html');
+}
+
 function checkCAPTCHA($mode) {
 	if ($mode === 'recaptcha') {
 		require_once 'inc/recaptcha/autoload.php';
@@ -277,19 +309,19 @@ function manageCheckLogIn() {
 		checkCAPTCHA(TINYIB_MANAGECAPTCHA);
 
 		if ($_POST['managepassword'] === TINYIB_ADMINPASS) {
-			$_SESSION['tinyib'] = TINYIB_ADMINPASS;
+			$_SESSION['tinyib'] = hashData(TINYIB_ADMINPASS);
 		} elseif (TINYIB_MODPASS != '' && $_POST['managepassword'] === TINYIB_MODPASS) {
-			$_SESSION['tinyib'] = TINYIB_MODPASS;
+			$_SESSION['tinyib'] = hashData(TINYIB_MODPASS);
 		} else {
 			fancyDie(__('Invalid password.'));
 		}
 	}
 
 	if (isset($_SESSION['tinyib'])) {
-		if ($_SESSION['tinyib'] === TINYIB_ADMINPASS) {
+		if ($_SESSION['tinyib'] === hashData(TINYIB_ADMINPASS)) {
 			$loggedin = true;
 			$isadmin = true;
-		} elseif (TINYIB_MODPASS != '' && $_SESSION['tinyib'] === TINYIB_MODPASS) {
+		} elseif (TINYIB_MODPASS != '' && $_SESSION['tinyib'] === hashData(TINYIB_MODPASS)) {
 			$loggedin = true;
 		}
 	}

@@ -89,6 +89,14 @@ if (!$locked_exists) {
 	$dbh->exec("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
 }
 
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$dbh->query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ALTER COLUMN ip VARCHAR(255) NOT NULL DEFAULT ''");
+	$dbh->query("ALTER TABLE `" . TINYIB_DBBANS . "` ALTER COLUMN ip VARCHAR(255) NOT NULL DEFAULT ''");
+} else {
+	$dbh->query("ALTER TABLE `" . TINYIB_DBPOSTS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
+	$dbh->query("ALTER TABLE `" . TINYIB_DBBANS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
+}
+
 function pdoQuery($sql, $params = false) {
 	global $dbh;
 
@@ -117,5 +125,11 @@ if (function_exists('insertPost')) {
 		global $dbh;
 		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBBANS . " (id, ip, timestamp, expire, reason) VALUES (?, ?, ?, ?, ?)");
 		$stm->execute(array($ban['id'], $ban['ip'], $ban['timestamp'], $ban['expire'], $ban['reason']));
+	}
+
+	function migrateReport($report) {
+		global $dbh;
+		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBREPORTS . " (id, ip, post) VALUES (?, ?, ?)");
+		$stm->execute(array($report['id'], $report['ip'], $report['post']));
 	}
 }

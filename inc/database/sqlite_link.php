@@ -64,12 +64,19 @@ sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGE
 // Add locked column if it isn't present
 sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN locked INTEGER NOT NULL DEFAULT '0'");
 
+sqlite_query($db, "ALTER TABLE `" . TINYIB_DBPOSTS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
+sqlite_query($db, "ALTER TABLE `" . TINYIB_DBBANS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
+
 if (function_exists('insertPost')) {
 	function migratePost($post) {
 		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBPOSTS . " (id, parent, timestamp, bumped, ip, name, tripcode, email, nameblock, subject, message, password, file, file_hex, file_original, file_size, file_size_formatted, image_width, image_height, thumb, thumb_width, thumb_height, moderated, stickied, locked) VALUES (" . $post['id'] . ", " . $post['parent'] . ", " . $post['timestamp'] . ", " . $post['bumped'] . ", '" . sqlite_escape_string($post['ip']) . "', '" . sqlite_escape_string($post['name']) . "', '" . sqlite_escape_string($post['tripcode']) . "',	'" . sqlite_escape_string($post['email']) . "',	'" . sqlite_escape_string($post['nameblock']) . "', '" . sqlite_escape_string($post['subject']) . "', '" . sqlite_escape_string($post['message']) . "', '" . sqlite_escape_string($post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . sqlite_escape_string($post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ", " . $post['moderated'] . ", " . $post['stickied'] . ", " . $post['locked'] . ")");
 	}
 
 	function migrateBan($ban) {
-		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBBANS . " (id, ip, timestamp, expire, reason) VALUES (" . $ban['id'] . "', '" . sqlite_escape_string($ban['ip']) . "', '" . $ban['timestamp'] . "', '" . $ban['expire'] . "', '" . sqlite_escape_string($ban['reason']) . "')");
+		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBBANS . " (id, ip, timestamp, expire, reason) VALUES (" . sqlite_escape_string($ban['id']) . "', '" . sqlite_escape_string($ban['ip']) . "', '" . sqlite_escape_string($ban['timestamp']) . "', '" . sqlite_escape_string($ban['expire']) . "', '" . sqlite_escape_string($ban['reason']) . "')");
+	}
+
+	function migrateReport($report) {
+		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBREPORTS . " (id, ip, post) VALUES ('" . sqlite_escape_string($report['id']) . "', '" . sqlite_escape_string($report['ip']) . "', '" . sqlite_escape_string($report['post']) . "')");
 	}
 }

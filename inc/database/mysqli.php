@@ -3,7 +3,7 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
-// Post Functions
+// Post functions
 function uniquePosts() {
 	global $link;
 	$row = mysqli_fetch_row(mysqli_query($link, "SELECT COUNT(DISTINCT(`ip`)) FROM " . TINYIB_DBPOSTS));
@@ -27,7 +27,7 @@ function threadExistsByID($id) {
 
 function insertPost($post) {
 	global $link;
-	mysqli_query($link, "INSERT INTO `" . TINYIB_DBPOSTS . "` (`parent`, `timestamp`, `bumped`, `ip`, `name`, `tripcode`, `email`, `nameblock`, `subject`, `message`, `password`, `file`, `file_hex`, `file_original`, `file_size`, `file_size_formatted`, `image_width`, `image_height`, `thumb`, `thumb_width`, `thumb_height`, `moderated`) VALUES (" . $post['parent'] . ", " . time() . ", " . time() . ", '" . $_SERVER['REMOTE_ADDR'] . "', '" . mysqli_real_escape_string($link, $post['name']) . "', '" . mysqli_real_escape_string($link, $post['tripcode']) . "',	'" . mysqli_real_escape_string($link, $post['email']) . "',	'" . mysqli_real_escape_string($link, $post['nameblock']) . "', '" . mysqli_real_escape_string($link, $post['subject']) . "', '" . mysqli_real_escape_string($link, $post['message']) . "', '" . mysqli_real_escape_string($link, $post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . mysqli_real_escape_string($link, $post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ", " . $post['moderated'] . ")");
+	mysqli_query($link, "INSERT INTO `" . TINYIB_DBPOSTS . "` (`parent`, `timestamp`, `bumped`, `ip`, `name`, `tripcode`, `email`, `nameblock`, `subject`, `message`, `password`, `file`, `file_hex`, `file_original`, `file_size`, `file_size_formatted`, `image_width`, `image_height`, `thumb`, `thumb_width`, `thumb_height`, `moderated`) VALUES (" . $post['parent'] . ", " . time() . ", " . time() . ", '" . hashData($_SERVER['REMOTE_ADDR']) . "', '" . mysqli_real_escape_string($link, $post['name']) . "', '" . mysqli_real_escape_string($link, $post['tripcode']) . "',	'" . mysqli_real_escape_string($link, $post['email']) . "',	'" . mysqli_real_escape_string($link, $post['nameblock']) . "', '" . mysqli_real_escape_string($link, $post['subject']) . "', '" . mysqli_real_escape_string($link, $post['message']) . "', '" . mysqli_real_escape_string($link, $post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . mysqli_real_escape_string($link, $post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ", " . $post['moderated'] . ")");
 	return mysqli_insert_id($link);
 }
 
@@ -122,22 +122,7 @@ function latestPosts($moderated = true) {
 
 function deletePostByID($id) {
 	global $link;
-	$posts = postsInThreadByID($id, false);
-	foreach ($posts as $post) {
-		if ($post['id'] != $id) {
-			deletePostImages($post);
-			mysqli_query($link, "DELETE FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = " . $post['id'] . " LIMIT 1");
-		} else {
-			$thispost = $post;
-		}
-	}
-	if (isset($thispost)) {
-		if ($thispost['parent'] == TINYIB_NEWTHREAD) {
-			@unlink('res/' . $thispost['id'] . '.html');
-		}
-		deletePostImages($thispost);
-		mysqli_query($link, "DELETE FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = " . $thispost['id'] . " LIMIT 1");
-	}
+	mysqli_query($link, "DELETE FROM `" . TINYIB_DBPOSTS . "` WHERE `id` = " . mysqli_real_escape_string($link, $id) . " LIMIT 1");
 }
 
 function trimThreads() {
@@ -146,7 +131,7 @@ function trimThreads() {
 		$result = mysqli_query($link, "SELECT `id` FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 AND `moderated` = 1 ORDER BY `stickied` DESC, `bumped` DESC LIMIT " . TINYIB_MAXTHREADS . ", 10");
 		if ($result) {
 			while ($post = mysqli_fetch_assoc($result)) {
-				deletePostByID($post['id']);
+				deletePost($post['id']);
 			}
 		}
 	}
@@ -154,7 +139,7 @@ function trimThreads() {
 
 function lastPostByIP() {
 	global $link;
-	$replies = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `ip` = '" . $_SERVER['REMOTE_ADDR'] . "' ORDER BY `id` DESC LIMIT 1");
+	$replies = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `ip` = '" . mysqli_real_escape_string($link, $_SERVER['REMOTE_ADDR']) . "' OR `ip` = '" . mysqli_real_escape_string($link, $_SERVER['REMOTE_ADDR']) . "' ORDER BY `id` DESC LIMIT 1");
 	if ($replies) {
 		while ($post = mysqli_fetch_assoc($replies)) {
 			return $post;
@@ -162,7 +147,7 @@ function lastPostByIP() {
 	}
 }
 
-// Ban Functions
+// Ban functions
 function banByID($id) {
 	global $link;
 	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "' LIMIT 1");
@@ -175,7 +160,7 @@ function banByID($id) {
 
 function banByIP($ip) {
 	global $link;
-	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `ip` = '" . mysqli_real_escape_string($link, $ip) . "' LIMIT 1");
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `ip` = '" . mysqli_real_escape_string($link, $ip) . "' OR `ip` = '" . mysqli_real_escape_string($link, hashData($ip)) . "' LIMIT 1");
 	if ($result) {
 		while ($ban = mysqli_fetch_assoc($result)) {
 			return $ban;
@@ -197,7 +182,7 @@ function allBans() {
 
 function insertBan($ban) {
 	global $link;
-	mysqli_query($link, "INSERT INTO `" . TINYIB_DBBANS . "` (`ip`, `timestamp`, `expire`, `reason`) VALUES ('" . mysqli_real_escape_string($link, $ban['ip']) . "', '" . time() . "', '" . mysqli_real_escape_string($link, $ban['expire']) . "', '" . mysqli_real_escape_string($link, $ban['reason']) . "')");
+	mysqli_query($link, "INSERT INTO `" . TINYIB_DBBANS . "` (`ip`, `timestamp`, `expire`, `reason`) VALUES ('" . mysqli_real_escape_string($link, hashData($ban['ip'])) . "', '" . time() . "', '" . mysqli_real_escape_string($link, $ban['expire']) . "', '" . mysqli_real_escape_string($link, $ban['reason']) . "')");
 	return mysqli_insert_id($link);
 }
 
@@ -216,6 +201,57 @@ function deleteBanByID($id) {
 	mysqli_query($link, "DELETE FROM `" . TINYIB_DBBANS . "` WHERE `id` = " . mysqli_real_escape_string($link, $id) . " LIMIT 1");
 }
 
+// Report functions
+function reportByIP($post, $ip) {
+	global $link;
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBREPORTS . "` WHERE `post` = '" . mysqli_real_escape_string($link, $post) . "' AND (`ip` = '" . mysqli_real_escape_string($link, $ip) . "' OR `ip` = '" . mysqli_real_escape_string($link, hashData($ip)) . "') LIMIT 1");
+	if ($result) {
+		while ($report = mysqli_fetch_assoc($result)) {
+			return $report;
+		}
+	}
+}
+
+function reportsByPost($post) {
+	global $link;
+	$reports = array();
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBREPORTS . "` WHERE `post` = '" . mysqli_real_escape_string($link, $post) . "'");
+	if ($result) {
+		while ($report = mysqli_fetch_assoc($result)) {
+			$reports[] = $report;
+		}
+	}
+	return $reports;
+}
+
+function allReports() {
+	global $link;
+	$reports = array();
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBREPORTS . "` ORDER BY `post` ASC");
+	if ($result) {
+		while ($report = mysqli_fetch_assoc($result)) {
+			$reports[] = $report;
+		}
+	}
+	return $reports;
+}
+
+function insertReport($report) {
+	global $link;
+	mysqli_query($link, "INSERT INTO `" . TINYIB_DBREPORTS . "` (`ip`, `post`) VALUES ('" . mysqli_real_escape_string($link, hashData($report['ip'])) . "', '" . mysqli_real_escape_string($link, $report['post']) . "')");
+}
+
+function deleteReportsByPost($post) {
+	global $link;
+	mysqli_query($link, "DELETE FROM `" . TINYIB_DBREPORTS . "` WHERE `post` = '" . mysqli_real_escape_string($link, $post) . "'");
+}
+
+function deleteReportsByIP($ip) {
+	global $link;
+	mysqli_query($link, "DELETE FROM `" . TINYIB_DBREPORTS . "` WHERE `ip` = '" . mysqli_real_escape_string($link, $ip) . "' OR `ip` = '" . mysqli_real_escape_string($link, hashData($ip)) . "'");
+}
+
+// Utility functions
 function mysqli_result($res, $row, $field = 0) {
 	$res->data_seek($row);
 	$datarow = $res->fetch_array();
