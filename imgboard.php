@@ -201,7 +201,7 @@ if (TINYIB_TIMEZONE != '') {
 	date_default_timezone_set(TINYIB_TIMEZONE);
 }
 
-$bcrypt_salt = '$2y$12$' . str_replace('+', '.', str_pad(substr(base64_encode(TINYIB_TRIPSEED), 0, 22), 22, "="));
+$bcrypt_salt = '$2y$12$' . str_pad(str_replace('=', '/', str_replace('+', '.', substr(base64_encode(TINYIB_TRIPSEED), 0, 22))), 22, '/');
 
 $redirect = true;
 // Check if the request is to make a post
