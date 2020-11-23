@@ -221,3 +221,44 @@ function deleteReportsByPost($post) {
 function deleteReportsByIP($ip) {
 	mysql_query("DELETE FROM `" . TINYIB_DBREPORTS . "` WHERE `ip` = " . mysql_real_escape_string($ip) . " OR  `ip` = " . mysql_real_escape_string(hashData($ip)));
 }
+
+// Keyword functions
+function keywordByID($id) {
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBKEYWORDS . "` WHERE `id` = '" . mysql_real_escape_string($id) . "' LIMIT 1");
+	if ($result) {
+		while ($keyword = mysql_fetch_assoc($result)) {
+			return $keyword;
+		}
+	}
+}
+
+function keywordByText($text) {
+	$text = strtolower($text);
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBKEYWORDS . "` WHERE `text` = '" . mysql_real_escape_string($text) . "'");
+	if ($result) {
+		while ($keyword = mysql_fetch_assoc($result)) {
+			return $keyword;
+		}
+	}
+	return array();
+}
+
+function allKeywords() {
+	$keywords = array();
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBKEYWORDS . "` ORDER BY `text` ASC");
+	if ($result) {
+		while ($keyword = mysql_fetch_assoc($result)) {
+			$keywords[] = $keyword;
+		}
+	}
+	return $keywords;
+}
+
+function insertKeyword($keyword) {
+	$keyword['text'] = strtolower($keyword['text']);
+	mysql_query("INSERT INTO `" . TINYIB_DBKEYWORDS . "` (`text`, `action`) VALUES ('" . mysql_real_escape_string($keyword['text']) . "', '" . mysql_real_escape_string($keyword['action']) . "')");
+}
+
+function deleteKeyword($id) {
+	mysql_query("DELETE FROM `" . TINYIB_DBKEYWORDS . "` WHERE `id` = " . mysql_real_escape_string($id));
+}

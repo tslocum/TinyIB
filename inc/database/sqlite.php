@@ -192,3 +192,39 @@ function deleteReportsByPost($post) {
 function deleteReportsByIP($ip) {
 	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBREPORTS . " WHERE ip = '" . sqlite_escape_string($ip) . "' OR ip = '" . sqlite_escape_string(hashData($ip)) . "'");
 }
+
+// Keyword functions
+function keywordByID($id) {
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE id = '" . sqlite_escape_string($id) . "' LIMIT 1"), SQLITE_ASSOC);
+	foreach ($result as $keyword) {
+		return $keyword;
+	}
+	return array();
+}
+
+function keywordByText($text) {
+	$text = strtolower($text);
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE text = '" . sqlite_escape_string($text) . "'"), SQLITE_ASSOC);
+	foreach ($result as $keyword) {
+		return $keyword;
+	}
+	return array();
+}
+
+function allKeywords() {
+	$keywords = array();
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBKEYWORDS . " ORDER BY text ASC"), SQLITE_ASSOC);
+	foreach ($result as $keyword) {
+		$keywords[] = $keyword;
+	}
+	return $keywords;
+}
+
+function insertKeyword($keyword) {
+	$keyword['text'] = strtolower($keyword['text']);
+	sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBKEYWORDS . " (text, action) VALUES ('" . sqlite_escape_string($keyword['text']) . "', '" . sqlite_escape_string($keyword['action']) . "')");
+}
+
+function deleteKeyword($id) {
+	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = " . sqlite_escape_string($id));
+}

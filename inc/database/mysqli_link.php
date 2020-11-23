@@ -32,6 +32,11 @@ if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBREPORTS 
 	mysqli_query($link, $reports_sql);
 }
 
+// Create the keywords table if it does not exist
+if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBKEYWORDS . "'")) == 0) {
+	mysqli_query($link, $keywords_sql);
+}
+
 if (mysqli_num_rows(mysqli_query($link, "SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'stickied'")) == 0) {
 	mysqli_query($link, "ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN stickied TINYINT(1) NOT NULL DEFAULT '0'");
 }
@@ -57,5 +62,10 @@ if (function_exists('insertPost')) {
 	function migrateReport($report) {
 		global $link;
 		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBREPORTS . " (id, ip, post) VALUES ('" . mysqli_real_escape_string($link, $report['id']) . "', '" . mysqli_real_escape_string($link, $report['ip']) . "', '" . mysqli_real_escape_string($link, $report['post']) . "')");
+	}
+
+	function migrateKeyword($keyword) {
+		global $link;
+		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBKEYWORDS . " (id, text, action) VALUES ('" . mysqli_real_escape_string($link, $keyword['id']) . "', '" . mysqli_real_escape_string($link, $keyword['text']) . "', '" . mysqli_real_escape_string($link, $keyword['action']) . "')");
 	}
 }

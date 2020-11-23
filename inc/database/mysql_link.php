@@ -32,6 +32,11 @@ if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '" . TINYIB_DBREPORTS . "'")) =
 	mysql_query($reports_sql);
 }
 
+// Create the keywords table if it does not exist
+if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '" . TINYIB_DBKEYWORDS . "'")) == 0) {
+	mysql_query($keywords_sql);
+}
+
 if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'stickied'")) == 0) {
 	mysql_query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN stickied TINYINT(1) NOT NULL DEFAULT '0'");
 }
@@ -54,5 +59,9 @@ if (function_exists('insertPost')) {
 
 	function migrateReport($report) {
 		mysql_query("INSERT INTO " . TINYIB_DBREPORTS . " (id, ip, post) VALUES ('" . mysql_real_escape_string($report['id']) . "', '" . mysql_real_escape_string($report['ip']) . "', '" . mysql_real_escape_string($report['post']) . "')");
+	}
+
+	function migrateKeyword($keyword) {
+		mysql_query("INSERT INTO " . TINYIB_DBKEYWORDS . " (id, text, action) VALUES ('" . mysql_real_escape_string($keyword['id']) . "', '" . mysql_real_escape_string($keyword['text']) . "', '" . mysql_real_escape_string($keyword['action']) . "')");
 	}
 }

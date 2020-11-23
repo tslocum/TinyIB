@@ -320,3 +320,50 @@ function deleteReportsByIP($ip) {
 
 	$GLOBALS['db']->deleteWhere(REPORTS_FILE, $ipClause);
 }
+
+// Keyword functions
+function keywordByID($id) {
+	$clause = new SimpleWhereClause(KEYWORD_ID, '=', $id, INTEGER_COMPARISON);
+	return convertKeywordsToSQLStyle($GLOBALS['db']->selectWhere(KEYWORDS_FILE, $clause, 1), true);
+}
+function keywordByText($text) {
+	$text = strtolower($text);
+	$clause = new SimpleWhereClause(KEYWORD_TEXT, '=', $text, STRING_COMPARISON);
+	return convertKeywordsToSQLStyle($GLOBALS['db']->selectWhere(KEYWORDS_FILE, $clause, 1), true);
+}
+
+function allKeywords() {
+	$rows = $GLOBALS['db']->selectWhere(KEYWORDS_FILE, NULL, -1, new OrderBy(KEYWORD_TEXT, ASCENDING, INTEGER_COMPARISON));
+	return convertKeywordsToSQLStyle($rows);
+}
+
+function convertKeywordsToSQLStyle($keywords, $singlekeyword = false) {
+	$newkeywords = array();
+	foreach ($keywords as $oldkeyword) {
+		$keyword = array();
+		$keyword['id'] = $oldkeyword[KEYWORD_ID];
+		$keyword['text'] = $oldkeyword[KEYWORD_TEXT];
+		$keyword['action'] = $oldkeyword[KEYWORD_ACTION];
+
+		if ($singlekeyword) {
+			return $keyword;
+		}
+		$newkeywords[] = $keyword;
+	}
+	return $newkeywords;
+}
+
+function insertKeyword($newkeyword) {
+	$newkeyword['text'] = strtolower($newkeyword['text']);
+
+	$keyword = array();
+	$keyword[KEYWORD_ID] = '0';
+	$keyword[KEYWORD_TEXT] = $newkeyword['text'];
+	$keyword[KEYWORD_ACTION] = $newkeyword['action'];
+
+	$GLOBALS['db']->insertWithAutoId(KEYWORDS_FILE, KEYWORD_ID, $keyword);
+}
+
+function deleteKeyword($id) {
+	$GLOBALS['db']->deleteWhere(KEYWORDS_FILE, new SimpleWhereClause(KEYWORD_ID, '=', $id, INTEGER_COMPARISON));
+}

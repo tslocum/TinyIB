@@ -122,6 +122,13 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 		"post" integer NOT NULL,
 		PRIMARY KEY	("id")
 	);';
+
+	$keywords_sql = 'CREATE TABLE "' . TINYIB_DBKEYWORDS . '" (
+		"id" bigserial NOT NULL,
+		"text" varchar(255) NOT NULL,
+		"action" varchar(255) NOT NULL,
+		PRIMARY KEY	("id")
+	);';
 } else {
 	$posts_sql = "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
 		`id` mediumint(7) unsigned NOT NULL auto_increment,
@@ -169,6 +176,13 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 		`id` mediumint(7) unsigned NOT NULL auto_increment,
 		`ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		`post` int(20) NOT NULL,
+		PRIMARY KEY	(`id`)
+	)";
+
+	$keywords_sql = "CREATE TABLE `" . TINYIB_DBKEYWORDS . "` (
+		`id` mediumint(7) unsigned NOT NULL auto_increment,
+		`text` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`action` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		PRIMARY KEY	(`id`)
 	)";
 }
@@ -261,6 +275,57 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	if ($rawpost || !in_array('password', $hide_fields)) {
 		$post['password'] = ($_POST['password'] != '') ? hashData($_POST['password']) : '';
 	}
+
+	$report_post = false;
+	foreach (array($post['name'], $post['email'], $post['subject'], $post['message']) as $field) {
+		$keyword = checkKeywords($field);
+		if (empty($keyword)) {
+			continue;
+		}
+
+		$expire = -1;
+		switch ($keyword['action']) {
+			case 'report':
+				$report_post = true;
+				break;
+			case 'delete':
+				fancyDie(__('Your post contains a blocked keyword.'));
+			case 'ban0':
+				$expire = 0;
+				break;
+			case 'ban1h':
+				$expire = 3600;
+				break;
+			case 'ban1d':
+				$expire = 86400;
+				break;
+			case 'ban2d':
+				$expire = 172800;
+				break;
+			case 'ban1w':
+				$expire = 604800;
+				break;
+			case 'ban2w':
+				$expire = 1209600;
+				break;
+			case 'ban1m':
+				$expire = 2592000;
+				break;
+		}
+		if ($expire >= 0) {
+			$ban = array();
+			$ban['ip'] = $post['ip'];
+			$ban['expire'] = $expire > 0 ? (time() + $expire) : 0;
+			$ban['reason'] = 'Keyword: ' . $keyword['text'];
+			insertBan($ban);
+
+			$expire_txt = ($ban['expire'] > 0) ? ('<br>This ban will expire ' . strftime(TINYIB_DATEFMT, $ban['expire'])) : '<br>This ban is permanent and will not expire.';
+			$reason_txt = ($ban['reason'] == '') ? '' : ('<br>Reason: ' . $ban['reason']);
+			fancyDie('Your IP address ' . $_SERVER['REMOTE_ADDR'] . ' has been banned from posting on this image board.  ' . $expire_txt . $reason_txt);
+		}
+		break;
+	}
+
 	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $rawposttext);
 
 	if (isset($_POST['embed']) && trim($_POST['embed']) != '' && ($rawpost || !in_array('embed', $hide_fields))) {
@@ -368,6 +433,11 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	}
 
 	$post['id'] = insertPost($post);
+
+	if ($report_post) {
+		$report = array('ip' => $post['ip'], 'post' => $post['id']);
+		insertReport($report);
+	}
 
 	if ($post['moderated'] == '1') {
 		if (TINYIB_ALWAYSNOKO || strtolower($post['email']) == 'noko') {
@@ -495,6 +565,40 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				$onload = manageOnLoad('bans');
 				$text .= manageBanForm();
 				$text .= manageBansTable();
+			} elseif (isset($_GET['keywords'])) {
+				if (isset($_POST['text']) && $_POST['text'] != '') {
+					if ($_GET['keywords'] > 0) {
+						deleteKeyword($_GET['keywords']);
+					}
+
+					$keyword_exists = keywordByText($_POST['text']);
+					if ($keyword_exists) {
+						fancyDie(__('Sorry, that keyword has already been added.'));
+					}
+
+					$keyword = array();
+					$keyword['text'] = $_POST['text'];
+					$keyword['action'] = $_POST['action'];
+
+					insertKeyword($keyword);
+					if ($_GET['keywords'] > 0) {
+						$text .= manageInfo(__('Keyword updated.'));
+						$_GET['keywords'] = 0;
+					} else {
+						$text .= manageInfo(__('Keyword added.'));
+					}
+				} elseif (isset($_GET['deletekeyword'])) {
+					deleteKeyword($_GET['deletekeyword']);
+					$text .= manageInfo(__('Keyword deleted.'));
+				}
+
+				$onload = manageOnLoad('keywords');
+				if ($_GET['keywords'] > 0) {
+					$text .= manageEditKeyword($_GET['keywords']);
+				} else {
+					$text .= manageEditKeyword(0);
+					$text .= manageKeywordsTable();
+				}
 			} else if (isset($_GET['update'])) {
 				if (is_dir('.git')) {
 					$git_output = shell_exec('git pull 2>&1');

@@ -285,6 +285,16 @@ function checkBanned() {
 	}
 }
 
+function checkKeywords($text) {
+	$keywords = allKeywords();
+	foreach ($keywords as $keyword) {
+		if (stripos($text, $keyword['text']) !== false) {
+			return $keyword;
+		}
+	}
+	return array();
+}
+
 function checkFlood() {
 	if (TINYIB_DELAY > 0) {
 		$lastpost = lastPostByIP();

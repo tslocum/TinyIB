@@ -45,6 +45,12 @@ define('REPORT_ID', 0);
 define('REPORT_IP', 1);
 define('REPORT_POST', 2);
 
+// Keywords table
+define('KEYWORDS_FILE', '.keywords');
+define('KEYWORD_ID', 0);
+define('KEYWORD_TEXT', 1);
+define('KEYWORD_ACTION', 2);
+
 require_once 'flatfile/flatfile.php';
 $db = new Flatfile();
 $db->datadir = 'inc/database/flatfile/';
@@ -100,5 +106,13 @@ if (function_exists('insertPost')) {
 		$report[REPORT_IP] = $newreport['ip'];
 		$report[REPORT_POST] = $newreport['post'];
 		$GLOBALS['db']->insertWithAutoId(REPORTS_FILE, REPORT_ID, $report);
+	}
+
+	function migrateKeyword($newkeyword) {
+		$keyword = array();
+		$keyword[KEYWORD_ID] = $newkeyword['id'];
+		$keyword[KEYWORD_TEXT] = $newkeyword['text'];
+		$keyword[KEYWORD_ACTION] = $newkeyword['action'];
+		$GLOBALS['db']->insertWithAutoId(KEYWORDS_FILE, KEYWORD_ID, $keyword);
 	}
 }

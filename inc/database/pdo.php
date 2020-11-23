@@ -206,3 +206,39 @@ function deleteReportsByPost($post) {
 function deleteReportsByIP($ip) {
 	pdoQuery("DELETE FROM " . TINYIB_DBREPORTS . " WHERE ip = ? OR ip = ?", array($ip, hashData($ip)));
 }
+
+// Keyword functions
+function keywordByID($id) {
+	$result = pdoQuery("SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE id = ? LIMIT 1", array($id));
+	return $result->fetch(PDO::FETCH_ASSOC);
+}
+
+function keywordByText($text) {
+	$text = strtolower($text);
+	$keywords = array();
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE text = ?", array($text));
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$keywords[] = $row;
+	}
+	return $keywords;
+}
+
+function allKeywords() {
+	$keywords = array();
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBKEYWORDS . " ORDER BY text ASC");
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$keywords[] = $row;
+	}
+	return $keywords;
+}
+
+function insertKeyword($keyword) {
+	global $dbh;
+	$keyword['text'] = strtolower($keyword['text']);
+	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBKEYWORDS . " (text, action) VALUES (?, ?)");
+	$stm->execute(array($keyword['text'], $keyword['action']));
+}
+
+function deleteKeyword($id) {
+	pdoQuery("DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = ?", array($id));
+}

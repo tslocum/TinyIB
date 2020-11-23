@@ -65,6 +65,16 @@ if (sqlite_num_rows($result) == 0) {
 	)");
 }
 
+// Create the keywords table if it does not exist
+$result = sqlite_query($db, "SELECT name FROM sqlite_master WHERE type='table' AND name='" . TINYIB_DBKEYWORDS . "'");
+if (sqlite_num_rows($result) == 0) {
+	sqlite_query($db, "CREATE TABLE " . TINYIB_DBKEYWORDS . " (
+		id INTEGER PRIMARY KEY,
+		text TEXT NOT NULL,
+		action TEXT NOT NULL
+	)");
+}
+
 // Add moderated column if it isn't present
 sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN moderated INTEGER NOT NULL DEFAULT '0'");
 
@@ -88,5 +98,9 @@ if (function_exists('insertPost')) {
 
 	function migrateReport($report) {
 		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBREPORTS . " (id, ip, post) VALUES ('" . sqlite_escape_string($report['id']) . "', '" . sqlite_escape_string($report['ip']) . "', '" . sqlite_escape_string($report['post']) . "')");
+	}
+
+	function migrateKeyword($keyword) {
+		sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBKEYWORDS . " (id, text, action) VALUES ('" . sqlite_escape_string($keyword['id']) . "', '" . sqlite_escape_string($keyword['text']) . "', '" . sqlite_escape_string($keyword['action']) . "')");
 	}
 }

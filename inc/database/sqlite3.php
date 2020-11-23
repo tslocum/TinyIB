@@ -221,3 +221,44 @@ function deleteReportsByIP($ip) {
 	global $db;
 	$db->exec("DELETE FROM " . TINYIB_DBREPORTS . " WHERE ip = '" . $db->escapeString($ip) . "' OR ip = '" . $db->escapeString(hashData($ip)) . "'");
 }
+
+// Keyword functions
+function keywordByID($id) {
+	global $db;
+	$result = $db->query("SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE id = '" . $db->escapeString($id) . "' LIMIT 1");
+	while ($keyword = $result->fetchArray()) {
+		return $keyword;
+	}
+	return array();
+}
+
+function keywordByText($text) {
+	global $db;
+	$text = strtolower($text);
+	$result = $db->query("SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE text = '" . $db->escapeString($text) . "'");
+	while ($keyword = $result->fetchArray()) {
+		return $keyword;
+	}
+	return array();
+}
+
+function allKeywords() {
+	global $db;
+	$keywords = array();
+	$result = $db->query("SELECT * FROM " . TINYIB_DBKEYWORDS . " ORDER BY text ASC");
+	while ($keyword = $result->fetchArray()) {
+		$keywords[] = $keyword;
+	}
+	return $keywords;
+}
+
+function insertKeyword($keyword) {
+	global $db;
+	$keyword['text'] = strtolower($keyword['text']);
+	$db->exec("INSERT INTO " . TINYIB_DBKEYWORDS . " (text, action) VALUES ('" . $db->escapeString($keyword['text']) . "', '" . $db->escapeString($keyword['action']) . "')");
+}
+
+function deleteKeyword($id) {
+	global $db;
+	$db->exec("DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = " . $db->escapeString($id));
+}

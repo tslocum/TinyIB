@@ -716,6 +716,7 @@ function adminBar() {
 	$output = '[<a href="?manage">' . __('Status') . '</a>] [';
 	if ($isadmin) {
 		$output .= '<a href="?manage&bans">' . __('Bans') . '</a>] [';
+		$output .= '<a href="?manage&keywords">' . __('Keywords') . '</a>] [';
 	}
 	$output .= '<a href="?manage&moderate">' . __('Moderate Post') . '</a>] [<a href="?manage&rawpost">' . __('Raw Post') . '</a>] [';
 	if ($isadmin) {
@@ -757,6 +758,8 @@ function manageOnLoad($page) {
 			return ' onload="document.tinyib.managepassword.focus();"';
 		case 'moderate':
 			return ' onload="document.tinyib.moderate.focus();"';
+		case 'keywords':
+			return ' onload="document.tinyib.text.focus();"';
 		case 'rawpost':
 			return ' onload="document.tinyib.message.focus();"';
 		case 'bans':
@@ -999,6 +1002,95 @@ EOF;
 EOF;
 }
 
+function manageEditKeyword($id) {
+	$id = intval($id);
+
+	$v_text = '';
+	$v_action = '';
+	if ($id > 0) {
+		$keyword = keywordByID($id);
+		if (empty($keyword)) {
+			fancyDie(__("Sorry, there doesn't appear to be a keyword with that ID."));
+		}
+		$v_text = htmlentities($keyword['text'], ENT_QUOTES);
+		$v_action = $keyword['action'];
+	}
+
+	$txt_keyword = __('Keyword');
+	$txt_keywords = __('Keywords');
+	$txt_action = __('Action:');
+	$txt_submit = $id > 0 ? __('Update') : __('Add');
+
+	$return = <<<EOF
+	<form id="tinyib" name="tinyib" method="post" action="?manage&keywords=$id">
+	<fieldset>
+	<legend>$txt_keywords</legend>
+	<div valign="top"><label for="keyword">$txt_keyword</label> <input type="text" name="text" id="text" value="$v_text"><br>
+	<label for="action">$txt_action</label>
+	<select name="action">
+EOF;
+	if (TINYIB_REPORT) {
+		$return .= '<option value="report"' . ($v_action == 'report' ? ' selected' : '') . '>' . __('Report') . '</option>';
+	}
+	$return .= '<option value="delete"' . ($v_action == 'delete' ? ' selected' : '') . '>' . __('Delete') . '</option>';
+	$return .= '<option value="ban1h"' . ($v_action == 'ban1h' ? ' selected' : '') . '>' . __('Delete and ban for 1 hour') . '</option>';
+	$return .= '<option value="ban1d"' . ($v_action == 'ban1d' ? ' selected' : '') . '>' . __('Delete and ban for 1 day') . '</option>';
+	$return .= '<option value="ban2d"' . ($v_action == 'ban2d' ? ' selected' : '') . '>' . __('Delete and ban for 2 days') . '</option>';
+	$return .= '<option value="ban1w"' . ($v_action == 'ban1w' ? ' selected' : '') . '>' . __('Delete and ban for 1 week') . '</option>';
+	$return .= '<option value="ban2w"' . ($v_action == 'ban2w' ? ' selected' : '') . '>' . __('Delete and ban for 2 weeks') . '</option>';
+	$return .= '<option value="ban1m"' . ($v_action == 'ban1m' ? ' selected' : '') . '>' . __('Delete and ban for 1 month') . '</option>';
+	$return .= '<option value="ban0"' . ($v_action == 'ban0' ? ' selected' : '') . '>' . __('Delete and ban permanently') . '</option>';
+	return $return . <<<EOF
+	</select><br><br>
+	<input type="submit" value="$txt_submit" class="managebutton"></div>
+	</fieldset>
+	</form><br>
+EOF;
+}
+
+function manageKeywordsTable() {
+	$text = '';
+	$keywords = allKeywords();
+	if (count($keywords) > 0) {
+		$text .= '<table border="1"><tr><th>' . __('Keyword') . '</th><th>' . __('Action') . '</th><th>&nbsp;</th></tr>';
+		foreach ($keywords as $keyword) {
+			$action = '';
+			switch ($keyword['action']) {
+				case 'report':
+					$action = __('Report');
+					break;
+				case 'delete':
+					$action = __('Delete');
+					break;
+				case 'ban0':
+					$action = __('Delete and ban permanently');
+					break;
+				case 'ban1h':
+					$action = __('Delete and ban for 1 hour');
+					break;
+				case 'ban1d':
+					$action = __('Delete and ban for 1 day');
+					break;
+				case 'ban2d':
+					$action = __('Delete and ban for 2 days');
+					break;
+				case 'ban1w':
+					$action = __('Delete and ban for 1 week');
+					break;
+				case 'ban2w':
+					$action = __('Delete and ban for 2 weeks');
+					break;
+				case 'ban1m':
+					$action = __('Delete and ban for 1 month');
+					break;
+			}
+			$text .= '<tr><td>' . htmlentities($keyword['text']) . '</td><td>' . $action . '</td><td><a href="?manage&keywords=' . $keyword['id'] . '">' . __('Edit') . '</a> <a href="?manage&keywords&deletekeyword=' . $keyword['id'] . '">' . __('Delete') . '</a></td></tr>';
+		}
+		$text .= '</table>';
+	}
+	return $text;
+}
+
 function manageStatus() {
 	global $isadmin;
 	$threads = countThreads();
@@ -1007,7 +1099,7 @@ function manageStatus() {
 
 	$info = $threads . ' ' . plural($threads, __('thread'), __('threads'));
 	if (TINYIB_REPORT) {
-		$info .= ', ' . count($reports). ' ' . plural(count($reports), __('report'), __('reports'));
+		$info .= ', ' . count($reports) . ' ' . plural(count($reports), __('report'), __('reports'));
 	}
 	$info .= ', ' . $bans . ' ' . plural($bans, __('ban'), __('bans'));
 

@@ -101,10 +101,11 @@ define('TINYIB_RECAPTCHA_SECRET', '');// Secret key
 // Database
 //   Recommended database modes from best to worst:
 //     pdo, mysqli, mysql, sqlite3, sqlite (deprecated), flatfile (only useful if you need portability or lack any kind of database)
-define('TINYIB_DBMODE', 'flatfile');  // Mode
-define('TINYIB_DBMIGRATE', false);    // Enable database migration tool  (see README for instructions)
-define('TINYIB_DBBANS', 'bans');      // Bans table name (use the same bans table across boards for global bans)
-define('TINYIB_DBPOSTS', TINYIB_BOARD . '_posts'); // Posts table name
+define('TINYIB_DBMODE', 'flatfile');     // Mode
+define('TINYIB_DBMIGRATE', false);       // Enable database migration tool  (see README for instructions)
+define('TINYIB_DBBANS', 'bans');         // Bans table name (use the same table across boards for global bans)
+define('TINYIB_DBKEYWORDS', 'keywords'); // Keywords table name (use the same table across boards for global keywords)
+define('TINYIB_DBPOSTS', TINYIB_BOARD . '_posts');     // Posts table name
 define('TINYIB_DBREPORTS', TINYIB_BOARD . '_reports'); // Reports table name
 
 // Database configuration - MySQL / pgSQL

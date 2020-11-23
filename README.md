@@ -20,6 +20,7 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
  - Reference links. `>>###`
  - Delete posts via password.
  - Report posts.
+ - Block keywords.
  - Management panel:
    - Administrators and moderators use separate passwords.
      - Moderators are only able to sticky threads, lock threads, delete posts, and approve posts when necessary.  (See ``TINYIB_REQMOD``)

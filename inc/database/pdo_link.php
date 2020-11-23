@@ -64,6 +64,18 @@ if (!$reports_exists) {
 	$dbh->exec($reports_sql);
 }
 
+// Create the keywords table if it does not exist
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBKEYWORDS);
+	$keywords_exists = $dbh->query($query)->fetchColumn() != 0;
+} else {
+	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBKEYWORDS));
+	$keywords_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
+}
+if (!$keywords_exists) {
+	$dbh->exec($keywords_sql);
+}
+
 if (TINYIB_DBDRIVER === 'pgsql') {
 	$query = "SELECT column_name FROM information_schema.columns WHERE table_name='" . TINYIB_DBPOSTS . "' and column_name='moderated'";
 	$moderated_exists = $dbh->query($query)->fetchColumn() != 0;
@@ -141,5 +153,11 @@ if (function_exists('insertPost')) {
 		global $dbh;
 		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBREPORTS . " (id, ip, post) VALUES (?, ?, ?)");
 		$stm->execute(array($report['id'], $report['ip'], $report['post']));
+	}
+
+	function migrateKeyword($keyword) {
+		global $dbh;
+		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBKEYWORDS . " (id, text, action) VALUES (?, ?, ?)");
+		$stm->execute(array($keyword['id'], $keyword['text'], $keyword['action']));
 	}
 }
