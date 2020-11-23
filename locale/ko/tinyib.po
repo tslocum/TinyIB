@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2020-10-22 09:12-0700\n"
-"PO-Revision-Date: 2020-10-20 04:26+0000\n"
-"Last-Translator: uhwGhGFaJd <uhwGhGFaJd@gmail.com>\n"
+"POT-Creation-Date: 2020-11-23 12:37-0800\n"
+"PO-Revision-Date: 2020-11-18 13:28+0000\n"
+"Last-Translator: hmi45 <hmi45@naver.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/tinyib/tinyib/ko/"
 ">\n"
 "Language: ko\n"
@@ -12,684 +12,817 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.3.1-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
 "X-Poedit-SearchPath-2: inc/functions.php\n"
 
-#: imgboard.php:60
+#: imgboard.php:46
 msgid "Click here to go back"
-msgstr ""
+msgstr "딸깍하면 돌아갑니다"
 
-#: imgboard.php:84
-msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
-msgstr "TINYIB_TRIPSEED 및 TINYIB_ADMINPASS 를 설정해야 합니다."
-
-#: imgboard.php:88
-msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
-msgstr "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  를 설정해야 합니다."
-
-#: imgboard.php:93 imgboard.php:501
+#: imgboard.php:72 imgboard.php:614
 msgid "Unknown database mode specified."
-msgstr "알 수없는 데이터베이스 모드가 지정되었습니다."
+msgstr "알 수 없는 자료 뭉치 방식이 지정되었습니다."
 
-#: imgboard.php:190
+#: imgboard.php:183
 #, php-format
 msgid "Directory '%s' can not be written to.  Please modify its permissions."
 msgstr "'%s' 경로에 쓸 수 없습니다. 권한을 수정하십시오."
 
-#: imgboard.php:207
+#: imgboard.php:193
+msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
+msgstr "TINYIB_TRIPSEED 와 TINYIB_ADMINPASS 는 반드시 설정해야 합니다."
+
+#: imgboard.php:197
+msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
+msgstr ""
+"TINYIB_RECAPTCHA_SITE 와 TINYIB_RECAPTCHA_SECRET 는 반드시 설정해야 합니다."
+
+#: imgboard.php:210
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
-msgstr "현재 글작성이 금지되어 있습니다. <br> 몇분뒤 다시 시도하세요."
+msgstr ""
+"현재 올리기가 비활성화 되어 있습니다. <br> 몇 분 뒤 다시 시도해 주세요."
 
-#: imgboard.php:226 inc/functions.php:300
+#: imgboard.php:229 inc/functions.php:346
 msgid "Invalid parent thread ID supplied, unable to create post."
-msgstr "잘못된 상위 스레드 ID가 제공되어 게시물을 작성할 수 없습니다."
+msgstr "잘못된 상위 글타래 식별자가 제공되어 게시물을 작성할 수 없습니다."
 
-#: imgboard.php:228
+#: imgboard.php:231
 msgid "Replies are not allowed to locked threads."
-msgstr "댓글을 작성할 수 없습니다 이 쓰래드는 잠겨있습니다."
+msgstr "이 글타래는 잠겨서 답글이 허용되지 않습니다."
 
-#: imgboard.php:265
+#: imgboard.php:278
+msgid "Your post contains a blocked keyword."
+msgstr ""
+
+#: imgboard.php:319
 msgid "Embedding a URL and uploading a file at the same time is not supported."
-msgstr "URL 삽입과 동시에 파일 업로드는 지원되지 않습니다."
+msgstr "누리망 주소 끼워 넣기와 철 올리기는 동시에 지원되지 않습니다."
 
-#: imgboard.php:271
+#: imgboard.php:325
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
-msgstr "잘못된 embed 주소입니다 %s 주소만 지원합니다."
+msgstr "누리망 주소 끼워 넣기가 잘못되었습니다. %s 누리망 주소만 지원합니다."
 
-#: imgboard.php:275 inc/functions.php:326 inc/functions.php:566
+#: imgboard.php:329 inc/functions.php:372 inc/functions.php:612
 #, php-format
 msgid "That file is larger than %s."
-msgstr "해당 파일이 %s보다 큽니다."
+msgstr "해당 철이 %s보다 큽니다."
 
-#: imgboard.php:280 imgboard.php:286
+#: imgboard.php:334 imgboard.php:340
 msgid "Failed to download file at specified URL."
-msgstr ""
+msgstr "지정된 누리망 주소에서 철을 내려받지 못했습니다."
 
-#: imgboard.php:308
+#: imgboard.php:362
 msgid "Error while processing audio/video."
-msgstr "오디오 / 비디오를 처리하는 동안 오류가 발생했습니다."
+msgstr "음원/영상을 처리하는 동안 오류가 발생했습니다."
 
-#: imgboard.php:315 inc/functions.php:651 inc/functions.php:662
+#: imgboard.php:369 inc/functions.php:697 inc/functions.php:708
 msgid "Could not create thumbnail."
-msgstr "썸네일을 생성할 수 없습니다."
+msgstr "마중그림을 생성할 수 없습니다."
 
-#: imgboard.php:338
+#: imgboard.php:392
 msgid "upload a file or embed a URL"
-msgstr ""
+msgstr "철 올리기 또는 누리망 주소 끼워 넣기"
 
-#: imgboard.php:340
+#: imgboard.php:394
 msgid "upload a file"
-msgstr ""
+msgstr "철 올리기"
 
-#: imgboard.php:342
+#: imgboard.php:396
 msgid "embed a URL"
-msgstr ""
-
-#: imgboard.php:345
-#, php-format
-msgid "Please %s to start a new thread."
-msgstr ""
-
-#: imgboard.php:351
-#, php-format
-msgid "Please enter a message and/or %s."
-msgstr ""
-
-#: imgboard.php:353
-msgid "Please enter a message."
-msgstr ""
-
-#: imgboard.php:355
-#, php-format
-msgid "Please %s."
-msgstr ""
-
-#: imgboard.php:358
-#, php-format
-msgid "%s uploaded."
-msgstr ""
-
-#: imgboard.php:363
-#, php-format
-msgid "Your %s will be shown <b>once it has been approved</b>."
-msgstr ""
-
-#: imgboard.php:376
-msgid "Updating thread..."
-msgstr ""
-
-#: imgboard.php:389
-msgid "Updating index..."
-msgstr ""
-
-#: imgboard.php:395
-msgid "Tick the box next to a post and click \"Delete\" to delete it."
-msgstr ""
+msgstr "누리망 주소 끼워 넣기"
 
 #: imgboard.php:399
-msgid ""
-"Post deletion is currently disabled.<br>Please try again in a few moments."
+#, php-format
+msgid "Please %s to start a new thread."
+msgstr "새 글타래를 시작하려면 %s 하십시오."
+
+#: imgboard.php:405
+#, php-format
+msgid "Please enter a message and/or %s."
+msgstr "알림말 그리고/또는 %s 을(를) 입력하십시오."
+
+#: imgboard.php:407
+msgid "Please enter a message."
+msgstr "알림말을 입력해 주세요."
+
+#: imgboard.php:409
+#, php-format
+msgid "Please %s."
+msgstr "부디 %s."
+
+#: imgboard.php:412
+#, php-format
+msgid "%s uploaded."
+msgstr "%s 올리기 됨."
+
+#: imgboard.php:417
+#, php-format
+msgid "Your %s will be shown <b>once it has been approved</b>."
+msgstr "게시물 %s 은 <b>승인 이후 표시됩니다</b>."
+
+#: imgboard.php:435
+msgid "Updating thread..."
+msgstr "글타래 갱신 중..."
+
+#: imgboard.php:448
+msgid "Updating index..."
+msgstr "색인 갱신 중..."
+
+#: imgboard.php:454
+msgid "Reporting is disabled."
 msgstr ""
 
-#: imgboard.php:416
-msgid "Post deleted."
-msgstr ""
-
-#: imgboard.php:418
-msgid "Invalid password."
-msgstr ""
-
-#: imgboard.php:421
+#: imgboard.php:459 imgboard.php:500
 msgid ""
 "Sorry, an invalid post identifier was sent. Please go back, refresh the "
 "page, and try again."
 msgstr ""
+"죄송합니다. 잘못된 게시물 식별자가 전송되었습니다. 돌아가서 쪽을 새로 고친 "
+"후 다시 시도하십시오."
 
-#: imgboard.php:445
+#: imgboard.php:464
+msgid "You have already submitted a report for that post."
+msgstr ""
+
+#: imgboard.php:470
+#, fuzzy
+#| msgid "Post deleted."
+msgid "Post reported."
+msgstr "게시물 삭제됨."
+
+#: imgboard.php:474
+msgid "Tick the box next to a post and click \"Delete\" to delete it."
+msgstr "게시물 옆에있는 상자를 선택하고 \"삭제\"를 딸깍하여 삭제합니다."
+
+#: imgboard.php:478
+msgid ""
+"Post deletion is currently disabled.<br>Please try again in a few moments."
+msgstr ""
+"현재 게시물 삭제가 비활성화되어 있습니다.<br>잠시 후 다시 시도하십시오."
+
+#: imgboard.php:495
+msgid "Post deleted."
+msgstr "게시물 삭제됨."
+
+#: imgboard.php:497 inc/functions.php:326
+msgid "Invalid password."
+msgstr "비밀번호가 유효하지 않습니다."
+
+#: imgboard.php:524
 msgid "Rebuilt board."
-msgstr ""
+msgstr "판을 재건하였습니다."
 
-#: imgboard.php:453
+#: imgboard.php:532
 msgid "Sorry, there is already a ban on record for that IP address."
-msgstr ""
+msgstr "죄송합니다, 해당 누리망 통신 규약 주소는 이미 차단 목록에 있습니다."
 
-#: imgboard.php:462
+#: imgboard.php:541
 #, php-format
 msgid "Ban record added for %s"
-msgstr ""
+msgstr "차단목록에 %s 이 추가되었습니다"
 
-#: imgboard.php:468
+#: imgboard.php:547
 #, php-format
 msgid "Ban record lifted for %s"
+msgstr "차단 목록에서 %s 를 해제하였습니다"
+
+#: imgboard.php:562
+msgid "Sorry, that keyword has already been added."
 msgstr ""
 
-#: imgboard.php:536
+#: imgboard.php:571
+msgid "Keyword updated."
+msgstr ""
+
+#: imgboard.php:574
+msgid "Keyword added."
+msgstr ""
+
+#: imgboard.php:578
+#, fuzzy
+#| msgid "Post deleted."
+msgid "Keyword deleted."
+msgstr "게시물 삭제됨."
+
+#: imgboard.php:650
 #, php-format
 msgid "Post No.%d deleted."
-msgstr ""
+msgstr "게시물 번호 %d는 삭제되었습니다."
 
-#: imgboard.php:538 imgboard.php:554 imgboard.php:563 imgboard.php:578
-#: imgboard.php:592
+#: imgboard.php:652 imgboard.php:668 imgboard.php:677 imgboard.php:692
+#: imgboard.php:706 imgboard.php:719
 msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr ""
+msgstr "죄송합니다. 해당 식별자의 게시물이 없는 것 같습니다."
 
-#: imgboard.php:552
+#: imgboard.php:666
 #, php-format
 msgid "Post No.%d approved."
-msgstr ""
+msgstr "게시물 번호 %d 가 승인되었습니다."
 
-#: imgboard.php:581 imgboard.php:595
+#: imgboard.php:695 imgboard.php:709
 msgid "Form data was lost. Please go back and try again."
+msgstr "양식 자료가 손실되었습니다. 돌아가서 다시 시도하십시오."
+
+#: imgboard.php:717
+msgid "Reports cleared."
 msgstr ""
 
-#: inc/functions.php:127 inc/html.php:1055
+#: inc/functions.php:135 inc/html.php:1217
 msgid "Anonymous"
-msgstr ""
+msgstr "익명"
 
-#: inc/functions.php:236
+#: inc/functions.php:268
 msgid "Please enter the CAPTCHA text."
-msgstr ""
+msgstr "자동 입력 방지 문자를 입력해 주세요."
 
-#: inc/functions.php:238
+#: inc/functions.php:270
 msgid ""
 "Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
 "retrieve a new CAPTCHA."
 msgstr ""
+"잘못된 자동 입력 방지 문자를 입력하였습니다.  다시 시도해 주세요.<br>상을 딸"
+"깍하면 새로운 자동 입력 방지 문자를 가져옵니다."
 
-#: inc/functions.php:269
+#: inc/functions.php:311
 #, php-format
 msgid ""
 "Please shorten your message, or post it in multiple parts. Your message is "
 "%1$d characters long, and the maximum allowed is %2$d."
 msgstr ""
+"글을 짧게 만들거나, 또는 글을 나누어 작성해 주세요. 작성한 글은 %1$d 글자이"
+"고, 최대 허용 글자는 %2$d 입니다."
 
-#: inc/functions.php:329
+#: inc/functions.php:375
 #, php-format
 msgid ""
 "The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
-msgstr ""
+msgstr "올리기 된 철이 php.ini의 upload_max_filesize 지시문 (%s)을 초과합니다."
 
-#: inc/functions.php:332
+#: inc/functions.php:378
 msgid "The uploaded file was only partially uploaded."
-msgstr ""
+msgstr "올리기 된 철이 부분적으로 만 올리기 되었습니다."
 
-#: inc/functions.php:335
+#: inc/functions.php:381
 msgid "No file was uploaded."
-msgstr ""
+msgstr "올리기 된 철이 없습니다."
 
-#: inc/functions.php:338
+#: inc/functions.php:384
 msgid "Missing a temporary folder."
-msgstr ""
+msgstr "임시 경로가 없습니다."
 
-#: inc/functions.php:341
+#: inc/functions.php:387
 msgid "Failed to write file to disk"
-msgstr ""
+msgstr "철을 저장판에 쓰는데 실패하였습니다"
 
-#: inc/functions.php:344
+#: inc/functions.php:390
 msgid "Unable to save the uploaded file."
-msgstr ""
+msgstr "올리기 된 철을 저장할 수 없습니다."
 
-#: inc/functions.php:352
+#: inc/functions.php:398
 #, php-format
 msgid ""
 "Duplicate file uploaded. That file has already been posted <a href=\"%s"
 "\">here</a>."
 msgstr ""
+"중복된 철이 올리기 되었습니다. 그 철이 이미 <a href=\"%s\">이곳</a>에 게시되"
+"어 있습니다."
 
-#: inc/functions.php:383
+#: inc/functions.php:429
 msgid ""
 "Unable to read the uploaded file while creating its thumbnail. A common "
 "cause for this is an incorrect extension when the file is actually of a "
 "different type."
 msgstr ""
+"올리기 된 철을 읽어 마중그림을 만들 수 없습니다. 일반적인 원인은 실제 형식과 "
+"철 확장명이 다를 때 발생합니다."
 
-#: inc/functions.php:560
+#: inc/functions.php:606
 msgid "File transfer failure. Please retry the submission."
-msgstr "파일 전송 실패. 제출을 다시 시도하십시오."
+msgstr "철 전송 실패. 제출을 다시 시도하십시오."
 
-#: inc/functions.php:582
+#: inc/functions.php:628
 msgid ""
 "Failed to read the MIME type and size of the uploaded file. Please retry the "
 "submission."
 msgstr ""
-"업로드 된 파일의 MIME 유형 및 크기를 읽지 못했습니다. 제출을 다시 시도하십시"
-"오."
+"올리기 된 철의 다목적 누리망 전자우편 확장 유형 및 크기를 읽지 못했습니다. 제"
+"출을 다시 시도하십시오."
 
-#: inc/functions.php:596 inc/functions.php:601
+#: inc/functions.php:642 inc/functions.php:647
 msgid "Could not copy uploaded file."
-msgstr "업로드 된 파일을 복사 할 수 없습니다."
+msgstr "올리기 된 철을 복사 할 수 없습니다."
 
-#: inc/functions.php:607
+#: inc/functions.php:653
 msgid "File transfer failure. Please go back and try again."
-msgstr "파일 전송 실패. 돌아가서 다시 시도하십시오."
+msgstr "철 전송 실패. 돌아가서 다시 시도하십시오."
 
-#: inc/functions.php:626
+#: inc/functions.php:672
 msgid "Sorry, your video appears to be corrupt."
 msgstr "죄송합니다. 동영상이 손상된 것 같습니다."
 
 #: inc/html.php:57
 #, php-format
 msgid "Supported file type is %s"
-msgstr ""
+msgstr "지원되는 철 형식은 다음과 같습니다 %s"
 
 #: inc/html.php:60
 #, php-format
 msgid "Supported file types are %1$s and %2$s."
-msgstr ""
+msgstr "지원되는 철 형식은 %1$s 그리고 %2$s 입니다."
 
-#: inc/html.php:77 inc/html.php:781 inc/html.php:819
+#: inc/html.php:77 inc/html.php:820 inc/html.php:858
 msgid "Submit"
-msgstr ""
+msgstr "제출"
 
 #: inc/html.php:95
 msgid "Reply to"
-msgstr ""
+msgstr "답글 하기"
 
 #: inc/html.php:96
 msgid "0 to start a new thread"
-msgstr ""
+msgstr "0은 새 글타래를 시작합니다"
 
 #: inc/html.php:97
 msgid ""
 "Text entered in the Message field will be posted as is with no formatting "
 "applied."
-msgstr ""
+msgstr "알림말 구역에 입력 한 글자는 서식이 적용되지 않은 상태로 게시됩니다."
 
 #: inc/html.php:98
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
-msgstr ""
+msgstr "줄 바꿈은 \"&lt;br&gt;\"로 지정해야합니다."
 
-#: inc/html.php:149
+#: inc/html.php:149 inc/html.php:795
 msgid "(enter the text below)"
-msgstr ""
+msgstr "(아래의 문자를 입력하세요)"
 
 #: inc/html.php:153
 msgid "CAPTCHA"
-msgstr ""
+msgstr "자동입력 방지 문자"
 
 #: inc/html.php:169
 #, php-format
 msgid "Maximum file size allowed is %s."
-msgstr ""
+msgstr "허용되는 철의 최대 크기는 %s 입니다."
 
 #: inc/html.php:174
 msgid "File"
-msgstr ""
+msgstr "철"
 
 #: inc/html.php:189
 msgid "Embed"
-msgstr ""
+msgstr "끼워 넣기"
 
 #: inc/html.php:192
 msgid "(paste a YouTube URL)"
-msgstr ""
+msgstr "(YouTube 누리망 주소를 붙여 넣으세요)"
 
 #: inc/html.php:207
 msgid "All posts are moderated before being shown."
-msgstr ""
+msgstr "모든 게시물은 표시되기 전에 검토됩니다."
 
 #: inc/html.php:209
 msgid "All posts with a file attached are moderated before being shown."
-msgstr ""
+msgstr "철이 첨부된 모든 게시물은 표시되기 전에 검토됩니다."
 
 #: inc/html.php:219
 #, php-format
 msgid "Images greater than %s will be thumbnailed."
-msgstr ""
+msgstr "%s 보다 큰 상은 마중그림으로 표시됩니다."
 
 #: inc/html.php:224
 #, php-format
 msgid "Currently %s unique user posts."
-msgstr ""
+msgstr "현재 %s 개의 고유 사용자 게시물이 있습니다."
 
 #: inc/html.php:237
 msgid "Name"
-msgstr ""
+msgstr "이름"
 
 #: inc/html.php:251
 msgid "E-mail"
-msgstr ""
+msgstr "전자우편"
 
 #: inc/html.php:265
 msgid "Subject"
-msgstr ""
+msgstr "주제"
 
 #: inc/html.php:279
 msgid "Message"
-msgstr ""
+msgstr "알림말"
 
-#: inc/html.php:298 inc/html.php:564
+#: inc/html.php:298 inc/html.php:570
 msgid "Password"
-msgstr ""
+msgstr "비밀번호"
 
 #: inc/html.php:299
 msgid "(for post and file deletion)"
+msgstr "(게시물, 철을 삭제하는데 필요합니다)"
+
+#: inc/html.php:350 inc/html.php:1033 inc/html.php:1060
+msgid "Report"
 msgstr ""
 
-#: inc/html.php:356
+#: inc/html.php:362
 msgid "Stickied"
-msgstr ""
+msgstr "붙여짐"
 
-#: inc/html.php:360
+#: inc/html.php:366
 msgid "Locked"
-msgstr ""
+msgstr "잠겨짐"
 
-#: inc/html.php:373
+#: inc/html.php:379
 msgid "Embed:"
-msgstr ""
+msgstr "끼워 넣기:"
 
-#: inc/html.php:373
+#: inc/html.php:379
 msgid "File:"
-msgstr ""
-
-#: inc/html.php:470
-msgid "Reply"
-msgstr ""
+msgstr "철:"
 
 #: inc/html.php:476
+msgid "Reply"
+msgstr "답글"
+
+#: inc/html.php:482
 msgid "Post truncated. Click Reply to view."
-msgstr ""
+msgstr "게시물이 잘렸습니다. 보려면 답글을 딸깍하십시오."
 
-#: inc/html.php:487
+#: inc/html.php:493
 msgid "1 post omitted. Click Reply to view."
-msgstr ""
+msgstr "1 개의 게시물이 생략되었습니다. 보려면 답글을 딸깍하십시오."
 
-#: inc/html.php:489
+#: inc/html.php:495
 #, php-format
 msgid "%d posts omitted. Click Reply to view."
-msgstr ""
+msgstr "%d 개의 게시물이 생략되었습니다. 보려면 답글을 딸깍하십시오."
 
-#: inc/html.php:505 inc/html.php:540 inc/html.php:552
+#: inc/html.php:511 inc/html.php:546 inc/html.php:558
 msgid "Catalog"
-msgstr ""
+msgstr "범주"
 
-#: inc/html.php:515
+#: inc/html.php:521
 msgid "Previous"
-msgstr ""
+msgstr "이전"
 
-#: inc/html.php:528
+#: inc/html.php:534
 msgid "Next"
-msgstr ""
+msgstr "다음"
 
-#: inc/html.php:552 inc/html.php:554 inc/html.php:701
+#: inc/html.php:558 inc/html.php:560 inc/html.php:711
 msgid "Return"
-msgstr ""
+msgstr "돌아가기"
 
-#: inc/html.php:554
+#: inc/html.php:560
 msgid "Posting mode: Reply"
-msgstr ""
+msgstr "게시 방식: 답글"
 
-#: inc/html.php:562
+#: inc/html.php:568
 msgid "Manage"
-msgstr ""
+msgstr "관리"
 
-#: inc/html.php:563
+#: inc/html.php:569
 msgid "Style"
-msgstr ""
+msgstr "모양새"
 
-#: inc/html.php:565 inc/html.php:979
+#: inc/html.php:571 inc/html.php:1035 inc/html.php:1063 inc/html.php:1087
+#: inc/html.php:1132
 msgid "Delete"
-msgstr ""
+msgstr "삭제"
 
-#: inc/html.php:566
+#: inc/html.php:572
 msgid "Delete Post"
-msgstr ""
+msgstr "게시물 삭제"
 
-#: inc/html.php:706 inc/html.php:1006
+#: inc/html.php:716 inc/html.php:1172
 msgid "Status"
-msgstr ""
-
-#: inc/html.php:708
-msgid "Bans"
-msgstr ""
-
-#: inc/html.php:710
-msgid "Moderate Post"
-msgstr ""
-
-#: inc/html.php:710
-msgid "Raw Post"
-msgstr ""
-
-#: inc/html.php:712
-msgid "Rebuild All"
-msgstr ""
-
-#: inc/html.php:715
-msgid "Update"
-msgstr ""
+msgstr "상태"
 
 #: inc/html.php:718
+msgid "Bans"
+msgstr "차단"
+
+#: inc/html.php:719 inc/html.php:1020
+msgid "Keywords"
+msgstr ""
+
+#: inc/html.php:721
+msgid "Moderate Post"
+msgstr "게시물 검토"
+
+#: inc/html.php:721
+msgid "Raw Post"
+msgstr "날 게시물"
+
+#: inc/html.php:723
+msgid "Rebuild All"
+msgstr "모두 재구축"
+
+#: inc/html.php:726 inc/html.php:1022
+msgid "Update"
+msgstr "갱신"
+
+#: inc/html.php:729
 msgid "Migrate Database"
-msgstr ""
+msgstr "자료 뭉치 이동"
 
-#: inc/html.php:720
+#: inc/html.php:731
 msgid "Log Out"
-msgstr ""
+msgstr "접속해지"
 
-#: inc/html.php:726
+#: inc/html.php:737
 msgid "Manage mode"
-msgstr ""
+msgstr "관리 방식"
 
-#: inc/html.php:758
+#: inc/html.php:771
 msgid "Log In"
-msgstr ""
+msgstr "접속"
 
-#: inc/html.php:759
+#: inc/html.php:772
 msgid "Enter an administrator or moderator password"
-msgstr ""
+msgstr "관리자 또는 중재자 비밀번호를 입력해 주세요"
 
-#: inc/html.php:775
+#: inc/html.php:814
 msgid "Add a ban"
-msgstr ""
+msgstr "차단 목록 추가하기"
 
-#: inc/html.php:776 inc/html.php:805
+#: inc/html.php:815 inc/html.php:844
 msgid "IP Address"
-msgstr ""
+msgstr "누리망 통신 규약 주소"
 
-#: inc/html.php:777
+#: inc/html.php:816
 msgid "Expire(sec)"
-msgstr ""
+msgstr "기한(초)"
 
-#: inc/html.php:778 inc/html.php:805
+#: inc/html.php:817 inc/html.php:844
 msgid "Reason"
-msgstr ""
-
-#: inc/html.php:779
-msgid "never"
-msgstr ""
-
-#: inc/html.php:780
-msgid "optional"
-msgstr ""
-
-#: inc/html.php:782
-msgid "1 hour"
-msgstr ""
-
-#: inc/html.php:783
-msgid "1 day"
-msgstr ""
-
-#: inc/html.php:784
-msgid "2 days"
-msgstr ""
-
-#: inc/html.php:785
-msgid "1 week"
-msgstr ""
-
-#: inc/html.php:786
-msgid "2 weeks"
-msgstr ""
-
-#: inc/html.php:787
-msgid "1 month"
-msgstr ""
-
-#: inc/html.php:805
-msgid "Set At"
-msgstr ""
-
-#: inc/html.php:805
-msgid "Expires"
-msgstr ""
-
-#: inc/html.php:807
-msgid "Does not expire"
-msgstr ""
-
-#: inc/html.php:809
-msgid "lift"
-msgstr ""
-
-#: inc/html.php:817
-msgid "Moderate a post"
-msgstr ""
+msgstr "사유"
 
 #: inc/html.php:818
-msgid "Post ID"
-msgstr ""
+msgid "never"
+msgstr "절대"
 
-#: inc/html.php:820
-msgid "Tip:"
-msgstr ""
+#: inc/html.php:819
+msgid "optional"
+msgstr "(선택)"
 
 #: inc/html.php:821
+msgid "1 hour"
+msgstr "1 시간"
+
+#: inc/html.php:822
+msgid "1 day"
+msgstr "1 일"
+
+#: inc/html.php:823
+msgid "2 days"
+msgstr "2 일"
+
+#: inc/html.php:824
+msgid "1 week"
+msgstr "1 주"
+
+#: inc/html.php:825
+msgid "2 weeks"
+msgstr "2 주"
+
+#: inc/html.php:826
+msgid "1 month"
+msgstr "1 달"
+
+#: inc/html.php:844
+msgid "Set At"
+msgstr "시작"
+
+#: inc/html.php:844
+msgid "Expires"
+msgstr "만료"
+
+#: inc/html.php:846
+msgid "Does not expire"
+msgstr "만료되지 않음"
+
+#: inc/html.php:848
+msgid "lift"
+msgstr "풀기"
+
+#: inc/html.php:856
+msgid "Moderate a post"
+msgstr "게시물 검토하기"
+
+#: inc/html.php:857
+msgid "Post ID"
+msgstr "게시물 식별자"
+
+#: inc/html.php:859
+msgid "Tip:"
+msgstr "귀띔:"
+
+#: inc/html.php:860
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
 "logged in."
-msgstr ""
+msgstr "상 게시판을 탐색하는 동안 접속하면 쉽게 게시물을 검토 할 수 있습니다."
 
-#: inc/html.php:822
+#: inc/html.php:861
 msgid ""
 "Tick the box next to a post and click \"Delete\" at the bottom of the page "
 "with a blank password."
 msgstr ""
+"게시물 옆에있는 상자를 선택하고 빈 암호로 쪽 하단의 \"삭제\"를 딸깍합니다."
 
-#: inc/html.php:841
+#: inc/html.php:880
 #, php-format
 msgid " A ban record already exists for %s"
-msgstr ""
+msgstr " %s 에 대한 차단 목록이 이미 있습니다"
 
-#: inc/html.php:844
+#: inc/html.php:883
 msgid "Only an administrator may ban an IP address."
-msgstr ""
+msgstr "관리자만이 누리망 통신 규약 주소를 차단할 수 있습니다."
 
-#: inc/html.php:846
+#: inc/html.php:885
 #, php-format
 msgid "IP address: %s"
-msgstr ""
+msgstr "누리망 통신 규약 주소: %s"
 
-#: inc/html.php:849
+#: inc/html.php:888
 msgid "This will delete the entire thread below."
-msgstr ""
+msgstr "아래의 전체 글타래가 삭제됩니다."
 
-#: inc/html.php:849
+#: inc/html.php:888
 msgid "This will delete the post below."
-msgstr ""
+msgstr "아래 게시물이 삭제됩니다."
 
-#: inc/html.php:850
+#: inc/html.php:889
 msgid "Thread"
-msgstr ""
+msgstr "글타래"
 
-#: inc/html.php:850
+#: inc/html.php:889
 msgid "Post"
-msgstr ""
+msgstr "게시물"
 
-#: inc/html.php:856
+#: inc/html.php:895
 msgid "Un-sticky"
-msgstr ""
+msgstr "떼어내기"
 
-#: inc/html.php:856
+#: inc/html.php:895
 msgid "Sticky"
-msgstr ""
-
-#: inc/html.php:857
-msgid "Return this thread to a normal state."
-msgstr ""
-
-#: inc/html.php:857
-msgid "Keep this thread at the top of the board."
-msgstr ""
-
-#: inc/html.php:871
-msgid "Unlock"
-msgstr ""
-
-#: inc/html.php:871
-msgid "Lock"
-msgstr ""
-
-#: inc/html.php:872
-msgid "Allow replying to this thread."
-msgstr ""
-
-#: inc/html.php:872
-msgid "Disallow replying to this thread."
-msgstr ""
-
-#: inc/html.php:893
-#, php-format
-msgid "Moderating No.%d"
-msgstr ""
-
-#: inc/html.php:894
-msgid "Action"
-msgstr ""
+msgstr "붙이기"
 
 #: inc/html.php:896
+msgid "Return this thread to a normal state."
+msgstr "게시물을 원래 상태로 되돌립니다."
+
+#: inc/html.php:896
+msgid "Keep this thread at the top of the board."
+msgstr "이 글타래를 판 상단에 유지합니다."
+
+#: inc/html.php:910
+msgid "Unlock"
+msgstr "잠금 해제"
+
+#: inc/html.php:910
+msgid "Lock"
+msgstr "잠금"
+
+#: inc/html.php:911
+msgid "Allow replying to this thread."
+msgstr "글타래에 답글을 허용합니다."
+
+#: inc/html.php:911
+msgid "Disallow replying to this thread."
+msgstr "글타래에 답글을 허용하지 않습니다."
+
+#: inc/html.php:932
+#, php-format
+msgid "Moderating No.%d"
+msgstr "게시물 번호 %d 검토중"
+
+#: inc/html.php:933 inc/html.php:1055
+msgid "Action"
+msgstr "동작"
+
+#: inc/html.php:935
 msgid "Delete thread"
-msgstr ""
+msgstr "글타래 삭제"
 
-#: inc/html.php:898
+#: inc/html.php:937
 msgid "Delete post"
-msgstr ""
+msgstr "게시물 삭제"
 
-#: inc/html.php:900
+#: inc/html.php:939
 msgid "Ban poster"
+msgstr "게시자 차단"
+
+#: inc/html.php:944
+msgid "Clear reports"
 msgstr ""
 
-#: inc/html.php:951
+#: inc/html.php:945 inc/html.php:1102
+msgid "report"
+msgstr ""
+
+#: inc/html.php:945 inc/html.php:1102
+msgid "reports"
+msgstr ""
+
+#: inc/html.php:1013
+#, fuzzy
+#| msgid "Sorry, there doesn't appear to be a post with that ID."
+msgid "Sorry, there doesn't appear to be a keyword with that ID."
+msgstr "죄송합니다. 해당 식별자의 게시물이 없는 것 같습니다."
+
+#: inc/html.php:1019 inc/html.php:1055
+msgid "Keyword"
+msgstr ""
+
+#: inc/html.php:1021
+#, fuzzy
+#| msgid "Action"
+msgid "Action:"
+msgstr "동작"
+
+#: inc/html.php:1022
+msgid "Add"
+msgstr ""
+
+#: inc/html.php:1036 inc/html.php:1069
+msgid "Delete and ban for 1 hour"
+msgstr ""
+
+#: inc/html.php:1037 inc/html.php:1072
+msgid "Delete and ban for 1 day"
+msgstr ""
+
+#: inc/html.php:1038 inc/html.php:1075
+msgid "Delete and ban for 2 days"
+msgstr ""
+
+#: inc/html.php:1039 inc/html.php:1078
+msgid "Delete and ban for 1 week"
+msgstr ""
+
+#: inc/html.php:1040 inc/html.php:1081
+msgid "Delete and ban for 2 weeks"
+msgstr ""
+
+#: inc/html.php:1041 inc/html.php:1084
+msgid "Delete and ban for 1 month"
+msgstr ""
+
+#: inc/html.php:1042 inc/html.php:1066
+msgid "Delete and ban permanently"
+msgstr ""
+
+#: inc/html.php:1087
+msgid "Edit"
+msgstr ""
+
+#: inc/html.php:1100
 msgid "thread"
-msgstr ""
+msgstr "글타래"
 
-#: inc/html.php:951
+#: inc/html.php:1100
 msgid "threads"
-msgstr ""
+msgstr "글타래들"
 
-#: inc/html.php:951
+#: inc/html.php:1104
 msgid "ban"
-msgstr ""
+msgstr "차단"
 
-#: inc/html.php:951
+#: inc/html.php:1104
 msgid "bans"
-msgstr ""
+msgstr "차단들"
 
-#: inc/html.php:975
+#: inc/html.php:1128
 msgid "Approve"
-msgstr ""
+msgstr "승인"
 
-#: inc/html.php:977
+#: inc/html.php:1130
 msgid "More Info"
-msgstr ""
+msgstr "더 많은 정보"
 
-#: inc/html.php:985
+#: inc/html.php:1138
 msgid "Pending posts"
-msgstr ""
+msgstr "보류 중인 게시물"
 
-#: inc/html.php:1003
-msgid "Moderate"
-msgstr ""
+#: inc/html.php:1159
+#, fuzzy
+#| msgid "Recent posts"
+msgid "Reported posts"
+msgstr "최근 게시물들"
 
-#: inc/html.php:1007
-msgid "Info"
-msgstr ""
-
-#: inc/html.php:1008
+#: inc/html.php:1162
 msgid "Recent posts"
-msgstr ""
+msgstr "최근 게시물들"
+
+#: inc/html.php:1169
+msgid "Moderate"
+msgstr "검토"
+
+#: inc/html.php:1173
+msgid "Info"
+msgstr "정보"

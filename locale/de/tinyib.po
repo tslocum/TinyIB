@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2020-10-22 09:12-0700\n"
-"PO-Revision-Date: 2020-09-27 03:41+0000\n"
-"Last-Translator: Georg Eitler <funer@gmx.at>\n"
+"POT-Creation-Date: 2020-11-23 12:37-0800\n"
+"PO-Revision-Date: 2020-11-14 21:28+0000\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tinyib/tinyib/de/"
 ">\n"
 "Language: de\n"
@@ -12,206 +12,246 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
 "X-Poedit-SearchPath-2: inc/functions.php\n"
 
-#: imgboard.php:60
+#: imgboard.php:46
 msgid "Click here to go back"
-msgstr ""
+msgstr "Klicke hier, um zurückzugehen"
 
-#: imgboard.php:84
+#: imgboard.php:72 imgboard.php:614
+msgid "Unknown database mode specified."
+msgstr "Unbekannten Datenbankmodus spezifiziert."
+
+#: imgboard.php:183
+#, php-format
+msgid "Directory '%s' can not be written to.  Please modify its permissions."
+msgstr ""
+"Verzeichnis „%s“ kann nicht beschrieben werden.  Bitte passe die "
+"Berechtigungen an."
+
+#: imgboard.php:193
 msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
 msgstr "TINYIB_TRIPSEED und TINYIB_ADMINPASS müssen konfiguriert werden."
 
-#: imgboard.php:88
+#: imgboard.php:197
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgstr ""
 "TINYIB_RECAPTCHA_SITE und TINYIB_RECAPTCHA_SECRET  müssen konfiguriert "
 "werden."
 
-#: imgboard.php:93 imgboard.php:501
-msgid "Unknown database mode specified."
-msgstr "Unbekannten Datenbankmodus spezifiziert."
-
-#: imgboard.php:190
-#, php-format
-msgid "Directory '%s' can not be written to.  Please modify its permissions."
-msgstr ""
-"Verzeichnis '%s' kann nicht beschrieben werden.  Bitte passe die "
-"Berechtigungen an."
-
-#: imgboard.php:207
+#: imgboard.php:210
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
 msgstr ""
-"Posten ist derzeit nicht möglich.<br>Bitte versuche es in ein paar Momenten "
-"erneut."
+"Das Veröffentlichen ist derzeit nicht möglich.<br>Bitte versuche es in ein "
+"paar Momenten erneut."
 
-#: imgboard.php:226 inc/functions.php:300
+#: imgboard.php:229 inc/functions.php:346
 msgid "Invalid parent thread ID supplied, unable to create post."
-msgstr "Ungültige Ursprungs-thread ID, der Post konnte nicht erstellt werden."
+msgstr ""
+"Ungültige Ursprungsbeitragsstrang-ID; der Beitrag konnte nicht erstellt "
+"werden."
 
-#: imgboard.php:228
+#: imgboard.php:231
 msgid "Replies are not allowed to locked threads."
-msgstr "Antworten sind bei geschlossenen Threads nicht erlaubt."
+msgstr "Antworten sind bei geschlossenen Beitragssträngen nicht erlaubt."
 
-#: imgboard.php:265
+#: imgboard.php:278
+msgid "Your post contains a blocked keyword."
+msgstr ""
+
+#: imgboard.php:319
 msgid "Embedding a URL and uploading a file at the same time is not supported."
 msgstr ""
 "Einbettung einer URL und gleichzeitiges Hochladen einer Datei sind nicht "
 "unterstützt."
 
-#: imgboard.php:271
+#: imgboard.php:325
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
 msgstr "Ungültige Einbettungs-URL. Es sind nur %s URLs unterstützt."
 
-#: imgboard.php:275 inc/functions.php:326 inc/functions.php:566
+#: imgboard.php:329 inc/functions.php:372 inc/functions.php:612
 #, php-format
 msgid "That file is larger than %s."
 msgstr "Die Datei ist größer als %s."
 
-#: imgboard.php:280 imgboard.php:286
+#: imgboard.php:334 imgboard.php:340
 msgid "Failed to download file at specified URL."
-msgstr ""
+msgstr "Fehler beim Herunterladen der Datei unter der angegebenen URL."
 
-#: imgboard.php:308
+#: imgboard.php:362
 msgid "Error while processing audio/video."
 msgstr "Fehler bei der Verarbeitung von Audio/Video."
 
-#: imgboard.php:315 inc/functions.php:651 inc/functions.php:662
+#: imgboard.php:369 inc/functions.php:697 inc/functions.php:708
 msgid "Could not create thumbnail."
 msgstr "Konnte keine Miniaturansicht erstellen."
 
-#: imgboard.php:338
+#: imgboard.php:392
 msgid "upload a file or embed a URL"
-msgstr ""
+msgstr "eine Datei hochladen oder eine URL einbetten"
 
-#: imgboard.php:340
+#: imgboard.php:394
 msgid "upload a file"
-msgstr ""
+msgstr "eine Datei hochladen"
 
-#: imgboard.php:342
+#: imgboard.php:396
 msgid "embed a URL"
-msgstr ""
+msgstr "eine URL einbetten"
 
-#: imgboard.php:345
-#, fuzzy, php-format
-#| msgid "0 to start a new thread"
+#: imgboard.php:399
+#, php-format
 msgid "Please %s to start a new thread."
-msgstr "0 um ein neues Thema zu beginnen"
+msgstr "Bitte %s um einen neuen Diskussionsfaden zu starten."
 
-#: imgboard.php:351
+#: imgboard.php:405
 #, php-format
 msgid "Please enter a message and/or %s."
-msgstr ""
+msgstr "Bitte geben Sie eine Nachricht und/oder %s ein."
 
-#: imgboard.php:353
-#, fuzzy
-#| msgid "Please enter the CAPTCHA text."
+#: imgboard.php:407
 msgid "Please enter a message."
-msgstr "Bitte den CAPTCHA Text eingeben."
+msgstr "Geben Sie eine Nachricht ein."
 
-#: imgboard.php:355
+#: imgboard.php:409
 #, php-format
 msgid "Please %s."
-msgstr ""
+msgstr "Bitte %s."
 
-#: imgboard.php:358
+#: imgboard.php:412
 #, php-format
 msgid "%s uploaded."
 msgstr "%s hochgeladen."
 
-#: imgboard.php:363
+#: imgboard.php:417
 #, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr "Dein %s wir angezeigt <b>sobald die Genehmingung erteilt wurde</b>."
 
-#: imgboard.php:376
+#: imgboard.php:435
 msgid "Updating thread..."
-msgstr "Aktualisierung des Threads …"
+msgstr "Aktualisierung des Beitragsstrang …"
 
-#: imgboard.php:389
+#: imgboard.php:448
 msgid "Updating index..."
 msgstr "Aktualisierung des Index …"
 
-#: imgboard.php:395
-msgid "Tick the box next to a post and click \"Delete\" to delete it."
+#: imgboard.php:454
+msgid "Reporting is disabled."
 msgstr ""
-"Klicke die Box neben einen Post an und klicke „Löschen“, um ihn zu löschen."
 
-#: imgboard.php:399
-msgid ""
-"Post deletion is currently disabled.<br>Please try again in a few moments."
-msgstr ""
-"Löschen von Posts ist derzeit gesperrt.<br>Bitte versuche es in ein paar "
-"Momenten erneut."
-
-#: imgboard.php:416
-msgid "Post deleted."
-msgstr "Post gelöscht."
-
-#: imgboard.php:418
-msgid "Invalid password."
-msgstr "Ungültiges Passwort."
-
-#: imgboard.php:421
+#: imgboard.php:459 imgboard.php:500
 msgid ""
 "Sorry, an invalid post identifier was sent. Please go back, refresh the "
 "page, and try again."
 msgstr ""
-"Entschuldigung, eine ungültige Post-identifizierung wurde gesendet. Bitte "
+"Entschuldigung, eine ungültige Beitragidentifizierung wurde gesendet. Bitte "
 "gehe zurück, aktualisiere die Seite und versuche es erneut."
 
-#: imgboard.php:445
+#: imgboard.php:464
+msgid "You have already submitted a report for that post."
+msgstr ""
+
+#: imgboard.php:470
+#, fuzzy
+#| msgid "Post deleted."
+msgid "Post reported."
+msgstr "Beitrag gelöscht."
+
+#: imgboard.php:474
+msgid "Tick the box next to a post and click \"Delete\" to delete it."
+msgstr ""
+"Klicke die Box neben einen Beitrag an und klicke „Löschen“, um ihn zu "
+"löschen."
+
+#: imgboard.php:478
+msgid ""
+"Post deletion is currently disabled.<br>Please try again in a few moments."
+msgstr ""
+"Löschen von Beiträgen ist derzeit gesperrt.<br>Bitte versuche es in ein paar "
+"Momenten erneut."
+
+#: imgboard.php:495
+msgid "Post deleted."
+msgstr "Beitrag gelöscht."
+
+#: imgboard.php:497 inc/functions.php:326
+msgid "Invalid password."
+msgstr "Ungültiges Passwort."
+
+#: imgboard.php:524
 msgid "Rebuilt board."
 msgstr "Board umstrukturiert."
 
-#: imgboard.php:453
+#: imgboard.php:532
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr "Entschuldigung, auf dieser IP-Adresse existiert schon ein Ban vermerk."
 
-#: imgboard.php:462
+#: imgboard.php:541
 #, php-format
 msgid "Ban record added for %s"
 msgstr "Ban vermerk für %s hinzugefügt"
 
-#: imgboard.php:468
+#: imgboard.php:547
 #, php-format
 msgid "Ban record lifted for %s"
 msgstr "Ban vermerk für %s aufgehoben"
 
-#: imgboard.php:536
+#: imgboard.php:562
+msgid "Sorry, that keyword has already been added."
+msgstr ""
+
+#: imgboard.php:571
+msgid "Keyword updated."
+msgstr ""
+
+#: imgboard.php:574
+msgid "Keyword added."
+msgstr ""
+
+#: imgboard.php:578
+#, fuzzy
+#| msgid "Post deleted."
+msgid "Keyword deleted."
+msgstr "Beitrag gelöscht."
+
+#: imgboard.php:650
 #, php-format
 msgid "Post No.%d deleted."
-msgstr "Post Nummer %d gelöscht."
+msgstr "Beitrag Nr. %d gelöscht."
 
-#: imgboard.php:538 imgboard.php:554 imgboard.php:563 imgboard.php:578
-#: imgboard.php:592
+#: imgboard.php:652 imgboard.php:668 imgboard.php:677 imgboard.php:692
+#: imgboard.php:706 imgboard.php:719
 msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr "Entschuldigung, es scheint kein Post mit dieser ID zu existieren."
+msgstr "Entschuldigung, es scheint kein Beitrag mit dieser ID zu existieren."
 
-#: imgboard.php:552
+#: imgboard.php:666
 #, php-format
 msgid "Post No.%d approved."
-msgstr "Post Nummer %d genehmigt."
+msgstr "Beitrag Nr. %d genehmigt."
 
-#: imgboard.php:581 imgboard.php:595
+#: imgboard.php:695 imgboard.php:709
 msgid "Form data was lost. Please go back and try again."
 msgstr ""
 "Formulardaten gingen verloren. Bitte gehe zurück und versuch es erneut."
 
-#: inc/functions.php:127 inc/html.php:1055
+#: imgboard.php:717
+msgid "Reports cleared."
+msgstr ""
+
+#: inc/functions.php:135 inc/html.php:1217
 msgid "Anonymous"
 msgstr "Anonym"
 
-#: inc/functions.php:236
+#: inc/functions.php:268
 msgid "Please enter the CAPTCHA text."
 msgstr "Bitte den CAPTCHA Text eingeben."
 
-#: inc/functions.php:238
+#: inc/functions.php:270
 msgid ""
 "Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
 "retrieve a new CAPTCHA."
@@ -219,7 +259,7 @@ msgstr ""
 "Inkorrekter CAPTCHA text. Bitte versuche es erneut.<br>Klicke aud das Bild "
 "um einen neuen CAPTCHA anzufordern."
 
-#: inc/functions.php:269
+#: inc/functions.php:311
 #, php-format
 msgid ""
 "Please shorten your message, or post it in multiple parts. Your message is "
@@ -228,7 +268,7 @@ msgstr ""
 "Bitte kürze deine Nachricht, oder veröffentliche sie in mehreren Teilen. "
 "Deine Nachricht ist %1$d Zeichen lang, die Maximal zulässig sind %2$d."
 
-#: inc/functions.php:329
+#: inc/functions.php:375
 #, php-format
 msgid ""
 "The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
@@ -236,27 +276,27 @@ msgstr ""
 "Die hochgeladene Datei überschreitet die upload_max_filesize-Direktive (%s) "
 "in php.ini."
 
-#: inc/functions.php:332
+#: inc/functions.php:378
 msgid "The uploaded file was only partially uploaded."
 msgstr "Die hochgeladene Datei wurde nur teilweise hochgeladen."
 
-#: inc/functions.php:335
+#: inc/functions.php:381
 msgid "No file was uploaded."
 msgstr "Es wurde keine Datei hochgeladen."
 
-#: inc/functions.php:338
+#: inc/functions.php:384
 msgid "Missing a temporary folder."
 msgstr "Ein temporärer Ordner fehlt."
 
-#: inc/functions.php:341
+#: inc/functions.php:387
 msgid "Failed to write file to disk"
 msgstr "Fehler beim Schreiben einer Datei auf den Datenträger"
 
-#: inc/functions.php:344
+#: inc/functions.php:390
 msgid "Unable to save the uploaded file."
 msgstr "Die hochgeladene Datei konnte nicht gespeichert werden."
 
-#: inc/functions.php:352
+#: inc/functions.php:398
 #, php-format
 msgid ""
 "Duplicate file uploaded. That file has already been posted <a href=\"%s"
@@ -265,7 +305,7 @@ msgstr ""
 "Duplikatdatei hochgeladen. Diese Datei wurde bereits <a href=\"%s\">hier</a> "
 "veröffentlicht."
 
-#: inc/functions.php:383
+#: inc/functions.php:429
 msgid ""
 "Unable to read the uploaded file while creating its thumbnail. A common "
 "cause for this is an incorrect extension when the file is actually of a "
@@ -275,11 +315,11 @@ msgstr ""
 "werden. Eine häufige Ursache dafür ist eine falsche Erweiterung, wenn die "
 "Datei tatsächlich einen anderen Typ hat."
 
-#: inc/functions.php:560
+#: inc/functions.php:606
 msgid "File transfer failure. Please retry the submission."
 msgstr "Fehler beim Transfer der Datei. Bitte versuche es erneut."
 
-#: inc/functions.php:582
+#: inc/functions.php:628
 msgid ""
 "Failed to read the MIME type and size of the uploaded file. Please retry the "
 "submission."
@@ -287,16 +327,16 @@ msgstr ""
 "Fehler beim auslesen des MIME-typs und größe der hochgeladenen Datei. Bitte "
 "versuche es erneut."
 
-#: inc/functions.php:596 inc/functions.php:601
+#: inc/functions.php:642 inc/functions.php:647
 msgid "Could not copy uploaded file."
 msgstr "Hochgeladene Datei konnte nicht kopiert werden."
 
-#: inc/functions.php:607
+#: inc/functions.php:653
 msgid "File transfer failure. Please go back and try again."
 msgstr ""
 "Fehler bei der Dateiübertragung. Bitte gehe zurück und versuche es erneut."
 
-#: inc/functions.php:626
+#: inc/functions.php:672
 msgid "Sorry, your video appears to be corrupt."
 msgstr "Entschuldigung, dein Video scheint fehlerhaft zu sein."
 
@@ -306,12 +346,11 @@ msgid "Supported file type is %s"
 msgstr "Unterstützter Dateityp ist %s"
 
 #: inc/html.php:60
-#, fuzzy, php-format
-#| msgid "Supported file types are %s."
+#, php-format
 msgid "Supported file types are %1$s and %2$s."
-msgstr "Unterstützte Dateitypen sind %s."
+msgstr "Unterstützte Dateitypen sind %1$s und %2$s."
 
-#: inc/html.php:77 inc/html.php:781 inc/html.php:819
+#: inc/html.php:77 inc/html.php:820 inc/html.php:858
 msgid "Submit"
 msgstr "Absenden"
 
@@ -335,7 +374,7 @@ msgstr ""
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Zeilen-umbrüche müssen mit \"&lt;br&gt;\" spezifiziert werden."
 
-#: inc/html.php:149
+#: inc/html.php:149 inc/html.php:795
 msgid "(enter the text below)"
 msgstr "(Gib den Text unten ein)"
 
@@ -362,11 +401,13 @@ msgstr "(Eine YouTube-URL einfügen)"
 
 #: inc/html.php:207
 msgid "All posts are moderated before being shown."
-msgstr ""
+msgstr "Alle Beiträge werden moderiert, bevor sie angezeigt werden."
 
 #: inc/html.php:209
 msgid "All posts with a file attached are moderated before being shown."
 msgstr ""
+"Alle Beiträge mit einer angehängten Datei werden moderiert, bevor sie "
+"angezeigt werden."
 
 #: inc/html.php:219
 #, php-format
@@ -394,359 +435,420 @@ msgstr "Betreff"
 msgid "Message"
 msgstr "Nachricht"
 
-#: inc/html.php:298 inc/html.php:564
+#: inc/html.php:298 inc/html.php:570
 msgid "Password"
 msgstr "Passwort"
 
 #: inc/html.php:299
 msgid "(for post and file deletion)"
-msgstr "(für Post- und Dateilöschung)"
+msgstr "(für Beitrag- und Dateilöschung)"
 
-#: inc/html.php:356
-#, fuzzy
-#| msgid "Sticky"
+#: inc/html.php:350 inc/html.php:1033 inc/html.php:1060
+msgid "Report"
+msgstr ""
+
+#: inc/html.php:362
 msgid "Stickied"
-msgstr "Sticky"
+msgstr "Aufgeklebt"
 
-#: inc/html.php:360
-#, fuzzy
-#| msgid "Lock"
+#: inc/html.php:366
 msgid "Locked"
-msgstr "Sperren"
+msgstr "Gesperrt"
 
-#: inc/html.php:373
+#: inc/html.php:379
 msgid "Embed:"
 msgstr "Einbetten:"
 
-#: inc/html.php:373
+#: inc/html.php:379
 msgid "File:"
 msgstr "Datei:"
 
-#: inc/html.php:470
+#: inc/html.php:476
 msgid "Reply"
 msgstr "Antworten"
 
-#: inc/html.php:476
-#, fuzzy
-#| msgid "Post truncated.  Click Reply to view."
+#: inc/html.php:482
 msgid "Post truncated. Click Reply to view."
-msgstr "Post gekürzt. Klicke Antworten um ihn Anzuzeigen."
+msgstr "Beitrag gekürzt. Klicke Antworten um ihn Anzuzeigen."
 
-#: inc/html.php:487
+#: inc/html.php:493
 msgid "1 post omitted. Click Reply to view."
-msgstr "1 Post weggelassen. Klicke Antworten um ihn Anzuzeigen."
+msgstr "1 Beitrag weggelassen. Klicke Antworten um ihn Anzuzeigen."
 
-#: inc/html.php:489
+#: inc/html.php:495
 #, php-format
 msgid "%d posts omitted. Click Reply to view."
-msgstr "%d Posts weggelassen. Klicke Antworten um sie Anzuzeigen."
+msgstr "%d Beiträge weggelassen. Klicke Antworten um sie Anzuzeigen."
 
-#: inc/html.php:505 inc/html.php:540 inc/html.php:552
+#: inc/html.php:511 inc/html.php:546 inc/html.php:558
 msgid "Catalog"
 msgstr "Katalog"
 
-#: inc/html.php:515
+#: inc/html.php:521
 msgid "Previous"
 msgstr "Vorherige"
 
-#: inc/html.php:528
+#: inc/html.php:534
 msgid "Next"
 msgstr "Weiter"
 
-#: inc/html.php:552 inc/html.php:554 inc/html.php:701
+#: inc/html.php:558 inc/html.php:560 inc/html.php:711
 msgid "Return"
 msgstr "Zurück"
 
-#: inc/html.php:554
+#: inc/html.php:560
 msgid "Posting mode: Reply"
-msgstr "Post modus: Antworten"
+msgstr "Beitragmodus: Antworten"
 
-#: inc/html.php:562
+#: inc/html.php:568
 msgid "Manage"
 msgstr "Verwalten"
 
-#: inc/html.php:563
+#: inc/html.php:569
 msgid "Style"
 msgstr "Stil"
 
-#: inc/html.php:565 inc/html.php:979
+#: inc/html.php:571 inc/html.php:1035 inc/html.php:1063 inc/html.php:1087
+#: inc/html.php:1132
 msgid "Delete"
 msgstr "Löschen"
 
-#: inc/html.php:566
+#: inc/html.php:572
 msgid "Delete Post"
-msgstr "Post löschen"
+msgstr "Beitrag löschen"
 
-#: inc/html.php:706 inc/html.php:1006
+#: inc/html.php:716 inc/html.php:1172
 msgid "Status"
 msgstr "Status"
 
-#: inc/html.php:708
+#: inc/html.php:718
 msgid "Bans"
-msgstr "Bans"
+msgstr "Verbannungen"
 
-#: inc/html.php:710
+#: inc/html.php:719 inc/html.php:1020
+msgid "Keywords"
+msgstr ""
+
+#: inc/html.php:721
 msgid "Moderate Post"
-msgstr "Moderiere Post"
+msgstr "Beitrag moderieren"
 
-#: inc/html.php:710
+#: inc/html.php:721
 msgid "Raw Post"
-msgstr "Unbearbeiteter Post"
+msgstr "Unbearbeiteter Beitrag"
 
-#: inc/html.php:712
+#: inc/html.php:723
 msgid "Rebuild All"
 msgstr "Alles neu Strukturieren"
 
-#: inc/html.php:715
+#: inc/html.php:726 inc/html.php:1022
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: inc/html.php:718
+#: inc/html.php:729
 msgid "Migrate Database"
 msgstr "Datenbank migrieren"
 
-#: inc/html.php:720
+#: inc/html.php:731
 msgid "Log Out"
 msgstr "Abmelden"
 
-#: inc/html.php:726
+#: inc/html.php:737
 msgid "Manage mode"
 msgstr "Verwaltungsmodus"
 
-#: inc/html.php:758
+#: inc/html.php:771
 msgid "Log In"
 msgstr "Anmelden"
 
-#: inc/html.php:759
+#: inc/html.php:772
 msgid "Enter an administrator or moderator password"
 msgstr "Gib ein Administrator oder Moderator Passwort ein"
 
-#: inc/html.php:775
+#: inc/html.php:814
 msgid "Add a ban"
-msgstr ""
+msgstr "Verbannen"
 
-#: inc/html.php:776 inc/html.php:805
+#: inc/html.php:815 inc/html.php:844
 msgid "IP Address"
 msgstr "IP-Adresse"
 
-#: inc/html.php:777
-#, fuzzy
-#| msgid "Expire(sec):"
+#: inc/html.php:816
 msgid "Expire(sec)"
-msgstr "Ablaufen(sek):"
+msgstr "Ablaufen(Sek)"
 
-#: inc/html.php:778 inc/html.php:805
+#: inc/html.php:817 inc/html.php:844
 msgid "Reason"
 msgstr "Grund"
 
-#: inc/html.php:779
+#: inc/html.php:818
 msgid "never"
 msgstr "nie"
 
-#: inc/html.php:780
+#: inc/html.php:819
 msgid "optional"
 msgstr "optional"
 
-#: inc/html.php:782
+#: inc/html.php:821
 msgid "1 hour"
-msgstr ""
+msgstr "1 Stunde"
 
-#: inc/html.php:783
+#: inc/html.php:822
 msgid "1 day"
-msgstr ""
+msgstr "1 Tag"
 
-#: inc/html.php:784
+#: inc/html.php:823
 msgid "2 days"
-msgstr ""
+msgstr "2 Tage"
 
-#: inc/html.php:785
+#: inc/html.php:824
 msgid "1 week"
-msgstr ""
+msgstr "1 Woche"
 
-#: inc/html.php:786
+#: inc/html.php:825
 msgid "2 weeks"
-msgstr ""
+msgstr "2 Wochen"
 
-#: inc/html.php:787
+#: inc/html.php:826
 msgid "1 month"
-msgstr ""
+msgstr "1 Monat"
 
-#: inc/html.php:805
+#: inc/html.php:844
 msgid "Set At"
 msgstr "Setzen bei"
 
-#: inc/html.php:805
+#: inc/html.php:844
 msgid "Expires"
 msgstr "Läuft ab"
 
-#: inc/html.php:807
+#: inc/html.php:846
 msgid "Does not expire"
 msgstr "Läuft nicht ab"
 
-#: inc/html.php:809
+#: inc/html.php:848
 msgid "lift"
 msgstr "aufheben"
 
-#: inc/html.php:817
-#, fuzzy
-#| msgid "Moderate Post"
+#: inc/html.php:856
 msgid "Moderate a post"
-msgstr "Moderiere Post"
+msgstr "Beitrag moderieren"
 
-#: inc/html.php:818
-#, fuzzy
-#| msgid "Post"
+#: inc/html.php:857
 msgid "Post ID"
-msgstr "Post"
+msgstr "Beitrags-ID"
 
-#: inc/html.php:820
+#: inc/html.php:859
 msgid "Tip:"
-msgstr ""
+msgstr "Tipp:"
 
-#: inc/html.php:821
+#: inc/html.php:860
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
 "logged in."
 msgstr ""
+"Beim Durchsuchen der Bildplatine kannst du einen Beitrag leicht moderieren, "
+"wenn du angemeldet bist."
 
-#: inc/html.php:822
-#, fuzzy
-#| msgid "Tick the box next to a post and click \"Delete\" to delete it."
+#: inc/html.php:861
 msgid ""
 "Tick the box next to a post and click \"Delete\" at the bottom of the page "
 "with a blank password."
 msgstr ""
-"Klicke die Box neben einen Post an und klicke „Löschen“, um ihn zu löschen."
+"Aktiviere das Kontrollkästchen neben einem Beitrag und klicke unten auf der "
+"Seite mit einem leeren Passwort auf „Löschen“."
 
-#: inc/html.php:841
-#, fuzzy, php-format
-#| msgid "Ban record added for %s"
+#: inc/html.php:880
+#, php-format
 msgid " A ban record already exists for %s"
-msgstr "Ban vermerk für %s hinzugefügt"
+msgstr " Ein Verbannungsdatensatz existiert bereits für %s"
 
-#: inc/html.php:844
+#: inc/html.php:883
 msgid "Only an administrator may ban an IP address."
-msgstr ""
+msgstr "Nur ein Administrator darf eine IP-Adresse sperren."
 
-#: inc/html.php:846
-#, fuzzy, php-format
-#| msgid "IP Address:"
+#: inc/html.php:885
+#, php-format
 msgid "IP address: %s"
-msgstr "IP-Adresse:"
+msgstr "IP-Adresse: %s"
 
-#: inc/html.php:849
+#: inc/html.php:888
 msgid "This will delete the entire thread below."
 msgstr "Dies wird das Ganze Thema darunter löschen."
 
-#: inc/html.php:849
+#: inc/html.php:888
 msgid "This will delete the post below."
-msgstr "Dies wird den Post darunter löschen."
+msgstr "Dies wird den Beitrag darunter löschen."
 
-#: inc/html.php:850
+#: inc/html.php:889
 msgid "Thread"
-msgstr "Thema"
+msgstr "Beitragsstrang"
 
-#: inc/html.php:850
+#: inc/html.php:889
 msgid "Post"
-msgstr "Post"
+msgstr "Beitrag"
 
-#: inc/html.php:856
+#: inc/html.php:895
 msgid "Un-sticky"
 msgstr "Nicht mehr Sticky"
 
-#: inc/html.php:856
+#: inc/html.php:895
 msgid "Sticky"
-msgstr "Sticky"
+msgstr "Klebrig"
 
-#: inc/html.php:857
+#: inc/html.php:896
 msgid "Return this thread to a normal state."
 msgstr "Dieses Thema auf Normalzustand zurücksetzen."
 
-#: inc/html.php:857
+#: inc/html.php:896
 msgid "Keep this thread at the top of the board."
 msgstr "Dieses Thema am Anfang des Boards behalten."
 
-#: inc/html.php:871
+#: inc/html.php:910
 msgid "Unlock"
 msgstr "Entsperren"
 
-#: inc/html.php:871
+#: inc/html.php:910
 msgid "Lock"
 msgstr "Sperren"
 
-#: inc/html.php:872
+#: inc/html.php:911
 msgid "Allow replying to this thread."
 msgstr "Antworten zu diesem Thema erlauben."
 
-#: inc/html.php:872
+#: inc/html.php:911
 msgid "Disallow replying to this thread."
 msgstr "Antworten zu diesem Thema verweigern."
 
-#: inc/html.php:893
-#, fuzzy, php-format
-#| msgid "Moderate Post"
+#: inc/html.php:932
+#, php-format
 msgid "Moderating No.%d"
-msgstr "Moderiere Post"
+msgstr "Moderierende Nr. %d"
 
-#: inc/html.php:894
+#: inc/html.php:933 inc/html.php:1055
 msgid "Action"
 msgstr "Aktion"
 
-#: inc/html.php:896
-#, fuzzy
-#| msgid "Delete Post"
+#: inc/html.php:935
 msgid "Delete thread"
-msgstr "Post löschen"
+msgstr "Beitragsstrang löschen"
 
-#: inc/html.php:898
-#, fuzzy
-#| msgid "Delete Post"
+#: inc/html.php:937
 msgid "Delete post"
-msgstr "Post löschen"
+msgstr "Beitrag löschen"
 
-#: inc/html.php:900
+#: inc/html.php:939
 msgid "Ban poster"
+msgstr "Autor verbannen"
+
+#: inc/html.php:944
+msgid "Clear reports"
 msgstr ""
 
-#: inc/html.php:951
+#: inc/html.php:945 inc/html.php:1102
+msgid "report"
+msgstr ""
+
+#: inc/html.php:945 inc/html.php:1102
+msgid "reports"
+msgstr ""
+
+#: inc/html.php:1013
+#, fuzzy
+#| msgid "Sorry, there doesn't appear to be a post with that ID."
+msgid "Sorry, there doesn't appear to be a keyword with that ID."
+msgstr "Entschuldigung, es scheint kein Beitrag mit dieser ID zu existieren."
+
+#: inc/html.php:1019 inc/html.php:1055
+msgid "Keyword"
+msgstr ""
+
+#: inc/html.php:1021
+#, fuzzy
+#| msgid "Action"
+msgid "Action:"
+msgstr "Aktion"
+
+#: inc/html.php:1022
+msgid "Add"
+msgstr ""
+
+#: inc/html.php:1036 inc/html.php:1069
+msgid "Delete and ban for 1 hour"
+msgstr ""
+
+#: inc/html.php:1037 inc/html.php:1072
+msgid "Delete and ban for 1 day"
+msgstr ""
+
+#: inc/html.php:1038 inc/html.php:1075
+msgid "Delete and ban for 2 days"
+msgstr ""
+
+#: inc/html.php:1039 inc/html.php:1078
+msgid "Delete and ban for 1 week"
+msgstr ""
+
+#: inc/html.php:1040 inc/html.php:1081
+msgid "Delete and ban for 2 weeks"
+msgstr ""
+
+#: inc/html.php:1041 inc/html.php:1084
+msgid "Delete and ban for 1 month"
+msgstr ""
+
+#: inc/html.php:1042 inc/html.php:1066
+msgid "Delete and ban permanently"
+msgstr ""
+
+#: inc/html.php:1087
+msgid "Edit"
+msgstr ""
+
+#: inc/html.php:1100
 msgid "thread"
 msgstr "Thema"
 
-#: inc/html.php:951
+#: inc/html.php:1100
 msgid "threads"
 msgstr "Themen"
 
-#: inc/html.php:951
+#: inc/html.php:1104
 msgid "ban"
 msgstr "Ban"
 
-#: inc/html.php:951
+#: inc/html.php:1104
 msgid "bans"
 msgstr "Bans"
 
-#: inc/html.php:975
+#: inc/html.php:1128
 msgid "Approve"
 msgstr "Genehmigen"
 
-#: inc/html.php:977
+#: inc/html.php:1130
 msgid "More Info"
 msgstr "Mehr Information"
 
-#: inc/html.php:985
+#: inc/html.php:1138
 msgid "Pending posts"
-msgstr "Vorbehaltene Posts"
+msgstr "Vorbehaltene Beiträge"
 
-#: inc/html.php:1003
+#: inc/html.php:1159
+#, fuzzy
+#| msgid "Recent posts"
+msgid "Reported posts"
+msgstr "Neue Beiträge"
+
+#: inc/html.php:1162
+msgid "Recent posts"
+msgstr "Neue Beiträge"
+
+#: inc/html.php:1169
 msgid "Moderate"
 msgstr "Moderieren"
 
-#: inc/html.php:1007
+#: inc/html.php:1173
 msgid "Info"
 msgstr "Information"
-
-#: inc/html.php:1008
-msgid "Recent posts"
-msgstr "Neue Posts"
 
 #~ msgid "A %s is required to start a thread."
 #~ msgstr "Ein %s ist benötigt um einen Thread zu starten."
