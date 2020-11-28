@@ -45,6 +45,8 @@ if (mysql_num_rows(mysql_query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 
 	mysql_query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
 }
 
+mysql_query("ALTER TABLE `" . TINYIB_DBPOSTS . "` MODIFY tripcode VARCHAR(24) NOT NULL DEFAULT ''");
+
 mysql_query("ALTER TABLE `" . TINYIB_DBPOSTS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
 mysql_query("ALTER TABLE `" . TINYIB_DBBANS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
 

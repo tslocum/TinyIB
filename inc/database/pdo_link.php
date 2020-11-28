@@ -112,9 +112,13 @@ if (!$locked_exists) {
 }
 
 if (TINYIB_DBDRIVER === 'pgsql') {
+	$dbh->query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ALTER COLUMN tripcode VARCHAR(24) NOT NULL DEFAULT ''");
+
 	$dbh->query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ALTER COLUMN ip VARCHAR(255) NOT NULL DEFAULT ''");
 	$dbh->query("ALTER TABLE `" . TINYIB_DBBANS . "` ALTER COLUMN ip VARCHAR(255) NOT NULL DEFAULT ''");
 } else {
+	$dbh->query("ALTER TABLE `" . TINYIB_DBPOSTS . "` MODIFY tripcode VARCHAR(24) NOT NULL DEFAULT ''");
+
 	$dbh->query("ALTER TABLE `" . TINYIB_DBPOSTS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
 	$dbh->query("ALTER TABLE `" . TINYIB_DBBANS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
 }
