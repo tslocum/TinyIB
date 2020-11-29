@@ -128,7 +128,7 @@ function trimThreads() {
 }
 
 function lastPostByIP() {
-	$result = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE ip = ? ORDER BY id DESC LIMIT 1", array($_SERVER['REMOTE_ADDR']));
+	$result = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE ip = ? OR ip = ? ORDER BY id DESC LIMIT 1", array($_SERVER['REMOTE_ADDR'], hashData($_SERVER['REMOTE_ADDR'])));
 	return $result->fetch(PDO::FETCH_ASSOC);
 }
 

@@ -139,7 +139,7 @@ function trimThreads() {
 
 function lastPostByIP() {
 	global $link;
-	$replies = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `ip` = '" . mysqli_real_escape_string($link, $_SERVER['REMOTE_ADDR']) . "' OR `ip` = '" . mysqli_real_escape_string($link, $_SERVER['REMOTE_ADDR']) . "' ORDER BY `id` DESC LIMIT 1");
+	$replies = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `ip` = '" . mysqli_real_escape_string($link, $_SERVER['REMOTE_ADDR']) . "' OR `ip` = '" . mysqli_real_escape_string($link, hashData($_SERVER['REMOTE_ADDR'])) . "' ORDER BY `id` DESC LIMIT 1");
 	if ($replies) {
 		while ($post = mysqli_fetch_assoc($replies)) {
 			return $post;
