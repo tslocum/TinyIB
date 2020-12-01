@@ -118,7 +118,7 @@ define('TINYIB_DBNAME', '');          // Database
 
 // Database configuration - SQLite / SQLite3
 //   The following only apply when TINYIB_DBMODE is set to sqlite or sqlite3
-define('TINYIB_DBPATH', 'tinyib.db');  // SQLite DB path relative to inc/
+define('TINYIB_DBPATH', '.tinyib.db');  // SQLite DB path
 
 // Database configuration - PDO
 //   The following only apply when TINYIB_DBMODE is set to pdo  (see README for instructions)
