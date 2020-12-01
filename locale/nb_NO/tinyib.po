@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-11-23 12:37-0800\n"
-"PO-Revision-Date: 2020-10-08 23:26+0000\n"
+"PO-Revision-Date: 2020-11-28 08:29+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/tinyib/"
 "tinyib/nb_NO/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: imgboard.php:46
 msgid "Click here to go back"
-msgstr ""
+msgstr "Klikk her for å gå tilbake"
 
 #: imgboard.php:72 imgboard.php:614
 msgid "Unknown database mode specified."
@@ -54,7 +54,7 @@ msgstr "Svar tillates ikke i låste tråder."
 
 #: imgboard.php:278
 msgid "Your post contains a blocked keyword."
-msgstr ""
+msgstr "Din post inneholder et blokkert nøkkelord."
 
 #: imgboard.php:319
 #, fuzzy
@@ -73,7 +73,7 @@ msgstr "Filen er større enn %s."
 
 #: imgboard.php:334 imgboard.php:340
 msgid "Failed to download file at specified URL."
-msgstr ""
+msgstr "Klarte ikke å laste ned filen angitt i nettadressen."
 
 #: imgboard.php:362
 #, fuzzy
@@ -86,15 +86,15 @@ msgstr "Kunne ikke opprette miniatyrbilde."
 
 #: imgboard.php:392
 msgid "upload a file or embed a URL"
-msgstr ""
+msgstr "last opp en fil, eller bygg inn en nettadresse"
 
 #: imgboard.php:394
 msgid "upload a file"
-msgstr ""
+msgstr "last opp en fil"
 
 #: imgboard.php:396
 msgid "embed a URL"
-msgstr ""
+msgstr "innebygg en nettadresse"
 
 #: imgboard.php:399
 #, fuzzy, php-format
@@ -104,7 +104,7 @@ msgstr "0 for å starte ny tråd"
 #: imgboard.php:405
 #, php-format
 msgid "Please enter a message and/or %s."
-msgstr ""
+msgstr "Skriv inn en melding nedenfor/eller %s."
 
 #: imgboard.php:407
 #, fuzzy
@@ -115,7 +115,7 @@ msgstr "Skriv inn CAPTCHA-teksten."
 #: imgboard.php:409
 #, php-format
 msgid "Please %s."
-msgstr ""
+msgstr "%s."
 
 #: imgboard.php:412
 #, php-format
@@ -138,7 +138,7 @@ msgstr "Oppdaterer indeks…"
 
 #: imgboard.php:454
 msgid "Reporting is disabled."
-msgstr ""
+msgstr "Rapportering er avskrudd."
 
 #: imgboard.php:459 imgboard.php:500
 #, fuzzy
@@ -151,7 +151,7 @@ msgstr ""
 
 #: imgboard.php:464
 msgid "You have already submitted a report for that post."
-msgstr ""
+msgstr "Du har allerede sendt inn en rapport om denne posten."
 
 #: imgboard.php:470
 #, fuzzy
@@ -200,21 +200,19 @@ msgstr "Bannlysning av %s opphevet"
 
 #: imgboard.php:562
 msgid "Sorry, that keyword has already been added."
-msgstr ""
+msgstr "Nøkkelord allerede lagt til."
 
 #: imgboard.php:571
 msgid "Keyword updated."
-msgstr ""
+msgstr "Nøkkelord oppdatert."
 
 #: imgboard.php:574
 msgid "Keyword added."
-msgstr ""
+msgstr "Nøkkelord lagt til."
 
 #: imgboard.php:578
-#, fuzzy
-#| msgid "Post deleted."
 msgid "Keyword deleted."
-msgstr "Post slettet."
+msgstr "Nøkkelord slettet."
 
 #: imgboard.php:650
 #, php-format
@@ -237,7 +235,7 @@ msgstr "Skjemadata gikk tapt. Gå tilbake og prøv igjen."
 
 #: imgboard.php:717
 msgid "Reports cleared."
-msgstr ""
+msgstr "Rapporter tømt."
 
 #: inc/functions.php:135 inc/html.php:1217
 msgid "Anonymous"
@@ -397,11 +395,11 @@ msgstr "(lim inn YouTube-nettadresse)"
 
 #: inc/html.php:207
 msgid "All posts are moderated before being shown."
-msgstr ""
+msgstr "Alle poster modereres før de blir vist."
 
 #: inc/html.php:209
 msgid "All posts with a file attached are moderated before being shown."
-msgstr ""
+msgstr "Alle poster med filvedlegg modereres før de blir vist."
 
 #: inc/html.php:219
 #, php-format
@@ -438,8 +436,9 @@ msgid "(for post and file deletion)"
 msgstr "(for post- og filsletting)"
 
 #: inc/html.php:350 inc/html.php:1033 inc/html.php:1060
+#, fuzzy
 msgid "Report"
-msgstr ""
+msgstr "Rapporter"
 
 #: inc/html.php:362
 #, fuzzy
@@ -469,7 +468,7 @@ msgstr "Svar"
 #, fuzzy
 #| msgid "Post truncated.  Click Reply to view."
 msgid "Post truncated. Click Reply to view."
-msgstr "Post forkorter. Trykk «Svar» for å vise."
+msgstr "Post forkortet. Trykk «Svar» for å vise."
 
 #: inc/html.php:493
 #, fuzzy
@@ -528,7 +527,7 @@ msgstr "Bannlysninger"
 
 #: inc/html.php:719 inc/html.php:1020
 msgid "Keywords"
-msgstr ""
+msgstr "Nøkkelord"
 
 #: inc/html.php:721
 msgid "Moderate Post"
@@ -570,7 +569,7 @@ msgstr "Skriv inn administrator- eller moderatorpassord"
 
 #: inc/html.php:814
 msgid "Add a ban"
-msgstr ""
+msgstr "Legg til en bannlysning"
 
 #: inc/html.php:815 inc/html.php:844
 #, fuzzy
@@ -597,27 +596,27 @@ msgstr "valgfritt"
 
 #: inc/html.php:821
 msgid "1 hour"
-msgstr ""
+msgstr "Én time"
 
 #: inc/html.php:822
 msgid "1 day"
-msgstr ""
+msgstr "Én dag"
 
 #: inc/html.php:823
 msgid "2 days"
-msgstr ""
+msgstr "To dager"
 
 #: inc/html.php:824
 msgid "1 week"
-msgstr ""
+msgstr "Én uke"
 
 #: inc/html.php:825
 msgid "2 weeks"
-msgstr ""
+msgstr "To uker"
 
 #: inc/html.php:826
 msgid "1 month"
-msgstr ""
+msgstr "Én måned"
 
 #: inc/html.php:844
 #, fuzzy
@@ -644,20 +643,20 @@ msgid "Moderate a post"
 msgstr "Moderer post"
 
 #: inc/html.php:857
-#, fuzzy
-#| msgid "Post"
 msgid "Post ID"
-msgstr "Post"
+msgstr "Post-ID"
 
 #: inc/html.php:859
 msgid "Tip:"
-msgstr ""
+msgstr "Tips:"
 
 #: inc/html.php:860
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
 "logged in."
 msgstr ""
+"Når du surfer en bildeoppslagstavle, kan du enkelt moderere en post hvis du "
+"er innlogget."
 
 #: inc/html.php:861
 #, fuzzy
@@ -675,7 +674,7 @@ msgstr "Bannlysning av %s utført"
 
 #: inc/html.php:883
 msgid "Only an administrator may ban an IP address."
-msgstr ""
+msgstr "Kun en administrator kan bannlyse en IP-adresse."
 
 #: inc/html.php:885
 #, fuzzy, php-format
@@ -731,52 +730,47 @@ msgid "Disallow replying to this thread."
 msgstr "Ikke tillat svar i denne tråden."
 
 #: inc/html.php:932
-#, fuzzy, php-format
-#| msgid "Moderate Post"
+#, php-format
 msgid "Moderating No.%d"
-msgstr "Moderer post"
+msgstr "Moderer post nummer %d"
 
 #: inc/html.php:933 inc/html.php:1055
 msgid "Action"
 msgstr "Handling"
 
 #: inc/html.php:935
-#, fuzzy
-#| msgid "Delete Post"
 msgid "Delete thread"
-msgstr "Slett post"
+msgstr "Slett tråd"
 
 #: inc/html.php:937
-#, fuzzy
-#| msgid "Delete Post"
 msgid "Delete post"
 msgstr "Slett post"
 
 #: inc/html.php:939
 msgid "Ban poster"
-msgstr ""
+msgstr "Bannlyst poster"
 
 #: inc/html.php:944
 msgid "Clear reports"
-msgstr ""
+msgstr "Tøm poster"
 
 #: inc/html.php:945 inc/html.php:1102
 msgid "report"
-msgstr ""
+msgstr "rapport"
 
 #: inc/html.php:945 inc/html.php:1102
 msgid "reports"
-msgstr ""
+msgstr "rapporter"
 
 #: inc/html.php:1013
 #, fuzzy
 #| msgid "Sorry, there doesn't appear to be a post with that ID."
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
-msgstr "Ingen post har denne ID-en."
+msgstr "Ingen nøkkelord har denne ID-en."
 
 #: inc/html.php:1019 inc/html.php:1055
 msgid "Keyword"
-msgstr ""
+msgstr "Nøkkelord"
 
 #: inc/html.php:1021
 #, fuzzy
@@ -786,39 +780,39 @@ msgstr "Handling"
 
 #: inc/html.php:1022
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 #: inc/html.php:1036 inc/html.php:1069
 msgid "Delete and ban for 1 hour"
-msgstr ""
+msgstr "Slett og bannlys i én time"
 
 #: inc/html.php:1037 inc/html.php:1072
 msgid "Delete and ban for 1 day"
-msgstr ""
+msgstr "Slett og bannlys én dag"
 
 #: inc/html.php:1038 inc/html.php:1075
 msgid "Delete and ban for 2 days"
-msgstr ""
+msgstr "Slett og bannlys to dager"
 
 #: inc/html.php:1039 inc/html.php:1078
 msgid "Delete and ban for 1 week"
-msgstr ""
+msgstr "Slett og bannlys én uke"
 
 #: inc/html.php:1040 inc/html.php:1081
 msgid "Delete and ban for 2 weeks"
-msgstr ""
+msgstr "Slett og bannlys to uker"
 
 #: inc/html.php:1041 inc/html.php:1084
 msgid "Delete and ban for 1 month"
-msgstr ""
+msgstr "Slett og bannlys én måned"
 
 #: inc/html.php:1042 inc/html.php:1066
 msgid "Delete and ban permanently"
-msgstr ""
+msgstr "Slett og bannlys permanent"
 
 #: inc/html.php:1087
 msgid "Edit"
-msgstr ""
+msgstr "Rediger"
 
 #: inc/html.php:1100
 msgid "thread"
@@ -849,10 +843,8 @@ msgid "Pending posts"
 msgstr "Ventende poster"
 
 #: inc/html.php:1159
-#, fuzzy
-#| msgid "Recent posts"
 msgid "Reported posts"
-msgstr "Nylige poster"
+msgstr "Rapporterte poster"
 
 #: inc/html.php:1162
 msgid "Recent posts"
