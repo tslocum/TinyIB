@@ -70,6 +70,9 @@ if (!defined('TINYIB_DBMIGRATE')) {
 if (!defined('TINYIB_DBREPORTS')) {
 	define('TINYIB_DBREPORTS', TINYIB_BOARD . '_reports');
 }
+if (!defined('TINYIB_DBKEYWORDS')) {
+	define('TINYIB_DBKEYWORDS', TINYIB_BOARD . '_keywords');
+}
 if (!defined('TINYIB_DBPORT')) {
 	define('TINYIB_DBPORT', 3306);
 }
