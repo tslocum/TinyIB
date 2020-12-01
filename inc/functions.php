@@ -574,9 +574,15 @@ function url_get_contents($url) {
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
 	$output = curl_exec($ch);
+	$responsecode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
 	curl_close($ch);
 
+	if (intval($responsecode) != 200) {
+		return '';
+	}
 	return $output;
 }
 
@@ -589,9 +595,12 @@ function getEmbed($url) {
 	global $tinyib_embeds;
 	foreach ($tinyib_embeds as $service => $service_url) {
 		$service_url = str_ireplace("TINYIBEMBED", urlencode($url), $service_url);
-		$result = json_decode(url_get_contents($service_url), true);
-		if (!empty($result)) {
-			return array($service, $result);
+		$data = url_get_contents($service_url);
+		if ($data != '') {
+			$result = json_decode($data, true);
+			if (!empty($result)) {
+				return array($service, $result);
+			}
 		}
 	}
 

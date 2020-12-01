@@ -338,14 +338,19 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			if (!TINYIB_UPLOADVIAURL) {
 				fancyDie(sprintf(__('Invalid embed URL. Only %s URLs are supported.'), implode('/', array_keys($tinyib_embeds))));
 			}
+
 			$headers = get_headers(trim($_POST['embed']), true);
-			if (TINYIB_MAXKB > 0 && intval($headers['Content-Length']) > (TINYIB_MAXKB * 1024)) {
+			if (TINYIB_MAXKB > 0 && isset($headers['Content-Length']) && intval($headers['Content-Length']) > (TINYIB_MAXKB * 1024)) {
 				fancyDie(sprintf(__('That file is larger than %s.'), TINYIB_MAXKBDESC));
 			}
 
 			$data = url_get_contents(trim($_POST['embed']));
 			if (strlen($data) == 0) {
 				fancyDie(__('Failed to download file at specified URL.'));
+			}
+
+			if (TINYIB_MAXKB > 0 && strlen($data) > (TINYIB_MAXKB * 1024)) {
+				fancyDie(sprintf(__('That file is larger than %s.'), TINYIB_MAXKBDESC));
 			}
 
 			$filepath = 'src/' . time() . substr(microtime(), 2, 3) . rand(1000, 9999) . '.txt';
