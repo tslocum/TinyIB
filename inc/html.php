@@ -184,8 +184,8 @@ EOF;
 EOF;
 	}
 
-	$embeds_enabled = !empty($tinyib_embeds) && ($raw_post || !in_array('embed', $hide_fields));
-	if (TINYIB_UPLOADVIAURL || $embeds_enabled) {
+	$embeds_enabled = (!empty($tinyib_embeds) || TINYIB_UPLOADVIAURL) && ($raw_post || !in_array('embed', $hide_fields));
+	if ($embeds_enabled) {
 		$txt_embed = __('Embed');
 		$txt_embed_help = '';
 		if ($embeds_enabled) {

@@ -405,7 +405,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 	if ($post['file'] == '') { // No file uploaded
 		$file_ok = !empty($tinyib_uploads) && ($rawpost || !in_array('file', $hide_fields));
-		$embed_ok = !empty($tinyib_embeds) && ($rawpost || !in_array('embed', $hide_fields));
+		$embed_ok = (!empty($tinyib_embeds) || TINYIB_UPLOADVIAURL) && ($rawpost || !in_array('embed', $hide_fields));
 		$allowed = '';
 		if ($file_ok && $embed_ok) {
 			$allowed = __('upload a file or embed a URL');
