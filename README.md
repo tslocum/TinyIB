@@ -41,7 +41,12 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
 
 Please consider supporting the continued development of TinyIB.
 
-- [LiberaPay](https://liberapay.com/rocketnine.space)
+If you make a donation and there is a certain feature you'd like to see added to
+TinyIB, <a href="mailto:trevor@rocketnine.space">send me an email</a>. I can't
+promise that I will implement the feature right away, however I will keep your
+support in mind.
+
+- [LiberaPay](https://liberapay.com/rocketnine.space) (preferred, no added fees)
 - [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TEP9HT98XK7QA) 
 
 ## Install
