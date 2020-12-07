@@ -46,8 +46,8 @@ TinyIB, <a href="mailto:trevor@rocketnine.space">send me an email</a>. I can't
 promise that I will implement the feature right away, however I will keep your
 support in mind.
 
-- [LiberaPay](https://liberapay.com/rocketnine.space) (preferred, no added fees)
-- [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TEP9HT98XK7QA) 
+- [LiberaPay](https://liberapay.com/rocketnine.space) (anonymous, no added fees)
+- [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TEP9HT98XK7QA)
 
 ## Install
 
