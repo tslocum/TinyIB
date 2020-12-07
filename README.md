@@ -36,6 +36,7 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
    - Korean
    - Norwegian
    - Spanish (Mexico)
+   - Turkish
 
 ## Donate
 
