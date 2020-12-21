@@ -395,7 +395,7 @@ function checkDuplicateFile($hex) {
 	$hexmatches = postsByHex($hex);
 	if (count($hexmatches) > 0) {
 		foreach ($hexmatches as $hexmatch) {
-			fancyDie(sprintf(__('Duplicate file uploaded. That file has already been posted <a href="%s">here</a>.'), 'res/' . (($hexmatch['parent'] == TINYIB_NEWTHREAD) ? $hexmatch['id'] : $hexmatch['parent'])) . '.html#' . $hexmatch['id']);
+			fancyDie(sprintf(__('Duplicate file uploaded. That file has already been posted <a href="%s">here</a>.'), 'res/' . (($hexmatch['parent'] == TINYIB_NEWTHREAD) ? $hexmatch['id'] : $hexmatch['parent']) . '.html#' . $hexmatch['id']));
 		}
 	}
 }
