@@ -161,7 +161,8 @@ msgstr ""
 #: imgboard.php:478
 msgid ""
 "Post deletion is currently disabled.<br>Please try again in a few moments."
-msgstr "Gönderi silme şu anda devre dışı.<br>Lütfen biraz sonra tekrar deneyin."
+msgstr ""
+"Gönderi silme şu anda devre dışı.<br>Lütfen biraz sonra tekrar deneyin."
 
 #: imgboard.php:495
 msgid "Post deleted."
@@ -454,7 +455,8 @@ msgstr "Gönderi kısaltıldı. Görüntülemek için Yanıtla düğmesine tıkl
 
 #: inc/html.php:493
 msgid "1 post omitted. Click Reply to view."
-msgstr "1 gönderi dahil edilmedi. Görüntülemek için Yanıtla düğmesine tıklayın."
+msgstr ""
+"1 gönderi dahil edilmedi. Görüntülemek için Yanıtla düğmesine tıklayın."
 
 #: inc/html.php:495
 #, php-format
