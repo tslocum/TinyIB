@@ -58,6 +58,12 @@ if (!defined('TINYIB_REPORT')) {
 if (!defined('TINYIB_REQMOD')) {
 	define('TINYIB_REQMOD', '');
 }
+if (!defined('TINYIB_DISALLOWTHREADS')) {
+	define('TINYIB_DISALLOWTHREADS', '');
+}
+if (!defined('TINYIB_DISALLOWREPLIES')) {
+	define('TINYIB_DISALLOWREPLIES', '');
+}
 if (!defined('TINYIB_ALWAYSNOKO')) {
 	define('TINYIB_ALWAYSNOKO', false);
 }

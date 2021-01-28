@@ -27,6 +27,8 @@ define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass 
 define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to pass a CAPTCHA when logging in to the management panel: simple / recaptcha  ['' to disable]
 define('TINYIB_REPORT', false);       // Allow users to report posts
 define('TINYIB_REQMOD', '');          // Require moderation before displaying posts: files / all  ['' to disable]
+define('TINYIB_DISALLOWTHREADS', ''); // When set, users attempting to post a new thread are shown this message instead  ['' to disable]
+define('TINYIB_DISALLOWREPLIES', ''); // When set, users attempting to post a reply are shown this message instead  ['' to disable]
 
 // Board appearance
 define('TINYIB_INDEX', 'index.html'); // Index file

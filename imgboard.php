@@ -237,6 +237,15 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	}
 
 	$post = newPost(setParent());
+	
+	if (!$loggedin) {
+		if ($post['parent'] == TINYIB_NEWTHREAD && TINYIB_DISALLOWTHREADS != '') {
+			fancyDie(TINYIB_DISALLOWTHREADS);
+		} else if ($post['parent'] != TINYIB_NEWTHREAD && TINYIB_DISALLOWREPLIES != '') {
+			fancyDie(TINYIB_DISALLOWREPLIES);
+		}
+	}
+
 	$hide_fields = $post['parent'] == TINYIB_NEWTHREAD ? $tinyib_hidefieldsop : $tinyib_hidefields;
 
 	if ($post['parent'] != TINYIB_NEWTHREAD && !$loggedin) {
