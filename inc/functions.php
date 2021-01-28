@@ -307,8 +307,8 @@ function checkFlood() {
 }
 
 function checkMessageSize() {
-	if (strlen($_POST["message"]) > 8000) {
-		fancyDie(sprintf(__('Please shorten your message, or post it in multiple parts. Your message is %1$d characters long, and the maximum allowed is %2$d.'), strlen($_POST["message"]), 8000));
+	if (TINYIB_MAXMESSAGE > 0 && strlen($_POST['message']) > TINYIB_MAXMESSAGE) {
+		fancyDie(sprintf(__('Please shorten your message, or post it in multiple parts. Your message is %1$d characters long, and the maximum allowed is %2$d.'), strlen($_POST['message']), TINYIB_MAXMESSAGE));
 	}
 }
 

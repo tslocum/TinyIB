@@ -19,6 +19,18 @@ if (!defined('TINYIB_INDEX')) {
 if (!defined('TINYIB_MAXREPLIES')) {
 	define('TINYIB_MAXREPLIES', 0);
 }
+if (!defined('TINYIB_MAXNAME')) {
+	define('TINYIB_MAXNAME', 75);
+}
+if (!defined('TINYIB_MAXEMAIL')) {
+	define('TINYIB_MAXEMAIL', 320);
+}
+if (!defined('TINYIB_MAXSUBJECT')) {
+	define('TINYIB_MAXSUBJECT', 75);
+}
+if (!defined('TINYIB_MAXMESSAGE')) {
+	define('TINYIB_MAXMESSAGE', 8000);
+}
 if (!defined('TINYIB_MAXWOP')) {
 	define('TINYIB_MAXWOP', TINYIB_MAXW);
 }

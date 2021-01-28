@@ -91,6 +91,23 @@ function buildPostForm($parent, $raw_post = false) {
 	$form_extra = '<input type="hidden" name="parent" value="' . $parent . '">';
 	$input_extra = '';
 	$rules_extra = '';
+
+	$maxlen_name = -1;
+	$maxlen_email = -1;
+	$maxlen_subject = -1;
+	$maxlen_message = -1;
+	if (TINYIB_MAXNAME > 0) {
+		$maxlen_name = TINYIB_MAXNAME;
+	}
+	if (TINYIB_MAXEMAIL > 0) {
+		$maxlen_email = TINYIB_MAXEMAIL;
+	}
+	if (TINYIB_MAXSUBJECT > 0) {
+		$maxlen_subject = TINYIB_MAXSUBJECT;
+	}
+	if (TINYIB_MAXMESSAGE > 0) {
+		$maxlen_message = TINYIB_MAXMESSAGE;
+	}
 	if ($raw_post) {
 		$txt_reply_to = __('Reply to');
 		$txt_new_thread = __('0 to start a new thread');
@@ -115,6 +132,11 @@ EOF;
 								<li>$txt_info_2</li>
 							</ul><br>
 EOF;
+
+		$maxlen_name = -1;
+		$maxlen_email = -1;
+		$maxlen_subject = -1;
+		$maxlen_message = -1;
 	}
 
 	$max_file_size_input_html = '';
@@ -241,7 +263,7 @@ EOF;
 							$txt_name
 						</td>
 						<td>
-							<input type="text" name="name" size="28" maxlength="75" accesskey="n">
+							<input type="text" name="name" size="28" maxlength="{$maxlen_name}" accesskey="n">
 							{$postform_extra['name']}
 						</td>
 					</tr>
@@ -255,7 +277,7 @@ EOF;
 							$txt_email
 						</td>
 						<td>
-							<input type="text" name="email" size="28" maxlength="75" accesskey="e">
+							<input type="text" name="email" size="28" maxlength="{$maxlen_email}" accesskey="e">
 							{$postform_extra['email']}
 						</td>
 					</tr>
@@ -269,7 +291,7 @@ EOF;
 							$txt_subject
 						</td>
 						<td>
-							<input type="text" name="subject" size="40" maxlength="75" accesskey="s" autocomplete="off">
+							<input type="text" name="subject" size="40" maxlength="{$maxlen_subject}" accesskey="s" autocomplete="off">
 							{$postform_extra['subject']}
 						</td>
 					</tr>
@@ -283,7 +305,7 @@ EOF;
 							$txt_message
 						</td>
 						<td>
-							<textarea id="message" name="message" cols="48" rows="4" accesskey="m"></textarea>
+							<textarea id="message" name="message" cols="48" rows="4" maxlength="{$maxlen_message}" accesskey="m"></textarea>
 						</td>
 					</tr>
 EOF;

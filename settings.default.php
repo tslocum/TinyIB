@@ -47,6 +47,10 @@ $tinyib_capcodes = array(array('Admin', 'red'), array('Mod', 'purple')); // Admi
 define('TINYIB_DELAY', 30);           // Delay (in seconds) between posts from the same IP address to help control flooding  [0 to disable]
 define('TINYIB_MAXTHREADS', 100);     // Oldest threads are discarded when the thread count passes this limit  [0 to disable]
 define('TINYIB_MAXREPLIES', 0);       // Maximum replies before a thread stops bumping  [0 to disable]
+define('TINYIB_MAXNAME', 75);         // Maximum name length  [0 to disable]
+define('TINYIB_MAXEMAIL', 320);       // Maximum email length  [0 to disable]
+define('TINYIB_MAXSUBJECT', 75);      // Maximum subject length  [0 to disable]
+define('TINYIB_MAXMESSAGE', 8000);    // Maximum message length  [0 to disable]
 
 // Upload types
 //   Empty array to disable

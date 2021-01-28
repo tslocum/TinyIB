@@ -230,8 +230,10 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	if (!$loggedin) {
 		checkCAPTCHA(TINYIB_CAPTCHA);
 		checkBanned();
-		checkMessageSize();
 		checkFlood();
+	}
+	if (!$rawpost) {
+		checkMessageSize();
 	}
 
 	$post = newPost(setParent());
@@ -250,12 +252,21 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	if ($rawpost || !in_array('name', $hide_fields)) {
 		list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
 		$post['name'] = cleanString(substr($post['name'], 0, 75));
+		if (!$rawpost && TINYIB_MAXNAME > 0) {
+			$post['name'] = substr($post['name'], 0, TINYIB_MAXNAME);
+		}
 	}
 	if ($rawpost || !in_array('email', $hide_fields)) {
 		$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST['email'], 0, 75)));
+		if (!$rawpost && TINYIB_MAXEMAIL > 0) {
+			$post['email'] = substr($post['email'], 0, TINYIB_MAXEMAIL);
+		}
 	}
 	if ($rawpost || !in_array('subject', $hide_fields)) {
 		$post['subject'] = cleanString(substr($_POST['subject'], 0, 75));
+		if (!$rawpost && TINYIB_MAXSUBJECT > 0) {
+			$post['subject'] = substr($post['subject'], 0, TINYIB_MAXSUBJECT);
+		}
 	}
 	if ($rawpost || !in_array('message', $hide_fields)) {
 		$post['message'] = $_POST['message'];
