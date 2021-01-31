@@ -131,8 +131,11 @@ function nameAndTripcode($name) {
 }
 
 function nameBlock($name, $tripcode, $email, $timestamp, $rawposttext) {
+	global $tinyib_anonymous;
+	$anonymous = $tinyib_anonymous[array_rand($tinyib_anonymous)];
+
 	$output = '<span class="postername">';
-	$output .= ($name == '' && $tripcode == '') ? __('Anonymous') : $name;
+	$output .= ($name == '' && $tripcode == '') ? $anonymous : $name;
 
 	if ($tripcode != '') {
 		$output .= '</span><span class="postertrip">!' . $tripcode;

@@ -237,7 +237,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	}
 
 	$post = newPost(setParent());
-	
+
 	if (!$loggedin) {
 		if ($post['parent'] == TINYIB_NEWTHREAD && TINYIB_DISALLOWTHREADS != '') {
 			fancyDie(TINYIB_DISALLOWTHREADS);
@@ -257,7 +257,13 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		}
 	}
 
+	if ($post['name'] == '' && $post['tripcode'] == '') {
+		global $tinyib_anonymous;
+		$post['name'] = $tinyib_anonymous[array_rand($tinyib_anonymous)];
+	}
+
 	$post['ip'] = $_SERVER['REMOTE_ADDR'];
+
 	if ($rawpost || !in_array('name', $hide_fields)) {
 		list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
 		$post['name'] = cleanString(substr($post['name'], 0, 75));

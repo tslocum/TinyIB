@@ -137,6 +137,9 @@ if (!isset($tinyib_embeds)) {
 		$tinyib_embeds['YouTube'] = 'https://www.youtube.com/oembed?url=TINYIBEMBED&format=json';
 	}
 }
+if (!isset($tinyib_anonymous)) {
+	$tinyib_anonymous = array('Anonymous');
+}
 if (!isset($tinyib_capcodes)) {
 	$tinyib_capcodes = array(array('Admin', 'red'), array('Mod', 'purple'));
 }
