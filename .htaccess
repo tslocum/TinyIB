@@ -31,3 +31,7 @@ ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
 <IfModule mod_deflate.c>
 AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
 </Ifmodule>
+
+<IfModule mod_alias.c>
+RedirectMatch 404 (.*)\.posts$
+</Ifmodule>
