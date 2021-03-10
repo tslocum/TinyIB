@@ -4,7 +4,13 @@ if (!defined('TINYIB_BOARD')) {
 }
 
 function pageHeader() {
-	$js_captcha = (TINYIB_CAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') ? '<script src="https://www.google.com/recaptcha/api.js" async defer></script>' : '';
+	$js_captcha = '';
+	if (TINYIB_CAPTCHA === 'hcaptcha' || TINYIB_MANAGECAPTCHA === 'hcaptcha') {
+		$js_captcha .= '<script src="https://www.hcaptcha.com/1/api.js" async defer></script>';
+	}
+	if (TINYIB_CAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') {
+		$js_captcha .= '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
+	}
 
 	$return = <<<EOF
 <!DOCTYPE html>
@@ -149,7 +155,12 @@ EOF;
 
 	$captcha_html = '';
 	if (TINYIB_CAPTCHA && !$raw_post) {
-		if (TINYIB_CAPTCHA === 'recaptcha') {
+		if (TINYIB_CAPTCHA === 'hcaptcha') {
+			$captcha_inner_html = '
+<div style="min-height: 82px;">
+	<div class="h-captcha" data-sitekey="' . TINYIB_HCAPTCHA_SITE . '"></div>
+</div>';
+		} else if (TINYIB_CAPTCHA === 'recaptcha') {
 			$captcha_inner_html = '
 <div style="min-height: 80px;">
 	<div class="g-recaptcha" data-sitekey="' . TINYIB_RECAPTCHA_SITE . '"></div>
@@ -793,7 +804,13 @@ function manageLogInForm() {
 	$txt_login = __('Log In');
 	$txt_login_prompt = __('Enter an administrator or moderator password');
 	$captcha_inner_html = '';
-	if (TINYIB_MANAGECAPTCHA === 'recaptcha') {
+	if (TINYIB_MANAGECAPTCHA === 'hcaptcha') {
+		$captcha_inner_html = '
+<br>
+<div style="min-height: 82px;">
+	<div class="h-captcha" data-sitekey="' . TINYIB_HCAPTCHA_SITE . '"></div>
+</div><br><br>';
+	} else if (TINYIB_MANAGECAPTCHA === 'recaptcha') {
 		$captcha_inner_html = '
 <br>
 <div style="min-height: 80px;">

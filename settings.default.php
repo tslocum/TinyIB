@@ -23,8 +23,8 @@ define('TINYIB_MODPASS', '');         // Moderators only have access to delete (
 define('TINYIB_BOARD', 'b');          // Unique identifier for this board using only letters and numbers
 define('TINYIB_BOARDDESC', 'TinyIB'); // Displayed at the top of every page
 define('TINYIB_ALWAYSNOKO', false);   // Redirect to thread after posting
-define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass a CAPTCHA when posting: simple / recaptcha  (click Rebuild All in the management panel after enabling)  ['' to disable]
-define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to pass a CAPTCHA when logging in to the management panel: simple / recaptcha  ['' to disable]
+define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass a CAPTCHA when posting: simple / hcaptcha / recaptcha  (click Rebuild All in the management panel after enabling)  ['' to disable]
+define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to pass a CAPTCHA when logging in to the management panel: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_REPORT', false);       // Allow users to report posts
 define('TINYIB_REQMOD', '');          // Require moderation before displaying posts: files / all  ['' to disable]
 define('TINYIB_DISALLOWTHREADS', ''); // When set, users attempting to post a new thread are shown this message instead  ['' to disable]
@@ -100,7 +100,11 @@ define('TINYIB_MAXH', 250);           // Height
 define('TINYIB_TRIPSEED', '');        // Enter some random text  (used when generating secure tripcodes, hashing passwords and hashing IP addresses)
 
 // CAPTCHA
-//   The following only apply when TINYIB_CAPTCHA is set to recaptcha
+//   The following settings apply when TINYIB_CAPTCHA is set to hcaptcha
+//   For API keys visit https://dashboard.hcaptcha.com/signup
+define('TINYIB_HCAPTCHA_SITE', '');   // Site key
+define('TINYIB_HCAPTCHA_SECRET', ''); // Secret key
+//   The following settings apply when TINYIB_CAPTCHA is set to recaptcha
 //   For API keys visit https://www.google.com/recaptcha
 define('TINYIB_RECAPTCHA_SITE', '');  // Site key
 define('TINYIB_RECAPTCHA_SECRET', '');// Secret key

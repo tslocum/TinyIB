@@ -232,7 +232,27 @@ function deletePost($id) {
 }
 
 function checkCAPTCHA($mode) {
-	if ($mode === 'recaptcha') {
+	if ($mode === 'hcaptcha') {
+		$captcha = isset($_POST['h-captcha-response']) ? $_POST['h-captcha-response'] : '';
+		if ($captcha == '') {
+			fancyDie('Failed CAPTCHA. Reason:<br>Please click the checkbox labeled "I am human".');
+		}
+
+		$data = array(
+			'secret' => TINYIB_HCAPTCHA_SECRET,
+			'response' => $captcha
+		);
+		$verify = curl_init();
+		curl_setopt($verify, CURLOPT_URL, "https://hcaptcha.com/siteverify");
+		curl_setopt($verify, CURLOPT_POST, true);
+		curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data));
+		curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
+		$verifyResponse = curl_exec($verify);
+		$responseData = json_decode($verifyResponse);
+		if (!isset($responseData->success) || !$responseData->success) {
+			fancyDie('Failed CAPTCHA.');
+		}
+	} else if ($mode === 'recaptcha') {
 		require_once 'inc/recaptcha/autoload.php';
 
 		$captcha = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : '';

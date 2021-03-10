@@ -16,6 +16,7 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
  - YouTube, Vimeo and SoundCloud embedding.
  - CAPTCHA
    - A simple, self-hosted implementation is included.
+   - [hCaptcha](https://hcaptcha.com) is supported.
    - [ReCAPTCHA](https://www.google.com/recaptcha/about/) is supported but [not recommended](https://nearcyan.com/you-probably-dont-need-recaptcha/).
  - Reference links. `>>###`
  - Delete posts via password.
