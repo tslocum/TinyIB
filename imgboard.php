@@ -571,6 +571,11 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				}
 				rebuildIndexes();
 				$text .= manageInfo(__('Rebuilt board.'));
+			} else if (isset($_GET['reports'])) {
+				if (!TINYIB_REPORT) {
+					fancyDie(__('Reporting is disabled.'));
+				}
+				$text .= manageReportsPage($_GET['reports']);
 			} elseif (isset($_GET['bans'])) {
 				clearExpiredBans();
 
@@ -579,6 +584,10 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 						$banexists = banByIP($_POST['ip']);
 						if ($banexists) {
 							fancyDie(__('Sorry, there is already a ban on record for that IP address.'));
+						}
+
+						if (TINYIB_REPORT) {
+							deleteReportsByIP($_POST['ip']);
 						}
 
 						$ban = array();

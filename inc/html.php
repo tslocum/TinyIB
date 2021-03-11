@@ -748,6 +748,9 @@ function adminBar() {
 
 	$output = '[<a href="?manage">' . __('Status') . '</a>] [';
 	if ($isadmin) {
+		if (TINYIB_REPORT) {
+			$output .= '<a href="?manage&reports">' . __('Reports') . '</a>] [';
+		}
 		$output .= '<a href="?manage&bans">' . __('Bans') . '</a>] [';
 		$output .= '<a href="?manage&keywords">' . __('Keywords') . '</a>] [';
 	}
@@ -846,6 +849,74 @@ function manageLogInForm() {
 	</fieldset>
 	</form>
 	<br>
+EOF;
+}
+
+function manageReportsPage($ip) {
+	$reports = allReports();
+	$report_counts = array();
+	$posts = array();
+	foreach ($reports as $report) {
+		if ($ip != '' && $report['ip'] != $ip && $report['ip'] != hashData($ip)) {
+			continue;
+		}
+
+		$post = postByID($report['post']);
+		if (empty($post)) {
+			continue;
+		}
+
+		if ($ip == '') {
+			$post['reportedby'] = $report['ip'];
+
+			if (!isset($report_counts[$report['ip']])) {
+				$report_counts[$report['ip']] = 0;
+			}
+			$report_counts[$report['ip']]++;
+		}
+
+		$posts[] = $post;
+	}
+
+	$txt_reported = __('Reported posts');
+	if ($ip != '') {
+		if (count($posts) == 1) {
+			$format = __('%1$d report by %2$s');
+		} else {
+			$format = __('%1$d reports by %2$s');
+		}
+		$txt_reported = sprintf($format, count($posts), '<a href="?manage&bans=' . htmlentities($ip, ENT_QUOTES) . '">' . htmlentities($ip) . '</a>');
+	}
+
+	$post_html = '';
+	foreach ($posts as $post) {
+		if ($post_html != '') {
+			$post_html .= '<tr><td colspan="2"><hr></td></tr>';
+		}
+
+		if (isset($post['reportedby'])) {
+			$reportedby_html = '<a href="?manage&bans=' . htmlentities($post['reportedby'], ENT_QUOTES) . '">' . htmlentities($post['reportedby']) . '</a>';
+			if ($report_counts[$post['reportedby']] > 1) {
+				$reportedby_html .= ' <a href="?manage&reports=' . htmlentities($post['reportedby'], ENT_QUOTES) . '">(' . sprintf(__('%d reports'), $report_counts[$post['reportedby']]) . ')</a>';
+			}
+
+			$post_html .= '<tr><td colspan=""><small>' . sprintf(__('Reported by %s'), $reportedby_html) . '</small></td></tr>';
+		}
+
+		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="' . __('Moderate') . '" class="managebutton"></form></td></tr>';
+	}
+
+	if ($post_html == '') {
+		$post_html = '<i>' . __('There are currently no reported posts.') . '</i>';
+	}
+
+	return <<<EOF
+		<fieldset>
+		<legend>$txt_reported</legend>
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+		$post_html
+		</table>
+		</fieldset>
 EOF;
 }
 
@@ -1187,25 +1258,28 @@ EOF;
 	}
 
 	if (TINYIB_REPORT && !empty($reports)) {
-		$posts = array();
-		foreach ($reports as $report) {
-			$post = postByID($report['post']);
-			if (empty($post)) {
-				continue;
-			}
-			$posts[] = $post;
-		}
-		$txt_recent_posts = __('Reported posts');
+		$status_html = manageReportsPage('');
 	} else {
 		$posts = latestPosts(true);
 		$txt_recent_posts = __('Recent posts');
-	}
-	$post_html = '';
-	foreach ($posts as $post) {
-		if ($post_html != '') {
-			$post_html .= '<tr><td colspan="2"><hr></td></tr>';
+
+		$post_html = '';
+		foreach ($posts as $post) {
+			if ($post_html != '') {
+				$post_html .= '<tr><td colspan="2"><hr></td></tr>';
+			}
+
+			$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="' . __('Moderate') . '" class="managebutton"></form></td></tr>';
 		}
-		$post_html .= '<tr><td>' . buildPost($post, TINYIB_INDEXPAGE) . '</td><td valign="top" align="right"><form method="get" action="?"><input type="hidden" name="manage" value=""><input type="hidden" name="moderate" value="' . $post['id'] . '"><input type="submit" value="' . __('Moderate') . '" class="managebutton"></form></td></tr>';
+
+		$status_html = <<<EOF
+		<fieldset>
+		<legend>$txt_recent_posts</legend>
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+			$post_html
+		</table>
+		</fieldset>
+EOF;
 	}
 
 	$txt_status = __('Status');
@@ -1228,12 +1302,7 @@ EOF;
 
 	$reqmod_html
 	
-	<fieldset>
-	<legend>$txt_recent_posts</legend>
-	<table border="0" cellspacing="0" cellpadding="0" width="100%">
-	$post_html
-	</table>
-	</fieldset>
+	$status_html
 	
 	</fieldset>
 	<br>
