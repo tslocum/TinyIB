@@ -1,16 +1,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2020-11-23 12:37-0800\n"
-"PO-Revision-Date: 2020-08-28 16:18-0700\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-02-24 23:50+0000\n"
+"Last-Translator: Elton Viana Gonçalves da Luz <eltongoncalves94@hotmail.com>"
+"\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"tinyib/tinyib/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Weblate 4.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -18,111 +21,114 @@ msgstr ""
 
 #: imgboard.php:46
 msgid "Click here to go back"
-msgstr ""
+msgstr "Clique aqui para retornar"
 
 #: imgboard.php:72 imgboard.php:614
 msgid "Unknown database mode specified."
-msgstr ""
+msgstr "Modo de banco de dados desconhecido especificado."
 
 #: imgboard.php:183
 #, php-format
 msgid "Directory '%s' can not be written to.  Please modify its permissions."
-msgstr ""
+msgstr "Diretório '%s' não ser escrito. Por favor, modifique as permissões."
 
 #: imgboard.php:193
 msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
-msgstr ""
+msgstr "TINYIB_TRIPSEED e TINYIB_ADMINPASS devem ser configurados."
 
 #: imgboard.php:197
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
-msgstr ""
+msgstr "TINYIB_TRIPSEED e TINYIB_ADMINPASS devem ser configurados."
 
 #: imgboard.php:210
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
 msgstr ""
+"A publicação está atualmente desativada.<br>Por favor, tente novamente em "
+"alguns instantes."
 
 #: imgboard.php:229 inc/functions.php:346
 msgid "Invalid parent thread ID supplied, unable to create post."
 msgstr ""
+"ID inválida fornecida de tópico parent, não é possível criar a postagem."
 
 #: imgboard.php:231
 msgid "Replies are not allowed to locked threads."
-msgstr ""
+msgstr "Respostas não são permitidas para tópicos bloqueados."
 
 #: imgboard.php:278
 msgid "Your post contains a blocked keyword."
-msgstr ""
+msgstr "Sua postagem contém uma palavra-chave bloqueada."
 
 #: imgboard.php:319
 msgid "Embedding a URL and uploading a file at the same time is not supported."
-msgstr ""
+msgstr "Incorporar um URL e enviar um arquivo ao mesmo tempo não é suportado."
 
 #: imgboard.php:325
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
-msgstr ""
+msgstr "URL de incorporação inválido. Apenas%s URLs são suportados."
 
 #: imgboard.php:329 inc/functions.php:372 inc/functions.php:612
 #, php-format
 msgid "That file is larger than %s."
-msgstr ""
+msgstr "Esse arquivo é maior que%s."
 
 #: imgboard.php:334 imgboard.php:340
 msgid "Failed to download file at specified URL."
-msgstr ""
+msgstr "Falha ao baixar o arquivo no URL especificado."
 
 #: imgboard.php:362
 msgid "Error while processing audio/video."
-msgstr ""
+msgstr "Erro ao processar áudio/vídeo."
 
 #: imgboard.php:369 inc/functions.php:697 inc/functions.php:708
 msgid "Could not create thumbnail."
-msgstr ""
+msgstr "Não pôde criar a thumbnail."
 
 #: imgboard.php:392
 msgid "upload a file or embed a URL"
-msgstr ""
+msgstr "carregar um arquivo ou incorporar uma URL"
 
 #: imgboard.php:394
 msgid "upload a file"
-msgstr ""
+msgstr "carregar um arquivo"
 
 #: imgboard.php:396
 msgid "embed a URL"
-msgstr ""
+msgstr "incorporar um a URL"
 
 #: imgboard.php:399
 #, php-format
 msgid "Please %s to start a new thread."
-msgstr ""
+msgstr "Por favor, %s para começar um novo tópico."
 
 #: imgboard.php:405
 #, php-format
 msgid "Please enter a message and/or %s."
-msgstr ""
+msgstr "Por favor, insira uma mensagem e/ou %s."
 
 #: imgboard.php:407
 msgid "Please enter a message."
-msgstr ""
+msgstr "Por favor, insira um mensagem."
 
 #: imgboard.php:409
 #, php-format
 msgid "Please %s."
-msgstr ""
+msgstr "Por favor %s."
 
 #: imgboard.php:412
 #, php-format
 msgid "%s uploaded."
-msgstr ""
+msgstr "%s carregado."
 
 #: imgboard.php:417
 #, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
-msgstr ""
+msgstr "Seu %s será mostrado <b>uma vez que for aprovado</b>."
 
 #: imgboard.php:435
 msgid "Updating thread..."
-msgstr ""
+msgstr "Atualizando tópico..."
 
 #: imgboard.php:448
 msgid "Updating index..."

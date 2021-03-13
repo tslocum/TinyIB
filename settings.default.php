@@ -19,7 +19,7 @@ define('TINYIB_ADMINPASS', '');       // Administrators have full access to the 
 define('TINYIB_MODPASS', '');         // Moderators only have access to delete (and moderate if TINYIB_REQMOD is set) posts  ['' to disable]
 
 // Board description and behavior
-//   Warning: Enabling ReCAPTCHA will cause all visitors to be tracked by Google.  See https://nearcyan.com/you-probably-dont-need-recaptcha/
+//   Warning: Enabling reCAPTCHA will cause all visitors to be tracked by Google.  See https://nearcyan.com/you-probably-dont-need-recaptcha/
 define('TINYIB_BOARD', 'b');          // Unique identifier for this board using only letters and numbers
 define('TINYIB_BOARDDESC', 'TinyIB'); // Displayed at the top of every page
 define('TINYIB_ALWAYSNOKO', false);   // Redirect to thread after posting
@@ -99,7 +99,7 @@ define('TINYIB_MAXH', 250);           // Height
 // Tripcode seed - Must not change once set!
 define('TINYIB_TRIPSEED', '');        // Enter some random text  (used when generating secure tripcodes, hashing passwords and hashing IP addresses)
 
-// CAPTCHA
+// CAPTCHA - hCaptcha / reCAPTCHA
 //   The following settings apply when TINYIB_CAPTCHA is set to hcaptcha
 //   For API keys visit https://dashboard.hcaptcha.com/signup
 define('TINYIB_HCAPTCHA_SITE', '');   // Site key
