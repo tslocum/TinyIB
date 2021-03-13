@@ -58,6 +58,9 @@ if (!defined('TINYIB_REPORT')) {
 if (!defined('TINYIB_REQMOD')) {
 	define('TINYIB_REQMOD', '');
 }
+if (!defined('TINYIB_AUTOREFRESH')) {
+	define('TINYIB_AUTOREFRESH', 30);
+}
 if (!defined('TINYIB_DISALLOWTHREADS')) {
 	define('TINYIB_DISALLOWTHREADS', '');
 }

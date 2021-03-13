@@ -497,6 +497,30 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		echo __('Updating index...') . '<br>';
 		rebuildIndexes();
 	}
+// Check if the request is to auto-refresh a thread
+} elseif (isset($_GET['posts']) && !isset($_GET['manage'])) {
+	if (TINYIB_AUTOREFRESH <= 0) {
+		fancyDie(__('Automatic refreshing is disabled.'));
+	}
+
+	$thread_id = intval($_GET['posts']);
+	$new_since = intval($_GET['since']);
+	if ($thread_id <= 0 || $new_since < 0) {
+		fancyDie('');
+	}
+
+	$json_posts = array();
+	$posts = postsInThreadByID($thread_id);
+	if ($new_since > 0) {
+		foreach ($posts as $i =>  $post) {
+			if ($post['id'] <= $new_since) {
+				continue;
+			}
+			$json_posts[$post['id']] = fixLinksInRes(buildPost($post, true));
+		}
+	}
+	echo json_encode($json_posts);
+	die();
 // Check if the request is to report a post
 } elseif (isset($_GET['report']) && !isset($_GET['manage'])) {
 	if (!TINYIB_REPORT) {

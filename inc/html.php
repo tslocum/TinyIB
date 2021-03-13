@@ -540,7 +540,7 @@ EOF;
 	return $return;
 }
 
-function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0) {
+function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0, $lastpostid = 0) {
 	$cataloglink = TINYIB_CATALOG ? ('[<a href="catalog.html" style="text-decoration: underline;">' . __('Catalog') . '</a>]') : '';
 	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
 
@@ -594,8 +594,13 @@ EOF;
 	}
 
 	$postform = '';
-	if ($parent >= TINYIB_NEWTHREAD) {
-		$postform = buildPostForm($parent);
+	if ($parent >= 0) { // Negative values indicate the post form should be hidden
+		$postform = buildPostForm($parent) . '<hr>';
+	}
+
+	$js_autorefresh = '';
+	if ($parent != TINYIB_NEWTHREAD && TINYIB_AUTOREFRESH > 0) {
+		$js_autorefresh = '<script type="text/javascript">var autoRefreshDelay = ' . TINYIB_AUTOREFRESH . ';var autoRefreshThreadID = ' . $parent . ';var autoRefreshPostID = ' . $lastpostid . ';</script>';
 	}
 
 	$txt_manage = __('Manage');
@@ -617,13 +622,16 @@ EOF;
 		<hr width="90%">
 		$postingmode
 		$postform
-		<hr>
+		$js_autorefresh
 		<form id="delform" action="imgboard.php?delete" method="post">
 		<input type="hidden" name="board" 
 EOF;
 	$body .= 'value="' . TINYIB_BOARD . '">' . <<<EOF
+		<div id="posts">
 		$htmlposts
-		<table class="userdelete">
+		</div>
+		<hr>
+		<table class	="userdelete">
 			<tbody>
 				<tr>
 					<td>
@@ -667,7 +675,6 @@ function rebuildCatalog() {
 	foreach ($threads as $post) {
 		$htmlposts .= buildCatalogPost($post);
 	}
-	$htmlposts .= '<hr size="1">';
 
 	writePage('catalog.html', buildPage($htmlposts, -1));
 }
@@ -689,7 +696,10 @@ function rebuildIndexes() {
 			$htmlreplies[] = buildPost($replies[$j], TINYIB_INDEXPAGE);
 		}
 
-		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', array_reverse($htmlreplies)) . "\n<hr>";
+		if ($i > 0) {
+			$htmlposts .= "\n<hr>";
+		}
+		$htmlposts .= buildPost($thread, TINYIB_INDEXPAGE) . implode('', array_reverse($htmlreplies));
 
 		if (++$i >= TINYIB_THREADSPERPAGE) {
 			$file = ($page == 0) ? TINYIB_INDEX : ($page . '.html');
@@ -726,12 +736,13 @@ function rebuildThread($id) {
 	}
 
 	$htmlposts = "";
+	$lastpostid = 0;
 	foreach ($posts as $post) {
 		$htmlposts .= buildPost($post, TINYIB_RESPAGE);
+		$lastpostid = $post['id'];
 	}
-	$htmlposts .= "\n<hr>";
 
-	writePage('res/' . $id . '.html', fixLinksInRes(buildPage($htmlposts, $id)));
+	writePage('res/' . $id . '.html', fixLinksInRes(buildPage($htmlposts, $id, 0, 0, $lastpostid)));
 
 	if (TINYIB_JSON) {
 		writePage('res/' . $id . '.json', buildSingleThreadJSON($id));

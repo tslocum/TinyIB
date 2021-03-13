@@ -19,6 +19,7 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
    - [hCaptcha](https://hcaptcha.com) is supported.
    - [ReCAPTCHA](https://www.google.com/recaptcha/about/) is supported. (But [not recommended](https://nearcyan.com/you-probably-dont-need-recaptcha/))
  - Reference links. `>>###`
+ - Fetch new replies automatically. (See `TINYIB_AUTOREFRESH`)
  - Delete posts via password.
  - Report posts.
  - Block keywords.

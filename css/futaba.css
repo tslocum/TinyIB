@@ -13,6 +13,7 @@ a:hover {
 
 hr {
 	color: #800000;
+	background-color: #800000;
 	background-image: -webkit-linear-gradient(left,rgba(255,255,238,1),rgba(128,0,0,0.75),rgba(255,255,238,1));
 	background-image: -moz-linear-gradient(left,rgba(255,255,238,1),rgba(128,0,0,0.75),rgba(255,255,238,1));
 	background-image: -ms-linear-gradient(left,rgba(255,255,238,1),rgba(128,0,0,0.75),rgba(255,255,238,1));

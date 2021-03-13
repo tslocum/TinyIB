@@ -13,7 +13,7 @@ form {
 
 hr {
 	clear: both;
-	border: 0;
+	border: 0 none;
 	height: 1px;
 }
 
@@ -142,4 +142,9 @@ hr {
 
 #switchStylesheet {
 	margin-left: 5px;
+}
+
+#newreplies {
+	margin: 5px 0 0 2px;
+	font-weight: bold;
 }
