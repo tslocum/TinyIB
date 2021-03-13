@@ -17,7 +17,7 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
  - CAPTCHA
    - A simple, self-hosted implementation is included.
    - [hCaptcha](https://hcaptcha.com) is supported.
-   - [ReCAPTCHA](https://www.google.com/recaptcha/about/) is supported but [not recommended](https://nearcyan.com/you-probably-dont-need-recaptcha/).
+   - [ReCAPTCHA](https://www.google.com/recaptcha/about/) is supported. (But [not recommended](https://nearcyan.com/you-probably-dont-need-recaptcha/))
  - Reference links. `>>###`
  - Delete posts via password.
  - Report posts.
@@ -59,6 +59,9 @@ support in mind.
     - [GD Image Processing Library](https://php.net/gd)
       - This library is usually installed by default.
       - If you plan on disabling image uploads to use TinyIB as a text board only, this library is not required.
+     - [cURL Library](https://www.php.net/manual/en/book.curl.php)
+       - This is recommended, but is not strictly required except:
+         - When `TINYIB_CAPTCHA` is set to `hcaptcha` or `recaptcha`.
  2. CD to the directory you wish to install TinyIB.
  3. Run the command:
     - `git clone https://gitlab.com/tslocum/tinyib.git ./`
