@@ -8,7 +8,11 @@ https://gitlab.com/tslocum/tinyib/issues
 
 See README for instructions on configuring, moderating and upgrading your board.
 
-Set TINYIB_DBMODE to a MySQL-related mode if it's available.  By default it's set to flatfile, which can be very slow.
+Set TINYIB_DBMODE to a MySQL-related mode if it's available. By default it's set
+to flatfile, which can be very slow.
+
+Many settings require the imageboard to be rebuilt to take effect. To do this,
+click Rebuild All in the management panel.
 */
 
 // Internationalization
@@ -23,11 +27,11 @@ define('TINYIB_MODPASS', '');         // Moderators only have access to delete (
 define('TINYIB_BOARD', 'b');          // Unique identifier for this board using only letters and numbers
 define('TINYIB_BOARDDESC', 'TinyIB'); // Displayed at the top of every page
 define('TINYIB_ALWAYSNOKO', false);   // Redirect to thread after posting
-define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass a CAPTCHA when posting: simple / hcaptcha / recaptcha  (click Rebuild All in the management panel after enabling)  ['' to disable]
+define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass a CAPTCHA when posting: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to pass a CAPTCHA when logging in to the management panel: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_REPORT', false);       // Allow users to report posts
 define('TINYIB_REQMOD', '');          // Require moderation before displaying posts: files / all  ['' to disable]
-define('TINYIB_AUTOREFRESH', 30);     // Delay (in seconds) between attempts to refresh threads automatically  [0 to disable]
+define('TINYIB_AUTOREFRESH', 30);     // Delay (in seconds) between attempts to refresh a thread automatically  [0 to disable]
 define('TINYIB_DISALLOWTHREADS', ''); // When set, users attempting to post a new thread are shown this message instead  ['' to disable]
 define('TINYIB_DISALLOWREPLIES', ''); // When set, users attempting to post a reply are shown this message instead  ['' to disable]
 

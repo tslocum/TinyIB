@@ -519,6 +519,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			$json_posts[$post['id']] = fixLinksInRes(buildPost($post, true));
 		}
 	}
+
 	echo json_encode($json_posts);
 	die();
 // Check if the request is to report a post
