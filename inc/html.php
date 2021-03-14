@@ -542,7 +542,7 @@ EOF;
 
 function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0, $lastpostid = 0) {
 	$cataloglink = TINYIB_CATALOG ? ('[<a href="catalog.html" style="text-decoration: underline;">' . __('Catalog') . '</a>]') : '';
-	$managelink = basename($_SERVER['PHP_SELF']) . "?manage";
+	$managelink = (TINYIB_MANAGEKEY == '') ? ('[<a href="' . basename($_SERVER['PHP_SELF']) . '?manage"" style="text-decoration: underline;">' . __('Manage') . '</a>]') : '';
 
 	$postingmode = "";
 	$pagenavigator = "";
@@ -603,7 +603,6 @@ EOF;
 		$js_autorefresh = '<script type="text/javascript">var autoRefreshDelay = ' . TINYIB_AUTOREFRESH . ';var autoRefreshThreadID = ' . $parent . ';var autoRefreshPostID = ' . $lastpostid . ';</script>';
 	}
 
-	$txt_manage = __('Manage');
 	$txt_style = __('Style');
 	$txt_password = __('Password');
 	$txt_delete = __('Delete');
@@ -612,7 +611,7 @@ EOF;
 	<body>
 		<div class="adminbar">
 			$cataloglink
-			[<a href="$managelink" style="text-decoration: underline;">$txt_manage</a>]
+			$managelink
 			<select id="switchStylesheet"><option value="">$txt_style</option><option value="futaba">Futaba</option><option value="burichan">Burichan</option></select>
 		</div>
 		<div class="logo">
@@ -848,8 +847,9 @@ function manageLogInForm() {
 <input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;' . __('(enter the text below)') . '<br>
 <img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;"><br><br>';
 	}
+	$managekey = htmlentities($_GET['manage'], ENT_QUOTES);
 	return <<<EOF
-	<form id="tinyib" name="tinyib" method="post" action="?manage">
+	<form id="tinyib" name="tinyib" method="post" action="?manage=$managekey">
 	<fieldset>
 	<legend align="center">$txt_login_prompt</legend>
 	<div class="login">

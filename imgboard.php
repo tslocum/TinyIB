@@ -585,6 +585,13 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	$isadmin = false;
 	$returnlink = basename($_SERVER['PHP_SELF']);
 
+	if (isset($_GET["logout"])) {
+		$_SESSION['tinyib'] = '';
+		$_SESSION['tinyib_key'] = '';
+		session_destroy();
+		die('--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=imgboard.php">');
+	}
+
 	list($loggedin, $isadmin) = manageCheckLogIn();
 
 	if ($loggedin) {
@@ -805,11 +812,8 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		} elseif (isset($_GET["rawpost"])) {
 			$onload = manageOnLoad("rawpost");
 			$text .= buildPostForm(0, true);
-		} elseif (isset($_GET["logout"])) {
-			$_SESSION['tinyib'] = '';
-			session_destroy();
-			die('--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . $returnlink . '?manage">');
 		}
+
 		if ($text == '') {
 			$text = manageStatus();
 		}

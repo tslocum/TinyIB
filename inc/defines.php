@@ -13,6 +13,9 @@ define('TINYIB_WORDBREAK_IDENTIFIER', '@!@TINYIB_WORDBREAK@!@');
 if (!defined('TINYIB_LOCALE')) {
 	define('TINYIB_LOCALE', '');
 }
+if (!defined('TINYIB_MANAGEKEY')) {
+	define('TINYIB_MANAGEKEY', '');
+}
 if (!defined('TINYIB_INDEX')) {
 	define('TINYIB_INDEX', 'index.html');
 }

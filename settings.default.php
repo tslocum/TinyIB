@@ -18,6 +18,9 @@ click Rebuild All in the management panel.
 // Internationalization
 define('TINYIB_LOCALE', '');          // Locale  (see README for instructions)
 
+// Management panel
+define('TINYIB_MANAGEKEY', '');       // When set, the [Manage] link is hidden and the management panel may only be accessed via imgboard.php?manage=TINYIB_MANAGEKEY  ['' to disable]
+
 // Administrator/moderator credentials
 define('TINYIB_ADMINPASS', '');       // Administrators have full access to the board
 define('TINYIB_MODPASS', '');         // Moderators only have access to delete (and moderate if TINYIB_REQMOD is set) posts  ['' to disable]

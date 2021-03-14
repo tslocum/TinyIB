@@ -336,6 +336,17 @@ function checkMessageSize() {
 }
 
 function manageCheckLogIn() {
+	$key = (isset($_GET['manage']) && $_GET['manage'] != '') ? hashData($_GET['manage']) : '';
+	if ($key == '' && isset($_SESSION['tinyib_key'])) {
+		$key = $_SESSION['tinyib_key'];
+	}
+	if (TINYIB_MANAGEKEY != '' && $key !== hashData(TINYIB_MANAGEKEY)) {
+		$_SESSION['tinyib'] = '';
+		$_SESSION['tinyib_key'] = '';
+		session_destroy();
+		fancyDie(__('Invalid key.'));
+	}
+
 	$loggedin = false;
 	$isadmin = false;
 	if (isset($_POST['managepassword'])) {
@@ -343,8 +354,10 @@ function manageCheckLogIn() {
 
 		if ($_POST['managepassword'] === TINYIB_ADMINPASS) {
 			$_SESSION['tinyib'] = hashData(TINYIB_ADMINPASS);
+			$_SESSION['tinyib_key'] = hashData(TINYIB_MANAGEKEY);
 		} elseif (TINYIB_MODPASS != '' && $_POST['managepassword'] === TINYIB_MODPASS) {
 			$_SESSION['tinyib'] = hashData(TINYIB_MODPASS);
+			$_SESSION['tinyib_key'] = hashData(TINYIB_MANAGEKEY);
 		} else {
 			fancyDie(__('Invalid password.'));
 		}
