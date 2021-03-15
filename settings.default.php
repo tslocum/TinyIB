@@ -28,7 +28,8 @@ define('TINYIB_MODPASS', '');         // Moderators only have access to delete (
 // Board description and behavior
 //   Warning: Enabling reCAPTCHA will cause all visitors to be tracked by Google.  See https://nearcyan.com/you-probably-dont-need-recaptcha/
 define('TINYIB_BOARD', 'b');          // Unique identifier for this board using only letters and numbers
-define('TINYIB_BOARDDESC', 'TinyIB'); // Displayed at the top of every page
+define('TINYIB_BOARDDESC', 'TinyIB'); // Displayed below logo in page headers
+define('TINYIB_BOARDTITLE', '');      // Title of board pages.  When blank, defaults to TINYIB_BOARDDESC (when set) or "TinyIB"
 define('TINYIB_ALWAYSNOKO', false);   // Redirect to thread after posting
 define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass a CAPTCHA when posting: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to pass a CAPTCHA when logging in to the management panel: simple / hcaptcha / recaptcha  ['' to disable]

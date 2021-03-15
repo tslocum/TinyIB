@@ -4,6 +4,14 @@ if (!defined('TINYIB_BOARD')) {
 }
 
 function pageHeader() {
+	if (TINYIB_BOARDTITLE != '') {
+		$title = TINYIB_BOARDTITLE;
+	} else if (TINYIB_BOARDDESC != '') {
+		$title = TINYIB_BOARDDESC;
+	} else {
+		$title = 'TinyIB';
+	}
+
 	$js_captcha = '';
 	if (TINYIB_CAPTCHA === 'hcaptcha' || TINYIB_MANAGECAPTCHA === 'hcaptcha') {
 		$js_captcha .= '<script src="https://www.hcaptcha.com/1/api.js" async defer></script>';
@@ -12,7 +20,7 @@ function pageHeader() {
 		$js_captcha .= '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
 	}
 
-	$return = <<<EOF
+	return <<<EOF
 <!DOCTYPE html>
 <html>
 	<head>
@@ -23,10 +31,7 @@ function pageHeader() {
 		<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
 		<meta http-equiv="pragma" content="no-cache">
 		<meta name="viewport" content="width=device-width,initial-scale=1">
-		<title>
-EOF;
-	$return .= TINYIB_BOARDDESC . <<<EOF
-		</title>
+		<title>$title</title>
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/global.css">
 		<link rel="stylesheet" type="text/css" href="css/futaba.css" title="Futaba" id="mainStylesheet">
@@ -36,7 +41,6 @@ EOF;
 		$js_captcha
 	</head>
 EOF;
-	return $return;
 }
 
 function pageFooter() {
