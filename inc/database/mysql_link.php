@@ -15,7 +15,7 @@ $db_selected = mysql_select_db(TINYIB_DBNAME, $link);
 if (!$db_selected) {
 	fancyDie("Could not select database: " . mysql_error());
 }
-mysql_query("SET NAMES 'utf8'");
+mysql_query("SET NAMES 'utf8mb4'");
 
 // Create the posts table if it does not exist
 if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '" . TINYIB_DBPOSTS . "'")) == 0) {

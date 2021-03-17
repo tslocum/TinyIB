@@ -135,22 +135,22 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 		`parent` mediumint(7) unsigned NOT NULL,
 		`timestamp` int(20) NOT NULL,
 		`bumped` int(20) NOT NULL,
-		`ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`name` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`tripcode` varchar(24) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`email` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`nameblock` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`subject` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`message` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`file` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`file_hex` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`file_original` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`name` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`tripcode` varchar(24) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`email` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`nameblock` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`subject` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`file` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`file_hex` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`file_original` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
 		`file_size` int(20) unsigned NOT NULL default '0',
-		`file_size_formatted` varchar(75) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`file_size_formatted` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
 		`image_width` smallint(5) unsigned NOT NULL default '0',
 		`image_height` smallint(5) unsigned NOT NULL default '0',
-		`thumb` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`thumb` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
 		`thumb_width` smallint(5) unsigned NOT NULL default '0',
 		`thumb_height` smallint(5) unsigned NOT NULL default '0',
 		`stickied` tinyint(1) NOT NULL default '0',
@@ -164,25 +164,25 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 
 	$bans_sql = "CREATE TABLE `" . TINYIB_DBBANS . "` (
 		`id` mediumint(7) unsigned NOT NULL auto_increment,
-		`ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
 		`timestamp` int(20) NOT NULL,
 		`expire` int(20) NOT NULL,
-		`reason` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
 		PRIMARY KEY	(`id`),
 		KEY `ip` (`ip`)
 	)";
 
 	$reports_sql = "CREATE TABLE `" . TINYIB_DBREPORTS . "` (
 		`id` mediumint(7) unsigned NOT NULL auto_increment,
-		`ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
 		`post` int(20) NOT NULL,
 		PRIMARY KEY	(`id`)
 	)";
 
 	$keywords_sql = "CREATE TABLE `" . TINYIB_DBKEYWORDS . "` (
 		`id` mediumint(7) unsigned NOT NULL auto_increment,
-		`text` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		`action` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		`text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`action` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
 		PRIMARY KEY	(`id`)
 	)";
 }
