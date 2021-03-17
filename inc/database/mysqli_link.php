@@ -15,7 +15,7 @@ $db_selected = @mysqli_query($link, "USE " . TINYIB_DBNAME);
 if (!$db_selected) {
 	fancyDie("Could not select database: " . ((is_object($link)) ? mysqli_error($link) : (($link_error = mysqli_connect_error()) ? $link_error : '(unknown error')));
 }
-mysqli_query($link, "SET NAMES 'utf8'");
+mysqli_query($link, "SET NAMES 'utf8mb4'");
 
 // Create the posts table if it does not exist
 if (mysqli_num_rows(mysqli_query($link, "SHOW TABLES LIKE '" . TINYIB_DBPOSTS . "'")) == 0) {
