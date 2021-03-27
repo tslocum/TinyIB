@@ -1,12 +1,3 @@
-!!! TinyIB has moved to [code.rocketnine.space](https://code.rocketnine.space/tslocum/tinyib) !!!
-====
-
-Please visit https://code.rocketnine.space/tslocum/tinyib
-
-Site administrators: `git remote set-url origin https://code.rocketnine.space/tslocum/tinyib.git`
-
-------------
-
 # TinyIB - Lightweight and efficient [imageboard](https://en.wikipedia.org/wiki/Imageboard)
 [![Translate](https://hosted.weblate.org/widgets/tinyib/-/tinyib/svg-badge.svg)](https://hosted.weblate.org/projects/tinyib/tinyib/)
 [![Donate](https://img.shields.io/liberapay/receives/rocketnine.space.svg?logo=liberapay)](https://liberapay.com/rocketnine.space)
