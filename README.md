@@ -1,8 +1,17 @@
+!!! TinyIB has moved to [code.rocketnine.space](https://code.rocketnine.space/tslocum/tinyib) !!!
+====
+
+Please visit https://code.rocketnine.space/tslocum/tinyib
+
+Site administrators: `git remote set-url origin https://code.rocketnine.space/tslocum/tinyib.git`
+
+------------
+
 # TinyIB - Lightweight and efficient [imageboard](https://en.wikipedia.org/wiki/Imageboard)
 [![Translate](https://hosted.weblate.org/widgets/tinyib/-/tinyib/svg-badge.svg)](https://hosted.weblate.org/projects/tinyib/tinyib/)
 [![Donate](https://img.shields.io/liberapay/receives/rocketnine.space.svg?logo=liberapay)](https://liberapay.com/rocketnine.space)
 
-See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for demos.
+See [DEMOS.md](https://code.rocketnine.space/tslocum/tinyib/src/branch/master/DEMOS.md) for a list of sites running TinyIB.
 
 ## Features
 
@@ -10,7 +19,7 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
 
 **No database?  No problem.**  Store posts as text files for a portable set-up capable of running on virtually any PHP host.
 
-**Not looking for an image board script?**  TinyIB is able to allow new threads without requiring an image, or even disallow images entirely.  See the [Text Board Mode](https://gitlab.com/tslocum/tinyib/wikis/Text-Board-Mode) wiki page for instructions.
+**Not looking for an image board script?**  TinyIB is able to allow new threads without requiring an image, or disallow images entirely.
 
  - GIF, JPG, PNG, SWF, MP4 and WebM upload.
  - YouTube, Vimeo and SoundCloud embedding.
@@ -29,7 +38,7 @@ See [TinyIB Installations](https://gitlab.com/tslocum/tinyib/wikis/Home) for dem
    - Ban offensive/abusive posters across all boards.
    - Post using raw HTML.
    - Upgrade automatically when installed via git.  (Tested on Linux only)
- - [Translations](https://hosted.weblate.org/projects/tinyib/tinyib/):
+ - [Translations:](https://hosted.weblate.org/projects/tinyib/tinyib/)
    - Chinese
    - Dutch
    - French
@@ -66,7 +75,7 @@ support in mind.
          - When `TINYIB_CAPTCHA` is set to `hcaptcha` or `recaptcha`.
  2. CD to the directory you wish to install TinyIB.
  3. Run the command:
-    - `git clone https://gitlab.com/tslocum/tinyib.git ./`
+    - `git clone https://code.rocketnine.space/tslocum/tinyib.git ./`
  4. Copy **settings.default.php** to **settings.php**
  5. Configure **settings.php**
     - When setting ``TINYIB_DBMODE`` to ``flatfile``, note that all post, report and ban data are exposed as the database is composed of standard text files.  Access to ./inc/database/flatfile/ should be denied.
@@ -111,12 +120,12 @@ support in mind.
  1. Obtain the latest release.
     - If you installed via Git, run the following command in TinyIB's directory:
       - `git pull`
-    - Otherwise, [download](https://gitlab.com/tslocum/tinyib/-/archive/master/tinyib-master.zip) and extract a zipped archive.
+    - Otherwise, [download](https://code.rocketnine.space/tslocum/tinyib/archive/master.zip) and extract a zipped archive.
  2. Note which files were modified.
     - If **settings.default.php** was updated, migrate the changes to **settings.php**
       - Take care to not change the value of `TINYIB_TRIPSEED`, as it is used to generate secure tripcodes, hash passwords and hash IP addresses.
     - If other files were updated, and you have made changes yourself:
-      - Visit [GitLab](https://gitlab.com/tslocum/tinyib) and review the changes made in the update.
+      - Visit [code.rocketnine.space](https://code.rocketnine.space/tslocum/tinyib) and review the changes made in the update.
       - Ensure the update does not interfere with your changes.
 
 ## Migrate
@@ -140,8 +149,8 @@ While the migration is in progress, visitors will not be able to create or delet
 ## Support
 
  1. Ensure you are running the latest version of TinyIB.
- 2. Review the [open issues](https://gitlab.com/tslocum/tinyib/issues).
- 3. Open a [new issue](https://gitlab.com/tslocum/tinyib/issues/new).
+ 2. Review the [open issues](https://code.rocketnine.space/tslocum/tinyib/issues).
+ 3. Open a [new issue](https://code.rocketnine.space/tslocum/tinyib/issues/new).
 
 ## Translate
 
@@ -149,9 +158,8 @@ Translation is handled [online](https://hosted.weblate.org/projects/tinyib/tinyi
 
 ## Contribute
 
-**Note:** Please do not submit translations as pull requests.  See above.
+**Note:** Please do not submit translations as patches.  See above.
 
- 1. Read the [GitLab Forking Workflow](https://docs.gitlab.com/ce/workflow/forking_workflow.html).
- 2. Fork TinyIB.
- 3. Commit code changes to your forked repository.
- 4. Submit a pull request describing your modifications.
+ 1. Fork TinyIB using [git](https://git-scm.com/downloads).
+ 2. Commit code changes to your forked repository.
+ 3. Send your patches to trevor@rocketnine.space via [git send-email](https://git-send-email.io/).

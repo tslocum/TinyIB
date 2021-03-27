@@ -1,10 +1,10 @@
 <?php
 /*
 TinyIB
-https://gitlab.com/tslocum/tinyib
+https://code.rocketnine.space/tslocum/tinyib
 
 Support:
-https://gitlab.com/tslocum/tinyib/issues
+https://code.rocketnine.space/tslocum/tinyib/issues
 
 See README for instructions on configuring, moderating and upgrading your board.
 

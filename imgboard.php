@@ -1,7 +1,7 @@
 <?php
 /*
 TinyIB
-https://gitlab.com/tslocum/tinyib
+https://code.rocketnine.space/tslocum/tinyib
 
 MIT License
 
@@ -681,12 +681,13 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					$text .= '<blockquote class="reply" style="padding: 7px;font-size: 1.25em;">
 					<pre style="margin: 0;padding: 0;">Attempting update...' . "\n\n" . $git_output . '</pre>
 					</blockquote>
-					<p><b>Note:</b> If TinyIB updates and you have made custom modifications, <a href="https://gitlab.com/tslocum/tinyib/commits/master" target="_blank">review the changes</a> which have been merged into your installation.
+					<p><b>Note:</b> If TinyIB updates and you have made custom modifications, <a href="https://code.rocketnine.space/tslocum/tinyib/commits/master" target="_blank">review the changes</a> which have been merged into your installation.
 					Ensure that your modifications do not interfere with any new/modified files.
-					See the <a href="https://gitlab.com/tslocum/tinyib#readme">README</a> for more information.</p>';
+					See the <a href="https://code.rocketnine.space/tslocum/tinyib/src/branch/master/README.md">README</a> for more information.<br><br>
+					<small>(<a href="README.md" target="_blank">alternate link</a>)</small> for instructions.</p>';
 				} else {
 					$text .= '<p><b>TinyIB was not installed via Git.</b></p>
-					<p>If you installed TinyIB without Git, you must <a href="https://gitlab.com/tslocum/tinyib">update manually</a>.  If you did install with Git, ensure the script has read and write access to the <b>.git</b> folder.</p>';
+					<p>If you installed TinyIB without Git, you must <a href="https://code.rocketnine.space/tslocum/tinyib">update manually</a>.  If you did install with Git, ensure the script has read and write access to the <b>.git</b> folder.</p>';
 				}
 			} elseif (isset($_GET['dbmigrate'])) {
 				if (TINYIB_DBMIGRATE !== '' && TINYIB_DBMIGRATE !== false) {
@@ -720,7 +721,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 						echo '<p><b>Database migration complete</b>.  Set TINYIB_DBMODE to mysqli and TINYIB_DBMIGRATE to false, then click <b>Rebuild All</b> above and ensure everything looks the way it should.</p>';
 					} else {
-						$text .= '<p>Your original database will not be deleted.  If the migration fails, disable the tool and your board will be unaffected.  See the <a href="https://gitlab.com/tslocum/tinyib#migrating" target="_blank">README</a> <small>(<a href="README.md" target="_blank">alternate link</a>)</small> for instructions.</a><br><br><a href="?manage&dbmigrate&go"><b>Start the migration</b></a></p>';
+						$text .= '<p>Your original database will not be deleted.  If the migration fails, disable the tool and your board will be unaffected.  See the <a href="https://code.rocketnine.space/tslocum/tinyib/src/branch/master/README.md" target="_blank">README</a> <small>(<a href="README.md" target="_blank">alternate link</a>)</small> for instructions.</a><br><br><a href="?manage&dbmigrate&go"><b>Start the migration</b></a></p>';
 					}
 				} else {
 					fancyDie('Set TINYIB_DBMIGRATE to true in settings.php to use this feature.');
