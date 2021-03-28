@@ -228,7 +228,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		fancyDie(__('Posting is currently disabled.<br>Please try again in a few moments.'));
 	}
 
-	list($loggedin, $isadmin) = manageCheckLogIn();
+	list($loggedin, $isadmin) = manageCheckLogIn(false);
 	$rawpost = isRawPost();
 	$rawposttext = '';
 	if (!$loggedin) {
@@ -554,7 +554,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 	$post = postByID($_POST['delete']);
 	if ($post) {
-		list($loggedin, $isadmin) = manageCheckLogIn();
+		list($loggedin, $isadmin) = manageCheckLogIn(false);
 
 		if ($loggedin && $_POST['password'] == '') {
 			// Redirect to post moderation page
@@ -592,7 +592,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		die('--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=imgboard.php">');
 	}
 
-	list($loggedin, $isadmin) = manageCheckLogIn();
+	list($loggedin, $isadmin) = manageCheckLogIn(true);
 
 	if ($loggedin) {
 		if ($isadmin) {

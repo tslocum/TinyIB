@@ -335,7 +335,10 @@ function checkMessageSize() {
 	}
 }
 
-function manageCheckLogIn() {
+function manageCheckLogIn($requireKey) {
+	$loggedin = false;
+	$isadmin = false;
+
 	$key = (isset($_GET['manage']) && $_GET['manage'] != '') ? hashData($_GET['manage']) : '';
 	if ($key == '' && isset($_SESSION['tinyib_key'])) {
 		$key = $_SESSION['tinyib_key'];
@@ -344,11 +347,13 @@ function manageCheckLogIn() {
 		$_SESSION['tinyib'] = '';
 		$_SESSION['tinyib_key'] = '';
 		session_destroy();
-		fancyDie(__('Invalid key.'));
+
+		if ($requireKey) {
+			fancyDie(__('Invalid key.'));
+		}
+		return array($loggedin, $isadmin);
 	}
 
-	$loggedin = false;
-	$isadmin = false;
 	if (isset($_POST['managepassword'])) {
 		checkCAPTCHA(TINYIB_MANAGECAPTCHA);
 
@@ -391,10 +396,8 @@ function setParent() {
 
 function isRawPost() {
 	if (isset($_POST['rawpost'])) {
-		list($loggedin, $isadmin) = manageCheckLogIn();
-		if ($loggedin) {
-			return true;
-		}
+		list($loggedin, $isadmin) = manageCheckLogIn(false);
+		return $loggedin;
 	}
 
 	return false;
