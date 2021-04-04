@@ -47,6 +47,52 @@ function deleteAccountByID($id) {
 	$db->exec("DELETE FROM " . TINYIB_DBACCOUNTS . " WHERE id = " . $db->escapeString($id));
 }
 
+// Ban functions
+function banByID($id) {
+	global $db;
+	$result = $db->query("SELECT * FROM " . TINYIB_DBBANS . " WHERE id = '" . $db->escapeString($id) . "' LIMIT 1");
+	while ($ban = $result->fetchArray()) {
+		return $ban;
+	}
+}
+
+function banByIP($ip) {
+	global $db;
+	$result = $db->query("SELECT * FROM " . TINYIB_DBBANS . " WHERE ip = '" . $db->escapeString($ip) . "' OR ip = '" . $db->escapeString(hashData($ip)) . "' LIMIT 1");
+	while ($ban = $result->fetchArray()) {
+		return $ban;
+	}
+}
+
+function allBans() {
+	global $db;
+	$bans = array();
+	$result = $db->query("SELECT * FROM " . TINYIB_DBBANS . " ORDER BY timestamp DESC");
+	while ($ban = $result->fetchArray()) {
+		$bans[] = $ban;
+	}
+	return $bans;
+}
+
+function insertBan($ban) {
+	global $db;
+	$db->exec("INSERT INTO " . TINYIB_DBBANS . " (ip, timestamp, expire, reason) VALUES ('" . $db->escapeString(hashData($ban['ip'])) . "', " . time() . ", '" . $db->escapeString($ban['expire']) . "', '" . $db->escapeString($ban['reason']) . "')");
+	return $db->lastInsertRowID();
+}
+
+function clearExpiredBans() {
+	global $db;
+	$result = $db->query("SELECT * FROM " . TINYIB_DBBANS . " WHERE expire > 0 AND expire <= " . time());
+	while ($ban = $result->fetchArray()) {
+		$db->exec("DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . $ban['id']);
+	}
+}
+
+function deleteBanByID($id) {
+	global $db;
+	$db->exec("DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . $db->escapeString($id));
+}
+
 // Post functions
 function uniquePosts() {
 	global $db;
