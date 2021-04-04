@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2020-11-23 12:37-0800\n"
+"POT-Creation-Date: 2021-04-04 13:04-0700\n"
 "PO-Revision-Date: 2020-12-03 09:29+0000\n"
 "Last-Translator: Domokun <domokun@asdasd.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tinyib/tinyib/nl/"
@@ -18,130 +18,115 @@ msgstr ""
 "X-Poedit-SearchPath-1: inc/html.php\n"
 "X-Poedit-SearchPath-2: inc/functions.php\n"
 
-#: imgboard.php:46
 msgid "Click here to go back"
 msgstr "Klik hier om terug te gaan"
 
-#: imgboard.php:72 imgboard.php:614
+msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
+msgstr "TINYIB_TRIPSEED en TINYIB_ADMINPASS moeten worden geconfigureerd."
+
+#, fuzzy
+#| msgid ""
+#| "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
+msgid "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured."
+msgstr ""
+"TINYIB_RECAPTCHA_SITE en TINYIB_RECAPTCHA_SECRET  moeten worden "
+"geconfigureerd."
+
+msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
+msgstr ""
+"TINYIB_RECAPTCHA_SITE en TINYIB_RECAPTCHA_SECRET  moeten worden "
+"geconfigureerd."
+
 msgid "Unknown database mode specified."
 msgstr "Onbekende databasemodus gespecificeerd."
 
-#: imgboard.php:183
 #, php-format
 msgid "Directory '%s' can not be written to.  Please modify its permissions."
 msgstr ""
 "Er kan niet naar directory '%s' worden geschreven.  Pas de schrijfrechten "
 "aan."
 
-#: imgboard.php:193
-msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
-msgstr "TINYIB_TRIPSEED en TINYIB_ADMINPASS moeten worden geconfigureerd."
-
-#: imgboard.php:197
-msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
-msgstr ""
-"TINYIB_RECAPTCHA_SITE en TINYIB_RECAPTCHA_SECRET  moeten worden "
-"geconfigureerd."
-
-#: imgboard.php:210
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
 msgstr ""
 "Posten is momenteel uitgeschakeld.<br>Probeer het over enkele ogenblikken "
 "opnieuw."
 
-#: imgboard.php:229 inc/functions.php:346
 msgid "Invalid parent thread ID supplied, unable to create post."
 msgstr "Ongeldige bovenliggende thread ID opgegeven, kan post niet maken."
 
-#: imgboard.php:231
 msgid "Replies are not allowed to locked threads."
 msgstr "Reacties zijn niet toegestaan op vergrendelde threads."
 
-#: imgboard.php:278
 msgid "Your post contains a blocked keyword."
 msgstr "Je post bevat een geblokkeerd trefwoord."
 
-#: imgboard.php:319
 msgid "Embedding a URL and uploading a file at the same time is not supported."
 msgstr ""
 "Het is niet mogelijk zowel een URL te embedden als een bestand te uploaden."
 
-#: imgboard.php:325
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
 msgstr "Ongeldige embed-URL. Alleen %s-URLs zijn ondersteund."
 
-#: imgboard.php:329 inc/functions.php:372 inc/functions.php:612
 #, php-format
 msgid "That file is larger than %s."
 msgstr "Het bestand is groter dan %s."
 
-#: imgboard.php:334 imgboard.php:340
 msgid "Failed to download file at specified URL."
 msgstr "Kan het bestand niet downloaden op de opgegeven URL."
 
-#: imgboard.php:362
 msgid "Error while processing audio/video."
 msgstr "Fout bij het verwerken van audio/video."
 
-#: imgboard.php:369 inc/functions.php:697 inc/functions.php:708
 msgid "Could not create thumbnail."
 msgstr "Kon thumbnail niet aanmaken."
 
-#: imgboard.php:392
 msgid "upload a file or embed a URL"
 msgstr "upload een bestand of embed een URL"
 
-#: imgboard.php:394
 msgid "upload a file"
 msgstr "upload een bestand"
 
-#: imgboard.php:396
 msgid "embed a URL"
 msgstr "embed een URL"
 
-#: imgboard.php:399
 #, php-format
 msgid "Please %s to start a new thread."
 msgstr "Graag %s om een nieuwe thread te starten."
 
-#: imgboard.php:405
 #, php-format
 msgid "Please enter a message and/or %s."
 msgstr "Voer een bericht en/of %s in."
 
-#: imgboard.php:407
 msgid "Please enter a message."
 msgstr "Voer een bericht in."
 
-#: imgboard.php:409
 #, php-format
 msgid "Please %s."
 msgstr "Graag %s."
 
-#: imgboard.php:412
 #, php-format
 msgid "%s uploaded."
 msgstr "%s geüpload."
 
-#: imgboard.php:417
 #, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr "Je %s wordt weergegeven <b>zodra het is goedgekeurd</b>."
 
-#: imgboard.php:435
 msgid "Updating thread..."
 msgstr "Thread updaten..."
 
-#: imgboard.php:448
 msgid "Updating index..."
 msgstr "Index updaten..."
 
-#: imgboard.php:454
+#, fuzzy
+#| msgid "Reporting is disabled."
+msgid "Automatic refreshing is disabled."
+msgstr "Melden is uitgeschakeld."
+
 msgid "Reporting is disabled."
 msgstr "Melden is uitgeschakeld."
 
-#: imgboard.php:459 imgboard.php:500
 msgid ""
 "Sorry, an invalid post identifier was sent. Please go back, refresh the "
 "page, and try again."
@@ -149,102 +134,103 @@ msgstr ""
 "Sorry, een ongeldige post-ID was verstuurd. Ga terug, vernieuw de pagina en "
 "probeer het opnieuw."
 
-#: imgboard.php:464
 msgid "You have already submitted a report for that post."
 msgstr "Je hebt deze post al gemeld."
 
-#: imgboard.php:470
 msgid "Post reported."
 msgstr "Post gemeld."
 
-#: imgboard.php:474
 msgid "Tick the box next to a post and click \"Delete\" to delete it."
 msgstr ""
 "Vink het vakje aan naast een post en klik op \"Delete\" om het te "
 "verwijderen."
 
-#: imgboard.php:478
 msgid ""
 "Post deletion is currently disabled.<br>Please try again in a few moments."
 msgstr ""
 "Postverwijdering is momenteel uitgeschakeld.<br>Probeer het over enkele "
 "ogenblikken opnieuw."
 
-#: imgboard.php:495
 msgid "Post deleted."
 msgstr "Post verwijderd."
 
-#: imgboard.php:497 inc/functions.php:326
 msgid "Invalid password."
 msgstr "Ongeldig wachtwoord."
 
-#: imgboard.php:524
 msgid "Rebuilt board."
 msgstr "Board herbouwd."
 
-#: imgboard.php:532
+msgid "Access denied"
+msgstr ""
+
+msgid "Account not found."
+msgstr ""
+
+msgid "This account may not be updated while TINYIB_ADMINPASS is set."
+msgstr ""
+
+msgid "This account may not be updated while TINYIB_MODPASS is set."
+msgstr ""
+
+msgid "A password is required."
+msgstr ""
+
+msgid "Invalid role."
+msgstr ""
+
+msgid "Added account"
+msgstr ""
+
+msgid "Updated account"
+msgstr ""
+
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr "Sorry, er is al een ban vastgelegd voor dat IP-adres."
 
-#: imgboard.php:541
 #, php-format
 msgid "Ban record added for %s"
 msgstr "Ban vastgelegd voor %s"
 
-#: imgboard.php:547
 #, php-format
 msgid "Ban record lifted for %s"
 msgstr "Ban verwijderd voor %s"
 
-#: imgboard.php:562
 msgid "Sorry, that keyword has already been added."
 msgstr "Sorry, dat trefwoord is al toegevoegd."
 
-#: imgboard.php:571
 msgid "Keyword updated."
 msgstr "Trefwoord bijgewerkt."
 
-#: imgboard.php:574
 msgid "Keyword added."
 msgstr "Trefwoord toegevoegd."
 
-#: imgboard.php:578
 msgid "Keyword deleted."
 msgstr "Trefwoord verwijderd."
 
-#: imgboard.php:650
 #, php-format
 msgid "Post No.%d deleted."
 msgstr "Postnr.%d verwijderd."
 
-#: imgboard.php:652 imgboard.php:668 imgboard.php:677 imgboard.php:692
-#: imgboard.php:706 imgboard.php:719
 msgid "Sorry, there doesn't appear to be a post with that ID."
 msgstr "Sorry, er is geen post met dat ID."
 
-#: imgboard.php:666
 #, php-format
 msgid "Post No.%d approved."
 msgstr "Postnr.%d goedgekeurd."
 
-#: imgboard.php:695 imgboard.php:709
 msgid "Form data was lost. Please go back and try again."
 msgstr ""
 "Formuliergegevens zijn verloren gegaan. Ga terug en probeer het opnieuw."
 
-#: imgboard.php:717
 msgid "Reports cleared."
 msgstr "Meldingen gewist."
 
-#: inc/functions.php:135 inc/html.php:1217
-msgid "Anonymous"
-msgstr "Anoniem"
+msgid "Password updated"
+msgstr ""
 
-#: inc/functions.php:268
 msgid "Please enter the CAPTCHA text."
 msgstr "Voer de CAPTCHA-tekst in."
 
-#: inc/functions.php:270
 msgid ""
 "Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
 "retrieve a new CAPTCHA."
@@ -252,7 +238,6 @@ msgstr ""
 "Ongeldige CAPTCHA-tekst ingevoerd. Probeer het opnieuw.<br>Klik op de "
 "afbeelding om een nieuwe CAPTCHA op te halen."
 
-#: inc/functions.php:311
 #, php-format
 msgid ""
 "Please shorten your message, or post it in multiple parts. Your message is "
@@ -261,7 +246,14 @@ msgstr ""
 "Kort je bericht in of plaats het in meerdere delen. Je bericht is %1$d "
 "tekens lang en het toegestane maximum is %2$d."
 
-#: inc/functions.php:375
+#, fuzzy
+#| msgid "Invalid password."
+msgid "Invalid key."
+msgstr "Ongeldig wachtwoord."
+
+msgid "Invalid username or password."
+msgstr ""
+
 #, php-format
 msgid ""
 "The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
@@ -269,27 +261,21 @@ msgstr ""
 "Het geüploade bestand overschrijdt de upload_max_filesize-instructie (%s) in "
 "php.ini."
 
-#: inc/functions.php:378
 msgid "The uploaded file was only partially uploaded."
 msgstr "Het geüploade bestand is slechts gedeeltelijk geüpload."
 
-#: inc/functions.php:381
 msgid "No file was uploaded."
 msgstr "Er is geen bestand geüpload."
 
-#: inc/functions.php:384
 msgid "Missing a temporary folder."
 msgstr "Er ontbreekt een tijdelijke map."
 
-#: inc/functions.php:387
 msgid "Failed to write file to disk"
 msgstr "Bestand naar schijf schrijven is mislukt"
 
-#: inc/functions.php:390
 msgid "Unable to save the uploaded file."
 msgstr "Kan het geüploade bestand niet opslaan."
 
-#: inc/functions.php:398
 #, php-format
 msgid ""
 "Duplicate file uploaded. That file has already been posted <a href=\"%s"
@@ -297,7 +283,6 @@ msgid ""
 msgstr ""
 "Dubbel bestand geüpload. Dat bestand is <a href=\"%s\">hier</a> al gepost."
 
-#: inc/functions.php:429
 msgid ""
 "Unable to read the uploaded file while creating its thumbnail. A common "
 "cause for this is an incorrect extension when the file is actually of a "
@@ -307,11 +292,9 @@ msgstr ""
 "veelvoorkomende oorzaak hiervan is een onjuiste bestandsextensie terwijl het "
 "bestand eigenlijk van een ander type is."
 
-#: inc/functions.php:606
 msgid "File transfer failure. Please retry the submission."
 msgstr "Bestandsoverdracht mislukt. Probeer opnieuw te versturen."
 
-#: inc/functions.php:628
 msgid ""
 "Failed to read the MIME type and size of the uploaded file. Please retry the "
 "submission."
@@ -319,41 +302,32 @@ msgstr ""
 "Kan het MIME-type en de grootte van het geüploade bestand niet lezen. "
 "Probeer opnieuw te versturen."
 
-#: inc/functions.php:642 inc/functions.php:647
 msgid "Could not copy uploaded file."
 msgstr "Kon het geüploade bestand niet kopiëren."
 
-#: inc/functions.php:653
 msgid "File transfer failure. Please go back and try again."
 msgstr "Bestandsoverdracht mislukt. Ga terug en probeer opnieuw."
 
-#: inc/functions.php:672
 msgid "Sorry, your video appears to be corrupt."
 msgstr "Sorry, je video lijkt beschadigd te zijn."
 
-#: inc/html.php:57
 #, php-format
 msgid "Supported file type is %s"
 msgstr "Ondersteund bestandstype is %s"
 
-#: inc/html.php:60
 #, php-format
 msgid "Supported file types are %1$s and %2$s."
 msgstr "Ondersteunde bestandstypen zijn %1$s en %2$s."
 
-#: inc/html.php:77 inc/html.php:820 inc/html.php:858
 msgid "Submit"
 msgstr "Verzend"
 
-#: inc/html.php:95
 msgid "Reply to"
 msgstr "Antwoord aan"
 
-#: inc/html.php:96
 msgid "0 to start a new thread"
 msgstr "0 om een nieuwe thread te starten"
 
-#: inc/html.php:97
 msgid ""
 "Text entered in the Message field will be posted as is with no formatting "
 "applied."
@@ -361,278 +335,287 @@ msgstr ""
 "Tekst die in het veld Bericht wordt ingevoerd, wordt ongewijzigd gepost "
 "zonder opmaak."
 
-#: inc/html.php:98
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Regelafbrekingen moeten worden opgegeven met \"&lt;br&gt;\"."
 
-#: inc/html.php:149 inc/html.php:795
 msgid "(enter the text below)"
 msgstr "(voer de tekst hieronder in)"
 
-#: inc/html.php:153
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
 
-#: inc/html.php:169
 #, php-format
 msgid "Maximum file size allowed is %s."
 msgstr "De maximale toegestane bestandsgrootte is %s."
 
-#: inc/html.php:174
 msgid "File"
 msgstr "Bestand"
 
-#: inc/html.php:189
 msgid "Embed"
 msgstr "Embed"
 
-#: inc/html.php:192
 msgid "(paste a YouTube URL)"
 msgstr "(plak een YouTube-URL)"
 
-#: inc/html.php:207
 msgid "All posts are moderated before being shown."
 msgstr "Alle berichten worden gemodereerd voordat ze worden weergegeven."
 
-#: inc/html.php:209
 msgid "All posts with a file attached are moderated before being shown."
 msgstr ""
 "Alle berichten met een bijgevoegd bestand worden gemodereerd voordat ze "
 "worden weergegeven."
 
-#: inc/html.php:219
 #, php-format
 msgid "Images greater than %s will be thumbnailed."
 msgstr "Afbeeldingen groter dan %s worden als thumbnail weergegeven."
 
-#: inc/html.php:224
 #, php-format
 msgid "Currently %s unique user posts."
 msgstr "Momenteel %s unieke gebruikersposts."
 
-#: inc/html.php:237
 msgid "Name"
 msgstr "Naam"
 
-#: inc/html.php:251
 msgid "E-mail"
 msgstr "E-mail"
 
-#: inc/html.php:265
 msgid "Subject"
 msgstr "Onderwerp"
 
-#: inc/html.php:279
 msgid "Message"
 msgstr "Bericht"
 
-#: inc/html.php:298 inc/html.php:570
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: inc/html.php:299
 msgid "(for post and file deletion)"
 msgstr "(voor verwijdering van post en bestand)"
 
-#: inc/html.php:350 inc/html.php:1033 inc/html.php:1060
 msgid "Report"
 msgstr "Meld"
 
-#: inc/html.php:362
 msgid "Stickied"
 msgstr "Vastgeplakt"
 
-#: inc/html.php:366
 msgid "Locked"
 msgstr "Vergrendeld"
 
-#: inc/html.php:379
 msgid "Embed:"
 msgstr "Embed:"
 
-#: inc/html.php:379
 msgid "File:"
 msgstr "Bestand:"
 
-#: inc/html.php:476
 msgid "Reply"
 msgstr "Beantwoorden"
 
-#: inc/html.php:482
 msgid "Post truncated. Click Reply to view."
 msgstr "Post afgekapt. Klik op Beantwoorden om te bekijken."
 
-#: inc/html.php:493
 msgid "1 post omitted. Click Reply to view."
 msgstr "1 post weggelaten. Klik op Beantwoorden om te bekijken."
 
-#: inc/html.php:495
 #, php-format
 msgid "%d posts omitted. Click Reply to view."
 msgstr "%d posts weggelaten. Klik op Beantwoorden om te bekijken."
 
-#: inc/html.php:511 inc/html.php:546 inc/html.php:558
 msgid "Catalog"
 msgstr "Catalogus"
 
-#: inc/html.php:521
-msgid "Previous"
-msgstr "Vorige"
-
-#: inc/html.php:534
-msgid "Next"
-msgstr "Volgende"
-
-#: inc/html.php:558 inc/html.php:560 inc/html.php:711
-msgid "Return"
-msgstr "Keer terug"
-
-#: inc/html.php:560
-msgid "Posting mode: Reply"
-msgstr "Postmodus: Beantwoorden"
-
-#: inc/html.php:568
 msgid "Manage"
 msgstr "Beheer"
 
-#: inc/html.php:569
+msgid "Previous"
+msgstr "Vorige"
+
+msgid "Next"
+msgstr "Volgende"
+
+msgid "Return"
+msgstr "Keer terug"
+
+msgid "Posting mode: Reply"
+msgstr "Postmodus: Beantwoorden"
+
 msgid "Style"
 msgstr "Stijl"
 
-#: inc/html.php:571 inc/html.php:1035 inc/html.php:1063 inc/html.php:1087
-#: inc/html.php:1132
 msgid "Delete"
 msgstr "Verwijder"
 
-#: inc/html.php:572
 msgid "Delete Post"
 msgstr "Verwijder post"
 
-#: inc/html.php:716 inc/html.php:1172
 msgid "Status"
 msgstr "Status"
 
-#: inc/html.php:718
+#, fuzzy
+#| msgid "Report"
+msgid "Reports"
+msgstr "Meld"
+
+msgid "Accounts"
+msgstr ""
+
 msgid "Bans"
 msgstr "Bans"
 
-#: inc/html.php:719 inc/html.php:1020
 msgid "Keywords"
 msgstr "Trefwoorden"
 
-#: inc/html.php:721
 msgid "Moderate Post"
 msgstr "Modereer post"
 
-#: inc/html.php:721
 msgid "Raw Post"
 msgstr "Raw bericht"
 
-#: inc/html.php:723
 msgid "Rebuild All"
 msgstr "Herbouw alles"
 
-#: inc/html.php:726 inc/html.php:1022
 msgid "Update"
 msgstr "Update"
 
-#: inc/html.php:729
 msgid "Migrate Database"
 msgstr "Migreer database"
 
-#: inc/html.php:731
+msgid "Change password"
+msgstr ""
+
 msgid "Log Out"
 msgstr "Log uit"
 
-#: inc/html.php:737
 msgid "Manage mode"
 msgstr "Beheermodus"
 
-#: inc/html.php:771
 msgid "Log In"
 msgstr "Log in"
 
-#: inc/html.php:772
-msgid "Enter an administrator or moderator password"
-msgstr "Voer een administrator- of moderatorwachtwoord in"
+msgid "Enter a username and password"
+msgstr ""
 
-#: inc/html.php:814
+msgid "Reported posts"
+msgstr "Gemelde posts"
+
+#, php-format
+msgid "%1$d report by %2$s"
+msgstr ""
+
+#, php-format
+msgid "%1$d reports by %2$s"
+msgstr ""
+
+#, fuzzy, php-format
+#| msgid "reports"
+msgid "%d reports"
+msgstr "meldingen"
+
+#, fuzzy, php-format
+#| msgid "Reported posts"
+msgid "Reported by %s"
+msgstr "Gemelde posts"
+
+msgid "Moderate"
+msgstr "Modereer"
+
+msgid "There are currently no reported posts."
+msgstr ""
+
+msgid "Add an account"
+msgstr ""
+
+msgid "Update an account"
+msgstr ""
+
+msgid "Leave blank to maintain current password"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Role"
+msgstr ""
+
+msgid "Choose a role"
+msgstr ""
+
+msgid "Super-administrator"
+msgstr ""
+
+msgid "Administrator"
+msgstr ""
+
+msgid "Moderator"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+msgid "Last active"
+msgstr ""
+
+msgid "Never"
+msgstr ""
+
+msgid "update"
+msgstr ""
+
 msgid "Add a ban"
 msgstr "Voeg een ban toe"
 
-#: inc/html.php:815 inc/html.php:844
 msgid "IP Address"
 msgstr "IP-adres"
 
-#: inc/html.php:816
 msgid "Expire(sec)"
 msgstr "Vervallen(sec)"
 
-#: inc/html.php:817 inc/html.php:844
 msgid "Reason"
 msgstr "Reden"
 
-#: inc/html.php:818
 msgid "never"
 msgstr "nooit"
 
-#: inc/html.php:819
 msgid "optional"
 msgstr "optioneel"
 
-#: inc/html.php:821
 msgid "1 hour"
 msgstr "1 uur"
 
-#: inc/html.php:822
 msgid "1 day"
 msgstr "1 dag"
 
-#: inc/html.php:823
 msgid "2 days"
 msgstr "2 dagen"
 
-#: inc/html.php:824
 msgid "1 week"
 msgstr "1 week"
 
-#: inc/html.php:825
 msgid "2 weeks"
 msgstr "2 weken"
 
-#: inc/html.php:826
 msgid "1 month"
 msgstr "1 maand"
 
-#: inc/html.php:844
 msgid "Set At"
 msgstr "Ingesteld op"
 
-#: inc/html.php:844
 msgid "Expires"
 msgstr "Vervalt"
 
-#: inc/html.php:846
 msgid "Does not expire"
 msgstr "Verloopt niet"
 
-#: inc/html.php:848
 msgid "lift"
 msgstr "opheffen"
 
-#: inc/html.php:856
 msgid "Moderate a post"
 msgstr "Modereer een post"
 
-#: inc/html.php:857
 msgid "Post ID"
 msgstr "Post ID"
 
-#: inc/html.php:859
 msgid "Tip:"
 msgstr "Tip:"
 
-#: inc/html.php:860
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
 "logged in."
@@ -640,7 +623,6 @@ msgstr ""
 "Terwijl je door het imageboard bladert, kun je eenvoudig een bericht "
 "modereren als je bent aangemeld."
 
-#: inc/html.php:861
 msgid ""
 "Tick the box next to a post and click \"Delete\" at the bottom of the page "
 "with a blank password."
@@ -648,192 +630,146 @@ msgstr ""
 "Vink het vakje aan naast een post en klik op \"Verwijder\" onderaan de "
 "pagina met een leeg wachtwoord."
 
-#: inc/html.php:880
 #, php-format
 msgid " A ban record already exists for %s"
 msgstr " Er bestaat al een ban voor %s"
 
-#: inc/html.php:883
 msgid "Only an administrator may ban an IP address."
 msgstr "Alleen een administrator mag een IP-adres blokkeren."
 
-#: inc/html.php:885
 #, php-format
 msgid "IP address: %s"
 msgstr "IP-adres: %s"
 
-#: inc/html.php:888
 msgid "This will delete the entire thread below."
 msgstr "Hiermee wordt de hele thread hieronder verwijderd."
 
-#: inc/html.php:888
 msgid "This will delete the post below."
 msgstr "Hiermee wordt het onderstaande bericht verwijderd."
 
-#: inc/html.php:889
 msgid "Thread"
 msgstr "Thread"
 
-#: inc/html.php:889
 msgid "Post"
 msgstr "Post"
 
-#: inc/html.php:895
 msgid "Un-sticky"
 msgstr "Ontplak"
 
-#: inc/html.php:895
 msgid "Sticky"
 msgstr "Vastplakking"
 
-#: inc/html.php:896
 msgid "Return this thread to a normal state."
 msgstr "Breng deze thread terug naar een normale staat."
 
-#: inc/html.php:896
 msgid "Keep this thread at the top of the board."
 msgstr "Houd deze thread bovenaan het bord."
 
-#: inc/html.php:910
 msgid "Unlock"
 msgstr "Ontgrendel"
 
-#: inc/html.php:910
 msgid "Lock"
 msgstr "Vergrendel"
 
-#: inc/html.php:911
 msgid "Allow replying to this thread."
 msgstr "Sta het beantwoorden van deze thread toe."
 
-#: inc/html.php:911
 msgid "Disallow replying to this thread."
 msgstr "Reageren op deze thread niet toestaan."
 
-#: inc/html.php:932
 #, php-format
 msgid "Moderating No.%d"
 msgstr "Modereren Nr.%d"
 
-#: inc/html.php:933 inc/html.php:1055
 msgid "Action"
 msgstr "Actie"
 
-#: inc/html.php:935
 msgid "Delete thread"
 msgstr "Verwijder thread"
 
-#: inc/html.php:937
 msgid "Delete post"
 msgstr "Verwijder post"
 
-#: inc/html.php:939
 msgid "Ban poster"
 msgstr "Ban poster"
 
-#: inc/html.php:944
 msgid "Clear reports"
 msgstr "Wis meldingen"
 
-#: inc/html.php:945 inc/html.php:1102
 msgid "report"
 msgstr "melding"
 
-#: inc/html.php:945 inc/html.php:1102
 msgid "reports"
 msgstr "meldingen"
 
-#: inc/html.php:1013
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
 msgstr "Sorry, er is geen trefwoord met dat ID."
 
-#: inc/html.php:1019 inc/html.php:1055
 msgid "Keyword"
 msgstr "Trefwoord"
 
-#: inc/html.php:1021
 msgid "Action:"
 msgstr "Actie:"
 
-#: inc/html.php:1022
 msgid "Add"
 msgstr "Voeg toe"
 
-#: inc/html.php:1036 inc/html.php:1069
 msgid "Delete and ban for 1 hour"
 msgstr "Verwijder en verban voor 1 uur"
 
-#: inc/html.php:1037 inc/html.php:1072
 msgid "Delete and ban for 1 day"
 msgstr "Verwijder en verban voor 1 dag"
 
-#: inc/html.php:1038 inc/html.php:1075
 msgid "Delete and ban for 2 days"
 msgstr "Verwijder en verban voor 2 dagen"
 
-#: inc/html.php:1039 inc/html.php:1078
 msgid "Delete and ban for 1 week"
 msgstr "Verwijder en verban voor 1 week"
 
-#: inc/html.php:1040 inc/html.php:1081
 msgid "Delete and ban for 2 weeks"
 msgstr "Verwijder en verban voor 2 weken"
 
-#: inc/html.php:1041 inc/html.php:1084
 msgid "Delete and ban for 1 month"
 msgstr "Verwijder en verban voor 1 maand"
 
-#: inc/html.php:1042 inc/html.php:1066
 msgid "Delete and ban permanently"
 msgstr "Verwijder en verban permanent"
 
-#: inc/html.php:1087
 msgid "Edit"
 msgstr "Bewerk"
 
-#: inc/html.php:1100
 msgid "thread"
 msgstr "thread"
 
-#: inc/html.php:1100
 msgid "threads"
 msgstr "threads"
 
-#: inc/html.php:1104
 msgid "ban"
 msgstr "ban"
 
-#: inc/html.php:1104
 msgid "bans"
 msgstr "bans"
 
-#: inc/html.php:1128
 msgid "Approve"
 msgstr "Goedkeuren"
 
-#: inc/html.php:1130
 msgid "More Info"
 msgstr "Meer info"
 
-#: inc/html.php:1138
 msgid "Pending posts"
 msgstr "Wachtende posts"
 
-#: inc/html.php:1159
-msgid "Reported posts"
-msgstr "Gemelde posts"
-
-#: inc/html.php:1162
 msgid "Recent posts"
 msgstr "Recente posts"
 
-#: inc/html.php:1169
-msgid "Moderate"
-msgstr "Modereer"
-
-#: inc/html.php:1173
 msgid "Info"
 msgstr "Info"
+
+#~ msgid "Enter an administrator or moderator password"
+#~ msgstr "Voer een administrator- of moderatorwachtwoord in"
+
+#~ msgid "Anonymous"
+#~ msgstr "Anoniem"
 
 #~ msgid "A %s is required to start a thread."
 #~ msgstr "Een %s is vereist om een thread te starten."
