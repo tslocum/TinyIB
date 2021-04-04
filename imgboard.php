@@ -770,8 +770,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					</blockquote>
 					<p><b>Note:</b> If TinyIB updates and you have made custom modifications, <a href="https://code.rocketnine.space/tslocum/tinyib/commits/master" target="_blank">review the changes</a> which have been merged into your installation.
 					Ensure that your modifications do not interfere with any new/modified files.
-					See the <a href="https://code.rocketnine.space/tslocum/tinyib/src/branch/master/README.md">README</a> for more information.<br><br>
-					<small>(<a href="README.md" target="_blank">alternate link</a>)</small> for instructions.</p>';
+					See the <a href="https://code.rocketnine.space/tslocum/tinyib/src/branch/master/README.md">README</a> <small>(<a href="README.md" target="_blank">alternate link</a>)</small> for instructions.</p>';
 				} else {
 					$text .= '<p><b>TinyIB was not installed via Git.</b></p>
 					<p>If you installed TinyIB without Git, you must <a href="https://code.rocketnine.space/tslocum/tinyib">update manually</a>.  If you did install with Git, ensure the script has read and write access to the <b>.git</b> folder.</p>';
@@ -947,6 +946,10 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			}
 
 			$text .= manageChangePasswordForm();
+		}
+
+		if ($text == '') {
+			$text = manageStatus();
 		}
 	} else {
 		$onload = manageOnLoad('login');
