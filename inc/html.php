@@ -753,7 +753,7 @@ function rebuildThread($id) {
 }
 
 function adminBar() {
-	global $loggedin, $isadmin, $returnlink;
+	global $account, $loggedin, $isadmin, $returnlink;
 
 	$return = '[<a href="' . $returnlink . '" style="text-decoration: underline;">' . __('Return') . '</a>]';
 	if (!$loggedin) {
@@ -764,6 +764,9 @@ function adminBar() {
 	if ($isadmin) {
 		if (TINYIB_REPORT) {
 			$output .= '<a href="?manage&reports">' . __('Reports') . '</a>] [';
+		}
+		if ($account['role'] == TINYIB_SUPER_ADMINISTRATOR) {
+			$output .= '<a href="?manage&accounts">' . __('Accounts') . '</a>] [';
 		}
 		$output .= '<a href="?manage&bans">' . __('Bans') . '</a>] [';
 		$output .= '<a href="?manage&keywords">' . __('Keywords') . '</a>] [';
@@ -778,6 +781,7 @@ function adminBar() {
 	if ($isadmin && TINYIB_DBMIGRATE) {
 		$output .= '<a href="?manage&dbmigrate"><b>' . __('Migrate Database') . '</b></a>] [';
 	}
+	$output .= '<a href="?manage&changepassword">' . __('Change password') . '</a>] [';
 	$output .= '<a href="?manage&logout">' . __('Log Out') . '</a>] &middot; ' . $return;
 	return $output;
 }
@@ -812,6 +816,8 @@ function manageOnLoad($page) {
 			return ' onload="document.tinyib.text.focus();"';
 		case 'rawpost':
 			return ' onload="document.tinyib.message.focus();"';
+		case 'accounts':
+			return ' onload="document.tinyib.username.focus();"';
 		case 'bans':
 			return ' onload="document.tinyib.ip.focus();"';
 	}
@@ -819,7 +825,7 @@ function manageOnLoad($page) {
 
 function manageLogInForm() {
 	$txt_login = __('Log In');
-	$txt_login_prompt = __('Enter an administrator or moderator password');
+	$txt_login_prompt = __('Enter a username and password');
 	$captcha_inner_html = '';
 	if (TINYIB_MANAGECAPTCHA === 'hcaptcha') {
 		$captcha_inner_html = '
@@ -857,7 +863,8 @@ function manageLogInForm() {
 	<fieldset>
 	<legend align="center">$txt_login_prompt</legend>
 	<div class="login">
-	<input type="password" id="managepassword" name="managepassword"><br>
+	<input type="text" id="username" name="username" placeholder="Username"><br>
+	<input type="password" id="managepassword" name="managepassword" placeholder="Password"><br>
 	$captcha_inner_html
 	<input type="submit" value="$txt_login" class="managebutton">
 	</div>
@@ -933,6 +940,96 @@ function manageReportsPage($ip) {
 		</table>
 		</fieldset>
 EOF;
+}
+
+function manageChangePasswordForm() {
+	$txt_header = __('Change password');
+	$txt_submit = __('Submit');
+	return <<<EOF
+	<form id="tinyib" name="tinyib" method="post" action="?manage&changepassword">
+	<fieldset>
+	<legend>$txt_header</legend>
+	<input type="password" name="password" id="password" value="">
+	<input type="submit" value="$txt_submit" class="managebutton">
+	<legend>
+	</fieldset>
+	</form><br>
+EOF;
+}
+
+function manageAccountForm($id=0) {
+	$a = array(
+		'id' => 0,
+		'username' => '',
+		'password' => '',
+		'role' => 0,
+	);
+	$txt_header = __('Add an account');
+	$txt_password_hint = '';
+	if ($id > 0){
+		$txt_header = __('Update an account');
+		$txt_password_hint = '(' . __('Leave blank to maintain current password') . ')';
+		$a = accountByID($id);
+	}
+
+	$a['id'] = htmlentities($a['id'], ENT_QUOTES);
+	$a['username'] = htmlentities($a['username'], ENT_QUOTES);
+
+	$txt_username = __('Username');
+	$txt_password = __('Password');
+	$txt_role = __('Role');
+	$return = <<<EOF
+	<form id="tinyib" name="tinyib" method="post" action="?manage&accounts">
+	<input type="hidden" name="id" value="{$a['id']}">
+	<fieldset>
+	<legend>$txt_header</legend>
+	<label for="username">$txt_username</label> <input type="text" name="username" id="username" value="{$a['username']}"><br>
+	<label for="password">$txt_password</label> <input type="password" name="password" id="password" value=""> <small>$txt_password_hint</small><br>
+	<label for="role">$txt_role</label> <select name="role" id="role">
+EOF;
+	$return .= '<option value="0" ' . ($a['role'] == 0 ? ' selected' : '') . '>' . __('Choose a role') . '</option>';
+	$return .= '<option value="1" ' . ($a['role'] == 1 ? ' selected' : '') . '>' . __('Super-administrator') . '</option>';
+	$return .= '<option value="2" ' . ($a['role'] == 2 ? ' selected' : '') . '>' . __('Administrator') . '</option>';
+	$return .= '<option value="3" ' . ($a['role'] == 3 ? ' selected' : '') . '>' . __('Moderator') . '</option>';
+	$return .= '<option value="99" ' . ($a['role'] == 99 ? ' selected' : '') . '>' . __('Disabled') . '</option>';
+	$txt_submit = __('Submit');
+	$return .= <<<EOF
+	</select><br>
+	<input type="submit" value="$txt_submit" class="managebutton">
+	<legend>
+	</fieldset>
+	</form><br>
+EOF;
+	return $return;
+}
+
+function manageAccountsTable() {
+	$text = '';
+	$allaccounts = allAccounts();
+	if (count($allaccounts) > 0) {
+		$text .= '<table border="1"><tr><th>' . __('Username') . '</th><th>' . __('Role') . '</th><th>' . __('Last active') . '</th><th>&nbsp;</th></tr>';
+		foreach ($allaccounts as $account) {
+			$lastactive = ($account['lastactive'] > 0) ? strftime(TINYIB_DATEFMT, $account['lastactive']) : __('Never');
+			$text .= '<tr><td>' . htmlentities($account['username']) . '</td><td>';
+			switch (intval($account['role'])) {
+				case TINYIB_SUPER_ADMINISTRATOR:
+					$text .= __('Super-administrator');
+					break;
+				case TINYIB_ADMINISTRATOR:
+					$text .= __('Administrator');
+					break;
+				case TINYIB_MODERATOR:
+					$text .= __('Moderator');
+					break;
+				case TINYIB_DISABLED:
+					$text .= __('Disabled');
+					break;
+			}
+			$text .= '</td><td>' . $lastactive . '</td><td><a href="?manage&accounts=' . $account['id'] . '">' . __('update') . '</a></td></tr>';
+		}
+		$text .= '</table>';
+	}
+	return $text;
 }
 
 function manageBanForm() {

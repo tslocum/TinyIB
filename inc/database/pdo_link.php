@@ -28,19 +28,40 @@ try {
 	fancyDie("Failed to connect to the database: " . $e->getMessage());
 }
 
-// Create the posts table if it does not exist
+// Create tables (when necessary)
 if (TINYIB_DBDRIVER === 'pgsql') {
-	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBPOSTS);
-	$posts_exists = $dbh->query($query)->fetchColumn() != 0;
+	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBACCOUNTS);
+	$accounts_exists = $dbh->query($query)->fetchColumn() != 0;
 } else {
-	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBPOSTS));
-	$posts_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
+	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBACCOUNTS));
+	$accounts_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
 }
-if (!$posts_exists) {
-	$dbh->exec($posts_sql);
+if (!$accounts_exists) {
+	$dbh->exec($accounts_sql);
 }
 
-// Create the bans table if it does not exist
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBLOGS);
+	$logs_exists = $dbh->query($query)->fetchColumn() != 0;
+} else {
+	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBLOGS));
+	$logs_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
+}
+if (!$logs_exists) {
+	$dbh->exec($logs_sql);
+}
+
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBKEYWORDS);
+	$keywords_exists = $dbh->query($query)->fetchColumn() != 0;
+} else {
+	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBKEYWORDS));
+	$keywords_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
+}
+if (!$keywords_exists) {
+	$dbh->exec($keywords_sql);
+}
+
 if (TINYIB_DBDRIVER === 'pgsql') {
 	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBBANS);
 	$bans_exists = $dbh->query($query)->fetchColumn() != 0;
@@ -52,7 +73,17 @@ if (!$bans_exists) {
 	$dbh->exec($bans_sql);
 }
 
-// Create the reports table if it does not exist
+if (TINYIB_DBDRIVER === 'pgsql') {
+	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBPOSTS);
+	$posts_exists = $dbh->query($query)->fetchColumn() != 0;
+} else {
+	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBPOSTS));
+	$posts_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
+}
+if (!$posts_exists) {
+	$dbh->exec($posts_sql);
+}
+
 if (TINYIB_DBDRIVER === 'pgsql') {
 	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBREPORTS);
 	$reports_exists = $dbh->query($query)->fetchColumn() != 0;
@@ -62,18 +93,6 @@ if (TINYIB_DBDRIVER === 'pgsql') {
 }
 if (!$reports_exists) {
 	$dbh->exec($reports_sql);
-}
-
-// Create the keywords table if it does not exist
-if (TINYIB_DBDRIVER === 'pgsql') {
-	$query = "SELECT COUNT(*) FROM pg_catalog.pg_tables WHERE tablename LIKE " . $dbh->quote(TINYIB_DBKEYWORDS);
-	$keywords_exists = $dbh->query($query)->fetchColumn() != 0;
-} else {
-	$dbh->query("SHOW TABLES LIKE " . $dbh->quote(TINYIB_DBKEYWORDS));
-	$keywords_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
-}
-if (!$keywords_exists) {
-	$dbh->exec($keywords_sql);
 }
 
 if (TINYIB_DBDRIVER === 'pgsql') {
@@ -137,6 +156,30 @@ function pdoQuery($sql, $params = false) {
 }
 
 if (function_exists('insertPost')) {
+	function migrateAccount($account) {
+		global $dbh;
+		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBACCOUNTS . " (id, username, password, role, lastactive) VALUES (?, ?, ?, ?, ?)");
+		$stm->execute(array($account['id'], $account['username'], $account['password'], $account['role'], $account['lastactive']));
+	}
+
+	function migrateBan($ban) {
+		global $dbh;
+		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBBANS . " (id, ip, timestamp, expire, reason) VALUES (?, ?, ?, ?, ?)");
+		$stm->execute(array($ban['id'], $ban['ip'], $ban['timestamp'], $ban['expire'], $ban['reason']));
+	}
+
+	function migrateKeyword($keyword) {
+		global $dbh;
+		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBKEYWORDS . " (id, text, action) VALUES (?, ?, ?)");
+		$stm->execute(array($keyword['id'], $keyword['text'], $keyword['action']));
+	}
+
+	function migrateLog($log) {
+		global $dbh;
+		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBLOGS . " (id, timestamp, account, message) VALUES (?, ?, ?, ?)");
+		$stm->execute(array($log['id'], $log['timestamp'], $log['account'], $log['message']));
+	}
+
 	function migratePost($post) {
 		global $dbh;
 		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBPOSTS . " (id, parent, timestamp, bumped, ip, name, tripcode, email, nameblock, subject, message, password, file, file_hex, file_original, file_size, file_size_formatted, image_width, image_height, thumb, thumb_width, thumb_height, moderated, stickied, locked) " .
@@ -147,21 +190,9 @@ if (function_exists('insertPost')) {
 			$post['image_width'], $post['image_height'], $post['thumb'], $post['thumb_width'], $post['thumb_height'], $post['moderated'], $post['stickied'], $post['locked']));
 	}
 
-	function migrateBan($ban) {
-		global $dbh;
-		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBBANS . " (id, ip, timestamp, expire, reason) VALUES (?, ?, ?, ?, ?)");
-		$stm->execute(array($ban['id'], $ban['ip'], $ban['timestamp'], $ban['expire'], $ban['reason']));
-	}
-
 	function migrateReport($report) {
 		global $dbh;
 		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBREPORTS . " (id, ip, post) VALUES (?, ?, ?)");
 		$stm->execute(array($report['id'], $report['ip'], $report['post']));
-	}
-
-	function migrateKeyword($keyword) {
-		global $dbh;
-		$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBKEYWORDS . " (id, text, action) VALUES (?, ?, ?)");
-		$stm->execute(array($keyword['id'], $keyword['text'], $keyword['action']));
 	}
 }

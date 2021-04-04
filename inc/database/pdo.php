@@ -3,6 +3,43 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
+// Account functions
+function accountByID($id) {
+	$result = pdoQuery("SELECT * FROM " . TINYIB_DBACCOUNTS . " WHERE id = ?", array($id));
+	return $result->fetch(PDO::FETCH_ASSOC);
+}
+
+function accountByUsername($username) {
+	$result = pdoQuery("SELECT * FROM " . TINYIB_DBACCOUNTS . " WHERE username = ? LIMIT 1", array($username));
+	return $result->fetch(PDO::FETCH_ASSOC);
+}
+
+function allAccounts() {
+	$accounts = array();
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBACCOUNTS . " ORDER BY role ASC, username ASC");
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$accounts[] = $row;
+	}
+	return $accounts;
+}
+
+function insertAccount($account) {
+	global $dbh;
+	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBACCOUNTS . " (username, password, role, lastactive) VALUES (?, ?, ?, ?)");
+	$stm->execute(array($account['username'], hashData($account['password']), $account['role'], 0));
+	return $dbh->lastInsertId();
+}
+
+function updateAccount($account) {
+	global $dbh;
+	$stm = $dbh->prepare("UPDATE " . TINYIB_DBACCOUNTS . " SET username = ?, password = ?, role = ?, lastactive = ? WHERE id = ?");
+	$stm->execute(array($account['username'], hashData($account['password']), $account['role'], $account['lastactive'], $account['id']));
+}
+
+function deleteAccountByID($id) {
+	pdoQuery("DELETE FROM " . TINYIB_DBACCOUNTS . " WHERE id = ?", array($id));
+}
+
 // Post functions
 function uniquePosts() {
 	$result = pdoQuery("SELECT COUNT(DISTINCT(ip)) FROM " . TINYIB_DBPOSTS);

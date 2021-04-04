@@ -8,6 +8,12 @@ define('TINYIB_INDEXPAGE', false);
 define('TINYIB_RESPAGE', true);
 define('TINYIB_WORDBREAK_IDENTIFIER', '@!@TINYIB_WORDBREAK@!@');
 
+// Account roles
+define('TINYIB_SUPER_ADMINISTRATOR', 1);
+define('TINYIB_ADMINISTRATOR', 2);
+define('TINYIB_MODERATOR', 3);
+define('TINYIB_DISABLED', 99);
+
 // The following are provided for backward compatibility and should not be relied upon
 // Copy new settings from settings.default.php to settings.php
 if (!defined('TINYIB_LOCALE')) {
@@ -94,11 +100,17 @@ if (!defined('TINYIB_DATEFMT')) {
 if (!defined('TINYIB_DBMIGRATE')) {
 	define('TINYIB_DBMIGRATE', false);
 }
+if (!defined('TINYIB_DBACCOUNTS')) {
+	define('TINYIB_DBACCOUNTS', 'accounts');
+}
 if (!defined('TINYIB_DBREPORTS')) {
 	define('TINYIB_DBREPORTS', TINYIB_BOARD . '_reports');
 }
 if (!defined('TINYIB_DBKEYWORDS')) {
 	define('TINYIB_DBKEYWORDS', TINYIB_BOARD . '_keywords');
+}
+if (!defined('TINYIB_DBLOGS')) {
+	define('TINYIB_DBLOGS', 'logs');
 }
 if (!defined('TINYIB_DBPORT')) {
 	define('TINYIB_DBPORT', 3306);

@@ -1,8 +1,12 @@
 settings.php
 *.html
 *.db
-.posts
-.posts.lock
+.accounts*
+.bans*
+.keywords*
+.logs*
+.posts*
+.reports*
 .project
 .settings/
 .idea/

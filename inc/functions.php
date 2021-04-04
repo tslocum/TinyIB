@@ -11,9 +11,9 @@ if (!function_exists('array_column')) {
 	}
 }
 
-function hashData($data) {
+function hashData($data, $force = false) {
 	global $bcrypt_salt;
-	if (substr($data, 0, 4) == '$2y$') {
+	if (substr($data, 0, 4) == '$2y$' && !$force) {
 		return $data;
 	}
 	return crypt($data, $bcrypt_salt);
@@ -336,6 +336,7 @@ function checkMessageSize() {
 }
 
 function manageCheckLogIn($requireKey) {
+	$account = array();
 	$loggedin = false;
 	$isadmin = false;
 
@@ -344,40 +345,44 @@ function manageCheckLogIn($requireKey) {
 		$key = $_SESSION['tinyib_key'];
 	}
 	if (TINYIB_MANAGEKEY != '' && $key !== hashData(TINYIB_MANAGEKEY)) {
-		$_SESSION['tinyib'] = '';
 		$_SESSION['tinyib_key'] = '';
+		$_SESSION['tinyib_account'] = '';
 		session_destroy();
 
 		if ($requireKey) {
 			fancyDie(__('Invalid key.'));
 		}
-		return array($loggedin, $isadmin);
+
+		return array($account, $loggedin, $isadmin);
 	}
 
-	if (isset($_POST['managepassword'])) {
+	if (isset($_POST['username']) && isset($_POST['managepassword']) && $_POST['username'] != '' && $_POST['managepassword'] != '') {
 		checkCAPTCHA(TINYIB_MANAGECAPTCHA);
 
-		if ($_POST['managepassword'] === TINYIB_ADMINPASS) {
-			$_SESSION['tinyib'] = hashData(TINYIB_ADMINPASS);
-			$_SESSION['tinyib_key'] = hashData(TINYIB_MANAGEKEY);
-		} elseif (TINYIB_MODPASS != '' && $_POST['managepassword'] === TINYIB_MODPASS) {
-			$_SESSION['tinyib'] = hashData(TINYIB_MODPASS);
-			$_SESSION['tinyib_key'] = hashData(TINYIB_MANAGEKEY);
-		} else {
-			fancyDie(__('Invalid password.'));
+		$account = accountByUsername($_POST['username']);
+		if (hashData($_POST['managepassword'], true) !== $account['password']) {
+			fancyDie(__('Invalid username or password.'));
+		}
+		$_SESSION['tinyib_key'] = hashData(TINYIB_MANAGEKEY);
+		$_SESSION['tinyib_username'] = $account['username'];
+		$_SESSION['tinyib_password'] = $account['password'];
+	}
+
+	if (isset($_SESSION['tinyib_username']) && isset($_SESSION['tinyib_password'])) {
+		$a = accountByUsername($_SESSION['tinyib_username']);
+		if (!empty($a) && $a['password'] == $_SESSION['tinyib_password']) {
+			$account = $a;
+			$loggedin = true;
+			if ($account['role'] == TINYIB_SUPER_ADMINISTRATOR || $account['role'] == TINYIB_ADMINISTRATOR) {
+				$isadmin = true;
+			}
+
+			$account['lastactive'] = time();
+			updateAccount($account);
 		}
 	}
 
-	if (isset($_SESSION['tinyib'])) {
-		if ($_SESSION['tinyib'] === hashData(TINYIB_ADMINPASS)) {
-			$loggedin = true;
-			$isadmin = true;
-		} elseif (TINYIB_MODPASS != '' && $_SESSION['tinyib'] === hashData(TINYIB_MODPASS)) {
-			$loggedin = true;
-		}
-	}
-
-	return array($loggedin, $isadmin);
+	return array($account, $loggedin, $isadmin);
 }
 
 function setParent() {

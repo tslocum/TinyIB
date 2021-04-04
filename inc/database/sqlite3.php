@@ -3,6 +3,50 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
+// Account functions
+function accountByID($id) {
+	global $db;
+	$result = $db->query("SELECT * FROM " . TINYIB_DBACCOUNTS . " WHERE id = '" . $db->escapeString($id) . "' LIMIT 1");
+	while ($account = $result->fetchArray()) {
+		return $account;
+	}
+}
+
+function accountByUsername($username) {
+	global $db;
+	$result = $db->query("SELECT * FROM " . TINYIB_DBACCOUNTS . " WHERE username = '" . $db->escapeString($username) . "' LIMIT 1");
+	while ($account = $result->fetchArray()) {
+		return $account;
+	}
+}
+
+function allAccounts() {
+	global $db;
+	$accounts = array();
+	$result = $db->query("SELECT * FROM " . TINYIB_DBACCOUNTS . " ORDER BY role ASC, username ASC");
+	while ($account = $result->fetchArray()) {
+		$accounts[] = $account;
+	}
+	return $accounts;
+}
+
+function insertAccount($account) {
+	global $db;
+	$db->exec("INSERT INTO " . TINYIB_DBACCOUNTS . " (username, password, role, lastactive) VALUES ('" . $db->escapeString($account['username']) . "', '" . $db->escapeString(hashData($account['password'])) . "', '" . $db->escapeString($account['role']) . "', '0')");
+	return $db->lastInsertRowID();
+}
+
+function updateAccount($account) {
+	global $db;
+	$db->exec("UPDATE " . TINYIB_DBACCOUNTS . " SET username = '" . $db->escapeString($account['username']) . "', password = '" . $db->escapeString(hashData($account['password'])) . "', role = '" . $db->escapeString($account['role']) . "', lastactive = '" . $db->escapeString($account['lastactive']) . "'  WHERE id = " . $db->escapeString($account['id']));
+	return $db->lastInsertRowID();
+}
+
+function deleteAccountByID($id) {
+	global $db;
+	$db->exec("DELETE FROM " . TINYIB_DBACCOUNTS . " WHERE id = " . $db->escapeString($id));
+}
+
 // Post functions
 function uniquePosts() {
 	global $db;
@@ -130,52 +174,6 @@ function lastPostByIP() {
 	while ($post = $result->fetchArray()) {
 		return $post;
 	}
-}
-
-// Ban functions
-function banByID($id) {
-	global $db;
-	$result = $db->query("SELECT * FROM " . TINYIB_DBBANS . " WHERE id = '" . $db->escapeString($id) . "' LIMIT 1");
-	while ($ban = $result->fetchArray()) {
-		return $ban;
-	}
-}
-
-function banByIP($ip) {
-	global $db;
-	$result = $db->query("SELECT * FROM " . TINYIB_DBBANS . " WHERE ip = '" . $db->escapeString($ip) . "' OR ip = '" . $db->escapeString(hashData($ip)) . "' LIMIT 1");
-	while ($ban = $result->fetchArray()) {
-		return $ban;
-	}
-}
-
-function allBans() {
-	global $db;
-	$bans = array();
-	$result = $db->query("SELECT * FROM " . TINYIB_DBBANS . " ORDER BY timestamp DESC");
-	while ($ban = $result->fetchArray()) {
-		$bans[] = $ban;
-	}
-	return $bans;
-}
-
-function insertBan($ban) {
-	global $db;
-	$db->exec("INSERT INTO " . TINYIB_DBBANS . " (ip, timestamp, expire, reason) VALUES ('" . $db->escapeString(hashData($ban['ip'])) . "', " . time() . ", '" . $db->escapeString($ban['expire']) . "', '" . $db->escapeString($ban['reason']) . "')");
-	return $db->lastInsertRowID();
-}
-
-function clearExpiredBans() {
-	global $db;
-	$result = $db->query("SELECT * FROM " . TINYIB_DBBANS . " WHERE expire > 0 AND expire <= " . time());
-	while ($ban = $result->fetchArray()) {
-		$db->exec("DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . $ban['id']);
-	}
-}
-
-function deleteBanByID($id) {
-	global $db;
-	$db->exec("DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . $db->escapeString($id));
 }
 
 // Report functions

@@ -3,6 +3,47 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
+// Account functions
+function accountByID($id) {
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBACCOUNTS . "` WHERE `id` = '" . mysql_real_escape_string($id) . "' LIMIT 1");
+	if ($result) {
+		while ($account = mysql_fetch_assoc($result)) {
+			return $account;
+		}
+	}
+}
+
+function accountByUsername($username) {
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBACCOUNTS . "` WHERE `username` = '" . mysql_real_escape_string($username) . "' LIMIT 1");
+	if ($result) {
+		while ($account = mysql_fetch_assoc($result)) {
+			return $account;
+		}
+	}
+}
+
+function allAccounts($username) {
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBACCOUNTS . "` ORDER BY `role` ASC, `username` ASC");
+	if ($result) {
+		while ($account = mysql_fetch_assoc($result)) {
+			return $account;
+		}
+	}
+}
+
+function insertAccount($account) {
+	mysql_query("INSERT INTO `" . TINYIB_DBACCOUNTS . "` (`username`, `password`, `role`, `lastactive`) VALUES (" . $account['username'] . ", '" . hashData($account['password']) . "', '" . mysql_real_escape_string($account['role']) . "', '0')");
+	return mysql_insert_id();
+}
+
+function updateAccount($account) {
+	mysql_query("UPDATE `" . TINYIB_DBACCOUNTS . "` SET `username` = " . $account['username'] . ", `password` = '" . hashData($account['password']) . "', `role` = '" . mysql_real_escape_string($account['role']) . "', `lastactive` = " . mysql_real_escape_string($account['lastactive']) . " WHERE `id` = '" . mysql_real_escape_string($account['id']) . "'");
+}
+
+function deleteAccountByID($id) {
+	mysql_query("DELETE FROM `" . TINYIB_DBACCOUNTS . "` WHERE `id` = '" . mysql_real_escape_string($id) . "'");
+}
+
 // Post functions
 function uniquePosts() {
 	$row = mysql_fetch_row(mysql_query("SELECT COUNT(DISTINCT(`ip`)) FROM " . TINYIB_DBPOSTS));

@@ -18,13 +18,6 @@ click Rebuild All in the management panel.
 // Internationalization
 define('TINYIB_LOCALE', '');          // Locale  (see README for instructions)
 
-// Management panel
-define('TINYIB_MANAGEKEY', '');       // When set, the [Manage] link is hidden and the management panel may only be accessed via imgboard.php?manage=TINYIB_MANAGEKEY  ['' to disable]
-
-// Administrator/moderator credentials
-define('TINYIB_ADMINPASS', '');       // Administrators have full access to the board
-define('TINYIB_MODPASS', '');         // Moderators only have access to delete (and moderate if TINYIB_REQMOD is set) posts  ['' to disable]
-
 // Board description and behavior
 //   Warning: Enabling reCAPTCHA will cause all visitors to be tracked by Google.  See https://nearcyan.com/you-probably-dont-need-recaptcha/
 define('TINYIB_BOARD', 'b');          // Unique identifier for this board using only letters and numbers
@@ -118,15 +111,30 @@ define('TINYIB_HCAPTCHA_SECRET', ''); // Secret key
 define('TINYIB_RECAPTCHA_SITE', '');  // Site key
 define('TINYIB_RECAPTCHA_SECRET', '');// Secret key
 
+// Management panel
+define('TINYIB_MANAGEKEY', '');       // When set, the [Manage] link is hidden and the management panel may only be accessed via imgboard.php?manage=TINYIB_MANAGEKEY  ['' to disable]
+//   Administrator and moderator passwords
+//     When TINYIB_ADMINPASS is set, an administrator account is created with username "admin"
+//     When TINYIB_MODPASS is set, a moderator account is created with username "moderator"
+//     These settings are for installation and anti-lockout purposes only
+//     Once the account(s) are created, blank both of these settings
+define('TINYIB_ADMINPASS', '');       // Administrator password
+define('TINYIB_MODPASS', '');         // Moderator password  ['' to disable]
+
 // Database
 //   Recommended database modes from best to worst:
 //     pdo, mysqli, mysql, sqlite3, sqlite (deprecated), flatfile (only useful if you need portability or lack any kind of database)
 define('TINYIB_DBMODE', 'flatfile');     // Mode
-define('TINYIB_DBMIGRATE', false);       // Enable database migration tool  (see README for instructions)
-define('TINYIB_DBBANS', 'bans');         // Bans table name (use the same table across boards for global bans)
-define('TINYIB_DBKEYWORDS', 'keywords'); // Keywords table name (use the same table across boards for global keywords)
-define('TINYIB_DBPOSTS', TINYIB_BOARD . '_posts');     // Posts table name
-define('TINYIB_DBREPORTS', TINYIB_BOARD . '_reports'); // Reports table name
+//   Table names
+//     Use the same table name across boards for global accounts, bans, etc.
+define('TINYIB_DBACCOUNTS', 'accounts'); // Staff accounts
+define('TINYIB_DBBANS', 'bans');         // Bans
+define('TINYIB_DBKEYWORDS', 'keywords'); // Keywords
+define('TINYIB_DBLOGS', 'logs');         // Staff logs
+define('TINYIB_DBPOSTS', TINYIB_BOARD . '_posts');     // Posts
+define('TINYIB_DBREPORTS', TINYIB_BOARD . '_reports'); // Reports
+//   See README for migration instructions
+define('TINYIB_DBMIGRATE', false);       // Enable database migration tool
 
 // Database configuration - MySQL / pgSQL
 //   The following only apply when TINYIB_DBMODE is set to mysql, mysqli or pdo with default (blank) TINYIB_DBDSN

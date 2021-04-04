@@ -34,10 +34,8 @@ ini_set("display_errors", 1);
 session_start();
 setcookie(session_name(), session_id(), time() + 2592000);
 ob_implicit_flush();
-if (function_exists('ob_get_level')) {
-	while (ob_get_level() > 0) {
-		ob_end_flush();
-	}
+while (ob_get_level() > 0) {
+	ob_end_flush();
 }
 
 function fancyDie($message) {
@@ -53,6 +51,7 @@ if (!file_exists('settings.php')) {
 }
 require 'settings.php';
 require 'inc/defines.php';
+global $tinyib_capcodes, $tinyib_embeds, $tinyib_hidefields, $tinyib_hidefieldsop;
 
 if (!defined('TINYIB_LOCALE') || TINYIB_LOCALE == '') {
 	function __($string) {
@@ -67,12 +66,65 @@ if (!defined('TINYIB_LOCALE') || TINYIB_LOCALE == '') {
 	$translator->register();
 }
 
+if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
+	fancyDie(__('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured.'));
+}
+
+if ((TINYIB_CAPTCHA === 'hcaptcha' || TINYIB_MANAGECAPTCHA === 'hcaptcha') && (TINYIB_HCAPTCHA_SITE == '' || TINYIB_HCAPTCHA_SECRET == '')) {
+	fancyDie(__('TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured.'));
+}
+
+if ((TINYIB_CAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') && (TINYIB_RECAPTCHA_SITE == '' || TINYIB_RECAPTCHA_SECRET == '')) {
+	fancyDie(__('TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured.'));
+}
+
+if (TINYIB_TIMEZONE != '') {
+	date_default_timezone_set(TINYIB_TIMEZONE);
+}
+
+$bcrypt_salt = '$2y$12$' . str_pad(str_replace('=', '/', str_replace('+', '.', substr(base64_encode(TINYIB_TRIPSEED), 0, 22))), 22, '/');
+
 $database_modes = array('flatfile', 'mysql', 'mysqli', 'sqlite', 'sqlite3', 'pdo');
 if (!in_array(TINYIB_DBMODE, $database_modes)) {
 	fancyDie(__('Unknown database mode specified.'));
 }
 
 if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
+	$accounts_sql = 'CREATE TABLE "' . TINYIB_DBACCOUNTS . '" (
+		"id" bigserial NOT NULL,
+		"username" varchar(255) NOT NULL,
+		"password" text NOT NULL,
+		"role" integer NOT NULL,
+		"lastactive" integer NOT NULL,
+		PRIMARY KEY	("id")
+	);';
+
+	$bans_sql = 'CREATE TABLE "' . TINYIB_DBBANS . '" (
+		"id" bigserial NOT NULL,
+		"ip" varchar(255) NOT NULL,
+		"timestamp" integer NOT NULL,
+		"expire" integer NOT NULL,
+		"reason" text NOT NULL,
+		PRIMARY KEY	("id")
+	);
+	CREATE INDEX ON "' . TINYIB_DBBANS . '"("ip");';
+
+	$keywords_sql = 'CREATE TABLE "' . TINYIB_DBKEYWORDS . '" (
+		"id" bigserial NOT NULL,
+		"text" varchar(255) NOT NULL,
+		"action" varchar(255) NOT NULL,
+		PRIMARY KEY	("id")
+	);';
+
+	$logs_sql = 'CREATE TABLE "' . TINYIB_DBLOGS . '" (
+		"id" bigserial NOT NULL,
+		"timestamp" integer NOT NULL,
+		"account" integer NOT NULL,
+		"message" text NOT NULL,
+		PRIMARY KEY	("id")
+	);
+	CREATE INDEX ON "' . TINYIB_DBLOGS . '"("account");';
+
 	$posts_sql = 'CREATE TABLE "' . TINYIB_DBPOSTS . '" (
 		"id" bigserial NOT NULL,
 		"parent" integer NOT NULL,
@@ -106,30 +158,48 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 	CREATE INDEX ON "' . TINYIB_DBPOSTS . '"("stickied");
 	CREATE INDEX ON "' . TINYIB_DBPOSTS . '"("moderated");';
 
-	$bans_sql = 'CREATE TABLE "' . TINYIB_DBBANS . '" (
-		"id" bigserial NOT NULL,
-		"ip" varchar(255) NOT NULL,
-		"timestamp" integer NOT NULL,
-		"expire" integer NOT NULL,
-		"reason" text NOT NULL,
-		PRIMARY KEY	("id")
-	);
-	CREATE INDEX ON "' . TINYIB_DBBANS . '"("ip");';
-
 	$reports_sql = 'CREATE TABLE "' . TINYIB_DBREPORTS . '" (
 		"id" bigserial NOT NULL,
 		"ip" varchar(255) NOT NULL,
 		"post" integer NOT NULL,
 		PRIMARY KEY	("id")
 	);';
-
-	$keywords_sql = 'CREATE TABLE "' . TINYIB_DBKEYWORDS . '" (
-		"id" bigserial NOT NULL,
-		"text" varchar(255) NOT NULL,
-		"action" varchar(255) NOT NULL,
-		PRIMARY KEY	("id")
-	);';
 } else {
+	$accounts_sql = "CREATE TABLE `" . TINYIB_DBACCOUNTS . "` (
+		`id` mediumint(7) unsigned NOT NULL auto_increment,
+		`username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`role` mediumint(7) unsigned NOT NULL,
+		`lastactive` int(20) unsigned NOT NULL,
+		PRIMARY KEY	(`id`)
+	)";
+
+	$bans_sql = "CREATE TABLE `" . TINYIB_DBBANS . "` (
+		`id` mediumint(7) unsigned NOT NULL auto_increment,
+		`ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`timestamp` int(20) NOT NULL,
+		`expire` int(20) NOT NULL,
+		`reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		PRIMARY KEY	(`id`),
+		KEY `ip` (`ip`)
+	)";
+
+	$keywords_sql = "CREATE TABLE `" . TINYIB_DBKEYWORDS . "` (
+		`id` mediumint(7) unsigned NOT NULL auto_increment,
+		`text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		`action` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		PRIMARY KEY	(`id`)
+	)";
+
+	$logs_sql = "CREATE TABLE `" . TINYIB_DBLOGS . "` (
+		`id` mediumint(7) unsigned NOT NULL auto_increment,
+		`timestamp` int(20),
+		`account` mediumint(7) unsigned NOT NULL,
+		`message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+		PRIMARY KEY	(`id`),
+		KEY `account` (`account`)
+	)";
+
 	$posts_sql = "CREATE TABLE `" . TINYIB_DBPOSTS . "` (
 		`id` mediumint(7) unsigned NOT NULL auto_increment,
 		`parent` mediumint(7) unsigned NOT NULL,
@@ -162,27 +232,10 @@ if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 		KEY `moderated` (`moderated`)
 	)";
 
-	$bans_sql = "CREATE TABLE `" . TINYIB_DBBANS . "` (
-		`id` mediumint(7) unsigned NOT NULL auto_increment,
-		`ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-		`timestamp` int(20) NOT NULL,
-		`expire` int(20) NOT NULL,
-		`reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-		PRIMARY KEY	(`id`),
-		KEY `ip` (`ip`)
-	)";
-
 	$reports_sql = "CREATE TABLE `" . TINYIB_DBREPORTS . "` (
 		`id` mediumint(7) unsigned NOT NULL auto_increment,
 		`ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
 		`post` int(20) NOT NULL,
-		PRIMARY KEY	(`id`)
-	)";
-
-	$keywords_sql = "CREATE TABLE `" . TINYIB_DBKEYWORDS . "` (
-		`id` mediumint(7) unsigned NOT NULL auto_increment,
-		`text` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-		`action` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
 		PRIMARY KEY	(`id`)
 	)";
 }
@@ -198,28 +251,10 @@ foreach ($writedirs as $dir) {
 	}
 }
 
-$includes = array('inc/functions.php', 'inc/html.php', 'inc/database/' . TINYIB_DBMODE . '_link.php', 'inc/database/' . TINYIB_DBMODE . '.php');
+$includes = array('inc/functions.php', 'inc/html.php', 'inc/database/' . TINYIB_DBMODE . '_link.php', 'inc/database/' . TINYIB_DBMODE . '.php', 'inc/database/database.php');
 foreach ($includes as $include) {
 	require $include;
 }
-
-if (TINYIB_TRIPSEED == '' || TINYIB_ADMINPASS == '') {
-	fancyDie(__('TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured.'));
-}
-
-if ((TINYIB_CAPTCHA === 'hcaptcha' || TINYIB_MANAGECAPTCHA === 'hcaptcha') && (TINYIB_HCAPTCHA_SITE == '' || TINYIB_HCAPTCHA_SECRET == '')) {
-	fancyDie(__('TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured.'));
-}
-
-if ((TINYIB_CAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') && (TINYIB_RECAPTCHA_SITE == '' || TINYIB_RECAPTCHA_SECRET == '')) {
-	fancyDie(__('TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured.'));
-}
-
-if (TINYIB_TIMEZONE != '') {
-	date_default_timezone_set(TINYIB_TIMEZONE);
-}
-
-$bcrypt_salt = '$2y$12$' . str_pad(str_replace('=', '/', str_replace('+', '.', substr(base64_encode(TINYIB_TRIPSEED), 0, 22))), 22, '/');
 
 $redirect = true;
 // Check if the request is to make a post
@@ -228,7 +263,8 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		fancyDie(__('Posting is currently disabled.<br>Please try again in a few moments.'));
 	}
 
-	list($loggedin, $isadmin) = manageCheckLogIn(false);
+	list($account, $loggedin, $isadmin) = manageCheckLogIn(false);
+
 	$rawpost = isRawPost();
 	$rawposttext = '';
 	if (!$loggedin) {
@@ -512,7 +548,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	$json_posts = array();
 	$posts = postsInThreadByID($thread_id);
 	if ($new_since > 0) {
-		foreach ($posts as $i =>  $post) {
+		foreach ($posts as $i => $post) {
 			if ($post['id'] <= $new_since) {
 				continue;
 			}
@@ -554,9 +590,9 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 	$post = postByID($_POST['delete']);
 	if ($post) {
-		list($loggedin, $isadmin) = manageCheckLogIn(false);
+		list($account, $loggedin, $isadmin) = manageCheckLogIn(false);
 
-		if ($loggedin && $_POST['password'] == '') {
+		if (!empty($account) && $_POST['password'] == '') {
 			// Redirect to post moderation page
 			echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . basename($_SERVER['PHP_SELF']) . '?manage&moderate=' . $_POST['delete'] . '">';
 		} elseif ($post['password'] != '' && (hashData($_POST['password']) == $post['password'] || md5(md5($_POST['password'])) == $post['password'])) {
@@ -592,7 +628,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		die('--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=imgboard.php">');
 	}
 
-	list($loggedin, $isadmin) = manageCheckLogIn(true);
+	list($account, $loggedin, $isadmin) = manageCheckLogIn(true);
 
 	if ($loggedin) {
 		if ($isadmin) {
@@ -608,6 +644,57 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					fancyDie(__('Reporting is disabled.'));
 				}
 				$text .= manageReportsPage($_GET['reports']);
+			} elseif (isset($_GET['accounts'])) {
+				if ($account['role'] != TINYIB_SUPER_ADMINISTRATOR) {
+					fancyDie(__('Access denied'));
+				}
+
+				$id = intval($_GET['accounts']);
+				if (isset($_POST['id'])) {
+					$id = intval($_POST['id']);
+				}
+				$a = array('id' => 0);
+				if ($id > 0) {
+					$a = accountByID($id);
+					if (empty($a)) {
+						fancyDie(__('Account not found.'));
+					}
+
+					if ($a['username'] == 'admin' && TINYIB_ADMINPASS != '') {
+						fancyDie(__('This account may not be updated while TINYIB_ADMINPASS is set.'));
+					} else if ($a['username'] == 'mod' && TINYIB_MODPASS != '') {
+						fancyDie(__('This account may not be updated while TINYIB_MODPASS is set.'));
+					}
+				}
+
+				if (isset($_POST['id'])) {
+					if ($id == 0 && $_POST['password'] == '') {
+						fancyDie(__('A password is required.'));
+					}
+
+					$a['username'] = $_POST['username'];
+					if ($_POST['password'] != '') {
+						$a['password'] = $_POST['password'];
+					}
+					$a['role'] = intval($_POST['role']);
+					if ($a['role'] !== TINYIB_SUPER_ADMINISTRATOR && $a['role'] != TINYIB_ADMINISTRATOR && $a['role'] != TINYIB_MODERATOR && $a['role'] != TINYIB_DISABLED) {
+						fancyDie(__('Invalid role.'));
+					}
+
+					if ($id == 0) {
+						insertAccount($a);
+						$text .= manageInfo(__('Added account'));
+					} else {
+						updateAccount($a);
+						$text .= manageInfo(__('Updated account'));
+					}
+				}
+
+				$onload = manageOnLoad('accounts');
+				$text .= manageAccountForm($_GET['accounts']);
+				if (intval($_GET['accounts']) == 0) {
+					$text .= manageAccountsTable();
+				}
 			} elseif (isset($_GET['bans'])) {
 				clearExpiredBans();
 
@@ -690,22 +777,49 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					<p>If you installed TinyIB without Git, you must <a href="https://code.rocketnine.space/tslocum/tinyib">update manually</a>.  If you did install with Git, ensure the script has read and write access to the <b>.git</b> folder.</p>';
 				}
 			} elseif (isset($_GET['dbmigrate'])) {
-				if (TINYIB_DBMIGRATE !== '' && TINYIB_DBMIGRATE !== false) {
+				if (TINYIB_DBMIGRATE !== '' && TINYIB_DBMIGRATE !== false && TINYIB_DBMODE != TINYIB_DBMIGRATE) {
+					$mysql_modes = array('mysql', 'mysqli');
+					if (in_array(TINYIB_DBMODE, $mysql_modes) && in_array(TINYIB_DBMIGRATE, $mysql_modes)) {
+						fancyDie('TINYIB_DBMODE and TINYIB_DBMIGRATE are both set to MySQL database modes. No migration is necessary.');
+					}
+
+					$sqlite_modes = array('sqlite', 'sqlite3');
+					if (in_array(TINYIB_DBMODE, $sqlite_modes) && in_array(TINYIB_DBMIGRATE, $sqlite_modes)) {
+						fancyDie('TINYIB_DBMODE and TINYIB_DBMIGRATE are both set to SQLite database modes. No migration is necessary.');
+					}
+
+					if (!in_array(TINYIB_DBMIGRATE, $database_modes)) {
+						fancyDie(__('Unknown database mode specified.'));
+					}
+
 					if (isset($_GET['go'])) {
-						if (TINYIB_DBMODE == TINYIB_DBMIGRATE) {
-							fancyDie('Set TINYIB_DBMIGRATE to the desired TINYIB_DBMODE and enter in any database related settings in settings.php before migrating.');
-						}
-
-						$mysql_modes = array('mysql', 'mysqli');
-						if (in_array(TINYIB_DBMODE, $mysql_modes) && in_array(TINYIB_DBMIGRATE, $mysql_modes)) {
-							fancyDie('TINYIB_DBMODE and TINYIB_DBMIGRATE are both set to MySQL database modes. No migration is necessary.');
-						}
-
-						if (!in_array(TINYIB_DBMIGRATE, $database_modes)) {
-							fancyDie(__('Unknown database mode specified.'));
-						}
 						require 'inc/database/' . TINYIB_DBMIGRATE . '_link.php';
 
+						echo '<p>Migrating accounts...</p>';
+						$accounts = allAccounts();
+						foreach ($accounts as $account) {
+							migrateAccount($account);
+						}
+
+						echo '<p>Migrating bans...</p>';
+						$bans = allBans();
+						foreach ($bans as $ban) {
+							migrateBan($ban);
+						}
+
+						echo '<p>Migrating keywords...</p>';
+						$keywords = allKeywords();
+						foreach ($keywords as $keyword) {
+							migrateKeyword($keyword);
+						}
+
+						echo '<p>Migrating logs...</p>';
+						$logs = allLogs();
+						foreach ($logs as $log) {
+							migrateLog($log);
+						}
+
+						echo '<p>Migrating posts...</p>';
 						$threads = allThreads();
 						foreach ($threads as $thread) {
 							$posts = postsInThreadByID($thread['id']);
@@ -714,17 +828,18 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 							}
 						}
 
-						$bans = allBans();
-						foreach ($bans as $ban) {
-							migrateBan($ban);
+						echo '<p>Migrating reports...</p>';
+						$reports = allReports();
+						foreach ($reports as $report) {
+							migrateReport($report);
 						}
 
-						echo '<p><b>Database migration complete</b>.  Set TINYIB_DBMODE to mysqli and TINYIB_DBMIGRATE to false, then click <b>Rebuild All</b> above and ensure everything looks the way it should.</p>';
+						echo '<p><b>Database migration complete</b>.  Set TINYIB_DBMODE to the new database mode and TINYIB_DBMIGRATE to false, then click <b>Rebuild All</b> above and ensure everything looks and works as it should.</p>';
 					} else {
 						$text .= '<p>Your original database will not be deleted.  If the migration fails, disable the tool and your board will be unaffected.  See the <a href="https://code.rocketnine.space/tslocum/tinyib/src/branch/master/README.md" target="_blank">README</a> <small>(<a href="README.md" target="_blank">alternate link</a>)</small> for instructions.</a><br><br><a href="?manage&dbmigrate&go"><b>Start the migration</b></a></p>';
 					}
 				} else {
-					fancyDie('Set TINYIB_DBMIGRATE to true in settings.php to use this feature.');
+					fancyDie('Set TINYIB_DBMIGRATE to the desired TINYIB_DBMODE and enter in any database related settings in settings.php before migrating.');
 				}
 			}
 		}
@@ -813,10 +928,25 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		} elseif (isset($_GET["rawpost"])) {
 			$onload = manageOnLoad("rawpost");
 			$text .= buildPostForm(0, true);
-		}
+		} elseif (isset($_GET['changepassword'])) {
+			if ($account['username'] == 'admin' && TINYIB_ADMINPASS != '') {
+				fancyDie(__('This account may not be updated while TINYIB_ADMINPASS is set.'));
+			} else if ($account['username'] == 'mod' && TINYIB_MODPASS != '') {
+				fancyDie(__('This account may not be updated while TINYIB_MODPASS is set.'));
+			}
 
-		if ($text == '') {
-			$text = manageStatus();
+			if (isset($_POST['password'])) {
+				if ($_POST['password'] == '') {
+					fancyDie(__('A password is required.'));
+				}
+
+				$account['password'] = $_POST['password'];
+				updateAccount($account);
+
+				$text .= manageInfo(__('Password updated'));
+			}
+
+			$text .= manageChangePasswordForm();
 		}
 	} else {
 		$onload = manageOnLoad('login');

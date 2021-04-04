@@ -3,6 +3,55 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
+// Account functions
+function accountByID($id) {
+	global $link;
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBACCOUNTS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "' LIMIT 1");
+	if ($result) {
+		while ($account = mysqli_fetch_assoc($result)) {
+			return $account;
+		}
+	}
+}
+
+function accountByUsername($username) {
+	global $link;
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBACCOUNTS . "` WHERE `username` = '" . mysqli_real_escape_string($link, $username) . "' LIMIT 1");
+	if ($result) {
+		while ($account = mysqli_fetch_assoc($result)) {
+			return $account;
+		}
+	}
+}
+
+function allAccounts() {
+	global $link;
+	$accounts = array();
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBACCOUNTS . "` ORDER BY `role` ASC, `username` ASC");
+	if ($result) {
+		while ($account = mysqli_fetch_assoc($result)) {
+			$accounts[] = $account;
+		}
+	}
+	return $accounts;
+}
+
+function insertAccount($account) {
+	global $link;
+	mysqli_query($link, "INSERT INTO `" . TINYIB_DBACCOUNTS . "` (`username`, `password`, `role`, `lastactive`) VALUES ('" . mysqli_real_escape_string($link, $account['username']) . "', '" . mysqli_real_escape_string($link, hashData($account['password'])) . "', '" . mysqli_real_escape_string($link, $account['role']) . "', '0')");
+	return mysqli_insert_id($link);
+}
+
+function updateAccount($account) {
+	global $link;
+	mysqli_query($link, "UPDATE `" . TINYIB_DBACCOUNTS . "` SET `username` = '" . mysqli_real_escape_string($link, $account['username']) . "', `password` = '" . mysqli_real_escape_string($link, hashData($account['password'])) . "', `role` = '" . mysqli_real_escape_string($link, $account['role']) . "', `lastactive` = " . mysqli_real_escape_string($link, $account['lastactive'])  . " WHERE `id` = " . mysqli_real_escape_string($link, $account['id']) . " LIMIT 1");
+}
+
+function deleteAccountByID($id) {
+	global $link;
+	mysqli_query($link, "DELETE FROM `" . TINYIB_DBACCOUNTS . "` WHERE `id` = " . mysqli_real_escape_string($link, $id) . " LIMIT 1");
+}
+
 // Post functions
 function uniquePosts() {
 	global $link;

@@ -3,6 +3,218 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
+// Account functions
+function accountByID($id) {
+	$rows = $GLOBALS['db']->selectWhere(ACCOUNTS_FILE, new SimpleWhereClause(ACCOUNT_ID, '=', $id, INTEGER_COMPARISON), 1);
+	if (isset($rows[0])) {
+		return $rows[0];
+	}
+	return array();
+}
+
+function accountByUsername($username) {
+	$rows = $GLOBALS['db']->selectWhere(ACCOUNTS_FILE, new SimpleWhereClause(ACCOUNT_USERNAME, '=', $username, STRING_COMPARISON), 1);
+	if (isset($rows[0])) {
+		return $rows[0];
+	}
+	return array();
+}
+
+function allAccounts() {
+	$rows = $GLOBALS['db']->selectWhere(ACCOUNTS_FILE, NULL, -1, array(new OrderBy(ACCOUNT_ROLE, ASCENDING, INTEGER_COMPARISON), new OrderBy(ACCOUNT_USERNAME, ASCENDING, STRING_COMPARISON)));
+	return convertAccountsToSQLStyle($rows);
+}
+
+function convertAccountsToSQLStyle($accounts, $single = false) {
+	$newaccounts = array();
+	foreach ($accounts as $a) {
+		$account = array();
+		$account['id'] = $a[ACCOUNT_ID];
+		$account['username'] = $a[ACCOUNT_USERNAME];
+		$account['password'] = $a[ACCOUNT_PASSWORD];
+		$account['role'] = $a[ACCOUNT_ROLE];
+		$account['lastactive'] = $a[ACCOUNT_LASTACTIVE];
+
+		if ($single) {
+			return $account;
+		}
+		$newaccounts[] = $account;
+	}
+	return $newaccounts;
+}
+
+function insertAccount($a) {
+	$account = array();
+	$account[ACCOUNT_ID] = '0';
+	$account[ACCOUNT_USERNAME] = $a['username'];
+	$account[ACCOUNT_PASSWORD] =  hashData($a['password']);
+	$account[ACCOUNT_ROLE] = $a['role'];
+	$account[ACCOUNT_LASTACTIVE] = 0;
+
+	$GLOBALS['db']->insertWithAutoId(ACCOUNTS_FILE, ACCOUNT_ID, $account);
+}
+
+function updateAccount($a) {
+	$account = array();
+	$account[ACCOUNT_ID] = $a['id'];
+	$account[ACCOUNT_USERNAME] = $a['username'];
+	$account[ACCOUNT_PASSWORD] = hashData($a['password']);
+	$account[ACCOUNT_ROLE] = $a['role'];
+	$account[ACCOUNT_LASTACTIVE] = $a['lastactive'];
+
+	$GLOBALS['db']->updateRowById(ACCOUNTS_FILE, ACCOUNT_ID, $account);
+}
+
+function deleteAccountByID($id) {
+	$GLOBALS['db']->deleteWhere(ACCOUNTS_FILE, new SimpleWhereClause(ACCOUNT_ID, '=', $id, INTEGER_COMPARISON));
+}
+
+// Ban functions
+function banByID($id) {
+	return convertBansToSQLStyle($GLOBALS['db']->selectWhere(BANS_FILE, new SimpleWhereClause(BAN_ID, '=', $id, INTEGER_COMPARISON), 1), true);
+}
+
+function banByIP($ip) {
+	$compClause = new OrWhereClause();
+	$compClause->add(new SimpleWhereClause(BAN_IP, '=', $ip, STRING_COMPARISON));
+	$compClause->add(new SimpleWhereClause(BAN_IP, '=', hashData($ip), STRING_COMPARISON));
+	return convertBansToSQLStyle($GLOBALS['db']->selectWhere(BANS_FILE, $compClause, 1), true);
+}
+
+function allBans() {
+	$rows = $GLOBALS['db']->selectWhere(BANS_FILE, NULL, -1, new OrderBy(BAN_TIMESTAMP, DESCENDING, INTEGER_COMPARISON));
+	return convertBansToSQLStyle($rows);
+}
+
+function convertBansToSQLStyle($bans, $single = false) {
+	$newbans = array();
+	foreach ($bans as $oldban) {
+		$ban = array();
+		$ban['id'] = $oldban[BAN_ID];
+		$ban['ip'] = $oldban[BAN_IP];
+		$ban['timestamp'] = $oldban[BAN_TIMESTAMP];
+		$ban['expire'] = $oldban[BAN_EXPIRE];
+		$ban['reason'] = $oldban[BAN_REASON];
+
+		if ($single) {
+			return $ban;
+		}
+		$newbans[] = $ban;
+	}
+	return $newbans;
+}
+
+function insertBan($newban) {
+	$ban = array();
+	$ban[BAN_ID] = '0';
+	$ban[BAN_IP] = hashData($newban['ip']);
+	$ban[BAN_TIMESTAMP] = time();
+	$ban[BAN_EXPIRE] = $newban['expire'];
+	$ban[BAN_REASON] = $newban['reason'];
+
+	return $GLOBALS['db']->insertWithAutoId(BANS_FILE, BAN_ID, $ban);
+}
+
+function clearExpiredBans() {
+	$compClause = new AndWhereClause();
+	$compClause->add(new SimpleWhereClause(BAN_EXPIRE, '>', 0, INTEGER_COMPARISON));
+	$compClause->add(new SimpleWhereClause(BAN_EXPIRE, '<=', time(), INTEGER_COMPARISON));
+
+	$bans = $GLOBALS['db']->selectWhere(BANS_FILE, $compClause, -1);
+	foreach ($bans as $ban) {
+		deleteBanByID($ban[BAN_ID]);
+	}
+}
+
+function deleteBanByID($id) {
+	$GLOBALS['db']->deleteWhere(BANS_FILE, new SimpleWhereClause(BAN_ID, '=', $id, INTEGER_COMPARISON));
+}
+
+// Keyword functions
+function keywordByID($id) {
+	$clause = new SimpleWhereClause(KEYWORD_ID, '=', $id, INTEGER_COMPARISON);
+	return convertKeywordsToSQLStyle($GLOBALS['db']->selectWhere(KEYWORDS_FILE, $clause, 1), true);
+}
+
+function keywordByText($text) {
+	$text = strtolower($text);
+	$clause = new SimpleWhereClause(KEYWORD_TEXT, '=', $text, STRING_COMPARISON);
+	return convertKeywordsToSQLStyle($GLOBALS['db']->selectWhere(KEYWORDS_FILE, $clause, 1), true);
+}
+
+function allKeywords() {
+	$rows = $GLOBALS['db']->selectWhere(KEYWORDS_FILE, NULL, -1, new OrderBy(KEYWORD_TEXT, ASCENDING, INTEGER_COMPARISON));
+	return convertKeywordsToSQLStyle($rows);
+}
+
+function convertKeywordsToSQLStyle($keywords, $single = false) {
+	$newkeywords = array();
+	foreach ($keywords as $oldkeyword) {
+		$keyword = array();
+		$keyword['id'] = $oldkeyword[KEYWORD_ID];
+		$keyword['text'] = $oldkeyword[KEYWORD_TEXT];
+		$keyword['action'] = $oldkeyword[KEYWORD_ACTION];
+
+		if ($single) {
+			return $keyword;
+		}
+		$newkeywords[] = $keyword;
+	}
+	return $newkeywords;
+}
+
+function insertKeyword($newkeyword) {
+	$newkeyword['text'] = strtolower($newkeyword['text']);
+
+	$keyword = array();
+	$keyword[KEYWORD_ID] = '0';
+	$keyword[KEYWORD_TEXT] = $newkeyword['text'];
+	$keyword[KEYWORD_ACTION] = $newkeyword['action'];
+
+	$GLOBALS['db']->insertWithAutoId(KEYWORDS_FILE, KEYWORD_ID, $keyword);
+}
+
+function deleteKeyword($id) {
+	$GLOBALS['db']->deleteWhere(KEYWORDS_FILE, new SimpleWhereClause(KEYWORD_ID, '=', $id, INTEGER_COMPARISON));
+}
+
+// Log functions
+function allLogs() {
+	$rows = $GLOBALS['db']->selectWhere(LOGS_FILE, NULL, -1, new OrderBy(LOG_ID, DESCENDING, INTEGER_COMPARISON));
+	return convertLogsToSQLStyle($rows);
+}
+
+function convertLogsToSQLStyle($logs, $single = false) {
+	$newlogs = array();
+	foreach ($logs as $l) {
+		$log = array();
+		$log['id'] = $l[LOG_ID];
+		$log['timestamp'] = $l[LOG_TIMESTAMP];
+		$log['account'] = $l[LOG_ACCOUNT];
+		$log['message'] = $l[LOG_MESSAGE];
+
+		if ($single) {
+			return $log;
+		}
+		$newlogs[] = $log;
+	}
+	return $newlogs;
+}
+
+function insertLog($l) {
+	$log = array();
+	$log['id'] = '0';
+	$log['timestamp'] = $l[LOG_TIMESTAMP];
+	$log['account'] = $l[LOG_ACCOUNT];
+	$log['message'] = $l[LOG_MESSAGE];
+
+	$GLOBALS['db']->insertWithAutoId(LOGS_FILE, LOG_ID, $log);
+}
+
+function deleteLog($id) {
+	$GLOBALS['db']->deleteWhere(LOGS_FILE, new SimpleWhereClause(LOG_ID, '=', $id, INTEGER_COMPARISON));
+}
+
 // Post functions
 function uniquePosts() {
 	return 0; // Unsupported by this database option
@@ -96,7 +308,7 @@ function countThreads() {
 	return count($rows);
 }
 
-function convertPostsToSQLStyle($posts, $singlepost = false) {
+function convertPostsToSQLStyle($posts, $single = false) {
 	$newposts = array();
 	foreach ($posts as $oldpost) {
 		$post = newPost();
@@ -129,7 +341,7 @@ function convertPostsToSQLStyle($posts, $singlepost = false) {
 			$post['parent'] = TINYIB_NEWTHREAD;
 		}
 
-		if ($singlepost) {
+		if ($single) {
 			return $post;
 		}
 		$newposts[] = $post;
@@ -201,67 +413,6 @@ function lastPostByIP() {
 	return convertPostsToSQLStyle($rows, true);
 }
 
-// Ban functions
-function banByID($id) {
-	return convertBansToSQLStyle($GLOBALS['db']->selectWhere(BANS_FILE, new SimpleWhereClause(BAN_ID, '=', $id, INTEGER_COMPARISON), 1), true);
-}
-
-function banByIP($ip) {
-	$compClause = new OrWhereClause();
-	$compClause->add(new SimpleWhereClause(BAN_IP, '=', $ip, STRING_COMPARISON));
-	$compClause->add(new SimpleWhereClause(BAN_IP, '=', hashData($ip), STRING_COMPARISON));
-	return convertBansToSQLStyle($GLOBALS['db']->selectWhere(BANS_FILE, $compClause, 1), true);
-}
-
-function allBans() {
-	$rows = $GLOBALS['db']->selectWhere(BANS_FILE, NULL, -1, new OrderBy(BAN_TIMESTAMP, DESCENDING, INTEGER_COMPARISON));
-	return convertBansToSQLStyle($rows);
-}
-
-function convertBansToSQLStyle($bans, $singleban = false) {
-	$newbans = array();
-	foreach ($bans as $oldban) {
-		$ban = array();
-		$ban['id'] = $oldban[BAN_ID];
-		$ban['ip'] = $oldban[BAN_IP];
-		$ban['timestamp'] = $oldban[BAN_TIMESTAMP];
-		$ban['expire'] = $oldban[BAN_EXPIRE];
-		$ban['reason'] = $oldban[BAN_REASON];
-
-		if ($singleban) {
-			return $ban;
-		}
-		$newbans[] = $ban;
-	}
-	return $newbans;
-}
-
-function insertBan($newban) {
-	$ban = array();
-	$ban[BAN_ID] = '0';
-	$ban[BAN_IP] = hashData($newban['ip']);
-	$ban[BAN_TIMESTAMP] = time();
-	$ban[BAN_EXPIRE] = $newban['expire'];
-	$ban[BAN_REASON] = $newban['reason'];
-
-	return $GLOBALS['db']->insertWithAutoId(BANS_FILE, BAN_ID, $ban);
-}
-
-function clearExpiredBans() {
-	$compClause = new AndWhereClause();
-	$compClause->add(new SimpleWhereClause(BAN_EXPIRE, '>', 0, INTEGER_COMPARISON));
-	$compClause->add(new SimpleWhereClause(BAN_EXPIRE, '<=', time(), INTEGER_COMPARISON));
-
-	$bans = $GLOBALS['db']->selectWhere(BANS_FILE, $compClause, -1);
-	foreach ($bans as $ban) {
-		deleteBanByID($ban[BAN_ID]);
-	}
-}
-
-function deleteBanByID($id) {
-	$GLOBALS['db']->deleteWhere(BANS_FILE, new SimpleWhereClause(BAN_ID, '=', $id, INTEGER_COMPARISON));
-}
-
 // Report functions
 function reportByIP($post, $ip) {
 	$ipClause = new OrWhereClause();
@@ -284,7 +435,7 @@ function allReports() {
 	return convertReportsToSQLStyle($rows);
 }
 
-function convertReportsToSQLStyle($reports, $singlereport = false) {
+function convertReportsToSQLStyle($reports, $single = false) {
 	$newreports = array();
 	foreach ($reports as $oldreport) {
 		$report = array();
@@ -292,7 +443,7 @@ function convertReportsToSQLStyle($reports, $singlereport = false) {
 		$report['ip'] = $oldreport[REPORT_IP];
 		$report['post'] = $oldreport[REPORT_POST];
 
-		if ($singlereport) {
+		if ($single) {
 			return $report;
 		}
 		$newreports[] = $report;
@@ -319,51 +470,4 @@ function deleteReportsByIP($ip) {
 	$ipClause->add(new SimpleWhereClause(REPORT_IP, '=', hashData($ip), STRING_COMPARISON));
 
 	$GLOBALS['db']->deleteWhere(REPORTS_FILE, $ipClause);
-}
-
-// Keyword functions
-function keywordByID($id) {
-	$clause = new SimpleWhereClause(KEYWORD_ID, '=', $id, INTEGER_COMPARISON);
-	return convertKeywordsToSQLStyle($GLOBALS['db']->selectWhere(KEYWORDS_FILE, $clause, 1), true);
-}
-function keywordByText($text) {
-	$text = strtolower($text);
-	$clause = new SimpleWhereClause(KEYWORD_TEXT, '=', $text, STRING_COMPARISON);
-	return convertKeywordsToSQLStyle($GLOBALS['db']->selectWhere(KEYWORDS_FILE, $clause, 1), true);
-}
-
-function allKeywords() {
-	$rows = $GLOBALS['db']->selectWhere(KEYWORDS_FILE, NULL, -1, new OrderBy(KEYWORD_TEXT, ASCENDING, INTEGER_COMPARISON));
-	return convertKeywordsToSQLStyle($rows);
-}
-
-function convertKeywordsToSQLStyle($keywords, $singlekeyword = false) {
-	$newkeywords = array();
-	foreach ($keywords as $oldkeyword) {
-		$keyword = array();
-		$keyword['id'] = $oldkeyword[KEYWORD_ID];
-		$keyword['text'] = $oldkeyword[KEYWORD_TEXT];
-		$keyword['action'] = $oldkeyword[KEYWORD_ACTION];
-
-		if ($singlekeyword) {
-			return $keyword;
-		}
-		$newkeywords[] = $keyword;
-	}
-	return $newkeywords;
-}
-
-function insertKeyword($newkeyword) {
-	$newkeyword['text'] = strtolower($newkeyword['text']);
-
-	$keyword = array();
-	$keyword[KEYWORD_ID] = '0';
-	$keyword[KEYWORD_TEXT] = $newkeyword['text'];
-	$keyword[KEYWORD_ACTION] = $newkeyword['action'];
-
-	$GLOBALS['db']->insertWithAutoId(KEYWORDS_FILE, KEYWORD_ID, $keyword);
-}
-
-function deleteKeyword($id) {
-	$GLOBALS['db']->deleteWhere(KEYWORDS_FILE, new SimpleWhereClause(KEYWORD_ID, '=', $id, INTEGER_COMPARISON));
 }

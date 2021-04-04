@@ -3,6 +3,43 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
+// Account functions
+function accountByID($id) {
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBACCOUNTS . " WHERE id = '" . sqlite_escape_string($id) . "' LIMIT 1"), SQLITE_ASSOC);
+	foreach ($result as $account) {
+		return $account;
+	}
+}
+
+function accountByUsername($username) {
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBACCOUNTS . " WHERE username = '" . sqlite_escape_string($username) . "' LIMIT 1"), SQLITE_ASSOC);
+	foreach ($result as $account) {
+		return $account;
+	}
+}
+
+function allAccounts() {
+	$accounts = array();
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBACCOUNTS . " ORDER BY role ASC, username ASC"), SQLITE_ASSOC);
+	foreach ($result as $account) {
+		$accounts[] = $account;
+	}
+	return $accounts;
+}
+
+function insertAccount($account) {
+	sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBACCOUNTS . " (username, password, role, lastactive) VALUES ('" . sqlite_escape_string($account['username']) . "', '" . sqlite_escape_string(hashData($account['password'])) . "', '" . sqlite_escape_string($account['role']) . "', '0')");
+	return sqlite_last_insert_rowid($GLOBALS["db"]);
+}
+
+function updateAccount($account) {
+	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBACCOUNTS . " SET username = '" . sqlite_escape_string($account['username']) . "', password = '" . sqlite_escape_string(hashData($account['password'])) . "', role = '" . sqlite_escape_string($account['role']) . "', lastactive = '" . sqlite_escape_string($account['lastactive']) . "' WHERE id = " . sqlite_escape_string($account['id']));
+}
+
+function deleteAccountByID($id) {
+	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBACCOUNTS . " WHERE id = " . sqlite_escape_string($id));
+}
+
 // Post functions
 function uniquePosts() {
 	return sqlite_fetch_single(sqlite_query($GLOBALS["db"], "SELECT COUNT(ip) FROM (SELECT DISTINCT ip FROM " . TINYIB_DBPOSTS . ")"));

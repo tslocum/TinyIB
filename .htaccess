@@ -33,5 +33,11 @@ AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css a
 </Ifmodule>
 
 <IfModule mod_alias.c>
+RedirectMatch 404 (.*)\.accounts$
+RedirectMatch 404 (.*)\.bans$
+RedirectMatch 404 (.*)\.keywords$
+RedirectMatch 404 (.*)\.logs$
 RedirectMatch 404 (.*)\.posts$
+RedirectMatch 404 (.*)\.reports$
+RedirectMatch 404 (.*)\.tinyib.db$
 </Ifmodule>
