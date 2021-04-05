@@ -370,7 +370,7 @@ function manageCheckLogIn($requireKey) {
 
 	if (isset($_SESSION['tinyib_username']) && isset($_SESSION['tinyib_password'])) {
 		$a = accountByUsername($_SESSION['tinyib_username']);
-		if (!empty($a) && $a['password'] == $_SESSION['tinyib_password']) {
+		if (!empty($a) && $a['password'] == $_SESSION['tinyib_password'] && $a['role'] != TINYIB_DISABLED) {
 			$account = $a;
 			$loggedin = true;
 			if ($account['role'] == TINYIB_SUPER_ADMINISTRATOR || $account['role'] == TINYIB_ADMINISTRATOR) {
