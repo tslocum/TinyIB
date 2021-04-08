@@ -359,13 +359,13 @@ function manageCheckLogIn($requireKey) {
 	if (isset($_POST['username']) && isset($_POST['managepassword']) && $_POST['username'] != '' && $_POST['managepassword'] != '') {
 		checkCAPTCHA(TINYIB_MANAGECAPTCHA);
 
-		$account = accountByUsername($_POST['username']);
-		if (hashData($_POST['managepassword'], true) !== $account['password']) {
+		$a = accountByUsername($_POST['username']);
+		if (empty($a) || hashData($_POST['managepassword'], true) !== $a['password']) {
 			fancyDie(__('Invalid username or password.'));
 		}
 		$_SESSION['tinyib_key'] = hashData(TINYIB_MANAGEKEY);
-		$_SESSION['tinyib_username'] = $account['username'];
-		$_SESSION['tinyib_password'] = $account['password'];
+		$_SESSION['tinyib_username'] = $a['username'];
+		$_SESSION['tinyib_password'] = $a['password'];
 	}
 
 	if (isset($_SESSION['tinyib_username']) && isset($_SESSION['tinyib_password'])) {
