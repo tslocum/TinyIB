@@ -70,8 +70,16 @@ function supportedFileTypes() {
 	return sprintf(__('Supported file types are %1$s and %2$s.'), implode(', ', $types_allowed), $last_type);
 }
 
+function _makeLinksClickable($matches) {
+	if (!isset($matches[1])) {
+		return '';
+	}
+	$url = htmlentities($matches[1], ENT_QUOTES);
+	return '<a href="' . $url . '" target="_blank">' . $url . '</a>';
+}
+
 function makeLinksClickable($text) {
-	$text = preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%\!_+.,~#?&;//=]+)!i', '<a href="$1" target="_blank">$1</a>', $text);
+	$text = preg_replace_callback('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%\!_+.,~#?&;\'/=]+)!i', '_makeLinksClickable', $text);
 	$text = preg_replace('/\(\<a href\=\"(.*)\)"\ target\=\"\_blank\">(.*)\)\<\/a>/i', '(<a href="$1" target="_blank">$2</a>)', $text);
 	$text = preg_replace('/\<a href\=\"(.*)\."\ target\=\"\_blank\">(.*)\.\<\/a>/i', '<a href="$1" target="_blank">$2</a>.', $text);
 	$text = preg_replace('/\<a href\=\"(.*)\,"\ target\=\"\_blank\">(.*)\,\<\/a>/i', '<a href="$1" target="_blank">$2</a>,', $text);
