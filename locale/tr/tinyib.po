@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2021-04-04 13:04-0700\n"
-"PO-Revision-Date: 2021-03-15 06:02+0000\n"
+"PO-Revision-Date: 2021-04-06 10:27+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tinyib/tinyib/tr/"
 ">\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
@@ -148,28 +148,28 @@ msgid "Rebuilt board."
 msgstr "Pano yeniden oluşturuldu."
 
 msgid "Access denied"
-msgstr ""
+msgstr "Erişim engellendi"
 
 msgid "Account not found."
-msgstr ""
+msgstr "Hesap bulunamadı."
 
 msgid "This account may not be updated while TINYIB_ADMINPASS is set."
-msgstr ""
+msgstr "TINYIB_ADMINPASS ayarlandığında bu hesap güncellenemez."
 
 msgid "This account may not be updated while TINYIB_MODPASS is set."
-msgstr ""
+msgstr "TINYIB_MODPASS ayarlandığında bu hesap güncellenemez."
 
 msgid "A password is required."
-msgstr ""
+msgstr "Parola gerekli."
 
 msgid "Invalid role."
-msgstr ""
+msgstr "Geçersiz rol."
 
 msgid "Added account"
-msgstr ""
+msgstr "Hesap eklendi"
 
 msgid "Updated account"
-msgstr ""
+msgstr "Hesap güncellendi"
 
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr "Üzgünüm, bu IP adresi için zaten bir yasak kaydı var."
@@ -212,7 +212,7 @@ msgid "Reports cleared."
 msgstr "Bildiriler temizlendi."
 
 msgid "Password updated"
-msgstr ""
+msgstr "Parola güncellendi"
 
 msgid "Please enter the CAPTCHA text."
 msgstr "Lütfen CAPTCHA metnini girin."
@@ -237,7 +237,7 @@ msgid "Invalid key."
 msgstr "Geçersiz anahtar."
 
 msgid "Invalid username or password."
-msgstr ""
+msgstr "Geçersiz kullanıcı adı veya parola."
 
 #, php-format
 msgid ""
@@ -437,7 +437,7 @@ msgid "Reports"
 msgstr "Bildiriler"
 
 msgid "Accounts"
-msgstr ""
+msgstr "Hesaplar"
 
 msgid "Bans"
 msgstr "Yasaklamalar"
@@ -461,7 +461,7 @@ msgid "Migrate Database"
 msgstr "Veri Tabanını Taşı"
 
 msgid "Change password"
-msgstr ""
+msgstr "Parola değiştir"
 
 msgid "Log Out"
 msgstr "Oturumu Kapat"
@@ -473,7 +473,7 @@ msgid "Log In"
 msgstr "Oturum Aç"
 
 msgid "Enter a username and password"
-msgstr ""
+msgstr "Kullanıcı adı ve parola girin"
 
 msgid "Reported posts"
 msgstr "Bildirilen gönderiler"
@@ -501,43 +501,43 @@ msgid "There are currently no reported posts."
 msgstr "Şu anda bildirilen gönderi yok."
 
 msgid "Add an account"
-msgstr ""
+msgstr "Hesap ekle"
 
 msgid "Update an account"
-msgstr ""
+msgstr "Hesap güncelle"
 
 msgid "Leave blank to maintain current password"
-msgstr ""
+msgstr "Geçerli parolayı korumak için boş bırakın"
 
 msgid "Username"
-msgstr ""
+msgstr "Kullanıcı adı"
 
 msgid "Role"
-msgstr ""
+msgstr "Rol"
 
 msgid "Choose a role"
-msgstr ""
+msgstr "Bir rol seçin"
 
 msgid "Super-administrator"
-msgstr ""
+msgstr "Süper yönetici"
 
 msgid "Administrator"
-msgstr ""
+msgstr "Yönetici"
 
 msgid "Moderator"
-msgstr ""
+msgstr "Moderatör"
 
 msgid "Disabled"
-msgstr ""
+msgstr "Devre dışı"
 
 msgid "Last active"
-msgstr ""
+msgstr "Son etkinlik"
 
 msgid "Never"
-msgstr ""
+msgstr "Hiçbir zaman"
 
 msgid "update"
-msgstr ""
+msgstr "güncelle"
 
 msgid "Add a ban"
 msgstr "Yasak ekle"

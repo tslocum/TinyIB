@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2021-04-04 13:04-0700\n"
-"PO-Revision-Date: 2021-03-23 11:30+0000\n"
+"PO-Revision-Date: 2021-04-07 14:27+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/tinyib/tinyib/fr/"
-">\n"
+"Language-Team: French <https://hosted.weblate.org/projects/tinyib/tinyib/fr/>"
+"\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5.2-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -157,28 +157,30 @@ msgid "Rebuilt board."
 msgstr "Tableau reconstruit."
 
 msgid "Access denied"
-msgstr ""
+msgstr "Accès refusé"
 
 msgid "Account not found."
-msgstr ""
+msgstr "Compte introuvable."
 
 msgid "This account may not be updated while TINYIB_ADMINPASS is set."
 msgstr ""
+"Ce compte ne peut pas être mis à jour tant que TINYIB_ADMINPASS est défini."
 
 msgid "This account may not be updated while TINYIB_MODPASS is set."
 msgstr ""
+"Ce compte ne peut pas être mis à jour tant que TINYIB_MODPASS est défini."
 
 msgid "A password is required."
-msgstr ""
+msgstr "Un mot de passe est requis."
 
 msgid "Invalid role."
-msgstr ""
+msgstr "Rôle invalide."
 
 msgid "Added account"
-msgstr ""
+msgstr "Compte ajouté"
 
 msgid "Updated account"
-msgstr ""
+msgstr "Compte mis à jour"
 
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr ""
@@ -224,7 +226,7 @@ msgid "Reports cleared."
 msgstr "Signalements effacés."
 
 msgid "Password updated"
-msgstr ""
+msgstr "Mot de passe mis à jour"
 
 msgid "Please enter the CAPTCHA text."
 msgstr "Veuillez saisir le texte du CAPTCHA."
@@ -248,7 +250,7 @@ msgid "Invalid key."
 msgstr "Clé invalide."
 
 msgid "Invalid username or password."
-msgstr ""
+msgstr "Nom d'utilisateur ou mot de passe invalide."
 
 #, php-format
 msgid ""
@@ -450,7 +452,7 @@ msgid "Reports"
 msgstr "Signalements"
 
 msgid "Accounts"
-msgstr ""
+msgstr "Comptes"
 
 msgid "Bans"
 msgstr "Interdictions"
@@ -474,7 +476,7 @@ msgid "Migrate Database"
 msgstr "Migrer la base de données"
 
 msgid "Change password"
-msgstr ""
+msgstr "Modifier le mot de passe"
 
 msgid "Log Out"
 msgstr "Se déconnecter"
@@ -486,7 +488,7 @@ msgid "Log In"
 msgstr "Se connecter"
 
 msgid "Enter a username and password"
-msgstr ""
+msgstr "Saisissez un nom d'utilisateur et un mot de passe"
 
 msgid "Reported posts"
 msgstr "Publications signalées"
@@ -514,43 +516,43 @@ msgid "There are currently no reported posts."
 msgstr "Aucune publication n'a été signalée jusqu'à présent."
 
 msgid "Add an account"
-msgstr ""
+msgstr "Ajouter un compte"
 
 msgid "Update an account"
-msgstr ""
+msgstr "Mettre à jour un compte"
 
 msgid "Leave blank to maintain current password"
-msgstr ""
+msgstr "Laissez vide pour conserver le mot de passe actuel"
 
 msgid "Username"
-msgstr ""
+msgstr "Nom d'utilisateur"
 
 msgid "Role"
-msgstr ""
+msgstr "Rôle"
 
 msgid "Choose a role"
-msgstr ""
+msgstr "Sélectionnez un rôle"
 
 msgid "Super-administrator"
-msgstr ""
+msgstr "Super administrateur"
 
 msgid "Administrator"
-msgstr ""
+msgstr "Administrateur"
 
 msgid "Moderator"
-msgstr ""
+msgstr "Modérateur"
 
 msgid "Disabled"
-msgstr ""
+msgstr "Désactivé"
 
 msgid "Last active"
-msgstr ""
+msgstr "Dernière activité"
 
 msgid "Never"
-msgstr ""
+msgstr "Jamais"
 
 msgid "update"
-msgstr ""
+msgstr "mettre à jour"
 
 msgid "Add a ban"
 msgstr "Bannir"
