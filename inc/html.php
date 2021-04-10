@@ -770,18 +770,20 @@ function adminBar() {
 
 	$output = '[<a href="?manage">' . __('Status') . '</a>] [';
 	if ($isadmin) {
-		if (TINYIB_REPORT) {
-			$output .= '<a href="?manage&reports">' . __('Reports') . '</a>] [';
-		}
 		if ($account['role'] == TINYIB_SUPER_ADMINISTRATOR) {
 			$output .= '<a href="?manage&accounts">' . __('Accounts') . '</a>] [';
 		}
 		$output .= '<a href="?manage&bans">' . __('Bans') . '</a>] [';
 		$output .= '<a href="?manage&keywords">' . __('Keywords') . '</a>] [';
 	}
-	$output .= '<a href="?manage&moderate">' . __('Moderate Post') . '</a>] [<a href="?manage&rawpost">' . __('Raw Post') . '</a>] [';
+	$output .= '<a href="?manage&moderate">' . __('Moderate Post') . '</a>] [';
+	if ($isadmin) {
+		$output .= '<a href="?manage&modlog">' . __('Moderation Log') . '</a>] [';
+	}
+	$output .= '<a href="?manage&rawpost">' . __('Raw Post') . '</a>] [';
 	if ($isadmin) {
 		$output .= '<a href="?manage&rebuildall">' . __('Rebuild All') . '</a>] [';
+		$output .= '<a href="?manage&reports">' . __('Reports') . '</a>] [';
 	}
 	if ($isadmin && installedViaGit()) {
 		$output .= '<a href="?manage&update">' . __('Update') . '</a>] [';
@@ -882,6 +884,60 @@ function manageLogInForm() {
 EOF;
 }
 
+function manageModerationLog($offset) {
+	$offset = intval($offset);
+	$limit = 50;
+
+	$logs = getLogs($offset, $limit);
+
+	$u = array();
+
+	$text = '';
+	foreach ($logs as $log) {
+		if (!isset($u[$log['account']])) {
+			$username = '';
+			if ($log['account'] > 0) {
+				$a = accountByID($log['account']);
+				if (!empty($a)) {
+					$username = $a['username'];
+				}
+			}
+			$u[$log['account']] = $username;
+		}
+		$text .= '<tr><td>' . strftime(TINYIB_DATEFMT, $log['timestamp']) . '</td><td>' . htmlentities($u[$log['account']]) . '</td><td>' . $log['message'] . '</td></tr>';
+	}
+
+	if ($text == '') {
+		$text = '<i>' . __('No logs.') . '</i>';
+	}
+
+	$txt_moderation_log = __('Moderation log');
+	$nav = '';
+	if ($offset > 0) {
+		$nav .= '<a href="?manage&modlog=' . $offset . '=' . ($offset - 50) . '">Previous 50</a> ';
+	}
+	if (count($logs) == $limit) {
+		$nav .= '<a href="?manage&modlog=' . $offset . '=' . ($offset + $limit) . '">Next 50</a> ';
+	}
+	$nav_top = '';
+	$nav_bottom = '';
+	if ($nav != '') {
+		$nav_top = $nav . '<br><br>';
+		$nav_bottom = '<br><br>' . $nav;
+	}
+	return <<<EOF
+		$nav_top
+		<fieldset>
+		<legend>$txt_moderation_log</legend>
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+		<tr><th align="left">Date/time</th><th align="left">Account</th><th align="left">Action</th></tr>
+		$text
+		</table>
+		</fieldset>
+		$nav_bottom
+EOF;
+}
+
 function manageReportsPage($ip) {
 	$reports = allReports();
 	$report_counts = array();
@@ -965,7 +1021,7 @@ function manageChangePasswordForm() {
 EOF;
 }
 
-function manageAccountForm($id=0) {
+function manageAccountForm($id = 0) {
 	$a = array(
 		'id' => 0,
 		'username' => '',
@@ -974,7 +1030,7 @@ function manageAccountForm($id=0) {
 	);
 	$txt_header = __('Add an account');
 	$txt_password_hint = '';
-	if ($id > 0){
+	if ($id > 0) {
 		$txt_header = __('Update an account');
 		$txt_password_hint = '(' . __('Leave blank to maintain current password') . ')';
 		$a = accountByID($id);

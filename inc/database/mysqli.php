@@ -52,6 +52,125 @@ function deleteAccountByID($id) {
 	mysqli_query($link, "DELETE FROM `" . TINYIB_DBACCOUNTS . "` WHERE `id` = " . mysqli_real_escape_string($link, $id) . " LIMIT 1");
 }
 
+// Ban functions
+function banByID($id) {
+	global $link;
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "' LIMIT 1");
+	if ($result) {
+		while ($ban = mysqli_fetch_assoc($result)) {
+			return $ban;
+		}
+	}
+}
+
+function banByIP($ip) {
+	global $link;
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `ip` = '" . mysqli_real_escape_string($link, $ip) . "' OR `ip` = '" . mysqli_real_escape_string($link, hashData($ip)) . "' LIMIT 1");
+	if ($result) {
+		while ($ban = mysqli_fetch_assoc($result)) {
+			return $ban;
+		}
+	}
+}
+
+function allBans() {
+	global $link;
+	$bans = array();
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` ORDER BY `timestamp` DESC");
+	if ($result) {
+		while ($ban = mysqli_fetch_assoc($result)) {
+			$bans[] = $ban;
+		}
+	}
+	return $bans;
+}
+
+function insertBan($ban) {
+	global $link;
+	mysqli_query($link, "INSERT INTO `" . TINYIB_DBBANS . "` (`ip`, `timestamp`, `expire`, `reason`) VALUES ('" . mysqli_real_escape_string($link, hashData($ban['ip'])) . "', '" . time() . "', '" . mysqli_real_escape_string($link, $ban['expire']) . "', '" . mysqli_real_escape_string($link, $ban['reason']) . "')");
+	return mysqli_insert_id($link);
+}
+
+function clearExpiredBans() {
+	global $link;
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `expire` > 0 AND `expire` <= " . time());
+	if ($result) {
+		while ($ban = mysqli_fetch_assoc($result)) {
+			mysqli_query($link, "DELETE FROM `" . TINYIB_DBBANS . "` WHERE `id` = " . $ban['id'] . " LIMIT 1");
+		}
+	}
+}
+
+function deleteBanByID($id) {
+	global $link;
+	mysqli_query($link, "DELETE FROM `" . TINYIB_DBBANS . "` WHERE `id` = " . mysqli_real_escape_string($link, $id) . " LIMIT 1");
+}
+
+// Keyword functions
+function keywordByID($id) {
+	global $link;
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBKEYWORDS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "' LIMIT 1");
+	if ($result) {
+		while ($keyword = mysqli_fetch_assoc($result)) {
+			return $keyword;
+		}
+	}
+	return array();
+}
+
+function keywordByText($text) {
+	global $link;
+	$text = strtolower($text);
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBKEYWORDS . "` WHERE `text` = '" . mysqli_real_escape_string($link, $text) . "'");
+	if ($result) {
+		while ($keyword = mysqli_fetch_assoc($result)) {
+			return $keyword;
+		}
+	}
+	return array();
+}
+
+function allKeywords() {
+	global $link;
+	$keywords = array();
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBKEYWORDS . "` ORDER BY `text` ASC");
+	if ($result) {
+		while ($keyword = mysqli_fetch_assoc($result)) {
+			$keywords[] = $keyword;
+		}
+	}
+	return $keywords;
+}
+
+function insertKeyword($keyword) {
+	global $link;
+	$keyword['text'] = strtolower($keyword['text']);
+	mysqli_query($link, "INSERT INTO `" . TINYIB_DBKEYWORDS . "` (`text`, `action`) VALUES ('" . mysqli_real_escape_string($link, $keyword['text']) . "', '" . mysqli_real_escape_string($link, $keyword['action']) . "')");
+}
+
+function deleteKeyword($id) {
+	global $link;
+	mysqli_query($link, "DELETE FROM `" . TINYIB_DBKEYWORDS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "'");
+}
+
+// Log functions
+function getLogs($offset, $limit) {
+	global $link;
+	$logs = array();
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBLOGS . "` ORDER BY `timestamp` DESC LIMIT " . intval($offset) . ", " . intval($limit));
+	if ($result) {
+		while ($log = mysqli_fetch_assoc($result)) {
+			$logs[] = $log;
+		}
+	}
+	return $logs;
+}
+
+function insertLog($log) {
+	global $link;
+	mysqli_query($link, "INSERT INTO `" . TINYIB_DBLOGS . "` (`timestamp`, `account`, `message`) VALUES ('" . mysqli_real_escape_string($link, $log['timestamp']) . "', '" . mysqli_real_escape_string($link, $log['account']) . "', '" . mysqli_real_escape_string($link, $log['message']) . "')");
+}
+
 // Post functions
 function uniquePosts() {
 	global $link;
@@ -196,60 +315,6 @@ function lastPostByIP() {
 	}
 }
 
-// Ban functions
-function banByID($id) {
-	global $link;
-	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "' LIMIT 1");
-	if ($result) {
-		while ($ban = mysqli_fetch_assoc($result)) {
-			return $ban;
-		}
-	}
-}
-
-function banByIP($ip) {
-	global $link;
-	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `ip` = '" . mysqli_real_escape_string($link, $ip) . "' OR `ip` = '" . mysqli_real_escape_string($link, hashData($ip)) . "' LIMIT 1");
-	if ($result) {
-		while ($ban = mysqli_fetch_assoc($result)) {
-			return $ban;
-		}
-	}
-}
-
-function allBans() {
-	global $link;
-	$bans = array();
-	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` ORDER BY `timestamp` DESC");
-	if ($result) {
-		while ($ban = mysqli_fetch_assoc($result)) {
-			$bans[] = $ban;
-		}
-	}
-	return $bans;
-}
-
-function insertBan($ban) {
-	global $link;
-	mysqli_query($link, "INSERT INTO `" . TINYIB_DBBANS . "` (`ip`, `timestamp`, `expire`, `reason`) VALUES ('" . mysqli_real_escape_string($link, hashData($ban['ip'])) . "', '" . time() . "', '" . mysqli_real_escape_string($link, $ban['expire']) . "', '" . mysqli_real_escape_string($link, $ban['reason']) . "')");
-	return mysqli_insert_id($link);
-}
-
-function clearExpiredBans() {
-	global $link;
-	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBBANS . "` WHERE `expire` > 0 AND `expire` <= " . time());
-	if ($result) {
-		while ($ban = mysqli_fetch_assoc($result)) {
-			mysqli_query($link, "DELETE FROM `" . TINYIB_DBBANS . "` WHERE `id` = " . $ban['id'] . " LIMIT 1");
-		}
-	}
-}
-
-function deleteBanByID($id) {
-	global $link;
-	mysqli_query($link, "DELETE FROM `" . TINYIB_DBBANS . "` WHERE `id` = " . mysqli_real_escape_string($link, $id) . " LIMIT 1");
-}
-
 // Report functions
 function reportByIP($post, $ip) {
 	global $link;
@@ -298,53 +363,6 @@ function deleteReportsByPost($post) {
 function deleteReportsByIP($ip) {
 	global $link;
 	mysqli_query($link, "DELETE FROM `" . TINYIB_DBREPORTS . "` WHERE `ip` = '" . mysqli_real_escape_string($link, $ip) . "' OR `ip` = '" . mysqli_real_escape_string($link, hashData($ip)) . "'");
-}
-
-// Keyword functions
-function keywordByID($id) {
-	global $link;
-	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBKEYWORDS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "' LIMIT 1");
-	if ($result) {
-		while ($keyword = mysqli_fetch_assoc($result)) {
-			return $keyword;
-		}
-	}
-	return array();
-}
-
-function keywordByText($text) {
-	global $link;
-	$text = strtolower($text);
-	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBKEYWORDS . "` WHERE `text` = '" . mysqli_real_escape_string($link, $text) . "'");
-	if ($result) {
-		while ($keyword = mysqli_fetch_assoc($result)) {
-			return $keyword;
-		}
-	}
-	return array();
-}
-
-function allKeywords() {
-	global $link;
-	$keywords = array();
-	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBKEYWORDS . "` ORDER BY `text` ASC");
-	if ($result) {
-		while ($keyword = mysqli_fetch_assoc($result)) {
-			$keywords[] = $keyword;
-		}
-	}
-	return $keywords;
-}
-
-function insertKeyword($keyword) {
-	global $link;
-	$keyword['text'] = strtolower($keyword['text']);
-	mysqli_query($link, "INSERT INTO `" . TINYIB_DBKEYWORDS . "` (`text`, `action`) VALUES ('" . mysqli_real_escape_string($link, $keyword['text']) . "', '" . mysqli_real_escape_string($link, $keyword['action']) . "')");
-}
-
-function deleteKeyword($id) {
-	global $link;
-	mysqli_query($link, "DELETE FROM `" . TINYIB_DBKEYWORDS . "` WHERE `id` = '" . mysqli_real_escape_string($link, $id) . "'");
 }
 
 // Utility functions

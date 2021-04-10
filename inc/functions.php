@@ -385,6 +385,20 @@ function manageCheckLogIn($requireKey) {
 	return array($account, $loggedin, $isadmin);
 }
 
+function manageLogAction($action) {
+	global $account;
+	$account_id = 0;
+	if (isset($account['id'])) {
+		$account_id = $account['id'];
+	}
+	$log = array(
+		'timestamp' => time(),
+		'account' => $account_id,
+		'message' => $action,
+	);
+	insertLog($log);
+}
+
 function setParent() {
 	if (isset($_POST["parent"])) {
 		if ($_POST["parent"] != TINYIB_NEWTHREAD) {

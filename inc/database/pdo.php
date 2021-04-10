@@ -40,6 +40,95 @@ function deleteAccountByID($id) {
 	pdoQuery("DELETE FROM " . TINYIB_DBACCOUNTS . " WHERE id = ?", array($id));
 }
 
+// Ban functions
+function banByID($id) {
+	$result = pdoQuery("SELECT * FROM " . TINYIB_DBBANS . " WHERE id = ?", array($id));
+	return $result->fetch(PDO::FETCH_ASSOC);
+}
+
+function banByIP($ip) {
+	$result = pdoQuery("SELECT * FROM " . TINYIB_DBBANS . " WHERE ip = ? OR ip = ? LIMIT 1", array($ip, hashData($ip)));
+	return $result->fetch(PDO::FETCH_ASSOC);
+}
+
+function allBans() {
+	$bans = array();
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBBANS . " ORDER BY timestamp DESC");
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$bans[] = $row;
+	}
+	return $bans;
+}
+
+function insertBan($ban) {
+	global $dbh;
+	$now = time();
+	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBBANS . " (ip, timestamp, expire, reason) VALUES (?, ?, ?, ?)");
+	$stm->execute(array(hashData($ban['ip']), $now, $ban['expire'], $ban['reason']));
+	return $dbh->lastInsertId();
+}
+
+function clearExpiredBans() {
+	$now = time();
+	pdoQuery("DELETE FROM " . TINYIB_DBBANS . " WHERE expire > 0 AND expire <= ?", array($now));
+}
+
+function deleteBanByID($id) {
+	pdoQuery("DELETE FROM " . TINYIB_DBBANS . " WHERE id = ?", array($id));
+}
+
+// Keyword functions
+function keywordByID($id) {
+	$result = pdoQuery("SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE id = ? LIMIT 1", array($id));
+	return $result->fetch(PDO::FETCH_ASSOC);
+}
+
+function keywordByText($text) {
+	$text = strtolower($text);
+	$keywords = array();
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE text = ?", array($text));
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$keywords[] = $row;
+	}
+	return $keywords;
+}
+
+function allKeywords() {
+	$keywords = array();
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBKEYWORDS . " ORDER BY text ASC");
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$keywords[] = $row;
+	}
+	return $keywords;
+}
+
+function insertKeyword($keyword) {
+	global $dbh;
+	$keyword['text'] = strtolower($keyword['text']);
+	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBKEYWORDS . " (text, action) VALUES (?, ?)");
+	$stm->execute(array($keyword['text'], $keyword['action']));
+}
+
+function deleteKeyword($id) {
+	pdoQuery("DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = ?", array($id));
+}
+
+// Log functions
+function getLogs($offset, $limit) {
+	$logs = array();
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBLOGS . " ORDER BY timestamp DESC LIMIT " . intval($offset) . ", " . intval($limit));
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$logs[] = $row;
+	}
+	return $logs;
+}
+
+function insertLog($log) {
+	global $dbh;
+	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBLOGS . " (timestamp, account, message) VALUES (?, ?, ?)");
+	$stm->execute(array($log['timestamp'], $log['account'], $log['message']));
+}
+
 // Post functions
 function uniquePosts() {
 	$result = pdoQuery("SELECT COUNT(DISTINCT(ip)) FROM " . TINYIB_DBPOSTS);
@@ -169,43 +258,6 @@ function lastPostByIP() {
 	return $result->fetch(PDO::FETCH_ASSOC);
 }
 
-// Ban functions
-function banByID($id) {
-	$result = pdoQuery("SELECT * FROM " . TINYIB_DBBANS . " WHERE id = ?", array($id));
-	return $result->fetch(PDO::FETCH_ASSOC);
-}
-
-function banByIP($ip) {
-	$result = pdoQuery("SELECT * FROM " . TINYIB_DBBANS . " WHERE ip = ? OR ip = ? LIMIT 1", array($ip, hashData($ip)));
-	return $result->fetch(PDO::FETCH_ASSOC);
-}
-
-function allBans() {
-	$bans = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBBANS . " ORDER BY timestamp DESC");
-	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
-		$bans[] = $row;
-	}
-	return $bans;
-}
-
-function insertBan($ban) {
-	global $dbh;
-	$now = time();
-	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBBANS . " (ip, timestamp, expire, reason) VALUES (?, ?, ?, ?)");
-	$stm->execute(array(hashData($ban['ip']), $now, $ban['expire'], $ban['reason']));
-	return $dbh->lastInsertId();
-}
-
-function clearExpiredBans() {
-	$now = time();
-	pdoQuery("DELETE FROM " . TINYIB_DBBANS . " WHERE expire > 0 AND expire <= ?", array($now));
-}
-
-function deleteBanByID($id) {
-	pdoQuery("DELETE FROM " . TINYIB_DBBANS . " WHERE id = ?", array($id));
-}
-
 // Report functions
 function reportByIP($post, $ip) {
 	$result = pdoQuery("SELECT * FROM " . TINYIB_DBREPORTS . " WHERE post = ? AND (ip = ? OR ip = ?) LIMIT 1", array($post, $ip, hashData($ip)));
@@ -242,40 +294,4 @@ function deleteReportsByPost($post) {
 
 function deleteReportsByIP($ip) {
 	pdoQuery("DELETE FROM " . TINYIB_DBREPORTS . " WHERE ip = ? OR ip = ?", array($ip, hashData($ip)));
-}
-
-// Keyword functions
-function keywordByID($id) {
-	$result = pdoQuery("SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE id = ? LIMIT 1", array($id));
-	return $result->fetch(PDO::FETCH_ASSOC);
-}
-
-function keywordByText($text) {
-	$text = strtolower($text);
-	$keywords = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE text = ?", array($text));
-	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
-		$keywords[] = $row;
-	}
-	return $keywords;
-}
-
-function allKeywords() {
-	$keywords = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBKEYWORDS . " ORDER BY text ASC");
-	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
-		$keywords[] = $row;
-	}
-	return $keywords;
-}
-
-function insertKeyword($keyword) {
-	global $dbh;
-	$keyword['text'] = strtolower($keyword['text']);
-	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBKEYWORDS . " (text, action) VALUES (?, ?)");
-	$stm->execute(array($keyword['text'], $keyword['action']));
-}
-
-function deleteKeyword($id) {
-	pdoQuery("DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = ?", array($id));
 }

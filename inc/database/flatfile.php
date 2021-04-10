@@ -179,8 +179,8 @@ function deleteKeyword($id) {
 }
 
 // Log functions
-function allLogs() {
-	$rows = $GLOBALS['db']->selectWhere(LOGS_FILE, NULL, -1, new OrderBy(LOG_ID, DESCENDING, INTEGER_COMPARISON));
+function getLogs($offset, $limit) {
+	$rows = $GLOBALS['db']->selectWhere(LOGS_FILE, NULL, array(intval($offset), intval($offset)+intval($limit)), new OrderBy(LOG_TIMESTAMP, DESCENDING, INTEGER_COMPARISON));
 	return convertLogsToSQLStyle($rows);
 }
 
@@ -209,10 +209,6 @@ function insertLog($l) {
 	$log['message'] = $l[LOG_MESSAGE];
 
 	$GLOBALS['db']->insertWithAutoId(LOGS_FILE, LOG_ID, $log);
-}
-
-function deleteLog($id) {
-	$GLOBALS['db']->deleteWhere(LOGS_FILE, new SimpleWhereClause(LOG_ID, '=', $id, INTEGER_COMPARISON));
 }
 
 // Post functions

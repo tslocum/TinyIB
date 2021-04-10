@@ -40,6 +40,96 @@ function deleteAccountByID($id) {
 	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBACCOUNTS . " WHERE id = " . sqlite_escape_string($id));
 }
 
+// Ban functions
+function banByID($id) {
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBBANS . " WHERE id = '" . sqlite_escape_string($id) . "' LIMIT 1"), SQLITE_ASSOC);
+	foreach ($result as $ban) {
+		return $ban;
+	}
+}
+
+function banByIP($ip) {
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBBANS . " WHERE ip = '" . sqlite_escape_string($ip) . "' OR ip = '" . sqlite_escape_string(hashData($ip)) . "' LIMIT 1"), SQLITE_ASSOC);
+	foreach ($result as $ban) {
+		return $ban;
+	}
+}
+
+function allBans() {
+	$bans = array();
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBBANS . " ORDER BY timestamp DESC"), SQLITE_ASSOC);
+	foreach ($result as $ban) {
+		$bans[] = $ban;
+	}
+	return $bans;
+}
+
+function insertBan($ban) {
+	sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBBANS . " (ip, timestamp, expire, reason) VALUES ('" . sqlite_escape_string(hashData($ban['ip'])) . "', " . time() . ", '" . sqlite_escape_string($ban['expire']) . "', '" . sqlite_escape_string($ban['reason']) . "')");
+	return sqlite_last_insert_rowid($GLOBALS["db"]);
+}
+
+function clearExpiredBans() {
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBBANS . " WHERE expire > 0 AND expire <= " . time()), SQLITE_ASSOC);
+	foreach ($result as $ban) {
+		sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . $ban['id']);
+	}
+}
+
+function deleteBanByID($id) {
+	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . sqlite_escape_string($id));
+}
+
+// Keyword functions
+function keywordByID($id) {
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE id = '" . sqlite_escape_string($id) . "' LIMIT 1"), SQLITE_ASSOC);
+	foreach ($result as $keyword) {
+		return $keyword;
+	}
+	return array();
+}
+
+function keywordByText($text) {
+	$text = strtolower($text);
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE text = '" . sqlite_escape_string($text) . "'"), SQLITE_ASSOC);
+	foreach ($result as $keyword) {
+		return $keyword;
+	}
+	return array();
+}
+
+function allKeywords() {
+	$keywords = array();
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBKEYWORDS . " ORDER BY text ASC"), SQLITE_ASSOC);
+	foreach ($result as $keyword) {
+		$keywords[] = $keyword;
+	}
+	return $keywords;
+}
+
+function insertKeyword($keyword) {
+	$keyword['text'] = strtolower($keyword['text']);
+	sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBKEYWORDS . " (text, action) VALUES ('" . sqlite_escape_string($keyword['text']) . "', '" . sqlite_escape_string($keyword['action']) . "')");
+}
+
+function deleteKeyword($id) {
+	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = " . sqlite_escape_string($id));
+}
+
+// Log functions
+function getLogs($offset, $limit) {
+	$logs = array();
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBLOGS . " ORDER BY timestamp DESC LIMIT " . intval($offset) . ", " . intval($limit)), SQLITE_ASSOC);
+	foreach ($result as $log) {
+		$logs[] = $log;
+	}
+	return $logs;
+}
+
+function insertLog($log) {
+	sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBLOGS . " (timestamp, account, message) VALUES ('" . sqlite_escape_string($log['timestamp']) . "', '" . sqlite_escape_string($log['account']) . "', '" . sqlite_escape_string($log['message']) . "')");
+}
+
 // Post functions
 function uniquePosts() {
 	return sqlite_fetch_single(sqlite_query($GLOBALS["db"], "SELECT COUNT(ip) FROM (SELECT DISTINCT ip FROM " . TINYIB_DBPOSTS . ")"));
@@ -152,46 +242,6 @@ function lastPostByIP() {
 	}
 }
 
-// Ban functions
-function banByID($id) {
-	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBBANS . " WHERE id = '" . sqlite_escape_string($id) . "' LIMIT 1"), SQLITE_ASSOC);
-	foreach ($result as $ban) {
-		return $ban;
-	}
-}
-
-function banByIP($ip) {
-	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBBANS . " WHERE ip = '" . sqlite_escape_string($ip) . "' OR ip = '" . sqlite_escape_string(hashData($ip)) . "' LIMIT 1"), SQLITE_ASSOC);
-	foreach ($result as $ban) {
-		return $ban;
-	}
-}
-
-function allBans() {
-	$bans = array();
-	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBBANS . " ORDER BY timestamp DESC"), SQLITE_ASSOC);
-	foreach ($result as $ban) {
-		$bans[] = $ban;
-	}
-	return $bans;
-}
-
-function insertBan($ban) {
-	sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBBANS . " (ip, timestamp, expire, reason) VALUES ('" . sqlite_escape_string(hashData($ban['ip'])) . "', " . time() . ", '" . sqlite_escape_string($ban['expire']) . "', '" . sqlite_escape_string($ban['reason']) . "')");
-	return sqlite_last_insert_rowid($GLOBALS["db"]);
-}
-
-function clearExpiredBans() {
-	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBBANS . " WHERE expire > 0 AND expire <= " . time()), SQLITE_ASSOC);
-	foreach ($result as $ban) {
-		sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . $ban['id']);
-	}
-}
-
-function deleteBanByID($id) {
-	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . sqlite_escape_string($id));
-}
-
 // Report functions
 function reportByIP($post, $ip) {
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBREPORTS . " WHERE post = '" . sqlite_escape_string($post) . "' AND (ip = '" . sqlite_escape_string($ip) . "' OR ip = '" . sqlite_escape_string(hashData($ip)) . "') LIMIT 1"), SQLITE_ASSOC);
@@ -228,40 +278,4 @@ function deleteReportsByPost($post) {
 
 function deleteReportsByIP($ip) {
 	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBREPORTS . " WHERE ip = '" . sqlite_escape_string($ip) . "' OR ip = '" . sqlite_escape_string(hashData($ip)) . "'");
-}
-
-// Keyword functions
-function keywordByID($id) {
-	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE id = '" . sqlite_escape_string($id) . "' LIMIT 1"), SQLITE_ASSOC);
-	foreach ($result as $keyword) {
-		return $keyword;
-	}
-	return array();
-}
-
-function keywordByText($text) {
-	$text = strtolower($text);
-	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE text = '" . sqlite_escape_string($text) . "'"), SQLITE_ASSOC);
-	foreach ($result as $keyword) {
-		return $keyword;
-	}
-	return array();
-}
-
-function allKeywords() {
-	$keywords = array();
-	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBKEYWORDS . " ORDER BY text ASC"), SQLITE_ASSOC);
-	foreach ($result as $keyword) {
-		$keywords[] = $keyword;
-	}
-	return $keywords;
-}
-
-function insertKeyword($keyword) {
-	$keyword['text'] = strtolower($keyword['text']);
-	sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBKEYWORDS . " (text, action) VALUES ('" . sqlite_escape_string($keyword['text']) . "', '" . sqlite_escape_string($keyword['action']) . "')");
-}
-
-function deleteKeyword($id) {
-	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = " . sqlite_escape_string($id));
 }

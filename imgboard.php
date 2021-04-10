@@ -529,6 +529,10 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		echo __('Updating index...') . '<br>';
 		rebuildIndexes();
 	}
+
+	if ($rawpost) {
+		manageLogAction(__('Created raw post') . ' ' . postLink('&gt;&gt;' . $post['id']));
+	}
 // Check if the request is to auto-refresh a thread
 } elseif (isset($_GET['posts']) && !isset($_GET['manage'])) {
 	if (TINYIB_AUTOREFRESH <= 0) {
@@ -635,6 +639,8 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				}
 				rebuildIndexes();
 				$text .= manageInfo(__('Rebuilt board.'));
+			} else if (isset($_GET['modlog'])) {
+				$text .= manageModerationLog($_GET['modlog']);
 			} else if (isset($_GET['reports'])) {
 				if (!TINYIB_REPORT) {
 					fancyDie(__('Reporting is disabled.'));
@@ -668,6 +674,8 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 						fancyDie(__('A password is required.'));
 					}
 
+					$prev = $a;
+
 					$a['username'] = $_POST['username'];
 					if ($_POST['password'] != '') {
 						$a['password'] = $_POST['password'];
@@ -679,9 +687,34 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 					if ($id == 0) {
 						insertAccount($a);
+						manageLogAction(sprintf(__('Added account %s'), $a['username']));
 						$text .= manageInfo(__('Added account'));
 					} else {
 						updateAccount($a);
+						if ($a['username'] != $prev['username']) {
+							manageLogAction(sprintf(__('Renamed account %1$s as %2$s'), $prev['username'], $a['username']));
+						}
+						if ($a['password'] != $prev['password']) {
+							manageLogAction(sprintf(__('Changed password of account %s'), $a['username']));
+						}
+						if ($a['role'] != $prev['role']) {
+							$r = '';
+							switch ($a['role']) {
+								case  TINYIB_SUPER_ADMINISTRATOR:
+									$r = __('Super-administrator');
+									break;
+								case  TINYIB_ADMINISTRATOR:
+									$r = __('Administrator');
+									break;
+								case TINYIB_MODERATOR:
+									$r = __('Moderator');
+									break;
+								case  TINYIB_DISABLED:
+									$r = __('Disabled');
+									break;
+							}
+							manageLogAction(sprintf(__('Changed role of account %s to %s'), $a['username'], $r));
+						}
 						$text .= manageInfo(__('Updated account'));
 					}
 				}
@@ -710,13 +743,24 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 						$ban['expire'] = ($_POST['expire'] > 0) ? (time() + $_POST['expire']) : 0;
 						$ban['reason'] = $_POST['reason'];
 
+						$until = __('permanently');
+						if ($ban['expire'] > 0) {
+							$until = sprintf(__('until %s'), strftime(TINYIB_DATEFMT, $ban['expire']));
+						}
+						$action = sprintf(__('Banned %s %s'), htmlentities($ban['ip']), $until);
+						if ($ban['reason'] != '') {
+							$action = sprintf(__('Banned %s %s: %s'), htmlentities($ban['ip']), $until, htmlentities($ban['reason']));
+						}
+
 						insertBan($ban);
+						manageLogAction($action);
 						$text .= manageInfo(sprintf(__('Ban record added for %s'), $ban['ip']));
 					}
 				} elseif (isset($_GET['lift'])) {
 					$ban = banByID($_GET['lift']);
 					if ($ban) {
 						deleteBanByID($_GET['lift']);
+						manageLogAction(sprintf(__('Lifted ban on %s'), htmlentities($ban['ip'])));
 						$text .= manageInfo(sprintf(__('Ban record lifted for %s'), $ban['ip']));
 					}
 				}
@@ -741,9 +785,11 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 					insertKeyword($keyword);
 					if ($_GET['keywords'] > 0) {
+						manageLogAction(sprintf(__('Updated keyword %s'), htmlentities($keyword['text'])));
 						$text .= manageInfo(__('Keyword updated.'));
 						$_GET['keywords'] = 0;
 					} else {
+						manageLogAction(sprintf(__('Updated keyword %s'), htmlentities($keyword['text'])));
 						$text .= manageInfo(__('Keyword added.'));
 					}
 				} elseif (isset($_GET['deletekeyword'])) {
@@ -848,6 +894,8 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				} else {
 					threadUpdated($post['parent']);
 				}
+
+				manageLogAction(__('Deleted') . ' >>' . $post['id']);
 				$text .= manageInfo(sprintf(__('Post No.%d deleted.'), $post['id']));
 			} else {
 				fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
@@ -864,6 +912,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					}
 					threadUpdated($thread_id);
 
+					manageLogAction(__('Approved') . ' ' . postLink('&gt;&gt;' . $post['id']));
 					$text .= manageInfo(sprintf(__('Post No.%d approved.'), $post['id']));
 				} else {
 					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
@@ -888,6 +937,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					stickyThreadByID($post['id'], intval($_GET['setsticky']));
 					threadUpdated($post['id']);
 
+					manageLogAction(intval($_GET['setsticky']) == 1 ? __('Stickied') : __('Unstickied') . ' ' . postLink('&gt;&gt;' . $post['id']));
 					$text .= manageInfo('Thread No.' . $post['id'] . ' ' . (intval($_GET['setsticky']) == 1 ? 'stickied' : 'un-stickied') . '.');
 				} else {
 					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
@@ -902,6 +952,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					lockThreadByID($post['id'], intval($_GET['setlock']));
 					threadUpdated($post['id']);
 
+					manageLogAction(intval($_GET['setlock']) == 1 ? __('Locked') : __('Unlocked') . ' ' . postLink('&gt;&gt;' . $post['id']));
 					$text .= manageInfo('Thread No.' . $post['id'] . ' ' . (intval($_GET['setlock']) == 1 ? 'locked' : 'unlocked') . '.');
 				} else {
 					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
@@ -915,6 +966,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				if ($post) {
 					deleteReportsByPost($post['id']);
 
+					manageLogAction(sprintf(__('Cleared reports for post %s'), postLink('&gt;&gt;' . $post['id'])));
 					$text .= manageInfo(__('Reports cleared.'));
 				} else {
 					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
