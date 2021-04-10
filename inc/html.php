@@ -818,18 +818,17 @@ EOF;
 
 function manageOnLoad($page) {
 	switch ($page) {
-		case 'login':
-			return ' onload="document.tinyib.username.focus();"';
-		case 'moderate':
-			return ' onload="document.tinyib.moderate.focus();"';
-		case 'keywords':
-			return ' onload="document.tinyib.text.focus();"';
-		case 'rawpost':
-			return ' onload="document.tinyib.message.focus();"';
 		case 'accounts':
+		case 'login':
 			return ' onload="document.tinyib.username.focus();"';
 		case 'bans':
 			return ' onload="document.tinyib.ip.focus();"';
+		case 'keywords':
+			return ' onload="document.tinyib.text.focus();"';
+		case 'moderate':
+			return ' onload="document.tinyib.moderate.focus();"';
+		case 'rawpost':
+			return ' onload="document.tinyib.message.focus();"';
 	}
 }
 

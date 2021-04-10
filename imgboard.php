@@ -793,7 +793,13 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 						$text .= manageInfo(__('Keyword added.'));
 					}
 				} elseif (isset($_GET['deletekeyword'])) {
+					$keyword = keywordByID($_GET['deletekeyword']);
+					if (empty($keyword)) {
+						fancyDie(__('That keyword does not exist.'));
+					}
+
 					deleteKeyword($_GET['deletekeyword']);
+					manageLogAction(sprintf(__('Deleted keyword %s'), htmlentities($keyword['text'])));
 					$text .= manageInfo(__('Keyword deleted.'));
 				}
 
@@ -895,7 +901,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 					threadUpdated($post['parent']);
 				}
 
-				manageLogAction(__('Deleted') . ' >>' . $post['id']);
+				manageLogAction(__('Deleted') . ' &gt;&gt;' . $post['id']);
 				$text .= manageInfo(sprintf(__('Post No.%d deleted.'), $post['id']));
 			} else {
 				fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
@@ -966,7 +972,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				if ($post) {
 					deleteReportsByPost($post['id']);
 
-					manageLogAction(sprintf(__('Cleared reports for post %s'), postLink('&gt;&gt;' . $post['id'])));
+					manageLogAction(sprintf(__('Cleared reports for %s'), postLink('&gt;&gt;' . $post['id'])));
 					$text .= manageInfo(__('Reports cleared.'));
 				} else {
 					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
