@@ -819,7 +819,7 @@ EOF;
 function manageOnLoad($page) {
 	switch ($page) {
 		case 'login':
-			return ' onload="document.tinyib.managepassword.focus();"';
+			return ' onload="document.tinyib.username.focus();"';
 		case 'moderate':
 			return ' onload="document.tinyib.moderate.focus();"';
 		case 'keywords':
