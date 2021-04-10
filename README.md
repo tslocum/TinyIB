@@ -72,6 +72,7 @@ support in mind.
  5. Configure **settings.php**
     - When setting ``TINYIB_DBMODE`` to ``flatfile``, note that all post, report and ban data are exposed as the database is composed of standard text files.  Access to ./inc/database/flatfile/ should be denied.
     - When setting ``TINYIB_DBMODE`` to ``pdo``, note that only the MySQL and PostgreSQL databases drivers have been tested. Theoretically it will work with any applicable driver, but this is not guaranteed.  If you use an alternative driver, please report back.
+    - Field length settings require a modification to the database field to accommodate the increased length in order to take effect.
     - To require moderation before displaying posts:
       - Set ``TINYIB_REQMOD`` to ``files`` to require moderation for posts with files attached.
       - Set ``TINYIB_REQMOD`` to ``all`` to require moderation for all posts.
