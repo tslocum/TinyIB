@@ -271,7 +271,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		checkCAPTCHA(TINYIB_CAPTCHA);
 		checkFlood();
 	}
-	
+
 	$rawpost = isRawPost();
 	$rawposttext = '';
 	if (!$rawpost) {
@@ -304,7 +304,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		$post['name'] = $tinyib_anonymous[array_rand($tinyib_anonymous)];
 	}
 
-	$post['ip'] = $_SERVER['REMOTE_ADDR'];
+	$post['ip'] = remoteAddress();
 
 	if ($rawpost || !in_array('name', $hide_fields)) {
 		list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
@@ -389,7 +389,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 			$expire_txt = ($ban['expire'] > 0) ? ('<br>This ban will expire ' . strftime(TINYIB_DATEFMT, $ban['expire'])) : '<br>This ban is permanent and will not expire.';
 			$reason_txt = ($ban['reason'] == '') ? '' : ('<br>Reason: ' . $ban['reason']);
-			fancyDie('Your IP address ' . $_SERVER['REMOTE_ADDR'] . ' has been banned from posting on this image board.  ' . $expire_txt . $reason_txt);
+			fancyDie('Your IP address ' . remoteAddress() . ' has been banned from posting on this image board.  ' . $expire_txt . $reason_txt);
 		}
 		break;
 	}
@@ -575,7 +575,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		fancyDie(__('Sorry, an invalid post identifier was sent. Please go back, refresh the page, and try again.'));
 	}
 
-	$report = reportByIP($post['id'], $_SERVER['REMOTE_ADDR']);
+	$report = reportByIP($post['id'], remoteAddress());
 	if (!empty($report)) {
 		fancyDie(__('You have already submitted a report for that post.'));
 	}
@@ -634,7 +634,7 @@ EOF;
 		}
 	}
 
-	$report = array('ip' => $_SERVER['REMOTE_ADDR'], 'post' => $post['id']);
+	$report = array('ip' => remoteAddress(), 'post' => $post['id']);
 	insertReport($report);
 
 	fancyDie(__('Post reported.'));

@@ -152,7 +152,7 @@ function insertPost($post) {
 	$now = time();
 	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBPOSTS . " (parent, timestamp, bumped, ip, name, tripcode, email,   nameblock, subject, message, password,   file, file_hex, file_original, file_size, file_size_formatted, image_width, image_height, thumb, thumb_width, thumb_height, moderated) " .
 		" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-	$stm->execute(array($post['parent'], $now, $now, hashData($_SERVER['REMOTE_ADDR']), $post['name'], $post['tripcode'], $post['email'],
+	$stm->execute(array($post['parent'], $now, $now, hashData(remoteAddress()), $post['name'], $post['tripcode'], $post['email'],
 		$post['nameblock'], $post['subject'], $post['message'], $post['password'],
 		$post['file'], $post['file_hex'], $post['file_original'], $post['file_size'], $post['file_size_formatted'],
 		$post['image_width'], $post['image_height'], $post['thumb'], $post['thumb_width'], $post['thumb_height'], $post['moderated']));
@@ -254,7 +254,7 @@ function trimThreads() {
 }
 
 function lastPostByIP() {
-	$result = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE ip = ? OR ip = ? ORDER BY id DESC LIMIT 1", array($_SERVER['REMOTE_ADDR'], hashData($_SERVER['REMOTE_ADDR'])));
+	$result = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE ip = ? OR ip = ? ORDER BY id DESC LIMIT 1", array(remoteAddress(), hashData(remoteAddress())));
 	return $result->fetch(PDO::FETCH_ASSOC);
 }
 

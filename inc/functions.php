@@ -259,7 +259,7 @@ function checkCAPTCHA($mode) {
 		$failed_captcha = true;
 
 		$recaptcha = new \ReCaptcha\ReCaptcha(TINYIB_RECAPTCHA_SECRET);
-		$resp = $recaptcha->verify($captcha, $_SERVER['REMOTE_ADDR']);
+		$resp = $recaptcha->verify($captcha, remoteAddress());
 		if ($resp->isSuccess()) {
 			$failed_captcha = false;
 		}
@@ -296,12 +296,12 @@ function checkCAPTCHA($mode) {
 }
 
 function checkBanned() {
-	$ban = banByIP($_SERVER['REMOTE_ADDR']);
+	$ban = banByIP(remoteAddress());
 	if ($ban) {
 		if ($ban['expire'] == 0 || $ban['expire'] > time()) {
 			$expire = ($ban['expire'] > 0) ? ('<br>This ban will expire ' . strftime(TINYIB_DATEFMT, $ban['expire'])) : '<br>This ban is permanent and will not expire.';
 			$reason = ($ban['reason'] == '') ? '' : ('<br>Reason: ' . $ban['reason']);
-			fancyDie('Your IP address ' . $_SERVER['REMOTE_ADDR'] . ' has been banned from posting on this image board.  ' . $expire . $reason);
+			fancyDie('Your IP address ' . remoteAddress() . ' has been banned from posting on this image board.  ' . $expire . $reason);
 		} else {
 			clearExpiredBans();
 		}
@@ -783,6 +783,13 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 	}
 
 	return $post;
+}
+
+function remoteAddress() {
+	if (TINYIB_CLOUDFLARE) {
+		return $_SERVER['HTTP_CF_CONNECTING_IP'];
+	}
+	return $_SERVER['REMOTE_ADDR'];
 }
 
 function installedViaGit() {

@@ -403,8 +403,8 @@ function trimThreads() {
 
 function lastPostByIP() {
 	$compClause = new OrWhereClause();
-	$compClause->add(new SimpleWhereClause(POST_IP, '=', $_SERVER['REMOTE_ADDR'], STRING_COMPARISON));
-	$compClause->add(new SimpleWhereClause(POST_IP, '=', hashData($_SERVER['REMOTE_ADDR']), STRING_COMPARISON));
+	$compClause->add(new SimpleWhereClause(POST_IP, '=', remoteAddress(), STRING_COMPARISON));
+	$compClause->add(new SimpleWhereClause(POST_IP, '=', hashData(remoteAddress()), STRING_COMPARISON));
 	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, $compClause, 1, new OrderBy(POST_ID, DESCENDING, INTEGER_COMPARISON));
 	return convertPostsToSQLStyle($rows, true);
 }
