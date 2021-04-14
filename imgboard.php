@@ -38,7 +38,8 @@ while (ob_get_level() > 0) {
 	ob_end_flush();
 }
 
-function fancyDie($message) {
+function fancyDie($message)
+{
 	$back = 'Click here to go back';
 	if (function_exists('__')) {
 		$back = __('Click here to go back');
@@ -54,7 +55,8 @@ require 'inc/defines.php';
 global $tinyib_capcodes, $tinyib_embeds, $tinyib_hidefields, $tinyib_hidefieldsop;
 
 if (!defined('TINYIB_LOCALE') || TINYIB_LOCALE == '') {
-	function __($string) {
+	function __($string)
+	{
 		return $string;
 	}
 } else {
@@ -572,6 +574,60 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	$report = reportByIP($post['id'], $_SERVER['REMOTE_ADDR']);
 	if (!empty($report)) {
 		fancyDie(__('You have already submitted a report for that post.'));
+	}
+
+	if (TINYIB_REPORTCAPTCHA != '') {
+		if (isset($_GET['verify'])) {
+			checkCAPTCHA(TINYIB_REPORTCAPTCHA);
+		} else {
+			if (TINYIB_REPORTCAPTCHA === 'hcaptcha') {
+				$captcha = '
+<br>
+<div style="min-height: 82px;">
+	<div class="h-captcha" data-sitekey="' . TINYIB_HCAPTCHA_SITE . '"></div>
+</div><br><br>';
+			} else if (TINYIB_REPORTCAPTCHA === 'recaptcha') {
+				$captcha = '
+<br>
+<div style="min-height: 80px;">
+	<div class="g-recaptcha" data-sitekey="' . TINYIB_RECAPTCHA_SITE . '"></div>
+	<noscript>
+		<div>
+			<div style="width: 302px; height: 422px; position: relative;">
+				<div style="width: 302px; height: 422px; position: absolute;">
+					<iframe src="https://www.google.com/recaptcha/api/fallback?k=' . TINYIB_RECAPTCHA_SITE . '" frameborder="0" scrolling="no" style="width: 302px; height:422px; border-style: none;"></iframe>
+				</div>
+			</div>
+			<div style="width: 300px; height: 60px; border-style: none;bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px;background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px;">
+				<textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;"></textarea>
+			</div>
+		</div>
+	</noscript>
+</div><br><br>';
+			} else { // Simple CAPTCHA
+				$captcha = '
+<br>
+<input type="text" name="captcha" id="captcha" size="6" accesskey="c" autocomplete="off">&nbsp;&nbsp;' . __('(enter the text below)') . '<br>
+<img id="captchaimage" src="inc/captcha.php" width="175" height="55" alt="CAPTCHA" onclick="javascript:reloadCAPTCHA()" style="margin-top: 5px;cursor: pointer;"><br><br>';
+			}
+
+			$txt_report = __('Please complete a CAPTCHA to submit your report');
+			$txt_submit = __('Submit');
+			$body = <<<EOF
+<form id="tinyib" name="tinyib" method="post" action="?report={$report['id']}&verify">
+<fieldset>
+<legend align="center">$txt_report</legend>
+<div class="login">
+$captcha
+<input type="submit" value="$txt_submit" class="managebutton">
+</div>
+</fieldset>
+</form>
+EOF;
+
+			echo pageHeader() . $body . pageFooter();
+			die();
+		}
 	}
 
 	$report = array('ip' => $_SERVER['REMOTE_ADDR'], 'post' => $post['id']);

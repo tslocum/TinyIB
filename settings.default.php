@@ -25,6 +25,7 @@ define('TINYIB_BOARDDESC', 'TinyIB'); // Displayed below logo in page headers
 define('TINYIB_BOARDTITLE', '');      // Title of board pages.  When blank, defaults to TINYIB_BOARDDESC (when set) or "TinyIB"
 define('TINYIB_ALWAYSNOKO', false);   // Redirect to thread after posting
 define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass a CAPTCHA when posting: simple / hcaptcha / recaptcha  ['' to disable]
+define('TINYIB_REPORTCAPTCHA', '');   // Reduce invalid reports by requiring users to pass a CAPTCHA when reporting: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to pass a CAPTCHA when logging in to the management panel: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_REPORT', false);       // Allow users to report posts
 define('TINYIB_REQMOD', '');          // Require moderation before displaying posts: files / all  ['' to disable]
