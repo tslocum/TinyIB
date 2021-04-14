@@ -618,7 +618,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			$txt_report = __('Please complete a CAPTCHA to submit your report');
 			$txt_submit = __('Submit');
 			$body = <<<EOF
-<form id="tinyib" name="tinyib" method="post" action="?report={$report['id']}&verify">
+<form id="tinyib" name="tinyib" method="post" action="?report={$post['id']}&verify">
 <fieldset>
 <legend align="center">$txt_report</legend>
 <div class="login">
