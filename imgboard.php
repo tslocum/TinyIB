@@ -254,6 +254,12 @@ foreach ($includes as $include) {
 	require $include;
 }
 
+list($account, $loggedin, $isadmin) = manageCheckLogIn(false);
+
+if (!$loggedin) {
+	checkBanned();
+}
+
 $redirect = true;
 // Check if the request is to make a post
 if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name']) || isset($_POST['email']) || isset($_POST['subject']) || isset($_POST['message']) || isset($_POST['file']) || isset($_POST['embed']) || isset($_POST['password']))) {
@@ -261,15 +267,13 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		fancyDie(__('Posting is currently disabled.<br>Please try again in a few moments.'));
 	}
 
-	list($account, $loggedin, $isadmin) = manageCheckLogIn(false);
-
-	$rawpost = isRawPost();
-	$rawposttext = '';
 	if (!$loggedin) {
 		checkCAPTCHA(TINYIB_CAPTCHA);
-		checkBanned();
 		checkFlood();
 	}
+	
+	$rawpost = isRawPost();
+	$rawposttext = '';
 	if (!$rawpost) {
 		checkMessageSize();
 	}
