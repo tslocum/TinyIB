@@ -79,9 +79,12 @@ support in mind.
       - Moderate posts by visiting the management panel.
     - To allow video uploads:
       - Ensure your web host is running Linux.
-      - Install [mediainfo](https://mediaarea.net/en/MediaInfo) and [ffmpegthumbnailer](https://code.google.com/p/ffmpegthumbnailer/).  On Ubuntu, run ``sudo apt-get install mediainfo ffmpegthumbnailer``.
+      - Install [ffmpeg](https://ffmpeg.org).  On Ubuntu, run ``sudo apt-get install ffmpeg``.
       - Add desired video file types to ``$tinyib_uploads``.
     - To remove the play icon from .SWF and .WebM thumbnails, delete or rename **video_overlay.png**
+    - To use FFMPEG to create thumbnails:
+        - Install FFMPEG and ensure  the ``ffmpeg`` and ``ffprobe`` commands are available.
+        - Set ``TINYIB_THUMBNAIL`` to ``ffmpeg``.
     - To use ImageMagick instead of GD when creating thumbnails:
       - Install ImageMagick and ensure that the ``convert`` command is available.
       - Set ``TINYIB_THUMBNAIL`` to ``imagemagick``.

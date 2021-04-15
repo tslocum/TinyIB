@@ -38,8 +38,7 @@ while (ob_get_level() > 0) {
 	ob_end_flush();
 }
 
-function fancyDie($message)
-{
+function fancyDie($message) {
 	$back = 'Click here to go back';
 	if (function_exists('__')) {
 		$back = __('Click here to go back');
@@ -55,8 +54,7 @@ require 'inc/defines.php';
 global $tinyib_capcodes, $tinyib_embeds, $tinyib_hidefields, $tinyib_hidefieldsop;
 
 if (!defined('TINYIB_LOCALE') || TINYIB_LOCALE == '') {
-	function __($string)
-	{
+	function __($string) {
 		return $string;
 	}
 } else {

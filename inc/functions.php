@@ -469,6 +469,67 @@ function thumbnailDimensions($post) {
 	return ($post['image_width'] > $max_width || $post['image_height'] > $max_height) ? array($max_width, $max_height) : array($post['image_width'], $post['image_height']);
 }
 
+function videoDimensions($file_location) {
+	$discard = '';
+	$exit_status = 1;
+	exec("ffprobe -version", $discard, $exit_status);
+	if ($exit_status != 0) {
+		fancyDie('FFMPEG is not installed, or the commands ffmpeg and ffprobe are not in the server\'s $PATH.<br>Install FFMPEG, or set TINYIB_THUMBNAIL to \'gd\' or \'imagemagick\'.');
+	}
+
+	$dimensions = '';
+	$exit_status = 1;
+	exec("ffprobe -hide_banner -loglevel error -of csv=p=0 -show_entries stream=width,height $file_location", $dimensions, $exit_status);
+	if ($exit_status != 0) {
+		return array(0, 0);
+	}
+	if (is_array($dimensions)) {
+		$dimensions = $dimensions[0];
+	}
+	$split = explode(',', $dimensions);
+	if (count($split) != 2) {
+		return array(0, 0);
+	}
+	return array(intval($split[0]), intval($split[1]));
+}
+
+function videoDuration($file_location) {
+	$discard = '';
+	$exit_status = 1;
+	exec("ffprobe -version", $discard, $exit_status);
+	if ($exit_status != 0) {
+		fancyDie('FFMPEG is not installed, or the commands ffmpeg and ffprobe are not in the server\'s $PATH.<br>Install FFMPEG, or set TINYIB_THUMBNAIL to \'gd\' or \'imagemagick\'.');
+	}
+
+	$duration = '';
+	$exit_status = 1;
+	exec("ffprobe -hide_banner -loglevel error -of csv=p=0 -show_entries format=duration $file_location", $duration, $exit_status);
+	if ($exit_status != 0) {
+		return 0;
+	}
+	if (is_array($duration)) {
+		$duration = $duration[0];
+	}
+	return floatval($duration);
+}
+
+function ffmpegThumbnail($file_location, $thumb_location, $new_w, $new_h) {
+	$discard = '';
+	$exit_status = 1;
+	exec("ffmpeg -version", $discard, $exit_status);
+	if ($exit_status != 0) {
+		fancyDie('FFMPEG is not installed, or the commands ffmpeg and ffprobe are not in the server\'s $PATH.<br>Install FFMPEG, or set TINYIB_THUMBNAIL to \'gd\' or \'imagemagick\'.');
+	}
+
+	$quarter = videoDuration($file_location) / 4;
+
+	$exit_status = 1;
+	exec("ffmpeg -hide_banner -loglevel error -ss $quarter -i $file_location -frames:v 1 -vf \"thumbnail,scale='if(gt(iw,ih),$new_w,trunc(oh*a/2)*2)':'if(gt(iw,ih),trunc(ow/a/2)*2,$new_h)'\" $thumb_location", $discard, $exit_status);
+	if ($exit_status != 0) {
+		return false;
+	}
+}
+
 function createThumbnail($file_location, $thumb_location, $new_w, $new_h) {
 	if (TINYIB_THUMBNAIL == 'gd') {
 		$system = explode(".", $thumb_location);
@@ -523,13 +584,15 @@ function createThumbnail($file_location, $thumb_location, $new_w, $new_h) {
 
 		imagedestroy($dst_img);
 		imagedestroy($src_img);
+	} else if (TINYIB_THUMBNAIL == 'ffmpeg') {
+		ffmpegThumbnail($file_location, $thumb_location, $new_w, $new_h);
 	} else { // ImageMagick
 		$discard = '';
 
 		$exit_status = 1;
 		exec("convert -version", $discard, $exit_status);
 		if ($exit_status != 0) {
-			fancyDie('ImageMagick is not installed, or the convert command is not in the server\'s $PATH.<br>Install ImageMagick, or set TINYIB_THUMBNAIL to \'gd\'.');
+			fancyDie('ImageMagick is not installed, or the convert command is not in the server\'s $PATH.<br>Install ImageMagick, or set TINYIB_THUMBNAIL to \'gd\' or \'ffmpeg\'.');
 		}
 
 		$exit_status = 1;
@@ -575,7 +638,7 @@ function addVideoOverlay($thumb_location) {
 		return;
 	}
 
-	if (TINYIB_THUMBNAIL == 'gd') {
+	if (TINYIB_THUMBNAIL == 'gd' || TINYIB_THUMBNAIL == 'ffmpeg') {
 		if (substr($thumb_location, -4) == ".jpg") {
 			$thumbnail = imagecreatefromjpeg($thumb_location);
 		} else {
@@ -721,13 +784,12 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 	}
 
 	if ($file_mime == 'audio/webm' || $file_mime == 'video/webm' || $file_mime == 'audio/mp4' || $file_mime == 'video/mp4') {
-		$post['image_width'] = max(0, intval(shell_exec('mediainfo --Inform="Video;%Width%" ' . $file_location)));
-		$post['image_height'] = max(0, intval(shell_exec('mediainfo --Inform="Video;%Height%" ' . $file_location)));
+		list($post['image_width'], $post['image_height']) = videoDimensions($file_location);
 
 		if ($post['image_width'] > 0 && $post['image_height'] > 0) {
 			list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
 			$post['thumb'] = $file_name . 's.jpg';
-			shell_exec("ffmpegthumbnailer -s " . max($thumb_maxwidth, $thumb_maxheight) . " -i $file_location -o thumb/{$post['thumb']}");
+			ffmpegThumbnail($file_location, 'thumb/' . $post['thumb'], $thumb_maxwidth, $thumb_maxheight);
 
 			$thumb_info = getimagesize('thumb/' . $post['thumb']);
 			$post['thumb_width'] = $thumb_info[0];
@@ -742,7 +804,7 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 			addVideoOverlay('thumb/' . $post['thumb']);
 		}
 
-		$duration = intval(shell_exec('mediainfo --Inform="General;%Duration%" ' . $file_location));
+		$duration = videoDuration($file_location);
 		if ($duration > 0) {
 			$mins = floor(round($duration / 1000) / 60);
 			$secs = str_pad(floor(round($duration / 1000) % 60), 2, '0', STR_PAD_LEFT);

@@ -76,7 +76,7 @@ $tinyib_uploads = array('image/jpeg'                    => array('jpg'),
 //                      'audio/mp4'                     => array('mp4');
 //                      'audio/wav'                     => array('wav');
 //                      'audio/webm'                    => array('webm');
-//                      'video/mp4'                     => array('mp4'); // Video uploads require mediainfo and ffmpegthumbnailer  (see README for instructions)
+//                      'video/mp4'                     => array('mp4'); // Video uploads require ffmpeg  (see README for instructions)
 //                      'video/webm'                    => array('webm');
 
 // oEmbed APIs
@@ -88,7 +88,7 @@ $tinyib_embeds = array('SoundCloud' => 'https://soundcloud.com/oembed?format=jso
 // File control
 define('TINYIB_MAXKB', 2048);         // Maximum file size in kilobytes  [0 to disable]
 define('TINYIB_MAXKBDESC', '2 MB');   // Human-readable representation of the maximum file size
-define('TINYIB_THUMBNAIL', 'gd');     // Thumbnail method to use: gd / imagemagick  (see README for instructions)
+define('TINYIB_THUMBNAIL', 'gd');     // Thumbnail method to use: gd / ffmpeg / imagemagick  (see README for instructions)
 define('TINYIB_UPLOADVIAURL', false); // Allow files to be uploaded via URL
 define('TINYIB_NOFILEOK', false);     // Allow the creation of new threads without uploading a file
 
