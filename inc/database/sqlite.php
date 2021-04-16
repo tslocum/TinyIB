@@ -151,8 +151,8 @@ function insertPost($post) {
 	return sqlite_last_insert_rowid($GLOBALS["db"]);
 }
 
-function approvePostByID($id) {
-	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET moderated = 1 WHERE id = " . $id);
+function approvePostByID($id, $moderated) {
+	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET moderated = " . $moderated . " WHERE id = " . $id);
 }
 
 function bumpThreadByID($id) {

@@ -173,8 +173,8 @@ function insertPost($post) {
 	return mysql_insert_id();
 }
 
-function approvePostByID($id) {
-	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = 1 WHERE `id` = " . $id . " LIMIT 1");
+function approvePostByID($id, $moderated) {
+	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = $moderated WHERE `id` = " . $id . " LIMIT 1");
 }
 
 function bumpThreadByID($id) {

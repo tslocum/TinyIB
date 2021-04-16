@@ -199,9 +199,9 @@ function insertPost($post) {
 	return mysqli_insert_id($link);
 }
 
-function approvePostByID($id) {
+function approvePostByID($id, $moderated) {
 	global $link;
-	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = 1 WHERE `id` = " . $id . " LIMIT 1");
+	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = " . $moderated . " WHERE `id` = " . $id . " LIMIT 1");
 }
 
 function bumpThreadByID($id) {

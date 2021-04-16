@@ -259,11 +259,11 @@ function insertPost($newpost) {
 	return $GLOBALS['db']->insertWithAutoId(POSTS_FILE, POST_ID, $post);
 }
 
-function approvePostByID($id) {
+function approvePostByID($id, $moderated) {
 	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_ID, '=', $id, INTEGER_COMPARISON), 1);
 	if (count($rows) > 0) {
 		foreach ($rows as $post) {
-			$post[POST_MODERATED] = 1;
+			$post[POST_MODERATED] = $moderated;
 			$GLOBALS['db']->updateRowById(POSTS_FILE, POST_ID, $post);
 		}
 	}

@@ -175,9 +175,9 @@ function insertPost($post) {
 	return $db->lastInsertRowID();
 }
 
-function approvePostByID($id) {
+function approvePostByID($id, $moderated) {
 	global $db;
-	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET moderated = 1 WHERE id = " . $id);
+	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET moderated = " . $moderated . " WHERE id = " . $id);
 }
 
 function bumpThreadByID($id) {

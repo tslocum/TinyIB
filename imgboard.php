@@ -39,11 +39,11 @@ while (ob_get_level() > 0) {
 }
 
 function fancyDie($message, $go_back=1) {
-	$back = 'Click here to go back';
+	$go_back_text = 'Click here to go back';
 	if (function_exists('__')) {
-		$back = __('Click here to go back');
+		$go_back_text = __('Click here to go back');
 	}
-	die('<body text="#800000" bgcolor="#FFFFEE" align="center"><br><div style="display: inline-block; background-color: #F0E0D6;font-size: 1.25em;font-family: Tahoma, Geneva, sans-serif;padding: 7px;border: 1px solid #D9BFB7;border-left: none;border-top: none;">' . $message . '</div><br><br>- <a href="javascript:history.go(-' . $back . ')">' . $back . '</a> -</body>');
+	die('<body text="#800000" bgcolor="#FFFFEE" align="center"><br><div style="display: inline-block; background-color: #F0E0D6;font-size: 1.25em;font-family: Tahoma, Geneva, sans-serif;padding: 7px;border: 1px solid #D9BFB7;border-left: none;border-top: none;">' . $message . '</div><br><br>- <a href="javascript:history.go(-' . $go_back . ')">' . $go_back_text . '</a> -</body>');
 }
 
 if (!file_exists('settings.php')) {
@@ -573,7 +573,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		fancyDie(__('Sorry, an invalid post identifier was sent. Please go back, refresh the page, and try again.'));
 	}
 
-	if ($post['moderated'] == 1) {
+	if ($post['moderated'] == 2) {
 		fancyDie(__('Moderators have determined that post does not break any rules.'));
 	}
 
@@ -974,7 +974,7 @@ EOF;
 			if ($_GET['approve'] > 0) {
 				$post = postByID($_GET['approve']);
 				if ($post) {
-					approvePostByID($post['id']);
+					approvePostByID($post['id'], 1);
 					$thread_id = $post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent'];
 
 					if (strtolower($post['email']) != 'sage' && (TINYIB_MAXREPLIES == 0 || numRepliesToThreadByID($thread_id) <= TINYIB_MAXREPLIES)) {
@@ -1034,7 +1034,7 @@ EOF;
 			if ($_GET['clearreports'] > 0) {
 				$post = postByID($_GET['clearreports']);
 				if ($post) {
-					approvePostByID($post['id']);
+					approvePostByID($post['id'], 2);
 					deleteReportsByPost($post['id']);
 
 					manageLogAction(__('Approved') . ' ' . postLink('&gt;&gt;' . $post['id']));
