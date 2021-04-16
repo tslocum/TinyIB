@@ -1226,7 +1226,7 @@ EOF;
 	$report_html = '';
 	$reports = reportsByPost($post['id']);
 	if (TINYIB_REPORT && count($reports) > 0) {
-		$txt_clear_reports = __('Clear reports');
+		$txt_clear_reports = __('Approve');
 		$report_info = count($reports) . ' ' . plural(count($reports), __('report'), __('reports'));
 		$report_html = <<<EOF
 <tr><td align="right" width="50%;">
@@ -1314,7 +1314,7 @@ function manageEditKeyword($id) {
 	<label for="action">$txt_action</label>
 	<select name="action">
 EOF;
-	if (TINYIB_REPORT) {
+	if (TINYIB_REPORT && TINYIB_REQMOD != 'all') {
 		$return .= '<option value="report"' . ($v_action == 'report' ? ' selected' : '') . '>' . __('Report') . '</option>';
 	}
 	$return .= '<option value="delete"' . ($v_action == 'delete' ? ' selected' : '') . '>' . __('Delete') . '</option>';

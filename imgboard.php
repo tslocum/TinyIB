@@ -573,6 +573,10 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		fancyDie(__('Sorry, an invalid post identifier was sent. Please go back, refresh the page, and try again.'));
 	}
 
+	if ($post['moderated'] == 1) {
+		fancyDie(__('Moderators have determined that post does not break any rules.'));
+	}
+
 	$report = reportByIP($post['id'], remoteAddress());
 	if (!empty($report)) {
 		fancyDie(__('You have already submitted a report for that post.'));
@@ -1028,10 +1032,11 @@ EOF;
 			if ($_GET['clearreports'] > 0) {
 				$post = postByID($_GET['clearreports']);
 				if ($post) {
+					approvePostByID($post['id']);
 					deleteReportsByPost($post['id']);
 
-					manageLogAction(sprintf(__('Cleared reports for %s'), postLink('&gt;&gt;' . $post['id'])));
-					$text .= manageInfo(__('Reports cleared.'));
+					manageLogAction(__('Approved') . ' ' . postLink('&gt;&gt;' . $post['id']));
+					$text .= manageInfo(sprintf(__('Post No.%d approved.'), $post['id']));
 				} else {
 					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
 				}
