@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2021-04-04 13:04-0700\n"
-"PO-Revision-Date: 2020-11-28 08:29+0000\n"
+"PO-Revision-Date: 2021-04-13 21:27+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/tinyib/"
 "tinyib/nb_NO/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -86,7 +86,7 @@ msgstr "innebygg en nettadresse"
 
 #, fuzzy, php-format
 msgid "Please %s to start a new thread."
-msgstr "0 for å starte ny tråd"
+msgstr "%s for å starte ny tråd"
 
 #, php-format
 msgid "Please enter a message and/or %s."
@@ -315,9 +315,9 @@ msgstr "Beklager, videoen din ser ut til å være skadet."
 msgid "Supported file type is %s"
 msgstr "Støttet filtype er %s"
 
-#, fuzzy, php-format
+#, php-format
 msgid "Supported file types are %1$s and %2$s."
-msgstr "Støttede filtyper er %s."
+msgstr "Støttede filtyper er %1$s og %2$s."
 
 msgid "Submit"
 msgstr "Send inn"
@@ -512,15 +512,13 @@ msgstr ""
 msgid "%1$d reports by %2$s"
 msgstr ""
 
-#, fuzzy, php-format
-#| msgid "reports"
+#, php-format
 msgid "%d reports"
-msgstr "rapporter"
+msgstr "%d rapporter"
 
-#, fuzzy, php-format
-#| msgid "Reported posts"
+#, php-format
 msgid "Reported by %s"
-msgstr "Rapporterte poster"
+msgstr "Rapportert av %s"
 
 msgid "Moderate"
 msgstr "Moderer"
@@ -653,9 +651,9 @@ msgstr "Bannlysning av %s utført"
 msgid "Only an administrator may ban an IP address."
 msgstr "Kun en administrator kan bannlyse en IP-adresse."
 
-#, fuzzy, php-format
+#, php-format
 msgid "IP address: %s"
-msgstr "IP-adresse:"
+msgstr "IP-adresse: %s"
 
 msgid "This will delete the entire thread below."
 msgstr "Dette vil slette hele tråden nedenfor."
