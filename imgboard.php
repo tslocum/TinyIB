@@ -38,12 +38,12 @@ while (ob_get_level() > 0) {
 	ob_end_flush();
 }
 
-function fancyDie($message) {
+function fancyDie($message, $go_back=1) {
 	$back = 'Click here to go back';
 	if (function_exists('__')) {
 		$back = __('Click here to go back');
 	}
-	die('<body text="#800000" bgcolor="#FFFFEE" align="center"><br><div style="display: inline-block; background-color: #F0E0D6;font-size: 1.25em;font-family: Tahoma, Geneva, sans-serif;padding: 7px;border: 1px solid #D9BFB7;border-left: none;border-top: none;">' . $message . '</div><br><br>- <a href="javascript:history.go(-1)">' . $back . '</a> -</body>');
+	die('<body text="#800000" bgcolor="#FFFFEE" align="center"><br><div style="display: inline-block; background-color: #F0E0D6;font-size: 1.25em;font-family: Tahoma, Geneva, sans-serif;padding: 7px;border: 1px solid #D9BFB7;border-left: none;border-top: none;">' . $message . '</div><br><br>- <a href="javascript:history.go(-' . $back . ')">' . $back . '</a> -</body>');
 }
 
 if (!file_exists('settings.php')) {
@@ -582,9 +582,11 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		fancyDie(__('You have already submitted a report for that post.'));
 	}
 
+	$go_back = 1;
 	if (TINYIB_REPORTCAPTCHA != '') {
 		if (isset($_GET['verify'])) {
 			checkCAPTCHA(TINYIB_REPORTCAPTCHA);
+			$go_back = 2;
 		} else {
 			if (TINYIB_REPORTCAPTCHA === 'hcaptcha') {
 				$captcha = '
@@ -639,7 +641,7 @@ EOF;
 	$report = array('ip' => remoteAddress(), 'post' => $post['id']);
 	insertReport($report);
 
-	fancyDie(__('Post reported.'));
+	fancyDie(__('Post reported.'), $go_back);
 // Check if the request is to delete a post and/or its associated image
 } elseif (isset($_GET['delete']) && !isset($_GET['manage'])) {
 	if (!isset($_POST['delete'])) {
