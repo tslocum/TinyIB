@@ -842,6 +842,12 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 		$thumb_info = getimagesize('thumb/' . $post['thumb']);
 		$post['thumb_width'] = $thumb_info[0];
 		$post['thumb_height'] = $thumb_info[1];
+
+		if ($post['thumb_width'] <= 0 || $post['thumb_height'] <= 0) {
+			@unlink($file_location);
+			@unlink('thumb/' . $post['thumb']);
+			fancyDie(__('Sorry, your video appears to be corrupt.'));
+		}
 	}
 
 	return $post;
