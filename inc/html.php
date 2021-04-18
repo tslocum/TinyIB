@@ -498,7 +498,7 @@ EOF;
 	$return .= <<<EOF
 <a id="${post['id']}"></a>
 <label>
-	<input type="checkbox" name="delete" value="${post['id']}"> 
+	<input type="checkbox" name="delete[]" value="${post['id']}"> 
 EOF;
 
 	if ($post['subject'] != '') {
@@ -642,7 +642,7 @@ EOF;
 		$htmlposts
 		</div>
 		<hr>
-		<table class	="userdelete">
+		<table class="userdelete">
 			<tbody>
 				<tr>
 					<td>
@@ -1097,6 +1097,7 @@ function manageAccountsTable() {
 
 function manageBanForm() {
 	$txt_ban = __('Add a ban');
+	$txt_ban_help = __('Multiple IP addresses may be banned at once by separating each address with a comma.');
 	$txt_ban_ip = __('IP Address');
 	$txt_ban_expire = __('Expire(sec)');
 	$txt_ban_reason = __('Reason');
@@ -1115,7 +1116,9 @@ function manageBanForm() {
 	<legend>$txt_ban</legend>
 	<label for="ip">$txt_ban_ip</label> <input type="text" name="ip" id="ip" value="${_GET['bans']}"> <input type="submit" value="$txt_submit" class="managebutton"><br>
 	<label for="expire">$txt_ban_expire</label> <input type="text" name="expire" id="expire" value="0">&nbsp;&nbsp;<small><a href="#" onclick="document.tinyib.expire.value='3600';return false;">$txt_1h</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='86400';return false;">$txt_1d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='172800';return false;">$txt_2d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='604800';return false;">$txt_1w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='1209600';return false;">$txt_2w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='2592000';return false;">$txt_1m</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='0';return false;">$txt_ban_never</a></small><br>
-	<label for="reason">$txt_ban_reason&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" name="reason" id="reason">&nbsp;&nbsp;<small>$txt_ban_optional</small>
+	<label for="reason">$txt_ban_reason&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" name="reason" id="reason">&nbsp;&nbsp;<small>$txt_ban_optional</small><br>
+	<br>
+	<small>$txt_ban_help</small>
 	<legend>
 	</fieldset>
 	</form><br>
@@ -1157,7 +1160,72 @@ function manageModeratePostForm() {
 EOF;
 }
 
-function manageModeratePost($post) {
+function manageModerateAll($post_ids, $threads, $replies, $ips) {
+	global $isadmin;
+	$txt_moderate = sprintf(__('Moderate %d posts'), count($post_ids));
+	$txt_delete_all = __('Delete all');
+	$txt_ban_all = __('Ban all');
+	if ($threads == 1 && $replies == 1) {
+		$delete_info = __('1 thread and 1 reply will be deleted.');
+	} else if ($threads == 1) {
+		$delete_info = sprintf(__('1 thread and %d replies will be deleted.'), $replies);
+	} else if ($replies == 1) {
+		$delete_info = sprintf(__('%d threads and 1 reply will be deleted.'), $threads);
+	} else {
+		$delete_info = sprintf(__('%1$d threads and %2$d replies will be deleted.'), $threads, $replies);
+	}
+	if (count($ips) == 1) {
+		$ban_info = __('1 IP address will be banned.');
+	} else {
+		$ban_info = sprintf(__('%d IP addresses will be banned.'), count($ips));
+	}
+	$ban_disabled = 'disabled';
+	if ($isadmin) {
+		$ban_disabled = '';
+	}
+	$post_ids_quoted = htmlentities(implode(',', $post_ids), ENT_QUOTES);
+	$ips_comma = implode(',', $ips);
+	return <<<EOF
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr><td width="50%">
+&nbsp;
+</td><td width="50%">
+
+<fieldset>
+<legend>$txt_moderate</legend>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr><td>
+&nbsp;
+</td><td valign="top">
+
+<form method="get" action="?">
+<input type="hidden" name="manage" value="">
+<input type="hidden" name="delete" value="{$post_ids_quoted}">
+<input type="submit" value="$txt_delete_all" class="managebutton">
+</form>
+
+</td><td><small>$delete_info</small></td></tr>
+<tr><td>
+&nbsp;
+</td><td valign="top">
+
+<form method="get" action="?">
+<input type="hidden" name="manage" value="">
+<input type="hidden" name="bans" value="{$ips_comma}">
+<input type="submit" value="$txt_ban_all" class="managebutton" $ban_disabled>
+</form>
+
+</td><td><small>$ban_info</small></td></tr>
+</table>
+</fieldset>
+
+</td></tr>
+</table>
+EOF;
+
+}
+
+function manageModeratePost($post, $compact=false) {
 	global $isadmin;
 	$ban = banByIP($post['ip']);
 	$ban_disabled = (!$ban && $isadmin) ? '' : ' disabled';
@@ -1170,23 +1238,36 @@ function manageModeratePost($post) {
 			$ban_info = sprintf(__('IP address: %s'), $post['ip']);
 		}
 	}
-	$delete_info = ($post['parent'] == TINYIB_NEWTHREAD) ? __('This will delete the entire thread below.') : __('This will delete the post below.');
-	$post_or_thread = ($post['parent'] == TINYIB_NEWTHREAD) ? __('Thread') : __('Post');
+
+	$thread_or_reply = ($post['parent'] == TINYIB_NEWTHREAD) ? __('Thread') : __('Reply');
+
+	$delete_info = '';
+	if ($post['parent'] == TINYIB_NEWTHREAD) {
+		$allPosts = postsInThreadByID($post['id']);
+		if (count($allPosts) > 1) {
+			if (count($allPosts) == 2) {
+				$delete_info = __('1 reply will be deleted.');
+			} else {
+				$delete_info = sprintf(__('%d replies will be deleted.'), count($allPosts) - 1);
+			}
+		}
+	} else {
+		$delete_info = __('Belongs to ' . postLink('&gt;&gt;' . $post['id']) . '.');
+	}
 
 	$sticky_html = "";
 	$lock_html = "";
-	if ($post['parent'] == TINYIB_NEWTHREAD) {
+	if ($post['parent'] == TINYIB_NEWTHREAD && !$compact) {
 		$sticky_set = $post['stickied'] == 1 ? '0' : '1';
 		$sticky_unsticky = $post['stickied'] == 1 ? __('Un-sticky') : __('Sticky');
 		$sticky_unsticky_help = $post['stickied'] == 1 ? __('Return this thread to a normal state.') : __('Keep this thread at the top of the board.');
 		$sticky_html = <<<EOF
-	<tr><td colspan="2">&nbsp;</td></tr>
-	<tr><td align="right" width="50%;">
+	<tr><td>
 		<form method="get" action="?">
 		<input type="hidden" name="manage" value="">
 		<input type="hidden" name="sticky" value="${post['id']}">
 		<input type="hidden" name="setsticky" value="$sticky_set">
-		<input type="submit" value="$sticky_unsticky" class="managebutton" style="width: 50%;">
+		<input type="submit" value="$sticky_unsticky" class="managebutton">
 		</form>
 	</td><td><small>$sticky_unsticky_help</small></td></tr>
 EOF;
@@ -1195,46 +1276,39 @@ EOF;
 		$lock_label = $post['locked'] == 1 ? __('Unlock') : __('Lock');
 		$lock_help = $post['locked'] == 1 ? __('Allow replying to this thread.') : __('Disallow replying to this thread.');
 		$lock_html = <<<EOF
-	<tr><td align="right" width="50%;">
+	<tr><td>
 		<form method="get" action="?">
 		<input type="hidden" name="manage" value="">
 		<input type="hidden" name="lock" value="${post['id']}">
 		<input type="hidden" name="setlock" value="$lock_set">
-		<input type="submit" value="$lock_label" class="managebutton" style="width: 50%;">
+		<input type="submit" value="$lock_label" class="managebutton">
 		</form>
 	</td><td><small>$lock_help</small></td></tr>
 EOF;
-
-		$post_html = "";
-		$posts = postsInThreadByID($post["id"]);
-		foreach ($posts as $post_temp) {
-			$post_html .= buildPost($post_temp, TINYIB_INDEXPAGE);
-		}
-	} else {
-		$post_html = buildPost($post, TINYIB_INDEXPAGE);
 	}
+	$post_html = buildPost($post, TINYIB_INDEXPAGE);
 
 	$txt_moderating = sprintf(__('Moderating No.%d'), $post['id']);
 	$txt_action = __('Action');
 	if ($post['parent'] == TINYIB_NEWTHREAD) {
 		$txt_delete = __('Delete thread');
 	} else {
-		$txt_delete = __('Delete post');
+		$txt_delete = __('Delete reply');
 	}
 	$txt_ban = __('Ban poster');
 
 	$report_html = '';
 	$reports = reportsByPost($post['id']);
-	if (TINYIB_REPORT && count($reports) > 0) {
+	if (TINYIB_REPORT && count($reports) > 0 && !$compact) {
 		$txt_clear_reports = __('Approve');
 		$report_info = count($reports) . ' ' . plural(count($reports), __('report'), __('reports'));
 		$report_html = <<<EOF
-<tr><td align="right" width="50%;">
+<tr><td>
 	
 <form method="get" action="?">
 <input type="hidden" name="manage" value="">
 <input type="hidden" name="clearreports" value="${post['id']}">
-<input type="submit" value="$txt_clear_reports" class="managebutton" style="width: 50%;">
+<input type="submit" value="$txt_clear_reports" class="managebutton">
 </form>
 
 </td><td><small>$report_info</small></td></tr>
@@ -1244,25 +1318,35 @@ EOF;
 	<fieldset>
 	<legend>$txt_moderating</legend>
 	
+	<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr><td width="50%" valign="top">
+	
+	<fieldset>
+	<legend>$thread_or_reply</legend>	
+	$post_html
+	</fieldset>
+	
+	</td><td width="50%" valign="top">
+	
 	<fieldset>
 	<legend>$txt_action</legend>
 	
 	<table border="0" cellspacing="0" cellpadding="0" width="100%">
-	<tr><td align="right" width="50%;">
+	<tr><td>
 	
 	<form method="get" action="?">
 	<input type="hidden" name="manage" value="">
 	<input type="hidden" name="delete" value="${post['id']}">
-	<input type="submit" value="$txt_delete" class="managebutton" style="width: 50%;">
+	<input type="submit" value="$txt_delete" class="managebutton">
 	</form>
 	
 	</td><td><small>$delete_info</small></td></tr>
-	<tr><td align="right" width="50%;">
+	<tr><td>
 	
 	<form method="get" action="?">
 	<input type="hidden" name="manage" value="">
 	<input type="hidden" name="bans" value="${post['ip']}">
-	<input type="submit" value="$txt_ban" class="managebutton" style="width: 50%;"$ban_disabled>
+	<input type="submit" value="$txt_ban" class="managebutton" $ban_disabled>
 	</form>
 	
 	</td><td><small>$ban_info</small></td></tr>
@@ -1276,11 +1360,9 @@ EOF;
 	</table>
 	
 	</fieldset>
-	
-	<fieldset>
-	<legend>$post_or_thread</legend>	
-	$post_html
-	</fieldset>
+
+	</td></tr>
+	</table>
 	
 	</fieldset>
 	<br>

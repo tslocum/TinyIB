@@ -38,7 +38,7 @@ while (ob_get_level() > 0) {
 	ob_end_flush();
 }
 
-function fancyDie($message, $go_back=1) {
+function fancyDie($message, $go_back = 1) {
 	$go_back_text = 'Click here to go back';
 	if (function_exists('__')) {
 		$go_back_text = __('Click here to go back');
@@ -652,26 +652,33 @@ EOF;
 		fancyDie(__('Post deletion is currently disabled.<br>Please try again in a few moments.'));
 	}
 
-	$post = postByID($_POST['delete']);
-	if ($post) {
-		list($account, $loggedin, $isadmin) = manageCheckLogIn(false);
-
-		if (!empty($account) && $_POST['password'] == '') {
-			// Redirect to post moderation page
-			echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . basename($_SERVER['PHP_SELF']) . '?manage&moderate=' . $_POST['delete'] . '">';
-		} elseif ($post['password'] != '' && (hashData($_POST['password']) == $post['password'] || md5(md5($_POST['password'])) == $post['password'])) {
-			deletePost($post['id']);
-			if ($post['parent'] == TINYIB_NEWTHREAD) {
-				threadUpdated($post['id']);
-			} else {
-				threadUpdated($post['parent']);
-			}
-			fancyDie(__('Post deleted.'));
-		} else {
-			fancyDie(__('Invalid password.'));
-		}
+	$post_ids = array();
+	if (is_array($_POST['delete'])) {
+		$post_ids = $_POST['delete'];
 	} else {
+		$post_ids = array($_POST['delete']);
+	}
+
+	list($account, $loggedin, $isadmin) = manageCheckLogIn(false);
+	if (!empty($account)) {
+		// Redirect to post moderation page
+		echo '--&gt; --&gt; --&gt;<meta http-equiv="refresh" content="0;url=' . basename($_SERVER['PHP_SELF']) . '?manage&moderate=' . implode(',', $post_ids) . '">';
+		die();
+	}
+
+	$post = postByID($post_ids[0]);
+	if (!$post) {
 		fancyDie(__('Sorry, an invalid post identifier was sent. Please go back, refresh the page, and try again.'));
+	} else if ($post['password'] != '' && (hashData($_POST['password']) == $post['password'] || md5(md5($_POST['password'])) == $post['password'])) {
+		deletePost($post['id']);
+		if ($post['parent'] == TINYIB_NEWTHREAD) {
+			threadUpdated($post['id']);
+		} else {
+			threadUpdated($post['parent']);
+		}
+		fancyDie(__('Post deleted.'));
+	} else {
+		fancyDie(__('Invalid password.'));
 	}
 
 	$redirect = false;
@@ -791,19 +798,20 @@ EOF;
 			} elseif (isset($_GET['bans'])) {
 				clearExpiredBans();
 
-				if (isset($_POST['ip'])) {
-					if ($_POST['ip'] != '') {
-						$banexists = banByIP($_POST['ip']);
+				if (isset($_POST['ip']) && $_POST['ip'] != '') {
+					$ips = explode(',', $_POST['ip']);
+					foreach ($ips as $ip) {
+						$banexists = banByIP($ip);
 						if ($banexists) {
 							fancyDie(__('Sorry, there is already a ban on record for that IP address.'));
 						}
 
 						if (TINYIB_REPORT) {
-							deleteReportsByIP($_POST['ip']);
+							deleteReportsByIP($ip);
 						}
 
 						$ban = array();
-						$ban['ip'] = $_POST['ip'];
+						$ban['ip'] = $ip;
 						$ban['expire'] = ($_POST['expire'] > 0) ? (time() + $_POST['expire']) : 0;
 						$ban['reason'] = $_POST['reason'];
 
@@ -818,14 +826,19 @@ EOF;
 
 						insertBan($ban);
 						manageLogAction($action);
-						$text .= manageInfo(sprintf(__('Ban record added for %s'), $ban['ip']));
+					}
+					if (count($ips) == 1) {
+						$text .= manageInfo(__('Banned 1 IP address'));
+					} else {
+						$text .= manageInfo(sprintf(__('Banned %d IP addresses'), count($ips)));
 					}
 				} elseif (isset($_GET['lift'])) {
 					$ban = banByID($_GET['lift']);
 					if ($ban) {
 						deleteBanByID($_GET['lift']);
-						manageLogAction(sprintf(__('Lifted ban on %s'), htmlentities($ban['ip'])));
-						$text .= manageInfo(sprintf(__('Ban record lifted for %s'), $ban['ip']));
+						$info = sprintf(__('Lifted ban on %s'), htmlentities($ban['ip']));
+						manageLogAction($info);
+						$text .= manageInfo($info);
 					}
 				}
 
@@ -956,19 +969,34 @@ EOF;
 		}
 
 		if (isset($_GET['delete'])) {
-			$post = postByID($_GET['delete']);
-			if ($post) {
+			$post_ids = explode(',', $_GET['delete']);
+			$posts = array();
+			foreach ($post_ids as $post_id) {
+				$post = postByID($post_id);
+				if (!$post) {
+					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
+
+				}
+
+				$posts[$post_id] = $post;
+			}
+			foreach ($post_ids as $post_id) {
+				$post = $posts[$post_id];
+
 				deletePost($post['id']);
 				if ($post['parent'] == TINYIB_NEWTHREAD) {
-					threadUpdated($post['id']);
+					rebuildThread($post['id']);
 				} else {
-					threadUpdated($post['parent']);
+					rebuildThread($post['parent']);
 				}
 
 				manageLogAction(__('Deleted') . ' &gt;&gt;' . $post['id']);
-				$text .= manageInfo(sprintf(__('Post No.%d deleted.'), $post['id']));
+			}
+			rebuildIndexes();
+			if (count($post_ids) == 1) {
+				$text .= manageInfo(__('Deleted 1 post'));
 			} else {
-				fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
+				$text .= manageInfo(sprintf(__('Deleted %d posts'), count($post_ids)));
 			}
 		} elseif (isset($_GET['approve'])) {
 			if ($_GET['approve'] > 0) {
@@ -989,12 +1017,36 @@ EOF;
 				}
 			}
 		} elseif (isset($_GET['moderate'])) {
-			if ($_GET['moderate'] > 0) {
-				$post = postByID($_GET['moderate']);
-				if ($post) {
-					$text .= manageModeratePost($post);
-				} else {
-					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
+			if ($_GET['moderate'] != '' && $_GET['moderate'] != '0') {
+				$post_ids = explode(',', $_GET['moderate']);
+				$compact = count($post_ids) > 1;
+				$posts = array();
+				$threads = 0;
+				$replies = 0;
+				$ips = array();
+
+				foreach ($post_ids as $post_id) {
+					$post = postByID($post_id);
+					if (!$post) {
+						fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
+					}
+					if ($post['parent'] == TINYIB_NEWTHREAD) {
+						$threads++;
+					} else {
+						$replies++;
+					}
+					$ips[] = $post['ip'];
+
+					$posts[$post_id] = $post;
+				}
+
+				$ips = array_unique($ips);
+
+				if (count($post_ids) > 1) {
+					$text .= manageModerateAll($post_ids, $threads, $replies, $ips);
+				}
+				foreach ($post_ids as $post_id) {
+					$text .= manageModeratePost($posts[$post_id], $compact);
 				}
 			} else {
 				$onload = manageOnLoad('moderate');

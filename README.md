@@ -106,10 +106,11 @@ support in mind.
 ## Moderate
 
  1. If you are not logged in already, log in to the management panel by clicking **[Manage]**.
- 2. On the board, tick the checkbox next to the offending post.
+ 2. On the board, tick the checkbox next to one or more offending posts.
  3. Scroll to the bottom of the page.
- 4. Click **Delete** with the password field blank.
-    - From this page you are able to delete the post and/or ban the author.
+ 4. Click **Delete**.
+    - You will be redirected to the management panel.
+    - From this page you are able to delete the post(s) and/or ban the author(s).
 
 ## Update
 
