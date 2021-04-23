@@ -12,6 +12,8 @@ if (!$db) {
 	fancyDie("Could not connect to database: " . $db->lastErrorMsg());
 }
 
+$db->busyTimeout(60000);
+
 // Create tables (when necessary)
 $result = $db->query("SELECT name FROM sqlite_master WHERE type='table' AND name='" . TINYIB_DBACCOUNTS . "'");
 if (!$result->fetchArray()) {
