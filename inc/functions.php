@@ -783,7 +783,25 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 		fancyDie(__('File transfer failure. Please go back and try again.'));
 	}
 
-	if ($file_mime == 'audio/webm' || $file_mime == 'video/webm' || $file_mime == 'audio/mp4' || $file_mime == 'video/mp4') {
+	if (isset($tinyib_uploads[$file_mime][1])) {
+		$thumbfile_split = explode('.', $tinyib_uploads[$file_mime][1]);
+		$post['thumb'] = $file_name . 's.' . array_pop($thumbfile_split);
+		if (!copy($tinyib_uploads[$file_mime][1], 'thumb/' . $post['thumb'])) {
+			@unlink($file_location);
+			fancyDie(__('Could not create thumbnail.'));
+		}
+		if ($file_mime == 'application/x-shockwave-flash') {
+			addVideoOverlay('thumb/' . $post['thumb']);
+		}
+	} else if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'))) {
+		$post['thumb'] = $file_name . 's.' . $tinyib_uploads[$file_mime][0];
+		list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
+
+		if (!createThumbnail($file_location, 'thumb/' . $post['thumb'], $thumb_maxwidth, $thumb_maxheight)) {
+			@unlink($file_location);
+			fancyDie(__('Could not create thumbnail.'));
+		}
+	} else if ($file_mime == 'audio/webm' || $file_mime == 'video/webm' || $file_mime == 'audio/mp4' || $file_mime == 'video/mp4') {
 		list($post['image_width'], $post['image_height']) = videoDimensions($file_location);
 
 		if ($post['image_width'] > 0 && $post['image_height'] > 0) {
@@ -811,31 +829,13 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 
 			$post['file_original'] = "$mins:$secs" . ($post['file_original'] != '' ? (', ' . $post['file_original']) : '');
 		}
-	} else if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif', 'application/x-shockwave-flash'))) {
+	}
+
+	if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif', 'application/x-shockwave-flash'))) {
 		$file_info = getimagesize($file_location);
 
 		$post['image_width'] = $file_info[0];
 		$post['image_height'] = $file_info[1];
-	}
-
-	if (isset($tinyib_uploads[$file_mime][1])) {
-		$thumbfile_split = explode('.', $tinyib_uploads[$file_mime][1]);
-		$post['thumb'] = $file_name . 's.' . array_pop($thumbfile_split);
-		if (!copy($tinyib_uploads[$file_mime][1], 'thumb/' . $post['thumb'])) {
-			@unlink($file_location);
-			fancyDie(__('Could not create thumbnail.'));
-		}
-		if ($file_mime == 'application/x-shockwave-flash') {
-			addVideoOverlay('thumb/' . $post['thumb']);
-		}
-	} else if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'))) {
-		$post['thumb'] = $file_name . 's.' . $tinyib_uploads[$file_mime][0];
-		list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
-
-		if (!createThumbnail($file_location, 'thumb/' . $post['thumb'], $thumb_maxwidth, $thumb_maxheight)) {
-			@unlink($file_location);
-			fancyDie(__('Could not create thumbnail.'));
-		}
 	}
 
 	if ($post['thumb'] != '') {
