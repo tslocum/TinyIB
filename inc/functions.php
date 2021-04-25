@@ -531,9 +531,9 @@ function ffmpegThumbnail($file_location, $thumb_location, $new_w, $new_h) {
 }
 
 function createThumbnail($file_location, $thumb_location, $new_w, $new_h) {
-	if (TINYIB_THUMBNAIL == 'gd') {
-		$system = explode(".", $thumb_location);
-		$system = array_reverse($system);
+	$system = explode(".", $thumb_location);
+	$system = array_reverse($system);
+	if (TINYIB_THUMBNAIL == 'gd' || (TINYIB_THUMBNAIL == 'ffmpeg' && preg_match("/jpg|jpeg/", $system[0]))) {
 		if (preg_match("/jpg|jpeg/", $system[0])) {
 			$src_img = imagecreatefromjpeg($file_location);
 		} else if (preg_match("/png/", $system[0])) {
