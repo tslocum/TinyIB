@@ -524,7 +524,7 @@ function ffmpegThumbnail($file_location, $thumb_location, $new_w, $new_h) {
 	$quarter = videoDuration($file_location) / 4;
 
 	$exit_status = 1;
-	exec("ffmpeg -hide_banner -loglevel error -ss $quarter -i $file_location -frames:v 1 -vf \"thumbnail,scale='if(gt(iw,ih),$new_w,trunc(oh*a/2)*2)':'if(gt(iw,ih),trunc(ow/a/2)*2,$new_h)'\" $thumb_location", $discard, $exit_status);
+	exec("ffmpeg -hide_banner -loglevel error -ss $quarter -i $file_location -frames:v 1 -vf scale=w=$new_w:h=$new_h:force_original_aspect_ratio=decrease $thumb_location", $discard, $exit_status);
 	if ($exit_status != 0) {
 		return false;
 	}
@@ -783,6 +783,12 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 		fancyDie(__('File transfer failure. Please go back and try again.'));
 	}
 
+	if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif', 'application/x-shockwave-flash'))) {
+		$file_info = getimagesize($file_location);
+		$post['image_width'] = $file_info[0];
+		$post['image_height'] = $file_info[1];
+	}
+
 	if (isset($tinyib_uploads[$file_mime][1])) {
 		$thumbfile_split = explode('.', $tinyib_uploads[$file_mime][1]);
 		$post['thumb'] = $file_name . 's.' . array_pop($thumbfile_split);
@@ -793,6 +799,10 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 		if ($file_mime == 'application/x-shockwave-flash') {
 			addVideoOverlay('thumb/' . $post['thumb']);
 		}
+
+		$file_info = getimagesize($file_location);
+		$post['image_width'] = $file_info[0];
+		$post['image_height'] = $file_info[1];
 	} else if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'))) {
 		$post['thumb'] = $file_name . 's.' . $tinyib_uploads[$file_mime][0];
 		list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
@@ -829,13 +839,6 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 
 			$post['file_original'] = "$mins:$secs" . ($post['file_original'] != '' ? (', ' . $post['file_original']) : '');
 		}
-	}
-
-	if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif', 'application/x-shockwave-flash'))) {
-		$file_info = getimagesize($file_location);
-
-		$post['image_width'] = $file_info[0];
-		$post['image_height'] = $file_info[1];
 	}
 
 	if ($post['thumb'] != '') {
