@@ -913,10 +913,10 @@ function manageModerationLog($offset) {
 	$txt_moderation_log = __('Moderation log');
 	$nav = '';
 	if ($offset > 0) {
-		$nav .= '<a href="?manage&modlog=' . $offset . '=' . ($offset - 50) . '">Previous 50</a> ';
+		$nav .= '<a href="?manage&modlog=' . ($offset - $limit) . '">Previous ' . $limit . '</a> ';
 	}
 	if (count($logs) == $limit) {
-		$nav .= '<a href="?manage&modlog=' . $offset . '=' . ($offset + $limit) . '">Next 50</a> ';
+		$nav .= '<a href="?manage&modlog=' . ($offset + $limit) . '">Next ' . $limit . '</a> ';
 	}
 	$nav_top = '';
 	$nav_bottom = '';
