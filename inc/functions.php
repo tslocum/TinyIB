@@ -366,6 +366,10 @@ function manageCheckLogIn($requireKey) {
 		$_SESSION['tinyib_key'] = hashData(TINYIB_MANAGEKEY);
 		$_SESSION['tinyib_username'] = $a['username'];
 		$_SESSION['tinyib_password'] = $a['password'];
+
+		// Prevent reauthentication
+		$_POST['username'] = '';
+		$_POST['managepassword'] = '';
 	}
 
 	if (isset($_SESSION['tinyib_username']) && isset($_SESSION['tinyib_password'])) {
