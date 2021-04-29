@@ -23,6 +23,7 @@ TinyIB Installations
 * http://spychan.freezonereader.net
 * http://thedailyautist.com/board/
 * https://vtchan.org
+* https://audiochan.org
 
 Want to add your installation?  Please create a new issue asking that it be added.
 
