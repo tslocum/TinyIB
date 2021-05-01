@@ -1374,6 +1374,7 @@ function manageEditKeyword($id) {
 
 	$v_text = '';
 	$v_action = '';
+	$v_regexp_checked = '';
 	if ($id > 0) {
 		$keyword = keywordByID($id);
 		if (empty($keyword)) {
@@ -1381,6 +1382,11 @@ function manageEditKeyword($id) {
 		}
 		$v_text = htmlentities($keyword['text'], ENT_QUOTES);
 		$v_action = $keyword['action'];
+
+		if (substr($v_text, 0, 7) == 'REGEXP:') {
+			$v_regexp_checked = 'selected';
+			$v_text = substr($v_text, 7);
+		}
 	}
 
 	$txt_keyword = __('Keyword');
@@ -1392,7 +1398,7 @@ function manageEditKeyword($id) {
 	<form id="tinyib" name="tinyib" method="post" action="?manage&keywords=$id">
 	<fieldset>
 	<legend>$txt_keywords</legend>
-	<div valign="top"><label for="keyword">$txt_keyword</label> <input type="text" name="text" id="text" value="$v_text"><br>
+	<div valign="top"><label for="keyword">$txt_keyword</label> <input type="text" name="text" id="text" value="$v_text"> <label for="regexp">&nbsp; <input type="checkbox" name="regexp" value="1" $v_regexp_checked> Regular expression</label><br>
 	<label for="action">$txt_action</label>
 	<select name="action">
 EOF;

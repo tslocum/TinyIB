@@ -311,6 +311,14 @@ function checkBanned() {
 function checkKeywords($text) {
 	$keywords = allKeywords();
 	foreach ($keywords as $keyword) {
+		if (substr($keyword['text'], 0, 7) == 'regexp:') {
+			if (preg_match(substr($keyword['text'],7), $text)) {
+				$keyword['text'] = substr($keyword['text'],7);
+				return $keyword;
+			}
+			continue;
+		}
+
 		if (stripos($text, $keyword['text']) !== false) {
 			return $keyword;
 		}

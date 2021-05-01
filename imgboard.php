@@ -860,13 +860,19 @@ EOF;
 					$keyword['text'] = $_POST['text'];
 					$keyword['action'] = $_POST['action'];
 
+					$kw = $keyword['text'];
+
+					if (isset($_POST['regexp']) && $_POST['regexp'] == '1') {
+						$keyword['text'] = 'regexp:' . $keyword['text'];
+					}
+
 					insertKeyword($keyword);
 					if ($_GET['keywords'] > 0) {
-						manageLogAction(sprintf(__('Updated keyword %s'), htmlentities($keyword['text'])));
+						manageLogAction(sprintf(__('Updated keyword %s'), htmlentities($kw)));
 						$text .= manageInfo(__('Keyword updated.'));
 						$_GET['keywords'] = 0;
 					} else {
-						manageLogAction(sprintf(__('Updated keyword %s'), htmlentities($keyword['text'])));
+						manageLogAction(sprintf(__('Updated keyword %s'), htmlentities($kw)));
 						$text .= manageInfo(__('Keyword added.'));
 					}
 				} elseif (isset($_GET['deletekeyword'])) {
@@ -875,8 +881,13 @@ EOF;
 						fancyDie(__('That keyword does not exist.'));
 					}
 
+					$kw = $keyword['text'];
+					if (substr($keyword['text'], 0, 7) == 'regexp:') {
+						$kw = substr($keyword['text'], 7);
+					}
+
 					deleteKeyword($_GET['deletekeyword']);
-					manageLogAction(sprintf(__('Deleted keyword %s'), htmlentities($keyword['text'])));
+					manageLogAction(sprintf(__('Deleted keyword %s'), htmlentities($kw)));
 					$text .= manageInfo(__('Keyword deleted.'));
 				}
 
