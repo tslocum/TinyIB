@@ -1001,7 +1001,15 @@ EOF;
 					rebuildThread($post['parent']);
 				}
 
-				manageLogAction(__('Deleted') . ' &gt;&gt;' . $post['id']);
+				$action = sprintf(__('Deleted %s'),'&gt;&gt;' . $post['id']) . ' - ' . hashData($post['ip']);
+				if ($post['text'] != '') {
+					$stripped = strip_tags($post['text']);
+					$action .= ' - ' . htmlentities(substr($stripped, 0, 32));
+					if (strlen($stripped) > 32) {
+						$action .= '...';
+					}
+				}
+				manageLogAction($action);
 			}
 			rebuildIndexes();
 			if (count($post_ids) == 1) {
