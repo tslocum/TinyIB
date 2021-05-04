@@ -94,6 +94,9 @@ if (!defined('TINYIB_ALWAYSNOKO')) {
 if (!defined('TINYIB_WORDBREAK')) {
 	define('TINYIB_WORDBREAK', 0);
 }
+if (!defined('TINYIB_EXPANDWIDTH')) {
+	define('TINYIB_EXPANDWIDTH', 85);
+}
 if (!defined('TINYIB_TIMEZONE')) {
 	define('TINYIB_TIMEZONE', '');
 }
