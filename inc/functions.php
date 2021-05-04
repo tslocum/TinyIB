@@ -39,7 +39,8 @@ function threadUpdated($id) {
 }
 
 function newPost($parent = TINYIB_NEWTHREAD) {
-	return array('parent' => $parent,
+	return array(
+		'parent' => $parent,
 		'timestamp' => '0',
 		'bumped' => '0',
 		'ip' => '',
@@ -62,7 +63,8 @@ function newPost($parent = TINYIB_NEWTHREAD) {
 		'thumb_height' => '0',
 		'stickied' => '0',
 		'locked' => '0',
-		'moderated' => '1');
+		'moderated' => '1'
+	);
 }
 
 function convertBytes($number) {
@@ -312,8 +314,8 @@ function checkKeywords($text) {
 	$keywords = allKeywords();
 	foreach ($keywords as $keyword) {
 		if (substr($keyword['text'], 0, 7) == 'regexp:') {
-			if (preg_match(substr($keyword['text'],7), $text)) {
-				$keyword['text'] = substr($keyword['text'],7);
+			if (preg_match(substr($keyword['text'], 7), $text)) {
+				$keyword['text'] = substr($keyword['text'], 7);
 				return $keyword;
 			}
 			continue;
@@ -748,19 +750,6 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 		fancyDie(__('File transfer failure. Please retry the submission.'));
 	}
 
-	$filesize = filesize($filepath);
-	if (TINYIB_MAXKB > 0 && $filesize > (TINYIB_MAXKB * 1024)) {
-		@unlink($filepath);
-		fancyDie(sprintf(__('That file is larger than %s.'), TINYIB_MAXKBDESC));
-	}
-
-	$post['file_original'] = trim(htmlentities(substr($filename, 0, 50), ENT_QUOTES));
-	$post['file_hex'] = md5_file($filepath);
-	$post['file_size'] = $filesize;
-	$post['file_size_formatted'] = convertBytes($post['file_size']);
-
-	checkDuplicateFile($post['file_hex']);
-
 	$file_mime_split = explode(' ', trim(mime_content_type($filepath)));
 	if (count($file_mime_split) > 0) {
 		$file_mime = strtolower(array_pop($file_mime_split));
@@ -775,68 +764,84 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 		fancyDie(supportedFileTypes());
 	}
 
-	$file_name = time() . substr(microtime(), 2, 3);
-	$post['file'] = $file_name . '.' . $tinyib_uploads[$file_mime][0];
+	$file_name_pre = time() . substr(microtime(), 2, 3);
+	$file_name = $file_name_pre . '.' . $tinyib_uploads[$file_mime][0];
+	$file_src = 'src/' . $file_name;
 
-	$file_location = 'src/' . $post['file'];
 	if ($uploaded) {
-		if (!move_uploaded_file($filepath, $file_location)) {
+		if (!move_uploaded_file($filepath, $file_src)) {
 			fancyDie(__('Could not copy uploaded file.'));
 		}
 	} else {
-		if (!rename($filepath, $file_location)) {
+		if (!rename($filepath, $file_src)) {
 			@unlink($filepath);
 			fancyDie(__('Could not copy uploaded file.'));
 		}
 	}
+	$filepath = $file_src;
 
-	if (filesize($file_location) != $filesize) {
-		@unlink($file_location);
+	$filesize = filesize($filepath);
+	if (filesize($filepath) != $filesize) {
+		@unlink($filepath);
 		fancyDie(__('File transfer failure. Please go back and try again.'));
+	} else if (TINYIB_MAXKB > 0 && $filesize > (TINYIB_MAXKB * 1024)) {
+		@unlink($filepath);
+		fancyDie(sprintf(__('That file is larger than %s.'), TINYIB_MAXKBDESC));
 	}
 
+	if (TINYIB_STRIPMETADATA) {
+		stripMetadata($filepath);
+	}
+
+	$post['file'] = $file_name;
+	$post['file_original'] = trim(htmlentities(substr($filename, 0, 50), ENT_QUOTES));
+	$post['file_hex'] = md5_file($filepath);
+	$post['file_size'] = $filesize;
+	$post['file_size_formatted'] = convertBytes($post['file_size']);
+	checkDuplicateFile($post['file_hex']);
+
 	if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif', 'application/x-shockwave-flash'))) {
-		$file_info = getimagesize($file_location);
+		$file_info = getimagesize($file_src);
 		$post['image_width'] = $file_info[0];
 		$post['image_height'] = $file_info[1];
 	}
 
 	if (isset($tinyib_uploads[$file_mime][1])) {
 		$thumbfile_split = explode('.', $tinyib_uploads[$file_mime][1]);
-		$post['thumb'] = $file_name . 's.' . array_pop($thumbfile_split);
+		$post['thumb'] = $file_name_pre . 's.' . array_pop($thumbfile_split);
 		if (!copy($tinyib_uploads[$file_mime][1], 'thumb/' . $post['thumb'])) {
-			@unlink($file_location);
+			@unlink($file_src);
 			fancyDie(__('Could not create thumbnail.'));
 		}
 		if ($file_mime == 'application/x-shockwave-flash') {
 			addVideoOverlay('thumb/' . $post['thumb']);
 		}
 
-		$file_info = getimagesize($file_location);
+		$file_info = getimagesize($file_src);
 		$post['image_width'] = $file_info[0];
 		$post['image_height'] = $file_info[1];
 	} else if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'))) {
-		$post['thumb'] = $file_name . 's.' . $tinyib_uploads[$file_mime][0];
+		$post['thumb'] = $file_name_pre . 's.' . $tinyib_uploads[$file_mime][0];
 		list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
 
-		if (!createThumbnail($file_location, 'thumb/' . $post['thumb'], $thumb_maxwidth, $thumb_maxheight)) {
-			@unlink($file_location);
+		if (!createThumbnail($file_src, 'thumb/' . $post['thumb'], $thumb_maxwidth, $thumb_maxheight)) {
+			@unlink($file_src);
 			fancyDie(__('Could not create thumbnail.'));
 		}
 	} else if ($file_mime == 'audio/webm' || $file_mime == 'video/webm' || $file_mime == 'audio/mp4' || $file_mime == 'video/mp4') {
-		list($post['image_width'], $post['image_height']) = videoDimensions($file_location);
+		list($post['image_width'], $post['image_height']) = videoDimensions($file_src);
 
 		if ($post['image_width'] > 0 && $post['image_height'] > 0) {
 			list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
-			$post['thumb'] = $file_name . 's.jpg';
-			ffmpegThumbnail($file_location, 'thumb/' . $post['thumb'], $thumb_maxwidth, $thumb_maxheight);
+			$post['thumb'] = $file_name_pre . 's.jpg';
+			ffmpegThumbnail($file_src, 'thumb/' . $post['thumb'], $thumb_maxwidth, $thumb_maxheight);
 
 			$thumb_info = getimagesize('thumb/' . $post['thumb']);
 			$post['thumb_width'] = $thumb_info[0];
 			$post['thumb_height'] = $thumb_info[1];
 
 			if ($post['thumb_width'] <= 0 || $post['thumb_height'] <= 0) {
-				@unlink($file_location);
+				@unlink($file_src);
 				@unlink('thumb/' . $post['thumb']);
 				fancyDie(__('Sorry, your video appears to be corrupt.'));
 			}
@@ -844,7 +849,7 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 			addVideoOverlay('thumb/' . $post['thumb']);
 		}
 
-		$duration = videoDuration($file_location);
+		$duration = videoDuration($file_src);
 		if ($duration > 0) {
 			$mins = floor(round($duration / 1000) / 60);
 			$secs = str_pad(floor(round($duration / 1000) % 60), 2, '0', STR_PAD_LEFT);
@@ -859,13 +864,26 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 		$post['thumb_height'] = $thumb_info[1];
 
 		if ($post['thumb_width'] <= 0 || $post['thumb_height'] <= 0) {
-			@unlink($file_location);
+			@unlink($file_src);
 			@unlink('thumb/' . $post['thumb']);
 			fancyDie(__('Sorry, your video appears to be corrupt.'));
 		}
 	}
 
 	return $post;
+}
+
+function stripMetadata($filename) {
+	$discard = '';
+	$exit_status = 1;
+	exec("exiftool -ver", $discard, $exit_status);
+	if ($exit_status != 0) {
+		fancyDie('ExifTool is not installed, or the <i>exiftool</i> executable is not in the server\'s $PATH.<br>Install ExifTool, or set TINYIB_STRIPMETADATA to false.');
+	}
+
+	$discard = '';
+	$exit_status = 1;
+	exec("exiftool -All= -overwrite_original_in_place " . escapeshellarg($filename), $discard, $exit_status);
 }
 
 function remoteAddress() {

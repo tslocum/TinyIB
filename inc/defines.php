@@ -55,6 +55,9 @@ if (!defined('TINYIB_THUMBNAIL')) {
 if (!defined('TINYIB_UPLOADVIAURL')) {
 	define('TINYIB_UPLOADVIAURL', false);
 }
+if (!defined('TINYIB_STRIPMETADATA')) {
+	define('TINYIB_STRIPMETADATA', false);
+}
 if (!defined('TINYIB_NOFILEOK')) {
 	define('TINYIB_NOFILEOK', false);
 }

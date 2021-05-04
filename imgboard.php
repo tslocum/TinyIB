@@ -493,8 +493,6 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			}
 			fancyDie(sprintf(__('Please %s.'), $allowed));
 		}
-	} else {
-		echo sprintf(__('%s uploaded.'), $post['file_original']) . '<br>';
 	}
 
 	if (!$loggedin && (($post['file'] != '' && TINYIB_REQMOD == 'files') || TINYIB_REQMOD == 'all')) {
@@ -1002,8 +1000,8 @@ EOF;
 				}
 
 				$action = sprintf(__('Deleted %s'),'&gt;&gt;' . $post['id']) . ' - ' . hashData($post['ip']);
-				if ($post['text'] != '') {
-					$stripped = strip_tags($post['text']);
+				$stripped = strip_tags($post['message']);
+				if ($stripped != '') {
 					$action .= ' - ' . htmlentities(substr($stripped, 0, 32));
 					if (strlen($stripped) > 32) {
 						$action .= '...';
