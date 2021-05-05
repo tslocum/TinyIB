@@ -433,12 +433,12 @@ function buildPost($post, $res) {
 			$dimensions = 'width="' . $post['image_width'] . '" height="' . $post['image_height'] . '"';
 		}
 		$expandhtml = <<<EOF
-<video $dimensions style="position: static; pointer-events: inherit; display: inline; max-width: $w%; max-height: 100%;" controls autoplay loop>
+<video $dimensions style="position: static; pointer-events: inherit; display: inline; max-width: {$w}vw; height: auto; max-height: 100%;" controls autoplay loop>
 	<source src="$direct_link"></source>
 </video>
 EOF;
 	} else if (in_array(substr($post['file'], -4), array('.jpg', '.png', '.gif'))) {
-		$expandhtml = "<a href=\"$direct_link\" onclick=\"return expandFile(event, '${post['id']}');\"><img src=\"" . ($res == TINYIB_RESPAGE ? "../" : "") . "src/${post["file"]}\" width=\"${post["image_width"]}\" style=\"max-width: $w%;height: auto;\"></a>";
+		$expandhtml = "<a href=\"$direct_link\" onclick=\"return expandFile(event, '${post['id']}');\"><img src=\"" . ($res == TINYIB_RESPAGE ? "../" : "") . "src/${post["file"]}\" width=\"${post["image_width"]}\" style=\"max-width: {$w}vw;height: auto;\"></a>";
 	}
 
 	$thumblink = "<a href=\"$direct_link\" target=\"_blank\"" . ((isEmbed($post["file_hex"]) || in_array(substr($post['file'], -4), array('.jpg', '.png', '.gif', 'webm', '.mp4'))) ? " onclick=\"return expandFile(event, '${post['id']}');\"" : "") . ">";
