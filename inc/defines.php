@@ -73,6 +73,9 @@ if (!defined('TINYIB_MANAGECAPTCHA')) {
 if (!defined('TINYIB_REPORT')) {
 	define('TINYIB_REPORT', false);
 }
+if (!defined('TINYIB_AUTOHIDE')) {
+	define('TINYIB_AUTOHIDE', 0);
+}
 if (!defined('TINYIB_REQMOD')) {
 	define('TINYIB_REQMOD', '');
 }

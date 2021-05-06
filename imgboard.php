@@ -506,6 +506,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	if ($report_post) {
 		$report = array('ip' => $post['ip'], 'post' => $post['id']);
 		insertReport($report);
+		checkAutoHide($post);
 	}
 
 	if ($post['moderated'] == '1') {
@@ -638,6 +639,7 @@ EOF;
 
 	$report = array('ip' => remoteAddress(), 'post' => $post['id']);
 	insertReport($report);
+	checkAutoHide($post);
 
 	fancyDie(__('Post reported.'), $go_back);
 // Check if the request is to delete a post and/or its associated image

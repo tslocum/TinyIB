@@ -741,6 +741,12 @@ function rebuildIndexes() {
 function rebuildThread($id) {
 	$id = intval($id);
 
+	$post = postByID($id);
+	if ($post['moderated'] == 0) {
+		@unlink('res/' . $id . '.html');
+		return;
+	}
+
 	$posts = postsInThreadByID($id);
 	if (count($posts) == 0) {
 		@unlink('res/' . $id . '.html');

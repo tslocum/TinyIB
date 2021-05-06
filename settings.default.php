@@ -28,6 +28,7 @@ define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass 
 define('TINYIB_REPORTCAPTCHA', '');   // Reduce invalid reports by requiring users to pass a CAPTCHA when reporting: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to pass a CAPTCHA when logging in to the management panel: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_REPORT', false);       // Allow users to report posts
+define('TINYIB_AUTOHIDE', 0);         // Amount of reports which will cause a post to be hidden until it is approved  [0 to disable]
 define('TINYIB_REQMOD', '');          // Require moderation before displaying posts: files / all  ['' to disable]
 define('TINYIB_AUTOREFRESH', 30);     // Delay (in seconds) between attempts to refresh a thread automatically  [0 to disable]
 define('TINYIB_CLOUDFLARE', false);   // Only enable when the site is served via Cloudflare to identify IP addresses correctly

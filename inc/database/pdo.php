@@ -143,7 +143,7 @@ function postByID($id) {
 }
 
 function threadExistsByID($id) {
-	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE id = ? AND parent = 0 AND moderated = 1", array($id));
+	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE id = ? AND parent = 0 AND moderated > 0", array($id));
 	return $result->fetchColumn() != 0;
 }
 
@@ -177,13 +177,13 @@ function lockThreadByID($id, $setlock) {
 }
 
 function countThreads() {
-	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1");
+	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated > 0");
 	return (int)$result->fetchColumn();
 }
 
 function allThreads() {
 	$threads = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1 ORDER BY stickied DESC, bumped DESC");
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated > 0 ORDER BY stickied DESC, bumped DESC");
 	while ($row = $results->fetch()) {
 		$threads[] = $row;
 	}
@@ -191,13 +191,13 @@ function allThreads() {
 }
 
 function numRepliesToThreadByID($id) {
-	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = ? AND moderated = 1", array($id));
+	$result = pdoQuery("SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = ? AND moderated > 0", array($id));
 	return (int)$result->fetchColumn();
 }
 
 function postsInThreadByID($id, $moderated_only = true) {
 	$posts = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE (id = ? OR parent = ?)" . ($moderated_only ? " AND moderated = 1" : "") . " ORDER BY id ASC", array($id, $id));
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE (id = ? OR parent = ?)" . ($moderated_only ? " AND moderated > 0" : "") . " ORDER BY id ASC", array($id, $id));
 	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
 		$posts[] = $row;
 	}
@@ -217,7 +217,7 @@ function imagesInThreadByID($id, $moderated_only = true) {
 
 function postsByHex($hex) {
 	$posts = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE file_hex = ? AND moderated = 1 LIMIT 1", array($hex));
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE file_hex = ? AND moderated > 0 LIMIT 1", array($hex));
 	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
 		$posts[] = $row;
 	}
@@ -240,7 +240,7 @@ function deletePostByID($id) {
 function trimThreads() {
 	$limit = (int)TINYIB_MAXTHREADS;
 	if ($limit > 0) {
-		$results = pdoQuery("SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated = 1 ORDER BY stickied DESC, bumped DESC LIMIT 100 OFFSET " . $limit);
+		$results = pdoQuery("SELECT id FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated > 0 ORDER BY stickied DESC, bumped DESC LIMIT 100 OFFSET " . $limit);
 		/*
 		old mysql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT $limit,100
 		mysql, postgresql, sqlite3: SELECT id FROM $table ORDER BY bumped LIMIT 100 OFFSET $limit

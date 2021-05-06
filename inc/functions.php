@@ -345,6 +345,20 @@ function checkMessageSize() {
 	}
 }
 
+function checkAutoHide($post) {
+	if (TINYIB_AUTOHIDE <= 0) {
+		return;
+	}
+
+	$reports = reportsByPost($post['id']);
+	if (count($reports) >= TINYIB_AUTOHIDE) {
+		approvePostByID($post['id'], 0);
+
+		$parent_id = $post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent'];
+		threadUpdated($parent_id);
+	}
+}
+
 function manageCheckLogIn($requireKey) {
 	$account = array();
 	$loggedin = false;

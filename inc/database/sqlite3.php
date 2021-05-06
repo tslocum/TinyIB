@@ -218,7 +218,7 @@ function numRepliesToThreadByID($id) {
 function postsInThreadByID($id, $moderated_only = true) {
 	global $db;
 	$posts = array();
-	$result = $db->query("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE id = " . $id . " OR parent = " . $id . " ORDER BY id ASC");
+	$result = $db->query("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE (id = " . $id . " OR parent = " . $id . ")" . ($moderated_only ? " AND moderated > 0" : "") . " ORDER BY id ASC");
 	while ($post = $result->fetchArray()) {
 		$posts[] = $post;
 	}

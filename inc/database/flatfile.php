@@ -360,7 +360,15 @@ function postsInThreadByID($id, $moderated_only = true) {
 	$compClause->add(new SimpleWhereClause(POST_ID, '=', $id, INTEGER_COMPARISON));
 	$compClause->add(new SimpleWhereClause(POST_PARENT, '=', $id, INTEGER_COMPARISON));
 
-	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, $compClause, -1, new OrderBy(POST_ID, ASCENDING, INTEGER_COMPARISON));
+	if ($moderated_only) {
+		$compClause2 = new AndWhereClause();
+		$compClause2->add($compClause);
+		$compClause2->add(new SimpleWhereClause(POST_MODERATED, '>', 0, INTEGER_COMPARISON));
+	} else {
+		$compClause2 = $compClause;
+	}
+
+	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, $compClause2, -1, new OrderBy(POST_ID, ASCENDING, INTEGER_COMPARISON));
 	return convertPostsToSQLStyle($rows);
 }
 
