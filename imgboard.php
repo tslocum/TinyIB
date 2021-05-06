@@ -342,6 +342,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		$post['password'] = ($_POST['password'] != '') ? hashData($_POST['password']) : '';
 	}
 
+	$hide_post = false;
 	$report_post = false;
 	foreach (array($post['name'], $post['email'], $post['subject'], $post['message']) as $field) {
 		$keyword = checkKeywords($field);
@@ -353,6 +354,9 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		switch ($keyword['action']) {
 			case 'report':
 				$report_post = true;
+				break;
+			case 'hide':
+				$hide_post = true;
 				break;
 			case 'delete':
 				fancyDie(__('Your post contains a blocked keyword.'));
@@ -507,6 +511,10 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		$report = array('ip' => $post['ip'], 'post' => $post['id']);
 		insertReport($report);
 		checkAutoHide($post);
+	}
+
+	if ($hide_post) {
+		approvePostByID($post['id'], 0);
 	}
 
 	if ($post['moderated'] == '1') {

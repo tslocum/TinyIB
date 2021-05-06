@@ -1413,6 +1413,7 @@ EOF;
 		$return .= '<option value="report"' . ($v_action == 'report' ? ' selected' : '') . '>' . __('Report') . '</option>';
 	}
 	$return .= '<option value="delete"' . ($v_action == 'delete' ? ' selected' : '') . '>' . __('Delete') . '</option>';
+	$return .= '<option value="hide"' . ($v_action == 'hide' ? ' selected' : '') . '>' . __('Hide until approved') . '</option>';
 	$return .= '<option value="ban1h"' . ($v_action == 'ban1h' ? ' selected' : '') . '>' . __('Delete and ban for 1 hour') . '</option>';
 	$return .= '<option value="ban1d"' . ($v_action == 'ban1d' ? ' selected' : '') . '>' . __('Delete and ban for 1 day') . '</option>';
 	$return .= '<option value="ban2d"' . ($v_action == 'ban2d' ? ' selected' : '') . '>' . __('Delete and ban for 2 days') . '</option>';
@@ -1438,6 +1439,9 @@ function manageKeywordsTable() {
 			switch ($keyword['action']) {
 				case 'report':
 					$action = __('Report');
+					break;
+				case 'hide':
+					$action = __('Hide until approved');
 					break;
 				case 'delete':
 					$action = __('Delete');
