@@ -181,9 +181,9 @@ function countThreads() {
 	return (int)$result->fetchColumn();
 }
 
-function allThreads() {
+function allThreads($moderated_only = true) {
 	$threads = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0 AND moderated > 0 ORDER BY stickied DESC, bumped DESC");
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE parent = 0" . ($moderated_only ? " AND moderated > 0" : "") . " ORDER BY stickied DESC, bumped DESC");
 	while ($row = $results->fetch()) {
 		$threads[] = $row;
 	}

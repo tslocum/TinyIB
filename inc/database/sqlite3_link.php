@@ -81,7 +81,7 @@ if (!$result->fetchArray()) {
 		thumb TEXT NOT NULL,
 		thumb_width INTEGER NOT NULL DEFAULT '0',
 		thumb_height INTEGER NOT NULL DEFAULT '0',
-		moderated INTEGER NOT NULL DEFAULT '0',
+		moderated INTEGER NOT NULL DEFAULT '1',
 		stickied INTEGER NOT NULL DEFAULT '0',
 		locked INTEGER NOT NULL DEFAULT '0'
 	)");
@@ -97,7 +97,7 @@ if (!$result->fetchArray()) {
 }
 
 // Add moderated column if it isn't present
-@$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN moderated INTEGER NOT NULL DEFAULT '0'");
+@$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN moderated INTEGER NOT NULL DEFAULT '1'");
 
 // Add stickied column if it isn't present
 @$db->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGER NOT NULL DEFAULT '0'");

@@ -224,10 +224,10 @@ function countThreads() {
 	return mysqli_result(mysqli_query($link, "SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 AND `moderated` = 1"), 0, 0);
 }
 
-function allThreads() {
+function allThreads($moderated_only = true) {
 	global $link;
 	$threads = array();
-	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0 AND `moderated` = 1 ORDER BY `stickied` DESC, `bumped` DESC");
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = 0" . ($moderated_only ? " AND moderated > 0" : "") . " ORDER BY `stickied` DESC, `bumped` DESC");
 	if ($result) {
 		while ($thread = mysqli_fetch_assoc($result)) {
 			$threads[] = $thread;

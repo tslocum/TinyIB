@@ -345,8 +345,17 @@ function convertPostsToSQLStyle($posts, $single = false) {
 	return $newposts;
 }
 
-function allThreads() {
-	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_PARENT, '=', 0, INTEGER_COMPARISON), -1, array(new OrderBy(POST_STICKIED, DESCENDING, INTEGER_COMPARISON), new OrderBy(POST_BUMPED, DESCENDING, INTEGER_COMPARISON)));
+function allThreads($moderated_only = true) {
+	$compClause = new SimpleWhereClause(POST_PARENT, '=', 0, INTEGER_COMPARISON);
+	if ($moderated_only) {
+		$compClause2 = new AndWhereClause();
+		$compClause2->add($compClause);
+		$compClause2->add(new SimpleWhereClause(POST_MODERATED, '>', 0, INTEGER_COMPARISON));
+	} else {
+		$compClause2 = $compClause;
+	}
+
+	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, $compClause2, -1, array(new OrderBy(POST_STICKIED, DESCENDING, INTEGER_COMPARISON), new OrderBy(POST_BUMPED, DESCENDING, INTEGER_COMPARISON)));
 	return convertPostsToSQLStyle($rows);
 }
 

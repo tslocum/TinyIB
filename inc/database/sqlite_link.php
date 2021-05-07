@@ -78,7 +78,7 @@ if (sqlite_num_rows($result) == 0) {
 		thumb TEXT NOT NULL,
 		thumb_width INTEGER NOT NULL DEFAULT '0',
 		thumb_height INTEGER NOT NULL DEFAULT '0',
-		moderated INTEGER NOT NULL DEFAULT '0',
+		moderated INTEGER NOT NULL DEFAULT '1',
 		stickied INTEGER NOT NULL DEFAULT '0',
 		locked INTEGER NOT NULL DEFAULT '0'
 	)");
@@ -93,7 +93,7 @@ if (sqlite_num_rows($result) == 0) {
 }
 
 // Add moderated column if it isn't present
-sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN moderated INTEGER NOT NULL DEFAULT '0'");
+sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN moderated INTEGER NOT NULL DEFAULT '1'");
 
 // Add stickied column if it isn't present
 sqlite_query($db, "ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied INTEGER NOT NULL DEFAULT '0'");
