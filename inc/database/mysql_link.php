@@ -4,7 +4,7 @@ if (!defined('TINYIB_BOARD')) {
 }
 
 if (!function_exists('mysql_connect')) {
-	fancyDie("MySQL library is not installed");
+	fancyDie("MySQL library is not installed. Try the mysqli database mode.");
 }
 
 $link = mysql_connect(TINYIB_DBHOST, TINYIB_DBUSERNAME, TINYIB_DBPASSWORD);

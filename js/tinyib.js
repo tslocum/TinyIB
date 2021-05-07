@@ -185,12 +185,12 @@ window.addEventListener('DOMContentLoaded', function (e) {
     }
 });
 
-$(window).focus(function() {
+$(window).focus(function () {
     newRepliesCount = 0;
     blinkTitle = false;
 });
 
-$(window).blur(function() {
+$(window).blur(function () {
     if (newRepliesNotice.length == 0) {
         return;
     }
@@ -198,6 +198,99 @@ $(window).blur(function() {
     newRepliesCount = 0;
     newRepliesNotice.hide();
 });
+
+$(document).ready(function () {
+    setPostAttributes(document, false);
+    $('div:not(div div)').each(function () {
+        setPostAttributes(this, true);
+    });
+});
+
+function insertAfter(newElement, targetElement) {
+    targetElement.parentNode.insertBefore(newElement, targetElement.nextSibling);
+}
+
+var mouseX;
+var mouseY;
+$(document).mousemove( function(e) {
+    mouseX = e.pageX;
+    mouseY = e.pageY;
+});
+
+var downloaded_posts = [];
+function setPostAttributes(element, setLastReply) {
+    var base_url = './imgboard.php?';
+    if (window.location.href.includes('/res/')) {
+        base_url = '../imgboard.php?res&';
+    }
+    base_url += 'preview=';
+    $('a', element).each(function () {
+        var m = null;
+        if ($(this).attr('href')) {
+            m = $(this).attr('href').match(/.*\/[0-9]+?#([0-9]+)/i);
+        }
+        if (m == null && $(this).attr('href')) {
+            var m = $(this).attr('href').match(/\#([0-9]+)/i);
+        }
+        if (m == null) {
+            return;
+        }
+
+        if ($(this).html() == 'No.') {
+            $(element).attr('postID', m[1]).addClass('post');
+            if (setLastReply) {
+                lastreply = element;
+            }
+        } else if ($(this).attr('refID') == undefined) {
+            var m2 = $(this).html().match(/^\&gt\;\&gt\;[0-9]+/i);
+            if (m2 == null) {
+                return;
+            }
+
+            $(this).attr('refID', m[1]);
+            $(this).hover(function (e) {
+                var preview = document.getElementById('ref' + $(this).attr('refID'));
+                if (!preview) {
+                    var preview = document.createElement('div');
+                    preview.id = 'ref' + $(this).attr('refID');
+                    preview.style.position = 'absolute';
+                    preview.style.textAlign = 'left';
+
+                    $(preview).attr('refID', $(this).attr('refID'));
+
+                    var refpost = $('.post[postID="' + $(this).attr('refID') + '"]').first();
+
+                    var refid = $(this).attr('refID');
+                    if (downloaded_posts[refid]) {
+                        preview.className = 'hoverpost';
+                        $(preview).html(downloaded_posts[refid]);
+                    } else if (refpost.html() && refpost.html() != undefined) {
+                        preview.className = 'hoverpost';
+                        $(preview).html(refpost.html());
+                    } else {
+                        $(preview).html('<div class="hoverpost" style="padding: 14px;">Loading...</div>');
+                        $(preview).fadeIn(125);
+                        $.ajax({
+                            url: base_url + $(this).attr('refID'),
+                            success: function (response) {
+                                var refid = $(preview).attr('refID');
+                                downloaded_posts[refid] = response;
+                                preview.className = 'hoverpost';
+                                $(preview).html(response);
+                            },
+                            dataType: 'html'
+                        });
+                    }
+
+                    insertAfter(preview, this);
+                }
+                $(preview).css('left', mouseX+14).css('top', mouseY+7);
+            }, function (e) {
+                $('#ref' + $(this).attr('refID')).remove();
+            });
+        }
+    });
+}
 
 /*
  * jQuery scrollintoview() plugin and :scrollable selector filter

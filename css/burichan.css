@@ -208,6 +208,11 @@ hr {
 	font-weight: 800;
 }
 
+.hoverpost {
+	background: #EEF2FF;
+	color: #000000;
+}
+
 .commentpostername {
 	background: inherit;
 	font-size: 12px;

@@ -170,6 +170,11 @@ hr {
 	font-weight: 800;
 }
 
+.hoverpost {
+	background: #FFFFEE;
+	color: #800000;
+}
+
 .commentpostername {
 	color: #117743;
 	font-weight: 800;

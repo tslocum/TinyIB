@@ -544,6 +544,21 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	if ($rawpost) {
 		manageLogAction(__('Created raw post') . ' ' . postLink('&gt;&gt;' . $post['id']));
 	}
+// Check if the request is to preview a post
+} elseif (isset($_GET['preview']) && !isset($_GET['manage'])) {
+	$post = postByID(intval($_GET['preview']));
+	if (empty($post)) {
+		die(__('This post has been deleted'));
+	} else if ($post['moderated'] == 0 && !$isadmin) {
+		die(__('This post requires moderation before it can be displayed'));
+	}
+
+	$html = buildPost($post, isset($_GET['res']));
+	if (isset($_GET['res'])) {
+		$html = fixLinksInRes($html);
+	}
+	echo $html;
+	die();
 // Check if the request is to auto-refresh a thread
 } elseif (isset($_GET['posts']) && !isset($_GET['manage'])) {
 	if (TINYIB_AUTOREFRESH <= 0) {
