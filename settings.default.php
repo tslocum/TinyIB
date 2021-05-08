@@ -30,6 +30,8 @@ define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to 
 define('TINYIB_REPORT', false);       // Allow users to report posts
 define('TINYIB_AUTOHIDE', 0);         // Amount of reports which will cause a post to be hidden until it is approved  [0 to disable]
 define('TINYIB_REQMOD', '');          // Require moderation before displaying posts: files / all  ['' to disable]
+define('TINYIB_SPOILERTEXT', false);  // Allow users to hide text until it is hovered over using the tags <s>text here</s> or <spoiler>text here</spoiler>
+define('TINYIB_SPOILERIMAGE', false); // Allow users to blur thumbnails via a "Spoiler" checkbox
 define('TINYIB_AUTOREFRESH', 30);     // Delay (in seconds) between attempts to refresh a thread automatically  [0 to disable]
 define('TINYIB_CLOUDFLARE', false);   // Only enable when the site is served via Cloudflare to identify IP addresses correctly
 define('TINYIB_DISALLOWTHREADS', ''); // When set, users attempting to post a new thread are shown this message instead  ['' to disable]

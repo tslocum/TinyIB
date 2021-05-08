@@ -79,6 +79,12 @@ if (!defined('TINYIB_AUTOHIDE')) {
 if (!defined('TINYIB_REQMOD')) {
 	define('TINYIB_REQMOD', '');
 }
+if (!defined('TINYIB_SPOILERTEXT')) {
+	define('TINYIB_SPOILERTEXT', false);
+}
+if (!defined('TINYIB_SPOILERIMAGE')) {
+	define('TINYIB_SPOILERIMAGE', false);
+}
 if (!defined('TINYIB_AUTOREFRESH')) {
 	define('TINYIB_AUTOREFRESH', 30);
 }

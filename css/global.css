@@ -82,6 +82,17 @@ hr {
 	border-bottom-color: rgba(0, 0, 0, .5);
 }
 
+.spoiler {
+	text-decoration: none;
+	color: transparent;
+	text-shadow: 0 0 10px #000000;
+}
+
+.spoiler:hover {
+	color: inherit;
+	text-shadow: none;
+}
+
 .userdelete {
 	float: right;
 	text-align: center;
