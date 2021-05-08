@@ -304,6 +304,8 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 	$post['ip'] = remoteAddress();
 
+	$spoiler = TINYIB_SPOILERIMAGE && isset($_POST['spoiler']);
+
 	if ($rawpost || !in_array('name', $hide_fields)) {
 		list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
 		$post['name'] = cleanString(substr($post['name'], 0, 75));
@@ -436,7 +438,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 				fancyDie(__('Failed to download file at specified URL.'));
 			}
 
-			$post = attachFile($post, $filepath, basename(parse_url(trim($_POST['embed']), PHP_URL_PATH)), false);
+			$post = attachFile($post, $filepath, basename(parse_url(trim($_POST['embed']), PHP_URL_PATH)), false, $spoiler);
 		} else {
 			$post['file_hex'] = $service;
 			$temp_file = time() . substr(microtime(), 2, 3);
@@ -461,7 +463,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 			list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
 
-			if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight)) {
+			if (!createThumbnail($file_location, $thumb_location, $thumb_maxwidth, $thumb_maxheight, $spoiler)) {
 				fancyDie(__('Could not create thumbnail.'));
 			}
 
@@ -477,7 +479,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	} else if (isset($_FILES['file']) && $_FILES['file']['name'] != "" && ($rawpost || !in_array('file', $hide_fields))) {
 		validateFileUpload();
 
-		$post = attachFile($post, $_FILES['file']['tmp_name'], $_FILES['file']['name'], true);
+		$post = attachFile($post, $_FILES['file']['tmp_name'], $_FILES['file']['name'], true, $spoiler);
 	}
 
 	if ($post['file'] == '') { // No file uploaded

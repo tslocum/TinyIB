@@ -217,6 +217,10 @@ EOF;
 		$filetypes_html = '<li>' . supportedFileTypes() . '</li>';
 
 		$txt_file = __('File');
+		$spoiler_html = '';
+		if (TINYIB_SPOILERIMAGE) {
+			$spoiler_html = '<label><input type="checkbox" name="spoiler" value="1"> Spoiler</label>';
+		}
 		$file_input_html = <<<EOF
 					<tr>
 						<td class="postblock">
@@ -224,6 +228,7 @@ EOF;
 						</td>
 						<td>
 							<input type="file" name="file" size="35" accesskey="f">
+							$spoiler_html
 						</td>
 					</tr>
 EOF;

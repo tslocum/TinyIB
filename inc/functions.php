@@ -558,7 +558,7 @@ function ffmpegThumbnail($file_location, $thumb_location, $new_w, $new_h) {
 	}
 }
 
-function createThumbnail($file_location, $thumb_location, $new_w, $new_h) {
+function createThumbnail($file_location, $thumb_location, $new_w, $new_h, $spoiler) {
 	$system = explode(".", $thumb_location);
 	$system = array_reverse($system);
 	if (TINYIB_THUMBNAIL == 'gd' || (TINYIB_THUMBNAIL == 'ffmpeg' && preg_match("/jpg|jpeg/", $system[0]))) {
@@ -631,6 +631,43 @@ function createThumbnail($file_location, $thumb_location, $new_w, $new_h) {
 		}
 	}
 
+	if (!$spoiler) {
+		return true;
+	}
+
+	if (preg_match("/jpg|jpeg/", $system[0])) {
+		$src_img = imagecreatefromjpeg($thumb_location);
+	} else if (preg_match("/png/", $system[0])) {
+		$src_img = imagecreatefrompng($thumb_location);
+	} else if (preg_match("/gif/", $system[0])) {
+		$src_img = imagecreatefromgif($thumb_location);
+	} else {
+		return true;
+	}
+
+	if (!$src_img) {
+		fancyDie(__('Unable to read the uploaded file while creating its thumbnail. A common cause for this is an incorrect extension when the file is actually of a different type.'));
+	}
+
+	$gaussian = array(array(1.0, 2.0, 1.0), array(2.0, 4.0, 2.0), array(1.0, 2.0, 1.0));
+	for ($x = 1; $x <= 149; $x++) {
+		imageconvolution($src_img, $gaussian, 16, 0);
+	}
+
+	if (preg_match("/png/", $system[0])) {
+		if (!imagepng($src_img, $thumb_location)) {
+			return false;
+		}
+	} else if (preg_match("/jpg|jpeg/", $system[0])) {
+		if (!imagejpeg($src_img, $thumb_location, 70)) {
+			return false;
+		}
+	} else if (preg_match("/gif/", $system[0])) {
+		if (!imagegif($src_img, $thumb_location)) {
+			return false;
+		}
+	}
+	imagedestroy($src_img);
 	return true;
 }
 
@@ -756,7 +793,7 @@ function getEmbed($url) {
 	return array('', array());
 }
 
-function attachFile($post, $filepath, $filename, $uploaded) {
+function attachFile($post, $filepath, $filename, $uploaded, $spoiler) {
 	global $tinyib_uploads;
 
 	if (!is_file($filepath) || !is_readable($filepath)) {
@@ -838,7 +875,7 @@ function attachFile($post, $filepath, $filename, $uploaded) {
 		$post['thumb'] = $file_name_pre . 's.' . $tinyib_uploads[$file_mime][0];
 		list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
 
-		if (!createThumbnail($file_src, 'thumb/' . $post['thumb'], $thumb_maxwidth, $thumb_maxheight)) {
+		if (!createThumbnail($file_src, 'thumb/' . $post['thumb'], $thumb_maxwidth, $thumb_maxheight, $spoiler)) {
 			@unlink($file_src);
 			fancyDie(__('Could not create thumbnail.'));
 		}
