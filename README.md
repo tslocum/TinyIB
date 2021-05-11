@@ -81,7 +81,7 @@ support in mind.
       - Ensure your web host is running Linux.
       - Install [ffmpeg](https://ffmpeg.org).  On Ubuntu, run ``sudo apt-get install ffmpeg``.
       - Add desired video file types to ``$tinyib_uploads``.
-    - To remove the play icon from .SWF and .WebM thumbnails, delete or rename **video_overlay.png**
+    - To remove the play icon from .SWF and .WebM thumbnails, delete or rename `video_overlay.png`.
     - To use FFMPEG to create thumbnails:
         - Install FFMPEG and ensure  the ``ffmpeg`` and ``ffprobe`` commands are available.
         - Set ``TINYIB_THUMBNAIL`` to ``ffmpeg``.
@@ -89,9 +89,7 @@ support in mind.
       - Install ImageMagick and ensure that the ``convert`` command is available.
       - Set ``TINYIB_THUMBNAIL`` to ``imagemagick``.
       - **Note:** GIF files will have animated thumbnails, which will often have large file sizes.
-    - To use TINYIB in another language:
-      - Set ``TINYIB_LOCALE`` to a language code found in `locale/`.
-      - Ensure you are running PHP 5.4+.
+    - To use TINYIB in another language, set ``TINYIB_LOCALE`` to a language code found in `locale/`.
  6. [CHMOD](https://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)
     - ./src/
