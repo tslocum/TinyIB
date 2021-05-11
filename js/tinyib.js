@@ -115,6 +115,8 @@ function autoRefresh() {
             Object.keys(data).forEach(function (key) {
                 posts.append(data[key]);
 
+                setPostAttributes('#reply' + key);
+
                 autoRefreshPostID = key;
                 newRepliesCount++;
             });
@@ -200,10 +202,7 @@ $(window).blur(function () {
 });
 
 $(document).ready(function () {
-    setPostAttributes(document, false);
-    $('div:not(div div)').each(function () {
-        setPostAttributes(this, true);
-    });
+    setPostAttributes(document);
 });
 
 function insertAfter(newElement, targetElement) {
@@ -218,7 +217,7 @@ $(document).mousemove( function(e) {
 });
 
 var downloaded_posts = [];
-function setPostAttributes(element, setLastReply) {
+function setPostAttributes(element) {
     var base_url = './imgboard.php?';
     if (window.location.href.includes('/res/')) {
         base_url = '../imgboard.php?res&';
@@ -238,9 +237,6 @@ function setPostAttributes(element, setLastReply) {
 
         if ($(this).html() == 'No.') {
             $(element).attr('postID', m[1]).addClass('post');
-            if (setLastReply) {
-                lastreply = element;
-            }
         } else if ($(this).attr('refID') == undefined) {
             var m2 = $(this).html().match(/^\&gt\;\&gt\;[0-9]+/i);
             if (m2 == null) {
