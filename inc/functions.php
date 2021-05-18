@@ -853,8 +853,8 @@ function attachFile($post, $filepath, $filename, $uploaded, $spoiler) {
 
 	if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif', 'application/x-shockwave-flash'))) {
 		$file_info = getimagesize($file_src);
-		$post['image_width'] = $file_info[0];
-		$post['image_height'] = $file_info[1];
+		$post['image_width'] = $file_info[0] != '' ? $file_info[0] : 0;
+		$post['image_height'] = $file_info[1] != '' ? $file_info[1] : 0;
 	}
 
 	if (isset($tinyib_uploads[$file_mime][1])) {
@@ -867,10 +867,6 @@ function attachFile($post, $filepath, $filename, $uploaded, $spoiler) {
 		if ($file_mime == 'application/x-shockwave-flash') {
 			addVideoOverlay('thumb/' . $post['thumb']);
 		}
-
-		$file_info = getimagesize($file_src);
-		$post['image_width'] = $file_info[0];
-		$post['image_height'] = $file_info[1];
 	} else if (in_array($file_mime, array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'))) {
 		$post['thumb'] = $file_name_pre . 's.' . $tinyib_uploads[$file_mime][0];
 		list($thumb_maxwidth, $thumb_maxheight) = thumbnailDimensions($post);
