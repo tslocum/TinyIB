@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-04-04 13:04-0700\n"
+"POT-Creation-Date: 2021-05-10 23:34-0700\n"
 "PO-Revision-Date: 2020-11-28 08:29+0000\n"
 "Last-Translator: hmi45 <hmi45@naver.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/tinyib/tinyib/ko/"
@@ -20,9 +20,6 @@ msgstr ""
 
 msgid "Click here to go back"
 msgstr "딸깍하면 돌아갑니다"
-
-msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
-msgstr "TINYIB_TRIPSEED 와 TINYIB_ADMINPASS 는 반드시 설정해야 합니다."
 
 #, fuzzy
 #| msgid ""
@@ -100,10 +97,6 @@ msgid "Please %s."
 msgstr "부디 %s."
 
 #, php-format
-msgid "%s uploaded."
-msgstr "%s 올리기 됨."
-
-#, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr "게시물 %s 은 <b>승인 이후 표시됩니다</b>."
 
@@ -112,6 +105,15 @@ msgstr "글타래 갱신 중..."
 
 msgid "Updating index..."
 msgstr "색인 갱신 중..."
+
+msgid "Created raw post"
+msgstr ""
+
+msgid "This post has been deleted"
+msgstr ""
+
+msgid "This post requires moderation before it can be displayed"
+msgstr ""
 
 #, fuzzy
 #| msgid "Reporting is disabled."
@@ -128,8 +130,20 @@ msgstr ""
 "죄송합니다. 잘못된 게시물 식별자가 전송되었습니다. 돌아가서 쪽을 새로 고친 "
 "후 다시 시도하십시오."
 
+msgid "Moderators have determined that post does not break any rules."
+msgstr ""
+
 msgid "You have already submitted a report for that post."
 msgstr "이미 이 게시물을 신고하였습니다."
+
+msgid "(enter the text below)"
+msgstr "(아래의 문자를 입력하세요)"
+
+msgid "Please complete a CAPTCHA to submit your report"
+msgstr ""
+
+msgid "Submit"
+msgstr "제출"
 
 msgid "Post reported."
 msgstr "게시물 신고됨."
@@ -169,7 +183,35 @@ msgstr ""
 msgid "Invalid role."
 msgstr ""
 
+#, php-format
+msgid "Added account %s"
+msgstr ""
+
 msgid "Added account"
+msgstr ""
+
+#, php-format
+msgid "Renamed account %1$s as %2$s"
+msgstr ""
+
+#, php-format
+msgid "Changed password of account %s"
+msgstr ""
+
+msgid "Super-administrator"
+msgstr ""
+
+msgid "Administrator"
+msgstr ""
+
+msgid "Moderator"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+#, php-format
+msgid "Changed role of account %s to %s"
 msgstr ""
 
 msgid "Updated account"
@@ -178,16 +220,38 @@ msgstr ""
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr "죄송합니다, 해당 누리망 통신 규약 주소는 이미 차단 목록에 있습니다."
 
-#, php-format
-msgid "Ban record added for %s"
-msgstr "차단목록에 %s 이 추가되었습니다"
+msgid "permanently"
+msgstr ""
 
 #, php-format
-msgid "Ban record lifted for %s"
-msgstr "차단 목록에서 %s 를 해제하였습니다"
+msgid "until %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s: %s"
+msgstr ""
+
+msgid "Banned 1 IP address"
+msgstr ""
+
+#, php-format
+msgid "Banned %d IP addresses"
+msgstr ""
+
+#, php-format
+msgid "Lifted ban on %s"
+msgstr ""
 
 msgid "Sorry, that keyword has already been added."
 msgstr "죄송합니다, 해당 핵심어는 이미 추가되었습니다."
+
+#, php-format
+msgid "Updated keyword %s"
+msgstr ""
 
 msgid "Keyword updated."
 msgstr "핵심어 갱신됨."
@@ -195,25 +259,51 @@ msgstr "핵심어 갱신됨."
 msgid "Keyword added."
 msgstr "핵심어 추가됨."
 
-msgid "Keyword deleted."
-msgstr "핵심어 삭제됨."
+msgid "That keyword does not exist."
+msgstr ""
 
 #, php-format
-msgid "Post No.%d deleted."
-msgstr "게시물 번호 %d는 삭제되었습니다."
+msgid "Deleted keyword %s"
+msgstr ""
+
+msgid "Keyword deleted."
+msgstr "핵심어 삭제됨."
 
 msgid "Sorry, there doesn't appear to be a post with that ID."
 msgstr "죄송합니다. 해당 식별자의 게시물이 없는 것 같습니다."
 
 #, php-format
+msgid "Deleted %s"
+msgstr ""
+
+msgid "Deleted 1 post"
+msgstr ""
+
+#, php-format
+msgid "Deleted %d posts"
+msgstr ""
+
+msgid "Approved"
+msgstr ""
+
+#, php-format
 msgid "Post No.%d approved."
 msgstr "게시물 번호 %d 가 승인되었습니다."
+
+msgid "Stickied"
+msgstr "붙여짐"
+
+msgid "Unstickied"
+msgstr ""
 
 msgid "Form data was lost. Please go back and try again."
 msgstr "양식 자료가 손실되었습니다. 돌아가서 다시 시도하십시오."
 
-msgid "Reports cleared."
-msgstr "신고가 청산됨."
+msgid "Locked"
+msgstr "잠겨짐"
+
+msgid "Unlocked"
+msgstr ""
 
 msgid "Password updated"
 msgstr ""
@@ -307,9 +397,6 @@ msgstr "지원되는 철 형식은 다음과 같습니다 %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "지원되는 철 형식은 %1$s 그리고 %2$s 입니다."
 
-msgid "Submit"
-msgstr "제출"
-
 msgid "Reply to"
 msgstr "답글 하기"
 
@@ -323,9 +410,6 @@ msgstr "알림말 구역에 입력 한 글자는 서식이 적용되지 않은 �
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "줄 바꿈은 \"&lt;br&gt;\"로 지정해야합니다."
-
-msgid "(enter the text below)"
-msgstr "(아래의 문자를 입력하세요)"
 
 msgid "CAPTCHA"
 msgstr "자동입력 방지 문자"
@@ -378,12 +462,6 @@ msgstr "(게시물, 철을 삭제하는데 필요합니다)"
 msgid "Report"
 msgstr "신고"
 
-msgid "Stickied"
-msgstr "붙여짐"
-
-msgid "Locked"
-msgstr "잠겨짐"
-
 msgid "Embed:"
 msgstr "끼워 넣기:"
 
@@ -433,11 +511,6 @@ msgstr "게시물 삭제"
 msgid "Status"
 msgstr "상태"
 
-#, fuzzy
-#| msgid "Report"
-msgid "Reports"
-msgstr "신고"
-
 msgid "Accounts"
 msgstr ""
 
@@ -450,11 +523,19 @@ msgstr "핵심어"
 msgid "Moderate Post"
 msgstr "게시물 검토"
 
+msgid "Moderation Log"
+msgstr ""
+
 msgid "Raw Post"
 msgstr "날 게시물"
 
 msgid "Rebuild All"
 msgstr "모두 재구축"
+
+#, fuzzy
+#| msgid "Report"
+msgid "Reports"
+msgstr "신고"
 
 msgid "Update"
 msgstr "갱신"
@@ -475,6 +556,12 @@ msgid "Log In"
 msgstr "접속"
 
 msgid "Enter a username and password"
+msgstr ""
+
+msgid "No logs."
+msgstr ""
+
+msgid "Moderation log"
 msgstr ""
 
 msgid "Reported posts"
@@ -522,18 +609,6 @@ msgstr ""
 msgid "Choose a role"
 msgstr ""
 
-msgid "Super-administrator"
-msgstr ""
-
-msgid "Administrator"
-msgstr ""
-
-msgid "Moderator"
-msgstr ""
-
-msgid "Disabled"
-msgstr ""
-
 msgid "Last active"
 msgstr ""
 
@@ -545,6 +620,11 @@ msgstr ""
 
 msgid "Add a ban"
 msgstr "차단 목록 추가하기"
+
+msgid ""
+"Multiple IP addresses may be banned at once by separating each address with "
+"a comma."
+msgstr ""
 
 msgid "IP Address"
 msgstr "누리망 통신 규약 주소"
@@ -612,6 +692,38 @@ msgstr ""
 "게시물 옆에있는 상자를 선택하고 빈 암호로 쪽 하단의 \"삭제\"를 딸깍합니다."
 
 #, php-format
+msgid "Moderate %d posts"
+msgstr ""
+
+msgid "Delete all"
+msgstr ""
+
+msgid "Ban all"
+msgstr ""
+
+msgid "1 thread and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "1 thread and %d replies will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d threads and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%1$d threads and %2$d replies will be deleted."
+msgstr ""
+
+msgid "1 IP address will be banned."
+msgstr ""
+
+#, php-format
+msgid "%d IP addresses will be banned."
+msgstr ""
+
+#, php-format
 msgid " A ban record already exists for %s"
 msgstr " %s 에 대한 차단 목록이 이미 있습니다"
 
@@ -622,17 +734,18 @@ msgstr "관리자만이 누리망 통신 규약 주소를 차단할 수 있습�
 msgid "IP address: %s"
 msgstr "누리망 통신 규약 주소: %s"
 
-msgid "This will delete the entire thread below."
-msgstr "아래의 전체 글타래가 삭제됩니다."
-
-msgid "This will delete the post below."
-msgstr "아래 게시물이 삭제됩니다."
-
 msgid "Thread"
 msgstr "글타래"
 
-msgid "Post"
-msgstr "게시물"
+msgid "1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d replies will be deleted."
+msgstr ""
+
+msgid "Belongs to "
+msgstr ""
 
 msgid "Un-sticky"
 msgstr "떼어내기"
@@ -668,14 +781,14 @@ msgstr "동작"
 msgid "Delete thread"
 msgstr "글타래 삭제"
 
-msgid "Delete post"
-msgstr "게시물 삭제"
+msgid "Delete reply"
+msgstr ""
 
 msgid "Ban poster"
 msgstr "게시자 차단"
 
-msgid "Clear reports"
-msgstr "신고 초기화"
+msgid "Approve"
+msgstr "승인"
 
 msgid "report"
 msgstr "신고"
@@ -694,6 +807,9 @@ msgstr "동작:"
 
 msgid "Add"
 msgstr "추가"
+
+msgid "Hide until approved"
+msgstr ""
 
 msgid "Delete and ban for 1 hour"
 msgstr "삭제 그리고 1 시간 차단"
@@ -731,9 +847,6 @@ msgstr "차단"
 msgid "bans"
 msgstr "차단들"
 
-msgid "Approve"
-msgstr "승인"
-
 msgid "More Info"
 msgstr "더 많은 정보"
 
@@ -745,6 +858,39 @@ msgstr "최근 게시물들"
 
 msgid "Info"
 msgstr "정보"
+
+#~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
+#~ msgstr "TINYIB_TRIPSEED 와 TINYIB_ADMINPASS 는 반드시 설정해야 합니다."
+
+#~ msgid "%s uploaded."
+#~ msgstr "%s 올리기 됨."
+
+#~ msgid "Ban record added for %s"
+#~ msgstr "차단목록에 %s 이 추가되었습니다"
+
+#~ msgid "Ban record lifted for %s"
+#~ msgstr "차단 목록에서 %s 를 해제하였습니다"
+
+#~ msgid "Post No.%d deleted."
+#~ msgstr "게시물 번호 %d는 삭제되었습니다."
+
+#~ msgid "Reports cleared."
+#~ msgstr "신고가 청산됨."
+
+#~ msgid "This will delete the entire thread below."
+#~ msgstr "아래의 전체 글타래가 삭제됩니다."
+
+#~ msgid "This will delete the post below."
+#~ msgstr "아래 게시물이 삭제됩니다."
+
+#~ msgid "Post"
+#~ msgstr "게시물"
+
+#~ msgid "Delete post"
+#~ msgstr "게시물 삭제"
+
+#~ msgid "Clear reports"
+#~ msgstr "신고 초기화"
 
 #~ msgid "Enter an administrator or moderator password"
 #~ msgstr "관리자 또는 중재자 비밀번호를 입력해 주세요"

@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-04-04 13:04-0700\n"
+"POT-Creation-Date: 2021-05-10 23:34-0700\n"
 "PO-Revision-Date: 2021-04-07 14:27+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/tinyib/tinyib/fr/>"
-"\n"
+"Language-Team: French <https://hosted.weblate.org/projects/tinyib/tinyib/fr/"
+">\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,9 +20,6 @@ msgstr ""
 
 msgid "Click here to go back"
 msgstr "Retour en cliquant ici"
-
-msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
-msgstr "TINYIB_TRIPSEED et TINYIB_ADMINPASS doivent être configurés."
 
 msgid "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured."
 msgstr ""
@@ -104,10 +101,6 @@ msgid "Please %s."
 msgstr "Veuillez %s."
 
 #, php-format
-msgid "%s uploaded."
-msgstr "%s téléversé."
-
-#, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr "Votre %s sera affichée <b>une fois qu’elle aura été approuvée</b>."
 
@@ -116,6 +109,15 @@ msgstr "Mise à jour du fil de discussion…"
 
 msgid "Updating index..."
 msgstr "Mise à jour de l’index…"
+
+msgid "Created raw post"
+msgstr ""
+
+msgid "This post has been deleted"
+msgstr ""
+
+msgid "This post requires moderation before it can be displayed"
+msgstr ""
 
 msgid "Automatic refreshing is disabled."
 msgstr "Le rafraîchissement automatique est désactivé."
@@ -130,8 +132,20 @@ msgstr ""
 "Désolé, un identificateur de publication invalide a été envoyé. Veuillez "
 "retourner en arrière, actualiser la page et réessayer."
 
+msgid "Moderators have determined that post does not break any rules."
+msgstr ""
+
 msgid "You have already submitted a report for that post."
 msgstr "Vous avez déjà signalé cette publication."
+
+msgid "(enter the text below)"
+msgstr "(saisissez le texte ci-dessous)"
+
+msgid "Please complete a CAPTCHA to submit your report"
+msgstr ""
+
+msgid "Submit"
+msgstr "Envoyer"
 
 msgid "Post reported."
 msgstr "Publication signalée."
@@ -176,8 +190,36 @@ msgstr "Un mot de passe est requis."
 msgid "Invalid role."
 msgstr "Rôle invalide."
 
+#, php-format
+msgid "Added account %s"
+msgstr ""
+
 msgid "Added account"
 msgstr "Compte ajouté"
+
+#, php-format
+msgid "Renamed account %1$s as %2$s"
+msgstr ""
+
+#, php-format
+msgid "Changed password of account %s"
+msgstr ""
+
+msgid "Super-administrator"
+msgstr "Super administrateur"
+
+msgid "Administrator"
+msgstr "Administrateur"
+
+msgid "Moderator"
+msgstr "Modérateur"
+
+msgid "Disabled"
+msgstr "Désactivé"
+
+#, php-format
+msgid "Changed role of account %s to %s"
+msgstr ""
 
 msgid "Updated account"
 msgstr "Compte mis à jour"
@@ -186,16 +228,38 @@ msgid "Sorry, there is already a ban on record for that IP address."
 msgstr ""
 "Désolé, il y a déjà une interdiction enregistrée pour cette adresse IP."
 
-#, php-format
-msgid "Ban record added for %s"
-msgstr "Enregistrement d'interdiction ajouté pour %s"
+msgid "permanently"
+msgstr ""
 
 #, php-format
-msgid "Ban record lifted for %s"
-msgstr "Interdiction levée pour %s"
+msgid "until %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s: %s"
+msgstr ""
+
+msgid "Banned 1 IP address"
+msgstr ""
+
+#, php-format
+msgid "Banned %d IP addresses"
+msgstr ""
+
+#, php-format
+msgid "Lifted ban on %s"
+msgstr ""
 
 msgid "Sorry, that keyword has already been added."
 msgstr "Désolé, ce mot-clé a déjà été ajouté."
+
+#, php-format
+msgid "Updated keyword %s"
+msgstr ""
 
 msgid "Keyword updated."
 msgstr "Mot-clé mis à jour."
@@ -203,27 +267,53 @@ msgstr "Mot-clé mis à jour."
 msgid "Keyword added."
 msgstr "Mot-clé ajouté."
 
-msgid "Keyword deleted."
-msgstr "Mot-clé supprimé."
+msgid "That keyword does not exist."
+msgstr ""
 
 #, php-format
-msgid "Post No.%d deleted."
-msgstr "Publication nº %d supprimée."
+msgid "Deleted keyword %s"
+msgstr ""
+
+msgid "Keyword deleted."
+msgstr "Mot-clé supprimé."
 
 msgid "Sorry, there doesn't appear to be a post with that ID."
 msgstr "Désolé, il ne semble pas y avoir de publication avec cet identifiant."
 
 #, php-format
+msgid "Deleted %s"
+msgstr ""
+
+msgid "Deleted 1 post"
+msgstr ""
+
+#, php-format
+msgid "Deleted %d posts"
+msgstr ""
+
+msgid "Approved"
+msgstr ""
+
+#, php-format
 msgid "Post No.%d approved."
 msgstr "Publication nº %d approuvée."
+
+msgid "Stickied"
+msgstr "Épinglé"
+
+msgid "Unstickied"
+msgstr ""
 
 msgid "Form data was lost. Please go back and try again."
 msgstr ""
 "Les données du formulaire ont été perdues. Veuillez retourner en arrière et "
 "réessayer."
 
-msgid "Reports cleared."
-msgstr "Signalements effacés."
+msgid "Locked"
+msgstr "Verrouillé"
+
+msgid "Unlocked"
+msgstr ""
 
 msgid "Password updated"
 msgstr "Mot de passe mis à jour"
@@ -319,9 +409,6 @@ msgstr "Le type de fichier pris en charge est %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "Les types de fichier pris en charge sont %1$s et %2$s."
 
-msgid "Submit"
-msgstr "Envoyer"
-
 msgid "Reply to"
 msgstr "Répondre à"
 
@@ -337,9 +424,6 @@ msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Les sauts de ligne doivent être spécifiés avec « &lt;br&gt; »."
-
-msgid "(enter the text below)"
-msgstr "(saisissez le texte ci-dessous)"
 
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
@@ -393,12 +477,6 @@ msgstr "(pour la suppression de publications et de fichiers)"
 msgid "Report"
 msgstr "Signaler"
 
-msgid "Stickied"
-msgstr "Épinglé"
-
-msgid "Locked"
-msgstr "Verrouillé"
-
 msgid "Embed:"
 msgstr "Incorporer :"
 
@@ -448,9 +526,6 @@ msgstr "Supprimer la publication"
 msgid "Status"
 msgstr "État"
 
-msgid "Reports"
-msgstr "Signalements"
-
 msgid "Accounts"
 msgstr "Comptes"
 
@@ -463,11 +538,17 @@ msgstr "Mots-clés"
 msgid "Moderate Post"
 msgstr "Modérer la publication"
 
+msgid "Moderation Log"
+msgstr ""
+
 msgid "Raw Post"
 msgstr "Publication brute"
 
 msgid "Rebuild All"
 msgstr "Tout reconstruire"
+
+msgid "Reports"
+msgstr "Signalements"
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -489,6 +570,12 @@ msgstr "Se connecter"
 
 msgid "Enter a username and password"
 msgstr "Saisissez un nom d'utilisateur et un mot de passe"
+
+msgid "No logs."
+msgstr ""
+
+msgid "Moderation log"
+msgstr ""
 
 msgid "Reported posts"
 msgstr "Publications signalées"
@@ -533,18 +620,6 @@ msgstr "Rôle"
 msgid "Choose a role"
 msgstr "Sélectionnez un rôle"
 
-msgid "Super-administrator"
-msgstr "Super administrateur"
-
-msgid "Administrator"
-msgstr "Administrateur"
-
-msgid "Moderator"
-msgstr "Modérateur"
-
-msgid "Disabled"
-msgstr "Désactivé"
-
 msgid "Last active"
 msgstr "Dernière activité"
 
@@ -556,6 +631,11 @@ msgstr "mettre à jour"
 
 msgid "Add a ban"
 msgstr "Bannir"
+
+msgid ""
+"Multiple IP addresses may be banned at once by separating each address with "
+"a comma."
+msgstr ""
 
 msgid "IP Address"
 msgstr "Adresse IP"
@@ -625,6 +705,38 @@ msgstr ""
 "de la page avec un mot de passe vide."
 
 #, php-format
+msgid "Moderate %d posts"
+msgstr ""
+
+msgid "Delete all"
+msgstr ""
+
+msgid "Ban all"
+msgstr ""
+
+msgid "1 thread and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "1 thread and %d replies will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d threads and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%1$d threads and %2$d replies will be deleted."
+msgstr ""
+
+msgid "1 IP address will be banned."
+msgstr ""
+
+#, php-format
+msgid "%d IP addresses will be banned."
+msgstr ""
+
+#, php-format
 msgid " A ban record already exists for %s"
 msgstr " %s est déjà banni(e)"
 
@@ -635,17 +747,18 @@ msgstr "L'administrateur est le seul à pouvoir bannir une adresse IP."
 msgid "IP address: %s"
 msgstr "Adresse IP : %s"
 
-msgid "This will delete the entire thread below."
-msgstr "Cela va supprimer complètement le fil ci-dessous."
-
-msgid "This will delete the post below."
-msgstr "Ceci va supprimer la publication ci-dessous."
-
 msgid "Thread"
 msgstr "Fil"
 
-msgid "Post"
-msgstr "Publication"
+msgid "1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d replies will be deleted."
+msgstr ""
+
+msgid "Belongs to "
+msgstr ""
 
 msgid "Un-sticky"
 msgstr "Non épinglé"
@@ -681,14 +794,14 @@ msgstr "Action"
 msgid "Delete thread"
 msgstr "Supprimer le fil"
 
-msgid "Delete post"
-msgstr "Supprimer la publication"
+msgid "Delete reply"
+msgstr ""
 
 msgid "Ban poster"
 msgstr "Bannir l'auteur"
 
-msgid "Clear reports"
-msgstr "Effacer les signalements"
+msgid "Approve"
+msgstr "Approuver"
 
 msgid "report"
 msgstr "signalement"
@@ -707,6 +820,9 @@ msgstr "Action :"
 
 msgid "Add"
 msgstr "Ajouter"
+
+msgid "Hide until approved"
+msgstr ""
 
 msgid "Delete and ban for 1 hour"
 msgstr "Supprimer et bannir pour 1 heure"
@@ -744,9 +860,6 @@ msgstr "interdiction"
 msgid "bans"
 msgstr "interdictions"
 
-msgid "Approve"
-msgstr "Approuver"
-
 msgid "More Info"
 msgstr "Plus d'informations"
 
@@ -758,6 +871,39 @@ msgstr "Publications récentes"
 
 msgid "Info"
 msgstr "Informations"
+
+#~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
+#~ msgstr "TINYIB_TRIPSEED et TINYIB_ADMINPASS doivent être configurés."
+
+#~ msgid "%s uploaded."
+#~ msgstr "%s téléversé."
+
+#~ msgid "Ban record added for %s"
+#~ msgstr "Enregistrement d'interdiction ajouté pour %s"
+
+#~ msgid "Ban record lifted for %s"
+#~ msgstr "Interdiction levée pour %s"
+
+#~ msgid "Post No.%d deleted."
+#~ msgstr "Publication nº %d supprimée."
+
+#~ msgid "Reports cleared."
+#~ msgstr "Signalements effacés."
+
+#~ msgid "This will delete the entire thread below."
+#~ msgstr "Cela va supprimer complètement le fil ci-dessous."
+
+#~ msgid "This will delete the post below."
+#~ msgstr "Ceci va supprimer la publication ci-dessous."
+
+#~ msgid "Post"
+#~ msgstr "Publication"
+
+#~ msgid "Delete post"
+#~ msgstr "Supprimer la publication"
+
+#~ msgid "Clear reports"
+#~ msgstr "Effacer les signalements"
 
 #~ msgid "Enter an administrator or moderator password"
 #~ msgstr "Saisissez un mot de passe administrateur ou modérateur"

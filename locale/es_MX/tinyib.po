@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-04-04 13:04-0700\n"
+"POT-Creation-Date: 2021-05-10 23:34-0700\n"
 "PO-Revision-Date: 2021-03-21 05:30+0000\n"
 "Last-Translator: Narou Slab <narouslab@gmail.com>\n"
 "Language-Team: Spanish (Mexico) <https://hosted.weblate.org/projects/tinyib/"
@@ -20,9 +20,6 @@ msgstr ""
 
 msgid "Click here to go back"
 msgstr "Click aquí para regresar"
-
-msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
-msgstr "TinyIB_TRIPSEED y TINYIB_ADMINPASS deben ser configurados."
 
 msgid "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured."
 msgstr "TINYIB_HCAPTCHA_SITE y TINYIB_HCAPTCHA_SECRET deben ser configurados."
@@ -99,10 +96,6 @@ msgid "Please %s."
 msgstr "Por favor %s."
 
 #, php-format
-msgid "%s uploaded."
-msgstr "%s subido."
-
-#, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr "Tu %s va a ser mostrado <b>una vez aprovado</b>."
 
@@ -111,6 +104,15 @@ msgstr "Actualizando hilo..."
 
 msgid "Updating index..."
 msgstr "Actualizando índice..."
+
+msgid "Created raw post"
+msgstr ""
+
+msgid "This post has been deleted"
+msgstr ""
+
+msgid "This post requires moderation before it can be displayed"
+msgstr ""
 
 msgid "Automatic refreshing is disabled."
 msgstr "Refresco automatico está deshabilitado."
@@ -125,8 +127,21 @@ msgstr ""
 "Perdón, un indentificador de post invalido a sido enviado. Por favor "
 "regrese, actualize la pagina, e intentelo de nuevo."
 
+msgid "Moderators have determined that post does not break any rules."
+msgstr ""
+
 msgid "You have already submitted a report for that post."
 msgstr "Ya haz subido un reporte para ese post."
+
+#, fuzzy
+msgid "(enter the text below)"
+msgstr "(Ingresa el texto abajo)"
+
+msgid "Please complete a CAPTCHA to submit your report"
+msgstr ""
+
+msgid "Submit"
+msgstr "Subir"
 
 msgid "Post reported."
 msgstr "Post reportado."
@@ -167,7 +182,35 @@ msgstr ""
 msgid "Invalid role."
 msgstr ""
 
+#, php-format
+msgid "Added account %s"
+msgstr ""
+
 msgid "Added account"
+msgstr ""
+
+#, php-format
+msgid "Renamed account %1$s as %2$s"
+msgstr ""
+
+#, php-format
+msgid "Changed password of account %s"
+msgstr ""
+
+msgid "Super-administrator"
+msgstr ""
+
+msgid "Administrator"
+msgstr ""
+
+msgid "Moderator"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+#, php-format
+msgid "Changed role of account %s to %s"
 msgstr ""
 
 msgid "Updated account"
@@ -176,16 +219,38 @@ msgstr ""
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr "Perdón, ya hay un ban registrado para esa dirección IP."
 
-#, php-format
-msgid "Ban record added for %s"
-msgstr "Registro de ban añadido para %s"
+msgid "permanently"
+msgstr ""
 
 #, php-format
-msgid "Ban record lifted for %s"
-msgstr "Registro de ban eliminado para %s"
+msgid "until %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s: %s"
+msgstr ""
+
+msgid "Banned 1 IP address"
+msgstr ""
+
+#, php-format
+msgid "Banned %d IP addresses"
+msgstr ""
+
+#, php-format
+msgid "Lifted ban on %s"
+msgstr ""
 
 msgid "Sorry, that keyword has already been added."
 msgstr "Perdone, esa keyword ya ah sido añadida."
+
+#, php-format
+msgid "Updated keyword %s"
+msgstr ""
 
 msgid "Keyword updated."
 msgstr "Keyword actualizada."
@@ -193,26 +258,54 @@ msgstr "Keyword actualizada."
 msgid "Keyword added."
 msgstr "Keyword añadida."
 
-msgid "Keyword deleted."
-msgstr "Keyword eliminada."
+msgid "That keyword does not exist."
+msgstr ""
 
 #, php-format
-msgid "Post No.%d deleted."
-msgstr "Post No.%d eliminado."
+msgid "Deleted keyword %s"
+msgstr ""
+
+msgid "Keyword deleted."
+msgstr "Keyword eliminada."
 
 msgid "Sorry, there doesn't appear to be a post with that ID."
 msgstr "Perdón, pero no parece haber un post con esa ID."
 
 #, php-format
+msgid "Deleted %s"
+msgstr ""
+
+msgid "Deleted 1 post"
+msgstr ""
+
+#, php-format
+msgid "Deleted %d posts"
+msgstr ""
+
+msgid "Approved"
+msgstr ""
+
+#, php-format
 msgid "Post No.%d approved."
 msgstr "Post No.%d aprovado."
+
+#, fuzzy
+msgid "Stickied"
+msgstr "Pegado"
+
+msgid "Unstickied"
+msgstr ""
 
 msgid "Form data was lost. Please go back and try again."
 msgstr ""
 "Se han perdido los datos del formulario. Por favor vuelve e inténtalo de "
 "nuevo."
 
-msgid "Reports cleared."
+#, fuzzy
+msgid "Locked"
+msgstr "Bloqueado"
+
+msgid "Unlocked"
 msgstr ""
 
 msgid "Password updated"
@@ -310,9 +403,6 @@ msgstr "El tipo de archivo soportado es %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "Los tipos de archivo admitidos son %1$s y %2$s."
 
-msgid "Submit"
-msgstr "Subir"
-
 msgid "Reply to"
 msgstr "Responder a"
 
@@ -328,10 +418,6 @@ msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Los saltos de línea deben ser especificados con \"&lt;br&gt;\"."
-
-#, fuzzy
-msgid "(enter the text below)"
-msgstr "(Ingresa el texto abajo)"
 
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
@@ -385,14 +471,6 @@ msgstr "(para eliminación de post y archivo)"
 msgid "Report"
 msgstr "Reportar"
 
-#, fuzzy
-msgid "Stickied"
-msgstr "Pegado"
-
-#, fuzzy
-msgid "Locked"
-msgstr "Bloqueado"
-
 msgid "Embed:"
 msgstr "Incrustar:"
 
@@ -444,11 +522,6 @@ msgstr "Eliminar Post"
 msgid "Status"
 msgstr ""
 
-#, fuzzy
-#| msgid "Delete Post"
-msgid "Reports"
-msgstr "Eliminar Post"
-
 msgid "Accounts"
 msgstr ""
 
@@ -463,11 +536,19 @@ msgstr ""
 msgid "Moderate Post"
 msgstr "Eliminar Post"
 
+msgid "Moderation Log"
+msgstr ""
+
 msgid "Raw Post"
 msgstr ""
 
 msgid "Rebuild All"
 msgstr ""
+
+#, fuzzy
+#| msgid "Delete Post"
+msgid "Reports"
+msgstr "Eliminar Post"
 
 msgid "Update"
 msgstr ""
@@ -490,6 +571,12 @@ msgid "Log In"
 msgstr "Ingresar"
 
 msgid "Enter a username and password"
+msgstr ""
+
+msgid "No logs."
+msgstr ""
+
+msgid "Moderation log"
 msgstr ""
 
 #, fuzzy
@@ -538,18 +625,6 @@ msgstr ""
 msgid "Choose a role"
 msgstr ""
 
-msgid "Super-administrator"
-msgstr ""
-
-msgid "Administrator"
-msgstr ""
-
-msgid "Moderator"
-msgstr ""
-
-msgid "Disabled"
-msgstr ""
-
 msgid "Last active"
 msgstr ""
 
@@ -560,6 +635,11 @@ msgid "update"
 msgstr ""
 
 msgid "Add a ban"
+msgstr ""
+
+msgid ""
+"Multiple IP addresses may be banned at once by separating each address with "
+"a comma."
 msgstr ""
 
 msgid "IP Address"
@@ -632,6 +712,38 @@ msgid ""
 msgstr ""
 "Selecciona la caja al lado de un post y clickea \"Eliminar\" para eliminarlo."
 
+#, php-format
+msgid "Moderate %d posts"
+msgstr ""
+
+msgid "Delete all"
+msgstr ""
+
+msgid "Ban all"
+msgstr ""
+
+msgid "1 thread and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "1 thread and %d replies will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d threads and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%1$d threads and %2$d replies will be deleted."
+msgstr ""
+
+msgid "1 IP address will be banned."
+msgstr ""
+
+#, php-format
+msgid "%d IP addresses will be banned."
+msgstr ""
+
 #, fuzzy, php-format
 #| msgid "Ban record added for %s"
 msgid " A ban record already exists for %s"
@@ -645,16 +757,17 @@ msgstr ""
 msgid "IP address: %s"
 msgstr "Dirección IP:"
 
-msgid "This will delete the entire thread below."
-msgstr ""
-
-msgid "This will delete the post below."
-msgstr ""
-
 msgid "Thread"
 msgstr ""
 
-msgid "Post"
+msgid "1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d replies will be deleted."
+msgstr ""
+
+msgid "Belongs to "
 msgstr ""
 
 msgid "Un-sticky"
@@ -693,15 +806,13 @@ msgstr ""
 msgid "Delete thread"
 msgstr "Eliminar Post"
 
-#, fuzzy
-#| msgid "Delete Post"
-msgid "Delete post"
-msgstr "Eliminar Post"
+msgid "Delete reply"
+msgstr ""
 
 msgid "Ban poster"
 msgstr ""
 
-msgid "Clear reports"
+msgid "Approve"
 msgstr ""
 
 msgid "report"
@@ -722,6 +833,9 @@ msgid "Action:"
 msgstr ""
 
 msgid "Add"
+msgstr ""
+
+msgid "Hide until approved"
 msgstr ""
 
 msgid "Delete and ban for 1 hour"
@@ -760,9 +874,6 @@ msgstr ""
 msgid "bans"
 msgstr ""
 
-msgid "Approve"
-msgstr ""
-
 msgid "More Info"
 msgstr ""
 
@@ -774,6 +885,26 @@ msgstr ""
 
 msgid "Info"
 msgstr ""
+
+#~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
+#~ msgstr "TinyIB_TRIPSEED y TINYIB_ADMINPASS deben ser configurados."
+
+#~ msgid "%s uploaded."
+#~ msgstr "%s subido."
+
+#~ msgid "Ban record added for %s"
+#~ msgstr "Registro de ban añadido para %s"
+
+#~ msgid "Ban record lifted for %s"
+#~ msgstr "Registro de ban eliminado para %s"
+
+#~ msgid "Post No.%d deleted."
+#~ msgstr "Post No.%d eliminado."
+
+#, fuzzy
+#~| msgid "Delete Post"
+#~ msgid "Delete post"
+#~ msgstr "Eliminar Post"
 
 #~ msgid "Enter an administrator or moderator password"
 #~ msgstr "Ingresa una contraseña de administrador o moderador"

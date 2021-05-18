@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-04-04 13:04-0700\n"
+"POT-Creation-Date: 2021-05-10 23:34-0700\n"
 "PO-Revision-Date: 2020-10-17 16:26+0000\n"
 "Last-Translator: Michael Mai <michaelmai2000@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -20,9 +20,6 @@ msgstr ""
 "X-Poedit-SearchPath-2: inc/html.php\n"
 
 msgid "Click here to go back"
-msgstr ""
-
-msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
 msgstr ""
 
 msgid "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured."
@@ -96,10 +93,6 @@ msgstr "请输入验证码文本。"
 msgid "Please %s."
 msgstr ""
 
-#, php-format
-msgid "%s uploaded."
-msgstr "%s 已上传。"
-
 #, fuzzy, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr "你的 %s 会被显示。<b>只要它被通过了。</b>"
@@ -110,6 +103,15 @@ msgstr "正在更新帖子..."
 #, fuzzy
 msgid "Updating index..."
 msgstr "正在更新索引..."
+
+msgid "Created raw post"
+msgstr ""
+
+msgid "This post has been deleted"
+msgstr ""
+
+msgid "This post requires moderation before it can be displayed"
+msgstr ""
 
 msgid "Automatic refreshing is disabled."
 msgstr ""
@@ -123,7 +125,19 @@ msgid ""
 "page, and try again."
 msgstr "抱歉，帖子ID非法。请返回，刷新页面并重试。"
 
+msgid "Moderators have determined that post does not break any rules."
+msgstr ""
+
 msgid "You have already submitted a report for that post."
+msgstr ""
+
+msgid "(enter the text below)"
+msgstr ""
+
+msgid "Please complete a CAPTCHA to submit your report"
+msgstr ""
+
+msgid "Submit"
 msgstr ""
 
 #, fuzzy
@@ -166,7 +180,35 @@ msgstr ""
 msgid "Invalid role."
 msgstr ""
 
+#, php-format
+msgid "Added account %s"
+msgstr ""
+
 msgid "Added account"
+msgstr ""
+
+#, php-format
+msgid "Renamed account %1$s as %2$s"
+msgstr ""
+
+#, php-format
+msgid "Changed password of account %s"
+msgstr ""
+
+msgid "Super-administrator"
+msgstr ""
+
+msgid "Administrator"
+msgstr ""
+
+msgid "Moderator"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+#, php-format
+msgid "Changed role of account %s to %s"
 msgstr ""
 
 msgid "Updated account"
@@ -175,15 +217,37 @@ msgstr ""
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr "抱歉，此ID已被禁用。"
 
-#, php-format
-msgid "Ban record added for %s"
-msgstr "添加了对 %s 的禁令"
+msgid "permanently"
+msgstr ""
 
 #, php-format
-msgid "Ban record lifted for %s"
-msgstr "解除了对 %s 的禁令"
+msgid "until %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s: %s"
+msgstr ""
+
+msgid "Banned 1 IP address"
+msgstr ""
+
+#, php-format
+msgid "Banned %d IP addresses"
+msgstr ""
+
+#, php-format
+msgid "Lifted ban on %s"
+msgstr ""
 
 msgid "Sorry, that keyword has already been added."
+msgstr ""
+
+#, php-format
+msgid "Updated keyword %s"
 msgstr ""
 
 msgid "Keyword updated."
@@ -192,26 +256,52 @@ msgstr ""
 msgid "Keyword added."
 msgstr ""
 
+msgid "That keyword does not exist."
+msgstr ""
+
+#, php-format
+msgid "Deleted keyword %s"
+msgstr ""
+
 #, fuzzy
 #| msgid "Post deleted."
 msgid "Keyword deleted."
 msgstr "已删除帖子。"
 
-#, php-format
-msgid "Post No.%d deleted."
-msgstr "帖子 ID%d 已删除。"
-
 msgid "Sorry, there doesn't appear to be a post with that ID."
 msgstr "抱歉，似乎没有带该 ID 的帖子。"
+
+#, php-format
+msgid "Deleted %s"
+msgstr ""
+
+msgid "Deleted 1 post"
+msgstr ""
+
+#, php-format
+msgid "Deleted %d posts"
+msgstr ""
+
+msgid "Approved"
+msgstr ""
 
 #, php-format
 msgid "Post No.%d approved."
 msgstr "帖子 %d 已被批准。"
 
+msgid "Stickied"
+msgstr ""
+
+msgid "Unstickied"
+msgstr ""
+
 msgid "Form data was lost. Please go back and try again."
 msgstr "表单数据丢失。请返回并重试。"
 
-msgid "Reports cleared."
+msgid "Locked"
+msgstr ""
+
+msgid "Unlocked"
 msgstr ""
 
 msgid "Password updated"
@@ -296,9 +386,6 @@ msgstr ""
 msgid "Supported file types are %1$s and %2$s."
 msgstr ""
 
-msgid "Submit"
-msgstr ""
-
 msgid "Reply to"
 msgstr ""
 
@@ -311,9 +398,6 @@ msgid ""
 msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
-msgstr ""
-
-msgid "(enter the text below)"
 msgstr ""
 
 msgid "CAPTCHA"
@@ -367,12 +451,6 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
-msgid "Stickied"
-msgstr ""
-
-msgid "Locked"
-msgstr ""
-
 msgid "Embed:"
 msgstr ""
 
@@ -422,9 +500,6 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-msgid "Reports"
-msgstr ""
-
 msgid "Accounts"
 msgstr ""
 
@@ -437,10 +512,16 @@ msgstr ""
 msgid "Moderate Post"
 msgstr ""
 
+msgid "Moderation Log"
+msgstr ""
+
 msgid "Raw Post"
 msgstr ""
 
 msgid "Rebuild All"
+msgstr ""
+
+msgid "Reports"
 msgstr ""
 
 msgid "Update"
@@ -462,6 +543,12 @@ msgid "Log In"
 msgstr ""
 
 msgid "Enter a username and password"
+msgstr ""
+
+msgid "No logs."
+msgstr ""
+
+msgid "Moderation log"
 msgstr ""
 
 msgid "Reported posts"
@@ -507,18 +594,6 @@ msgstr ""
 msgid "Choose a role"
 msgstr ""
 
-msgid "Super-administrator"
-msgstr ""
-
-msgid "Administrator"
-msgstr ""
-
-msgid "Moderator"
-msgstr ""
-
-msgid "Disabled"
-msgstr ""
-
 msgid "Last active"
 msgstr ""
 
@@ -529,6 +604,11 @@ msgid "update"
 msgstr ""
 
 msgid "Add a ban"
+msgstr ""
+
+msgid ""
+"Multiple IP addresses may be banned at once by separating each address with "
+"a comma."
 msgstr ""
 
 msgid "IP Address"
@@ -597,6 +677,38 @@ msgid ""
 "with a blank password."
 msgstr "勾选帖子旁边的选框，然后点击“删除”来删除帖子。"
 
+#, php-format
+msgid "Moderate %d posts"
+msgstr ""
+
+msgid "Delete all"
+msgstr ""
+
+msgid "Ban all"
+msgstr ""
+
+msgid "1 thread and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "1 thread and %d replies will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d threads and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%1$d threads and %2$d replies will be deleted."
+msgstr ""
+
+msgid "1 IP address will be banned."
+msgstr ""
+
+#, php-format
+msgid "%d IP addresses will be banned."
+msgstr ""
+
 #, fuzzy, php-format
 #| msgid "Ban record added for %s"
 msgid " A ban record already exists for %s"
@@ -609,16 +721,17 @@ msgstr ""
 msgid "IP address: %s"
 msgstr ""
 
-msgid "This will delete the entire thread below."
-msgstr ""
-
-msgid "This will delete the post below."
-msgstr ""
-
 msgid "Thread"
 msgstr ""
 
-msgid "Post"
+msgid "1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d replies will be deleted."
+msgstr ""
+
+msgid "Belongs to "
 msgstr ""
 
 msgid "Un-sticky"
@@ -655,13 +768,13 @@ msgstr ""
 msgid "Delete thread"
 msgstr ""
 
-msgid "Delete post"
+msgid "Delete reply"
 msgstr ""
 
 msgid "Ban poster"
 msgstr ""
 
-msgid "Clear reports"
+msgid "Approve"
 msgstr ""
 
 msgid "report"
@@ -682,6 +795,9 @@ msgid "Action:"
 msgstr ""
 
 msgid "Add"
+msgstr ""
+
+msgid "Hide until approved"
 msgstr ""
 
 msgid "Delete and ban for 1 hour"
@@ -720,9 +836,6 @@ msgstr ""
 msgid "bans"
 msgstr ""
 
-msgid "Approve"
-msgstr ""
-
 msgid "More Info"
 msgstr ""
 
@@ -734,6 +847,18 @@ msgstr ""
 
 msgid "Info"
 msgstr ""
+
+#~ msgid "%s uploaded."
+#~ msgstr "%s 已上传。"
+
+#~ msgid "Ban record added for %s"
+#~ msgstr "添加了对 %s 的禁令"
+
+#~ msgid "Ban record lifted for %s"
+#~ msgstr "解除了对 %s 的禁令"
+
+#~ msgid "Post No.%d deleted."
+#~ msgstr "帖子 ID%d 已删除。"
 
 #~ msgid "Anonymous"
 #~ msgstr "匿名"

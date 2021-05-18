@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-04-04 13:04-0700\n"
+"POT-Creation-Date: 2021-05-10 23:34-0700\n"
 "PO-Revision-Date: 2021-04-13 21:27+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/tinyib/"
@@ -20,9 +20,6 @@ msgstr ""
 
 msgid "Click here to go back"
 msgstr "Klikk her for å gå tilbake"
-
-msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
-msgstr "TINYIB_TRIPSEED og TINYIB_ADMINPASS må settes opp."
 
 #, fuzzy
 #| msgid ""
@@ -102,10 +99,6 @@ msgid "Please %s."
 msgstr "%s."
 
 #, php-format
-msgid "%s uploaded."
-msgstr "%s opplastet."
-
-#, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr "Din %s vil bli vist <b>når den har blit godkjent</b>."
 
@@ -115,6 +108,15 @@ msgstr "Oppdaterer tråd…"
 
 msgid "Updating index..."
 msgstr "Oppdaterer indeks…"
+
+msgid "Created raw post"
+msgstr ""
+
+msgid "This post has been deleted"
+msgstr ""
+
+msgid "This post requires moderation before it can be displayed"
+msgstr ""
 
 #, fuzzy
 #| msgid "Reporting is disabled."
@@ -132,8 +134,20 @@ msgstr ""
 "Ugyldig postidentifikator ble sendt. Gå tilbake, gjenoppfrisk siden, og prøv "
 "igjen."
 
+msgid "Moderators have determined that post does not break any rules."
+msgstr ""
+
 msgid "You have already submitted a report for that post."
 msgstr "Du har allerede sendt inn en rapport om denne posten."
+
+msgid "(enter the text below)"
+msgstr "(skriv inn teksten nedenfor)"
+
+msgid "Please complete a CAPTCHA to submit your report"
+msgstr ""
+
+msgid "Submit"
+msgstr "Send inn"
 
 #, fuzzy
 #| msgid "Post deleted."
@@ -178,7 +192,35 @@ msgstr ""
 msgid "Invalid role."
 msgstr ""
 
+#, php-format
+msgid "Added account %s"
+msgstr ""
+
 msgid "Added account"
+msgstr ""
+
+#, php-format
+msgid "Renamed account %1$s as %2$s"
+msgstr ""
+
+#, php-format
+msgid "Changed password of account %s"
+msgstr ""
+
+msgid "Super-administrator"
+msgstr ""
+
+msgid "Administrator"
+msgstr ""
+
+msgid "Moderator"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+#, php-format
+msgid "Changed role of account %s to %s"
 msgstr ""
 
 msgid "Updated account"
@@ -187,16 +229,38 @@ msgstr ""
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr "Denne IP-adressen er allerede bannlyst."
 
-#, php-format
-msgid "Ban record added for %s"
-msgstr "Bannlysning av %s utført"
+msgid "permanently"
+msgstr ""
 
 #, php-format
-msgid "Ban record lifted for %s"
-msgstr "Bannlysning av %s opphevet"
+msgid "until %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s: %s"
+msgstr ""
+
+msgid "Banned 1 IP address"
+msgstr ""
+
+#, php-format
+msgid "Banned %d IP addresses"
+msgstr ""
+
+#, php-format
+msgid "Lifted ban on %s"
+msgstr ""
 
 msgid "Sorry, that keyword has already been added."
 msgstr "Nøkkelord allerede lagt til."
+
+#, php-format
+msgid "Updated keyword %s"
+msgstr ""
 
 msgid "Keyword updated."
 msgstr "Nøkkelord oppdatert."
@@ -204,25 +268,55 @@ msgstr "Nøkkelord oppdatert."
 msgid "Keyword added."
 msgstr "Nøkkelord lagt til."
 
-msgid "Keyword deleted."
-msgstr "Nøkkelord slettet."
+msgid "That keyword does not exist."
+msgstr ""
 
 #, php-format
-msgid "Post No.%d deleted."
-msgstr "Post nummer %d slettet."
+msgid "Deleted keyword %s"
+msgstr ""
+
+msgid "Keyword deleted."
+msgstr "Nøkkelord slettet."
 
 msgid "Sorry, there doesn't appear to be a post with that ID."
 msgstr "Ingen post har denne ID-en."
 
 #, php-format
+msgid "Deleted %s"
+msgstr ""
+
+msgid "Deleted 1 post"
+msgstr ""
+
+#, php-format
+msgid "Deleted %d posts"
+msgstr ""
+
+msgid "Approved"
+msgstr ""
+
+#, php-format
 msgid "Post No.%d approved."
 msgstr "Post nummer %d godkjent."
+
+#, fuzzy
+#| msgid "Sticky"
+msgid "Stickied"
+msgstr "Fest"
+
+msgid "Unstickied"
+msgstr ""
 
 msgid "Form data was lost. Please go back and try again."
 msgstr "Skjemadata gikk tapt. Gå tilbake og prøv igjen."
 
-msgid "Reports cleared."
-msgstr "Rapporter tømt."
+#, fuzzy
+#| msgid "Lock"
+msgid "Locked"
+msgstr "Lås"
+
+msgid "Unlocked"
+msgstr ""
 
 msgid "Password updated"
 msgstr ""
@@ -319,9 +413,6 @@ msgstr "Støttet filtype er %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "Støttede filtyper er %1$s og %2$s."
 
-msgid "Submit"
-msgstr "Send inn"
-
 msgid "Reply to"
 msgstr "Besvar"
 
@@ -338,9 +429,6 @@ msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Linjeskift må angis med «&lt;br&gt;\"."
-
-msgid "(enter the text below)"
-msgstr "(skriv inn teksten nedenfor)"
 
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
@@ -394,16 +482,6 @@ msgstr "(for post- og filsletting)"
 msgid "Report"
 msgstr "Rapporter"
 
-#, fuzzy
-#| msgid "Sticky"
-msgid "Stickied"
-msgstr "Fest"
-
-#, fuzzy
-#| msgid "Lock"
-msgid "Locked"
-msgstr "Lås"
-
 msgid "Embed:"
 msgstr "Innebygg:"
 
@@ -456,10 +534,6 @@ msgstr "Slett post"
 msgid "Status"
 msgstr "Status"
 
-#, fuzzy
-msgid "Reports"
-msgstr "Rapporter"
-
 msgid "Accounts"
 msgstr ""
 
@@ -472,6 +546,9 @@ msgstr "Nøkkelord"
 msgid "Moderate Post"
 msgstr "Moderer post"
 
+msgid "Moderation Log"
+msgstr ""
+
 msgid "Raw Post"
 msgstr "Rå post"
 
@@ -479,6 +556,10 @@ msgstr "Rå post"
 #| msgid "Rebuild All<"
 msgid "Rebuild All"
 msgstr "Gjenoppbygg alle"
+
+#, fuzzy
+msgid "Reports"
+msgstr "Rapporter"
 
 msgid "Update"
 msgstr "Oppdater"
@@ -499,6 +580,12 @@ msgid "Log In"
 msgstr "Logg inn"
 
 msgid "Enter a username and password"
+msgstr ""
+
+msgid "No logs."
+msgstr ""
+
+msgid "Moderation log"
 msgstr ""
 
 msgid "Reported posts"
@@ -544,18 +631,6 @@ msgstr ""
 msgid "Choose a role"
 msgstr ""
 
-msgid "Super-administrator"
-msgstr ""
-
-msgid "Administrator"
-msgstr ""
-
-msgid "Moderator"
-msgstr ""
-
-msgid "Disabled"
-msgstr ""
-
 msgid "Last active"
 msgstr ""
 
@@ -567,6 +642,11 @@ msgstr ""
 
 msgid "Add a ban"
 msgstr "Legg til en bannlysning"
+
+msgid ""
+"Multiple IP addresses may be banned at once by separating each address with "
+"a comma."
+msgstr ""
 
 #, fuzzy
 msgid "IP Address"
@@ -643,6 +723,38 @@ msgid ""
 msgstr ""
 "Huk av i boksen ved siden av en post og klikk «Slett» for å slette den."
 
+#, php-format
+msgid "Moderate %d posts"
+msgstr ""
+
+msgid "Delete all"
+msgstr ""
+
+msgid "Ban all"
+msgstr ""
+
+msgid "1 thread and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "1 thread and %d replies will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d threads and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%1$d threads and %2$d replies will be deleted."
+msgstr ""
+
+msgid "1 IP address will be banned."
+msgstr ""
+
+#, php-format
+msgid "%d IP addresses will be banned."
+msgstr ""
+
 #, fuzzy, php-format
 #| msgid "Ban record added for %s"
 msgid " A ban record already exists for %s"
@@ -655,17 +767,18 @@ msgstr "Kun en administrator kan bannlyse en IP-adresse."
 msgid "IP address: %s"
 msgstr "IP-adresse: %s"
 
-msgid "This will delete the entire thread below."
-msgstr "Dette vil slette hele tråden nedenfor."
-
-msgid "This will delete the post below."
-msgstr "Dette vil slette posten nedenfor."
-
 msgid "Thread"
 msgstr "Tråd"
 
-msgid "Post"
-msgstr "Post"
+msgid "1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d replies will be deleted."
+msgstr ""
+
+msgid "Belongs to "
+msgstr ""
 
 msgid "Un-sticky"
 msgstr "Opphev festing"
@@ -701,14 +814,14 @@ msgstr "Handling"
 msgid "Delete thread"
 msgstr "Slett tråd"
 
-msgid "Delete post"
-msgstr "Slett post"
+msgid "Delete reply"
+msgstr ""
 
 msgid "Ban poster"
 msgstr "Bannlyst poster"
 
-msgid "Clear reports"
-msgstr "Tøm poster"
+msgid "Approve"
+msgstr "Tillat"
 
 msgid "report"
 msgstr "rapport"
@@ -731,6 +844,9 @@ msgstr "Handling"
 
 msgid "Add"
 msgstr "Legg til"
+
+msgid "Hide until approved"
+msgstr ""
 
 msgid "Delete and ban for 1 hour"
 msgstr "Slett og bannlys i én time"
@@ -768,9 +884,6 @@ msgstr "bannlysning"
 msgid "bans"
 msgstr "bannlysninger"
 
-msgid "Approve"
-msgstr "Tillat"
-
 msgid "More Info"
 msgstr "Mer info"
 
@@ -782,6 +895,39 @@ msgstr "Nylige poster"
 
 msgid "Info"
 msgstr "Info"
+
+#~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
+#~ msgstr "TINYIB_TRIPSEED og TINYIB_ADMINPASS må settes opp."
+
+#~ msgid "%s uploaded."
+#~ msgstr "%s opplastet."
+
+#~ msgid "Ban record added for %s"
+#~ msgstr "Bannlysning av %s utført"
+
+#~ msgid "Ban record lifted for %s"
+#~ msgstr "Bannlysning av %s opphevet"
+
+#~ msgid "Post No.%d deleted."
+#~ msgstr "Post nummer %d slettet."
+
+#~ msgid "Reports cleared."
+#~ msgstr "Rapporter tømt."
+
+#~ msgid "This will delete the entire thread below."
+#~ msgstr "Dette vil slette hele tråden nedenfor."
+
+#~ msgid "This will delete the post below."
+#~ msgstr "Dette vil slette posten nedenfor."
+
+#~ msgid "Post"
+#~ msgstr "Post"
+
+#~ msgid "Delete post"
+#~ msgstr "Slett post"
+
+#~ msgid "Clear reports"
+#~ msgstr "Tøm poster"
 
 #~ msgid "Enter an administrator or moderator password"
 #~ msgstr "Skriv inn administrator- eller moderatorpassord"

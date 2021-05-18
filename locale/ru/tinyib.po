@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-04-04 13:04-0700\n"
+"POT-Creation-Date: 2021-05-10 23:34-0700\n"
 "PO-Revision-Date: 2021-01-02 22:29+0000\n"
 "Last-Translator: prc07 <a.lipinsh@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tinyib/tinyib/ru/"
@@ -21,9 +21,6 @@ msgstr ""
 
 msgid "Click here to go back"
 msgstr "Нажми сюда, чтобы вернуться назад"
-
-msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
-msgstr "TINYIB_TRIPSEED и TINYIB_ADMINPASS должны быть настроены."
 
 #, fuzzy
 #| msgid ""
@@ -100,10 +97,6 @@ msgid "Please %s."
 msgstr ""
 
 #, php-format
-msgid "%s uploaded."
-msgstr ""
-
-#, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr ""
 
@@ -111,6 +104,15 @@ msgid "Updating thread..."
 msgstr ""
 
 msgid "Updating index..."
+msgstr ""
+
+msgid "Created raw post"
+msgstr ""
+
+msgid "This post has been deleted"
+msgstr ""
+
+msgid "This post requires moderation before it can be displayed"
 msgstr ""
 
 msgid "Automatic refreshing is disabled."
@@ -124,7 +126,19 @@ msgid ""
 "page, and try again."
 msgstr ""
 
+msgid "Moderators have determined that post does not break any rules."
+msgstr ""
+
 msgid "You have already submitted a report for that post."
+msgstr ""
+
+msgid "(enter the text below)"
+msgstr ""
+
+msgid "Please complete a CAPTCHA to submit your report"
+msgstr ""
+
+msgid "Submit"
 msgstr ""
 
 msgid "Post reported."
@@ -164,7 +178,35 @@ msgstr ""
 msgid "Invalid role."
 msgstr ""
 
+#, php-format
+msgid "Added account %s"
+msgstr ""
+
 msgid "Added account"
+msgstr ""
+
+#, php-format
+msgid "Renamed account %1$s as %2$s"
+msgstr ""
+
+#, php-format
+msgid "Changed password of account %s"
+msgstr ""
+
+msgid "Super-administrator"
+msgstr ""
+
+msgid "Administrator"
+msgstr ""
+
+msgid "Moderator"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+#, php-format
+msgid "Changed role of account %s to %s"
 msgstr ""
 
 msgid "Updated account"
@@ -173,15 +215,37 @@ msgstr ""
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr ""
 
-#, php-format
-msgid "Ban record added for %s"
+msgid "permanently"
 msgstr ""
 
 #, php-format
-msgid "Ban record lifted for %s"
+msgid "until %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s"
+msgstr ""
+
+#, php-format
+msgid "Banned %s %s: %s"
+msgstr ""
+
+msgid "Banned 1 IP address"
+msgstr ""
+
+#, php-format
+msgid "Banned %d IP addresses"
+msgstr ""
+
+#, php-format
+msgid "Lifted ban on %s"
 msgstr ""
 
 msgid "Sorry, that keyword has already been added."
+msgstr ""
+
+#, php-format
+msgid "Updated keyword %s"
 msgstr ""
 
 msgid "Keyword updated."
@@ -190,24 +254,50 @@ msgstr "Ключевое слово обновлено."
 msgid "Keyword added."
 msgstr "Ключевое слово добавлено."
 
+msgid "That keyword does not exist."
+msgstr ""
+
+#, php-format
+msgid "Deleted keyword %s"
+msgstr ""
+
 msgid "Keyword deleted."
 msgstr "Ключевое слово удалено."
 
-#, php-format
-msgid "Post No.%d deleted."
-msgstr "Пост номер %d удалён."
-
 msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr ""
+
+#, php-format
+msgid "Deleted %s"
+msgstr ""
+
+msgid "Deleted 1 post"
+msgstr ""
+
+#, php-format
+msgid "Deleted %d posts"
+msgstr ""
+
+msgid "Approved"
 msgstr ""
 
 #, php-format
 msgid "Post No.%d approved."
 msgstr ""
 
+msgid "Stickied"
+msgstr ""
+
+msgid "Unstickied"
+msgstr ""
+
 msgid "Form data was lost. Please go back and try again."
 msgstr ""
 
-msgid "Reports cleared."
+msgid "Locked"
+msgstr ""
+
+msgid "Unlocked"
 msgstr ""
 
 msgid "Password updated"
@@ -290,9 +380,6 @@ msgstr ""
 msgid "Supported file types are %1$s and %2$s."
 msgstr ""
 
-msgid "Submit"
-msgstr ""
-
 msgid "Reply to"
 msgstr ""
 
@@ -305,9 +392,6 @@ msgid ""
 msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
-msgstr ""
-
-msgid "(enter the text below)"
 msgstr ""
 
 msgid "CAPTCHA"
@@ -361,12 +445,6 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
-msgid "Stickied"
-msgstr ""
-
-msgid "Locked"
-msgstr ""
-
 msgid "Embed:"
 msgstr ""
 
@@ -416,9 +494,6 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-msgid "Reports"
-msgstr ""
-
 msgid "Accounts"
 msgstr ""
 
@@ -431,10 +506,16 @@ msgstr ""
 msgid "Moderate Post"
 msgstr ""
 
+msgid "Moderation Log"
+msgstr ""
+
 msgid "Raw Post"
 msgstr ""
 
 msgid "Rebuild All"
+msgstr ""
+
+msgid "Reports"
 msgstr ""
 
 msgid "Update"
@@ -456,6 +537,12 @@ msgid "Log In"
 msgstr ""
 
 msgid "Enter a username and password"
+msgstr ""
+
+msgid "No logs."
+msgstr ""
+
+msgid "Moderation log"
 msgstr ""
 
 msgid "Reported posts"
@@ -501,18 +588,6 @@ msgstr ""
 msgid "Choose a role"
 msgstr ""
 
-msgid "Super-administrator"
-msgstr ""
-
-msgid "Administrator"
-msgstr ""
-
-msgid "Moderator"
-msgstr ""
-
-msgid "Disabled"
-msgstr ""
-
 msgid "Last active"
 msgstr ""
 
@@ -523,6 +598,11 @@ msgid "update"
 msgstr ""
 
 msgid "Add a ban"
+msgstr ""
+
+msgid ""
+"Multiple IP addresses may be banned at once by separating each address with "
+"a comma."
 msgstr ""
 
 msgid "IP Address"
@@ -590,6 +670,38 @@ msgid ""
 msgstr ""
 
 #, php-format
+msgid "Moderate %d posts"
+msgstr ""
+
+msgid "Delete all"
+msgstr ""
+
+msgid "Ban all"
+msgstr ""
+
+msgid "1 thread and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "1 thread and %d replies will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d threads and 1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%1$d threads and %2$d replies will be deleted."
+msgstr ""
+
+msgid "1 IP address will be banned."
+msgstr ""
+
+#, php-format
+msgid "%d IP addresses will be banned."
+msgstr ""
+
+#, php-format
 msgid " A ban record already exists for %s"
 msgstr ""
 
@@ -600,16 +712,17 @@ msgstr ""
 msgid "IP address: %s"
 msgstr ""
 
-msgid "This will delete the entire thread below."
-msgstr ""
-
-msgid "This will delete the post below."
-msgstr ""
-
 msgid "Thread"
 msgstr ""
 
-msgid "Post"
+msgid "1 reply will be deleted."
+msgstr ""
+
+#, php-format
+msgid "%d replies will be deleted."
+msgstr ""
+
+msgid "Belongs to "
 msgstr ""
 
 msgid "Un-sticky"
@@ -646,13 +759,13 @@ msgstr ""
 msgid "Delete thread"
 msgstr ""
 
-msgid "Delete post"
+msgid "Delete reply"
 msgstr ""
 
 msgid "Ban poster"
 msgstr ""
 
-msgid "Clear reports"
+msgid "Approve"
 msgstr ""
 
 msgid "report"
@@ -671,6 +784,9 @@ msgid "Action:"
 msgstr ""
 
 msgid "Add"
+msgstr ""
+
+msgid "Hide until approved"
 msgstr ""
 
 msgid "Delete and ban for 1 hour"
@@ -709,9 +825,6 @@ msgstr ""
 msgid "bans"
 msgstr ""
 
-msgid "Approve"
-msgstr ""
-
 msgid "More Info"
 msgstr ""
 
@@ -723,3 +836,9 @@ msgstr ""
 
 msgid "Info"
 msgstr ""
+
+#~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
+#~ msgstr "TINYIB_TRIPSEED и TINYIB_ADMINPASS должны быть настроены."
+
+#~ msgid "Post No.%d deleted."
+#~ msgstr "Пост номер %d удалён."

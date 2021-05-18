@@ -2,17 +2,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-04-04 13:04-0700\n"
-"PO-Revision-Date: 2020-12-03 09:29+0000\n"
+"POT-Creation-Date: 2021-05-10 23:34-0700\n"
+"PO-Revision-Date: 2021-05-12 11:33+0000\n"
 "Last-Translator: Domokun <domokun@asdasd.nl>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/tinyib/tinyib/nl/"
-">\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/tinyib/tinyib/nl/>"
+"\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -21,16 +21,9 @@ msgstr ""
 msgid "Click here to go back"
 msgstr "Klik hier om terug te gaan"
 
-msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
-msgstr "TINYIB_TRIPSEED en TINYIB_ADMINPASS moeten worden geconfigureerd."
-
-#, fuzzy
-#| msgid ""
-#| "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgid "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured."
 msgstr ""
-"TINYIB_RECAPTCHA_SITE en TINYIB_RECAPTCHA_SECRET  moeten worden "
-"geconfigureerd."
+"TINYIB_HCAPTCHA_SITE en TINYIB_HCAPTCHA_SECRET  moeten worden geconfigureerd."
 
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgstr ""
@@ -106,10 +99,6 @@ msgid "Please %s."
 msgstr "Graag %s."
 
 #, php-format
-msgid "%s uploaded."
-msgstr "%s geüpload."
-
-#, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr "Je %s wordt weergegeven <b>zodra het is goedgekeurd</b>."
 
@@ -119,10 +108,17 @@ msgstr "Thread updaten..."
 msgid "Updating index..."
 msgstr "Index updaten..."
 
-#, fuzzy
-#| msgid "Reporting is disabled."
+msgid "Created raw post"
+msgstr "Ruwe post gemaakt"
+
+msgid "This post has been deleted"
+msgstr "Deze post is verwijderd"
+
+msgid "This post requires moderation before it can be displayed"
+msgstr "Deze post vereist moderatie voordat deze kan worden weergegeven"
+
 msgid "Automatic refreshing is disabled."
-msgstr "Melden is uitgeschakeld."
+msgstr "Automatisch verversen is uitgeschakeld."
 
 msgid "Reporting is disabled."
 msgstr "Melden is uitgeschakeld."
@@ -134,8 +130,20 @@ msgstr ""
 "Sorry, een ongeldige post-ID was verstuurd. Ga terug, vernieuw de pagina en "
 "probeer het opnieuw."
 
+msgid "Moderators have determined that post does not break any rules."
+msgstr "Moderators hebben vastgesteld dat de post geen regels schendt."
+
 msgid "You have already submitted a report for that post."
 msgstr "Je hebt deze post al gemeld."
+
+msgid "(enter the text below)"
+msgstr "(voer de tekst hieronder in)"
+
+msgid "Please complete a CAPTCHA to submit your report"
+msgstr "Vul een CAPTCHA in om uw melding in te dienen"
+
+msgid "Submit"
+msgstr "Verzend"
 
 msgid "Post reported."
 msgstr "Post gemeld."
@@ -161,42 +169,94 @@ msgid "Rebuilt board."
 msgstr "Board herbouwd."
 
 msgid "Access denied"
-msgstr ""
+msgstr "Toegang geweigerd"
 
 msgid "Account not found."
-msgstr ""
+msgstr "Account niet gevonden."
 
 msgid "This account may not be updated while TINYIB_ADMINPASS is set."
 msgstr ""
+"Dit account mag niet worden bijgewerkt terwijl TINYIB_ADMINPASS is ingesteld."
 
 msgid "This account may not be updated while TINYIB_MODPASS is set."
 msgstr ""
+"Dit account mag niet worden bijgewerkt terwijl TINYIB_MODPASS is ingesteld."
 
 msgid "A password is required."
-msgstr ""
+msgstr "Een wachtwoord is vereist."
 
 msgid "Invalid role."
-msgstr ""
+msgstr "Ongeldige rol."
+
+#, php-format
+msgid "Added account %s"
+msgstr "Account %s toegevoegd"
 
 msgid "Added account"
-msgstr ""
+msgstr "Account toegevoegd"
+
+#, php-format
+msgid "Renamed account %1$s as %2$s"
+msgstr "Account %1$s hernoemd naar %2$s"
+
+#, php-format
+msgid "Changed password of account %s"
+msgstr "Het wachtwoord van account %s veranderd"
+
+msgid "Super-administrator"
+msgstr "Superadministrator"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Moderator"
+msgstr "Moderator"
+
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#, php-format
+msgid "Changed role of account %s to %s"
+msgstr "Rol van account %s veranderd naar %s"
 
 msgid "Updated account"
-msgstr ""
+msgstr "Account bijgewerkt"
 
 msgid "Sorry, there is already a ban on record for that IP address."
 msgstr "Sorry, er is al een ban vastgelegd voor dat IP-adres."
 
-#, php-format
-msgid "Ban record added for %s"
-msgstr "Ban vastgelegd voor %s"
+msgid "permanently"
+msgstr "permanent"
 
 #, php-format
-msgid "Ban record lifted for %s"
-msgstr "Ban verwijderd voor %s"
+msgid "until %s"
+msgstr "tot %s"
+
+#, php-format
+msgid "Banned %s %s"
+msgstr "%s %s verbannen"
+
+#, php-format
+msgid "Banned %s %s: %s"
+msgstr "%s %s: %s verbannen"
+
+msgid "Banned 1 IP address"
+msgstr "1 IP-adres verbannen"
+
+#, php-format
+msgid "Banned %d IP addresses"
+msgstr "%d IP-adressen verbannen"
+
+#, php-format
+msgid "Lifted ban on %s"
+msgstr "Ban van %s opgeheven"
 
 msgid "Sorry, that keyword has already been added."
 msgstr "Sorry, dat trefwoord is al toegevoegd."
+
+#, php-format
+msgid "Updated keyword %s"
+msgstr "Trefwoord %s bijgewerkt"
 
 msgid "Keyword updated."
 msgstr "Trefwoord bijgewerkt."
@@ -204,29 +264,55 @@ msgstr "Trefwoord bijgewerkt."
 msgid "Keyword added."
 msgstr "Trefwoord toegevoegd."
 
-msgid "Keyword deleted."
-msgstr "Trefwoord verwijderd."
+msgid "That keyword does not exist."
+msgstr "Dat trefwoord bestaat niet."
 
 #, php-format
-msgid "Post No.%d deleted."
-msgstr "Postnr.%d verwijderd."
+msgid "Deleted keyword %s"
+msgstr "Trefwoord %s verwijderd"
+
+msgid "Keyword deleted."
+msgstr "Trefwoord verwijderd."
 
 msgid "Sorry, there doesn't appear to be a post with that ID."
 msgstr "Sorry, er is geen post met dat ID."
 
 #, php-format
+msgid "Deleted %s"
+msgstr "%s verwijderd"
+
+msgid "Deleted 1 post"
+msgstr "1 post verwijderd"
+
+#, php-format
+msgid "Deleted %d posts"
+msgstr "%d posts verwijderd"
+
+msgid "Approved"
+msgstr "Goedgekeurd"
+
+#, php-format
 msgid "Post No.%d approved."
 msgstr "Postnr.%d goedgekeurd."
+
+msgid "Stickied"
+msgstr "Vastgeplakt"
+
+msgid "Unstickied"
+msgstr "Ontplakt"
 
 msgid "Form data was lost. Please go back and try again."
 msgstr ""
 "Formuliergegevens zijn verloren gegaan. Ga terug en probeer het opnieuw."
 
-msgid "Reports cleared."
-msgstr "Meldingen gewist."
+msgid "Locked"
+msgstr "Vergrendeld"
+
+msgid "Unlocked"
+msgstr "Ontgrendeld"
 
 msgid "Password updated"
-msgstr ""
+msgstr "Wachtwoord bijgewerkt"
 
 msgid "Please enter the CAPTCHA text."
 msgstr "Voer de CAPTCHA-tekst in."
@@ -246,13 +332,11 @@ msgstr ""
 "Kort je bericht in of plaats het in meerdere delen. Je bericht is %1$d "
 "tekens lang en het toegestane maximum is %2$d."
 
-#, fuzzy
-#| msgid "Invalid password."
 msgid "Invalid key."
-msgstr "Ongeldig wachtwoord."
+msgstr "Ongeldige sleutel."
 
 msgid "Invalid username or password."
-msgstr ""
+msgstr "Ongeldige gebruikersnaam of wachtwoord."
 
 #, php-format
 msgid ""
@@ -319,9 +403,6 @@ msgstr "Ondersteund bestandstype is %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "Ondersteunde bestandstypen zijn %1$s en %2$s."
 
-msgid "Submit"
-msgstr "Verzend"
-
 msgid "Reply to"
 msgstr "Antwoord aan"
 
@@ -337,9 +418,6 @@ msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Regelafbrekingen moeten worden opgegeven met \"&lt;br&gt;\"."
-
-msgid "(enter the text below)"
-msgstr "(voer de tekst hieronder in)"
 
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
@@ -394,12 +472,6 @@ msgstr "(voor verwijdering van post en bestand)"
 msgid "Report"
 msgstr "Meld"
 
-msgid "Stickied"
-msgstr "Vastgeplakt"
-
-msgid "Locked"
-msgstr "Vergrendeld"
-
 msgid "Embed:"
 msgstr "Embed:"
 
@@ -449,13 +521,8 @@ msgstr "Verwijder post"
 msgid "Status"
 msgstr "Status"
 
-#, fuzzy
-#| msgid "Report"
-msgid "Reports"
-msgstr "Meld"
-
 msgid "Accounts"
-msgstr ""
+msgstr "Accounts"
 
 msgid "Bans"
 msgstr "Bans"
@@ -466,11 +533,17 @@ msgstr "Trefwoorden"
 msgid "Moderate Post"
 msgstr "Modereer post"
 
+msgid "Moderation Log"
+msgstr "Moderatielogboek"
+
 msgid "Raw Post"
-msgstr "Raw bericht"
+msgstr "Ruwe post"
 
 msgid "Rebuild All"
 msgstr "Herbouw alles"
+
+msgid "Reports"
+msgstr "Meldingen"
 
 msgid "Update"
 msgstr "Update"
@@ -479,7 +552,7 @@ msgid "Migrate Database"
 msgstr "Migreer database"
 
 msgid "Change password"
-msgstr ""
+msgstr "Verander wachtwoord"
 
 msgid "Log Out"
 msgstr "Log uit"
@@ -491,76 +564,75 @@ msgid "Log In"
 msgstr "Log in"
 
 msgid "Enter a username and password"
-msgstr ""
+msgstr "Voer een gebruikersnaam en wachtwoord in"
+
+msgid "No logs."
+msgstr "Geen logboeken."
+
+msgid "Moderation log"
+msgstr "Moderatielogboek"
 
 msgid "Reported posts"
 msgstr "Gemelde posts"
 
 #, php-format
 msgid "%1$d report by %2$s"
-msgstr ""
+msgstr "%1$d melding van %2$s"
 
 #, php-format
 msgid "%1$d reports by %2$s"
-msgstr ""
+msgstr "%1$d meldingen van %2$s"
 
-#, fuzzy, php-format
-#| msgid "reports"
+#, php-format
 msgid "%d reports"
-msgstr "meldingen"
+msgstr "%d meldingen"
 
-#, fuzzy, php-format
-#| msgid "Reported posts"
+#, php-format
 msgid "Reported by %s"
-msgstr "Gemelde posts"
+msgstr "Gemeld door %s"
 
 msgid "Moderate"
 msgstr "Modereer"
 
 msgid "There are currently no reported posts."
-msgstr ""
+msgstr "Er zijn momenteel geen gemelde posts."
 
 msgid "Add an account"
-msgstr ""
+msgstr "Voeg een account toe"
 
 msgid "Update an account"
-msgstr ""
+msgstr "Werk een account bij"
 
 msgid "Leave blank to maintain current password"
-msgstr ""
+msgstr "Laat leeg om het huidige wachtwoord te gebruiken"
 
 msgid "Username"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 msgid "Role"
-msgstr ""
+msgstr "Rol"
 
 msgid "Choose a role"
-msgstr ""
-
-msgid "Super-administrator"
-msgstr ""
-
-msgid "Administrator"
-msgstr ""
-
-msgid "Moderator"
-msgstr ""
-
-msgid "Disabled"
-msgstr ""
+msgstr "Kies een rol"
 
 msgid "Last active"
-msgstr ""
+msgstr "Laatst actief"
 
 msgid "Never"
-msgstr ""
+msgstr "Nooit"
 
 msgid "update"
-msgstr ""
+msgstr "bijwerken"
 
 msgid "Add a ban"
 msgstr "Voeg een ban toe"
+
+msgid ""
+"Multiple IP addresses may be banned at once by separating each address with "
+"a comma."
+msgstr ""
+"Meerdere IP-adressen kunnen tegelijk worden verbannen door elk adres te "
+"scheiden met een komma."
 
 msgid "IP Address"
 msgstr "IP-adres"
@@ -631,27 +703,60 @@ msgstr ""
 "pagina met een leeg wachtwoord."
 
 #, php-format
+msgid "Moderate %d posts"
+msgstr "Modereer %d posts"
+
+msgid "Delete all"
+msgstr "Alles verwijderen"
+
+msgid "Ban all"
+msgstr "Verban allemaal"
+
+msgid "1 thread and 1 reply will be deleted."
+msgstr "1 thread en 1 antwoord worden verwijderd."
+
+#, php-format
+msgid "1 thread and %d replies will be deleted."
+msgstr "1 thread en %d antwoorden worden verwijderd."
+
+#, php-format
+msgid "%d threads and 1 reply will be deleted."
+msgstr "%d threads en 1 antwoord worden verwijderd."
+
+#, php-format
+msgid "%1$d threads and %2$d replies will be deleted."
+msgstr "%1$d threads en %2$d antwoorden worden verwijderd."
+
+msgid "1 IP address will be banned."
+msgstr "1 IP-adres wordt verbannen."
+
+#, php-format
+msgid "%d IP addresses will be banned."
+msgstr "%d IP-adressen worden verbannen."
+
+#, php-format
 msgid " A ban record already exists for %s"
 msgstr " Er bestaat al een ban voor %s"
 
 msgid "Only an administrator may ban an IP address."
-msgstr "Alleen een administrator mag een IP-adres blokkeren."
+msgstr "Alleen een administrator mag een IP-adres verbannen."
 
 #, php-format
 msgid "IP address: %s"
 msgstr "IP-adres: %s"
 
-msgid "This will delete the entire thread below."
-msgstr "Hiermee wordt de hele thread hieronder verwijderd."
-
-msgid "This will delete the post below."
-msgstr "Hiermee wordt het onderstaande bericht verwijderd."
-
 msgid "Thread"
 msgstr "Thread"
 
-msgid "Post"
-msgstr "Post"
+msgid "1 reply will be deleted."
+msgstr "1 antwoord wordt verwijderd."
+
+#, php-format
+msgid "%d replies will be deleted."
+msgstr "%d antwoorden worden verwijderd."
+
+msgid "Belongs to "
+msgstr "Behoort aan "
 
 msgid "Un-sticky"
 msgstr "Ontplak"
@@ -687,14 +792,14 @@ msgstr "Actie"
 msgid "Delete thread"
 msgstr "Verwijder thread"
 
-msgid "Delete post"
-msgstr "Verwijder post"
+msgid "Delete reply"
+msgstr "Verwijder antwoord"
 
 msgid "Ban poster"
-msgstr "Ban poster"
+msgstr "Verban poster"
 
-msgid "Clear reports"
-msgstr "Wis meldingen"
+msgid "Approve"
+msgstr "Goedkeuren"
 
 msgid "report"
 msgstr "melding"
@@ -713,6 +818,9 @@ msgstr "Actie:"
 
 msgid "Add"
 msgstr "Voeg toe"
+
+msgid "Hide until approved"
+msgstr "Verberg tot goedkeuring"
 
 msgid "Delete and ban for 1 hour"
 msgstr "Verwijder en verban voor 1 uur"
@@ -750,9 +858,6 @@ msgstr "ban"
 msgid "bans"
 msgstr "bans"
 
-msgid "Approve"
-msgstr "Goedkeuren"
-
 msgid "More Info"
 msgstr "Meer info"
 
@@ -764,6 +869,39 @@ msgstr "Recente posts"
 
 msgid "Info"
 msgstr "Info"
+
+#~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
+#~ msgstr "TINYIB_TRIPSEED en TINYIB_ADMINPASS moeten worden geconfigureerd."
+
+#~ msgid "%s uploaded."
+#~ msgstr "%s geüpload."
+
+#~ msgid "Ban record added for %s"
+#~ msgstr "Ban vastgelegd voor %s"
+
+#~ msgid "Ban record lifted for %s"
+#~ msgstr "Ban verwijderd voor %s"
+
+#~ msgid "Post No.%d deleted."
+#~ msgstr "Postnr.%d verwijderd."
+
+#~ msgid "Reports cleared."
+#~ msgstr "Meldingen gewist."
+
+#~ msgid "This will delete the entire thread below."
+#~ msgstr "Hiermee wordt de hele thread hieronder verwijderd."
+
+#~ msgid "This will delete the post below."
+#~ msgstr "Hiermee wordt het onderstaande bericht verwijderd."
+
+#~ msgid "Post"
+#~ msgstr "Post"
+
+#~ msgid "Delete post"
+#~ msgstr "Verwijder post"
+
+#~ msgid "Clear reports"
+#~ msgstr "Wis meldingen"
 
 #~ msgid "Enter an administrator or moderator password"
 #~ msgstr "Voer een administrator- of moderatorwachtwoord in"
