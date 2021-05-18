@@ -78,6 +78,10 @@ if (TINYIB_TIMEZONE != '') {
 	date_default_timezone_set(TINYIB_TIMEZONE);
 }
 
+if (TINYIB_TRIPSEED == '') {
+	fancyDie(__('TINYIB_TRIPSEED  must be configured.'));
+}
+
 $bcrypt_salt = '$2y$12$' . str_pad(str_replace('=', '/', str_replace('+', '.', substr(base64_encode(TINYIB_TRIPSEED), 0, 22))), 22, '/');
 
 $database_modes = array('flatfile', 'mysql', 'mysqli', 'sqlite', 'sqlite3', 'pdo');
