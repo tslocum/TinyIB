@@ -7,7 +7,7 @@ if (!defined('TINYIB_BOARD')) {
 function accountByID($id) {
 	$rows = $GLOBALS['db']->selectWhere(ACCOUNTS_FILE, new SimpleWhereClause(ACCOUNT_ID, '=', $id, INTEGER_COMPARISON), 1);
 	if (isset($rows[0])) {
-		return $rows[0];
+		return convertAccountsToSQLStyle(array($rows[0]), true);
 	}
 	return array();
 }
@@ -15,7 +15,7 @@ function accountByID($id) {
 function accountByUsername($username) {
 	$rows = $GLOBALS['db']->selectWhere(ACCOUNTS_FILE, new SimpleWhereClause(ACCOUNT_USERNAME, '=', $username, STRING_COMPARISON), 1);
 	if (isset($rows[0])) {
-		return $rows[0];
+		return convertAccountsToSQLStyle(array($rows[0]), true);
 	}
 	return array();
 }
