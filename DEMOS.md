@@ -24,6 +24,7 @@ TinyIB Installations
 * http://thedailyautist.com/board/
 * https://vtchan.org
 * https://audiochan.org
+* https://neetchat.ga
 
 Want to add your installation?  Please create a new issue asking that it be added.
 
