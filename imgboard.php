@@ -1057,7 +1057,7 @@ EOF;
 			if ($_GET['approve'] > 0) {
 				$post = postByID($_GET['approve']);
 				if ($post) {
-					approvePostByID($post['id'], 1);
+					approvePostByID($post['id'], 2);
 					$thread_id = $post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent'];
 
 					if (strtolower($post['email']) != 'sage' && (TINYIB_MAXREPLIES == 0 || numRepliesToThreadByID($thread_id) <= TINYIB_MAXREPLIES)) {
