@@ -39,6 +39,7 @@ See [DEMOS.md](https://code.rocketnine.space/tslocum/tinyib/src/branch/master/DE
    - Italian
    - Korean
    - Norwegian
+   - Polish
    - Portuguese
    - Russian
    - Spanish (Mexico)
