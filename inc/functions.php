@@ -441,6 +441,13 @@ function setParent() {
 	return TINYIB_NEWTHREAD;
 }
 
+function getParent($post) {
+	if ($post['parent'] == TINYIB_NEWTHREAD) {
+		return $post['id'];
+	}
+	return $post['parent'];
+}
+
 function isRawPost() {
 	if (isset($_POST['rawpost'])) {
 		list($loggedin, $isadmin) = manageCheckLogIn(false);

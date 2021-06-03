@@ -109,6 +109,9 @@ if (!defined('TINYIB_EXPANDWIDTH')) {
 if (!defined('TINYIB_TIMEZONE')) {
 	define('TINYIB_TIMEZONE', '');
 }
+if (!defined('TINYIB_BACKLINKS')) {
+	define('TINYIB_BACKLINKS', true);
+}
 if (!defined('TINYIB_CATALOG')) {
 	define('TINYIB_CATALOG', true);
 }

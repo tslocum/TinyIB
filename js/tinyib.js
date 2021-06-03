@@ -115,7 +115,7 @@ function autoRefresh() {
             Object.keys(data).forEach(function (key) {
                 posts.append(data[key]);
 
-                setPostAttributes('#reply' + key);
+                setPostAttributes('#post' + key, true);
 
                 autoRefreshPostID = key;
                 newRepliesCount++;
@@ -202,12 +202,8 @@ $(window).blur(function () {
 });
 
 $(document).ready(function () {
-    setPostAttributes(document);
+    setPostAttributes(document, false);
 });
-
-function insertAfter(newElement, targetElement) {
-    targetElement.parentNode.insertBefore(newElement, targetElement.nextSibling);
-}
 
 var mouseX;
 var mouseY;
@@ -217,7 +213,7 @@ $(document).mousemove( function(e) {
 });
 
 var downloaded_posts = [];
-function setPostAttributes(element) {
+function setPostAttributes(element, autorefresh) {
     var base_url = './imgboard.php?';
     if (window.location.href.includes('/res/')) {
         base_url = '../imgboard.php?res&';
@@ -229,18 +225,31 @@ function setPostAttributes(element) {
             m = $(this).attr('href').match(/.*\/[0-9]+?#([0-9]+)/i);
         }
         if (m == null && $(this).attr('href')) {
-            var m = $(this).attr('href').match(/\#([0-9]+)/i);
+            m = $(this).attr('href').match(/\#([0-9]+)/i);
         }
         if (m == null) {
             return;
         }
 
         if ($(this).html() == 'No.') {
-            $(element).attr('postID', m[1]).addClass('post');
+            $(element).attr('postID', m[1]).attr('postLink', $(this).attr('href')).addClass('post');
         } else if ($(this).attr('refID') == undefined) {
             var m2 = $(this).html().match(/^\&gt\;\&gt\;[0-9]+/i);
             if (m2 == null) {
                 return;
+            }
+
+            if (enablebacklinks && autorefresh) {
+                reflinks = $('#reflinks' + m[1]);
+                if (reflinks) {
+                    if (reflinks.html() == '') {
+                        reflinks.append('&nbsp;');
+                    } else {
+                        reflinks.append(', ');
+                    }
+                    reflinks.append('<a href="' + $(element).attr('postLink') + '">&gt;&gt;' + $(element).attr('postID') + '<a>');
+                    setPostAttributes(reflinks, false);
+                }
             }
 
             $(this).attr('refID', m[1]);
@@ -254,15 +263,21 @@ function setPostAttributes(element) {
 
                     $(preview).attr('refID', $(this).attr('refID'));
 
-                    var refpost = $('.post[postID="' + $(this).attr('refID') + '"]').first();
+                    var refpost = $('#post' + $(this).attr('refID'));
 
                     var refid = $(this).attr('refID');
                     if (downloaded_posts[refid]) {
                         preview.className = 'hoverpost';
                         $(preview).html(downloaded_posts[refid]);
+                        if ($(preview).find('div:first').hasClass('reply')) {
+                            $(preview).addClass('reply');
+                        }
                     } else if (refpost.html() && refpost.html() != undefined) {
                         preview.className = 'hoverpost';
                         $(preview).html(refpost.html());
+                        if (refpost.hasClass('reply')) {
+                            $(preview).addClass('reply');
+                        }
                     } else {
                         $(preview).html('<div class="hoverpost" style="padding: 14px;">Loading...</div>');
                         $(preview).fadeIn(125);
@@ -273,12 +288,15 @@ function setPostAttributes(element) {
                                 downloaded_posts[refid] = response;
                                 preview.className = 'hoverpost';
                                 $(preview).html(response);
+                                if ($(preview).find('div:first').hasClass('reply')) {
+                                    $(preview).addClass('reply');
+                                }
                             },
                             dataType: 'html'
                         });
                     }
 
-                    insertAfter(preview, this);
+                    $(document.body).append(preview);
                 }
                 $(preview).css('left', mouseX+14).css('top', mouseY+7);
             }, function (e) {

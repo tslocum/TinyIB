@@ -46,6 +46,7 @@ define('TINYIB_TRUNCATE', 15);        // Messages are truncated to this many lin
 define('TINYIB_WORDBREAK', 80);       // Words longer than this many characters will be broken apart  [0 to disable]
 define('TINYIB_EXPANDWIDTH', 85);     // Expanded content size as a percentage of the screen's width
 define('TINYIB_TIMEZONE', 'UTC');     // See https://secure.php.net/manual/en/timezones.php - e.g. America/Los_Angeles
+define('TINYIB_BACKLINKS', true);     // Display reflinks to replies that reference a post
 define('TINYIB_CATALOG', true);       // Generate catalog page
 define('TINYIB_JSON', true);          // Generate JSON files
 define('TINYIB_DEFAULTSTYLE', 'futaba'); // Default page style

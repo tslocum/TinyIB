@@ -413,7 +413,36 @@ EOF;
 	return $output;
 }
 
-function buildPost($post, $res) {
+function backlinks($post) {
+	if (!TINYIB_BACKLINKS) {
+		return '';
+	}
+	global $thread_cache;
+
+	$parent_id = getParent($post);
+
+	if (!isset($thread_cache[$parent_id])) {
+		$thread_cache[$parent_id] = postsInThreadByID($parent_id);
+	}
+
+	$needle = '&gt;&gt;' . $post['id'];
+
+	$return = '';
+	foreach ($thread_cache[$parent_id] as $reply) {
+		if (strpos($reply['message'], $needle) !== false) {
+			if ($return != '') {
+				$return .= ', ';
+			}
+			$return .= postLink('&gt;&gt;' . $reply['id']);
+		}
+	}
+	if ($return != '') {
+		$return = '&nbsp;' . $return;
+	}
+	return ' <small><span id="reflinks' . $post['id'] . '" class="reflink">' . $return . '</span></small>';
+}
+
+function buildPost($post, $res, $compact=false) {
 	$return = "";
 	$threadid = ($post['parent'] == TINYIB_NEWTHREAD) ? $post['id'] : $post['parent'];
 
@@ -509,17 +538,22 @@ EOF;
 		}
 	}
 	if ($post['parent'] == TINYIB_NEWTHREAD) {
+		$return .= '<div id="post' . $post['id'] . '" class="op">';
 		$return .= $filehtml;
 	} else {
-		$return .= <<<EOF
+		if ($compact) {
+			$return .= '<div id="' . $post['id'] . '" class="' . ($post['parent'] == TINYIB_NEWTHREAD ? 'op' : 'reply') . '">';
+		} else {
+			$return .= <<<EOF
 <table>
 <tbody>
 <tr>
 <td class="doubledash">
 	&#0168;
 </td>
-<td class="reply" id="reply${post["id"]}">
+<td class="reply" id="post${post["id"]}">
 EOF;
+		}
 	}
 
 	$return .= <<<EOF
@@ -541,11 +575,18 @@ ${post["nameblock"]}
 EOF;
 
 	if ($post['parent'] != TINYIB_NEWTHREAD) {
+		$return .= backlinks($post);
+	}
+
+	if ($post['parent'] != TINYIB_NEWTHREAD) {
 		$return .= $filehtml;
 	}
 
-	if ($post['parent'] == TINYIB_NEWTHREAD && $res == TINYIB_INDEXPAGE) {
-		$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">" . __("Reply") . "</a>]";
+	if ($post['parent'] == TINYIB_NEWTHREAD) {
+		if ($res == TINYIB_INDEXPAGE) {
+			$return .= "&nbsp;[<a href=\"res/${post["id"]}.html\">" . __("Reply") . "</a>]";
+		}
+		$return .= backlinks($post);
 	}
 
 	if (TINYIB_TRUNCATE > 0 && !$res && substr_count($post['message'], '<br>') > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
@@ -560,6 +601,7 @@ ${post["message"]}
 EOF;
 
 	if ($post['parent'] == TINYIB_NEWTHREAD) {
+		$return .= '</div>';
 		if ($res == TINYIB_INDEXPAGE && $post['omitted'] > 0) {
 			if ($post['omitted'] == 1) {
 				$return .= '<span class="omittedposts">' . __('1 post omitted. Click Reply to view.') . '</span>';
@@ -567,6 +609,8 @@ EOF;
 				$return .= '<span class="omittedposts">' . sprintf(__('%d posts omitted. Click Reply to view.'), $post['omitted']) . '</span>';
 			}
 		}
+	} else if ($compact) {
+		$return .= '</div>';
 	} else {
 		$return .= <<<EOF
 </td>
@@ -639,10 +683,14 @@ EOF;
 		$postform = buildPostForm($parent) . '<hr>';
 	}
 
-	$js_autorefresh = '';
+	$js = '<script type="text/javascript">';
+	$js .= 'var enablebacklinks = ' . (TINYIB_BACKLINKS ? 'true' : 'false') . ';';
 	if ($parent != TINYIB_NEWTHREAD && TINYIB_AUTOREFRESH > 0) {
-		$js_autorefresh = '<script type="text/javascript">var autoRefreshDelay = ' . TINYIB_AUTOREFRESH . ';var autoRefreshThreadID = ' . $parent . ';var autoRefreshPostID = ' . $lastpostid . ';</script>';
+		$js .= 'var autoRefreshDelay = ' . TINYIB_AUTOREFRESH . ';';
+		$js .= 'var autoRefreshThreadID = ' . $parent . ';';
+		$js .= 'var autoRefreshPostID = ' . $lastpostid . ';';
 	}
+	$js .= '</script>';
 
 	$txt_style = __('Style');
 	$txt_password = __('Password');
@@ -675,7 +723,7 @@ EOF;
 		<hr width="90%">
 		$postingmode
 		$postform
-		$js_autorefresh
+		$js
 		<form id="delform" action="imgboard.php?delete" method="post">
 		<input type="hidden" name="board" 
 EOF;
@@ -741,6 +789,9 @@ function rebuildIndexes() {
 
 	foreach ($threads as $thread) {
 		$replies = postsInThreadByID($thread['id']);
+		if (!isset($thread_cache[$thread['id']])) {
+			$thread_cache[$thread['id']] = $replies;
+		}
 		$thread['omitted'] = max(0, count($replies) - TINYIB_PREVIEWREPLIES - 1);
 
 		// Build replies for preview
@@ -780,6 +831,7 @@ function rebuildIndexes() {
 }
 
 function rebuildThread($id) {
+	global $thread_cache;
 	$id = intval($id);
 
 	$post = postByID($id);
@@ -789,6 +841,7 @@ function rebuildThread($id) {
 	}
 
 	$posts = postsInThreadByID($id);
+	$thread_cache[getParent($post)] = $posts;
 	if (count($posts) == 0) {
 		@unlink('res/' . $id . '.html');
 		return;

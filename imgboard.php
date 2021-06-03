@@ -566,7 +566,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		die(__('This post requires moderation before it can be displayed'));
 	}
 
-	$html = buildPost($post, isset($_GET['res']));
+	$html = buildPost($post, isset($_GET['res']), true);
 	if (isset($_GET['res'])) {
 		$html = fixLinksInRes($html);
 	}

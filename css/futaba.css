@@ -155,8 +155,8 @@ hr {
 }
 
 .reply {
-	background: #F0E0D6;
-	color: #800000;
+	background: #F0E0D6 !important;
+	color: #800000 !important;
 }
 
 .replyhl {
