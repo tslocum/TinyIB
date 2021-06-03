@@ -89,6 +89,13 @@ $tinyib_embeds = array('SoundCloud' => 'https://soundcloud.com/oembed?format=jso
                        'Vimeo'      => 'https://vimeo.com/api/oembed.json?url=TINYIBEMBED',
                        'YouTube'    => 'https://www.youtube.com/oembed?url=TINYIBEMBED&format=json');
 
+
+// Stylesheets (located in css)
+//   Format: File name excluding extension => Title
+define('TINYIB_DEFAULTSTYLE', 'futaba');
+$tinyib_stylesheets = array('futaba' => 'Futaba',
+							'burichan' => 'Burichan');
+
 // File control
 define('TINYIB_MAXKB', 2048);         // Maximum file size in kilobytes  [0 to disable]
 define('TINYIB_MAXKBDESC', '2 MB');   // Human-readable representation of the maximum file size

@@ -20,6 +20,8 @@ function pageHeader() {
 		$js_captcha .= '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
 	}
 
+	$stylesheets = pageStylesheets();
+
 	return <<<EOF
 <!DOCTYPE html>
 <html>
@@ -33,14 +35,37 @@ function pageHeader() {
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<title>$title</title>
 		<link rel="shortcut icon" href="favicon.ico">
-		<link rel="stylesheet" type="text/css" href="css/global.css">
-		<link rel="stylesheet" type="text/css" href="css/futaba.css" title="Futaba" id="mainStylesheet">
-		<link rel="alternate stylesheet" type="text/css" href="css/burichan.css" title="Burichan">
+		$stylesheets
 		<script src="js/jquery.js"></script>
 		<script src="js/tinyib.js"></script>
 		$js_captcha
 	</head>
 EOF;
+}
+
+function pageStylesheets() {
+	global $tinyib_stylesheets;
+
+	// Global stylesheet
+	$return = '<link rel="stylesheet" type="text/css" href="css/global.css">';
+
+	// Default stylesheet
+	$default_style_value = htmlentities(TINYIB_DEFAULTSTYLE, ENT_QUOTES);
+	$default_style_name = htmlentities($tinyib_stylesheets[TINYIB_DEFAULTSTYLE]);
+	$return .= '<link rel="stylesheet" type="text/css" href="css/' . 'test' . '.css" title="' . $default_style_name . '" id="mainStylesheet">';
+
+	// Additional stylesheets
+	foreach($tinyib_stylesheets as $value => $display_name) {
+		if ($value === TINYIB_DEFAULTSTYLE) {
+			continue;
+		}
+
+		$value_html = htmlentities($value, ENT_QUOTES);
+		$name_html = htmlentities($display_name, ENT_QUOTES);
+		$return .= '<link rel="alternate stylesheet" type="text/css" href="css/' . $value_html . '.css" title="' . $name_html . '">';
+	}
+
+	return $return;
 }
 
 function pageFooter() {
@@ -559,6 +584,8 @@ EOF;
 }
 
 function buildPage($htmlposts, $parent, $pages = 0, $thispage = 0, $lastpostid = 0) {
+	global $tinyib_stylesheets;
+
 	$cataloglink = TINYIB_CATALOG ? ('[<a href="catalog.html" style="text-decoration: underline;">' . __('Catalog') . '</a>]') : '';
 	$managelink = (TINYIB_MANAGEKEY == '') ? ('[<a href="' . basename($_SERVER['PHP_SELF']) . '?manage"" style="text-decoration: underline;">' . __('Manage') . '</a>]') : '';
 
@@ -625,12 +652,27 @@ EOF;
 	$txt_password = __('Password');
 	$txt_delete = __('Delete');
 	$txt_delete_post = __('Delete Post');
+
+	$style_select = '';
+
+	if (count($tinyib_stylesheets) > 1) {
+		$options = '<option value="">' . $txt_style . '</option>';
+
+		foreach($tinyib_stylesheets as $value => $display_name) {
+			$value_html = htmlentities($value, ENT_QUOTES);
+			$name_html = htmlentities($display_name);
+			$options .= '<option value="' . $value . '">'. $display_name . '</option>';
+		}
+
+		$style_select = '<select id="switchStylesheet">'. $options . '</select>';
+	}
+
 	$body = <<<EOF
 	<body>
 		<div class="adminbar">
 			$cataloglink
 			$managelink
-			<select id="switchStylesheet"><option value="">$txt_style</option><option value="futaba">Futaba</option><option value="burichan">Burichan</option></select>
+			$style_select
 		</div>
 		<div class="logo">
 EOF;
