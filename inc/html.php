@@ -50,19 +50,15 @@ function pageStylesheets() {
 	$return = '<link rel="stylesheet" type="text/css" href="css/global.css">';
 
 	// Default stylesheet
-	$default_style_value = htmlentities(TINYIB_DEFAULTSTYLE, ENT_QUOTES);
-	$default_style_name = htmlentities($tinyib_stylesheets[TINYIB_DEFAULTSTYLE]);
-	$return .= '<link rel="stylesheet" type="text/css" href="css/' . 'test' . '.css" title="' . $default_style_name . '" id="mainStylesheet">';
+	$return .= '<link rel="stylesheet" type="text/css" href="css/' . htmlentities(TINYIB_DEFAULTSTYLE, ENT_QUOTES) . '.css" title="' . htmlentities($tinyib_stylesheets[TINYIB_DEFAULTSTYLE], ENT_QUOTES) . '" id="mainStylesheet">';
 
 	// Additional stylesheets
-	foreach($tinyib_stylesheets as $value => $display_name) {
-		if ($value === TINYIB_DEFAULTSTYLE) {
+	foreach($tinyib_stylesheets as $filename => $title) {
+		if ($filename === TINYIB_DEFAULTSTYLE) {
 			continue;
 		}
 
-		$value_html = htmlentities($value, ENT_QUOTES);
-		$name_html = htmlentities($display_name, ENT_QUOTES);
-		$return .= '<link rel="alternate stylesheet" type="text/css" href="css/' . $value_html . '.css" title="' . $name_html . '">';
+		$return .= '<link rel="alternate stylesheet" type="text/css" href="css/' . htmlentities($filename, ENT_QUOTES) . '.css" title="' . htmlentities($title, ENT_QUOTES) . '">';
 	}
 
 	return $return;
@@ -653,18 +649,16 @@ EOF;
 	$txt_delete = __('Delete');
 	$txt_delete_post = __('Delete Post');
 
-	$style_select = '';
-
+	$select_style = '';
 	if (count($tinyib_stylesheets) > 1) {
-		$options = '<option value="">' . $txt_style . '</option>';
+		$select_style = '<select id="switchStylesheet">';
 
-		foreach($tinyib_stylesheets as $value => $display_name) {
-			$value_html = htmlentities($value, ENT_QUOTES);
-			$name_html = htmlentities($display_name);
-			$options .= '<option value="' . $value . '">'. $display_name . '</option>';
+		$select_style .= '<option value="">' . $txt_style . '</option>';
+		foreach($tinyib_stylesheets as $filename => $title) {
+			$select_style .= '<option value="' . htmlentities($filename, ENT_QUOTES) . '">'. htmlentities($title) . '</option>';
 		}
 
-		$style_select = '<select id="switchStylesheet">'. $options . '</select>';
+		$select_style .= '</select>';
 	}
 
 	$body = <<<EOF
@@ -672,7 +666,7 @@ EOF;
 		<div class="adminbar">
 			$cataloglink
 			$managelink
-			$style_select
+			$select_style
 		</div>
 		<div class="logo">
 EOF;

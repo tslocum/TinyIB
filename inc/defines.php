@@ -153,8 +153,10 @@ if (!defined('TINYIB_DEFAULTSTYLE')) {
 	define('TINYIB_DEFAULTSTYLE', 'futaba');
 }
 if (!isset($tinyib_stylesheets)) {
-	$tinyib_stylesheets = array('futaba' => 'Futaba',
-								'burichan' => 'Burichan');
+	$tinyib_stylesheets = array(
+		'futaba' => 'Futaba',
+		'burichan' => 'Burichan'
+	);
 }
 if (!isset($tinyib_hidefieldsop)) {
 	$tinyib_hidefieldsop = array();

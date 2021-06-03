@@ -48,11 +48,18 @@ define('TINYIB_EXPANDWIDTH', 85);     // Expanded content size as a percentage o
 define('TINYIB_TIMEZONE', 'UTC');     // See https://secure.php.net/manual/en/timezones.php - e.g. America/Los_Angeles
 define('TINYIB_CATALOG', true);       // Generate catalog page
 define('TINYIB_JSON', true);          // Generate JSON files
+define('TINYIB_DEFAULTSTYLE', 'futaba'); // Default page style
 define('TINYIB_DATEFMT', '%g/%m/%d(%a)%H:%M:%S'); // Date and time format  (see php.net/strftime)
 $tinyib_hidefieldsop = array();       // Fields to hide when creating a new thread - e.g. array('name', 'email', 'subject', 'message', 'file', 'embed', 'password')
 $tinyib_hidefields = array();         // Fields to hide when replying
 $tinyib_anonymous = array('Anonymous'); // Default name (or names)
 $tinyib_capcodes = array(array('Admin', 'red'), array('Mod', 'purple')); // Administrator and moderator capcode label and color
+// Stylesheets (located in css)
+//   Format: File name excluding extension => Title
+$tinyib_stylesheets = array(
+	'futaba' => 'Futaba',
+	'burichan' => 'Burichan'
+);
 
 // Post control
 define('TINYIB_DELAY', 30);           // Delay (in seconds) between posts from the same IP address to help control flooding  [0 to disable]
@@ -88,13 +95,6 @@ $tinyib_uploads = array('image/jpeg'                    => array('jpg'),
 $tinyib_embeds = array('SoundCloud' => 'https://soundcloud.com/oembed?format=json&url=TINYIBEMBED',
                        'Vimeo'      => 'https://vimeo.com/api/oembed.json?url=TINYIBEMBED',
                        'YouTube'    => 'https://www.youtube.com/oembed?url=TINYIBEMBED&format=json');
-
-
-// Stylesheets (located in css)
-//   Format: File name excluding extension => Title
-define('TINYIB_DEFAULTSTYLE', 'futaba');
-$tinyib_stylesheets = array('futaba' => 'Futaba',
-							'burichan' => 'Burichan');
 
 // File control
 define('TINYIB_MAXKB', 2048);         // Maximum file size in kilobytes  [0 to disable]
