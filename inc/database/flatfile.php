@@ -364,7 +364,7 @@ function numRepliesToThreadByID($id) {
 	return count($rows);
 }
 
-function postsInThreadByID($id, $moderated_only = true) {
+function _postsInThreadByID($id, $moderated_only = true) {
 	$compClause = new OrWhereClause();
 	$compClause->add(new SimpleWhereClause(POST_ID, '=', $id, INTEGER_COMPARISON));
 	$compClause->add(new SimpleWhereClause(POST_PARENT, '=', $id, INTEGER_COMPARISON));

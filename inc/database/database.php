@@ -21,3 +21,21 @@ if (TINYIB_MODPASS != '') {
 		insertAccount($mod);
 	}
 }
+
+$cache_all = array();
+$cache_moderated = array();
+function postsInThreadByID($id, $moderated_only = true) {
+	global $cache_all, $cache_moderated;
+
+	if ($moderated_only) {
+		$cache = &$cache_moderated;
+	} else {
+		$cache = &$cache_all;
+	}
+
+	$id = intval($id);
+	if (!isset($cache[$id])) {
+		$cache[$id] = _postsInThreadByID($id, $moderated_only);
+	}
+	return $cache[$id];
+}

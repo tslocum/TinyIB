@@ -184,7 +184,7 @@ function numRepliesToThreadByID($id) {
 	return sqlite_fetch_single(sqlite_query($GLOBALS["db"], "SELECT COUNT(*) FROM " . TINYIB_DBPOSTS . " WHERE parent = " . $id));
 }
 
-function postsInThreadByID($id, $moderated_only = true) {
+function _postsInThreadByID($id, $moderated_only = true) {
 	$posts = array();
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " WHERE (id = " . $id . " OR parent = " . $id . ")" . ($moderated_only ? " AND moderated > 0" : "") . " ORDER BY id ASC"), SQLITE_ASSOC);
 	foreach ($result as $post) {

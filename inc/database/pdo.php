@@ -195,7 +195,7 @@ function numRepliesToThreadByID($id) {
 	return (int)$result->fetchColumn();
 }
 
-function postsInThreadByID($id, $moderated_only = true) {
+function _postsInThreadByID($id, $moderated_only = true) {
 	$posts = array();
 	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE (id = ? OR parent = ?)" . ($moderated_only ? " AND moderated > 0" : "") . " ORDER BY id ASC", array($id, $id));
 	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {

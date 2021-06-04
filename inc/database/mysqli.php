@@ -241,7 +241,7 @@ function numRepliesToThreadByID($id) {
 	return mysqli_result(mysqli_query($link, "SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = " . $id . " AND `moderated` = 1"), 0, 0);
 }
 
-function postsInThreadByID($id, $moderated_only = true) {
+function _postsInThreadByID($id, $moderated_only = true) {
 	global $link;
 	$posts = array();
 	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE (`id` = " . $id . " OR `parent` = " . $id . ")" . ($moderated_only ? " AND `moderated` = 1" : "") . " ORDER BY `id` ASC");

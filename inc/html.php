@@ -417,18 +417,11 @@ function backlinks($post) {
 	if (!TINYIB_BACKLINKS) {
 		return '';
 	}
-	global $thread_cache;
 
-	$parent_id = getParent($post);
-
-	if (!isset($thread_cache[$parent_id])) {
-		$thread_cache[$parent_id] = postsInThreadByID($parent_id);
-	}
-
+	$posts = postsInThreadByID(getParent($post));
 	$needle = '&gt;&gt;' . $post['id'];
-
 	$return = '';
-	foreach ($thread_cache[$parent_id] as $reply) {
+	foreach ($posts as $reply) {
 		if (strpos($reply['message'], $needle) !== false) {
 			if ($return != '') {
 				$return .= ', ';
@@ -789,9 +782,6 @@ function rebuildIndexes() {
 
 	foreach ($threads as $thread) {
 		$replies = postsInThreadByID($thread['id']);
-		if (!isset($thread_cache[$thread['id']])) {
-			$thread_cache[$thread['id']] = $replies;
-		}
 		$thread['omitted'] = max(0, count($replies) - TINYIB_PREVIEWREPLIES - 1);
 
 		// Build replies for preview
@@ -831,7 +821,6 @@ function rebuildIndexes() {
 }
 
 function rebuildThread($id) {
-	global $thread_cache;
 	$id = intval($id);
 
 	$post = postByID($id);
@@ -841,7 +830,6 @@ function rebuildThread($id) {
 	}
 
 	$posts = postsInThreadByID($id);
-	$thread_cache[getParent($post)] = $posts;
 	if (count($posts) == 0) {
 		@unlink('res/' . $id . '.html');
 		return;

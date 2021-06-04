@@ -208,7 +208,7 @@ function numRepliesToThreadByID($id) {
 	return mysql_result(mysql_query("SELECT COUNT(*) FROM `" . TINYIB_DBPOSTS . "` WHERE `parent` = " . $id . " AND `moderated` = 1"), 0, 0);
 }
 
-function postsInThreadByID($id, $moderated_only = true) {
+function _postsInThreadByID($id, $moderated_only = true) {
 	$posts = array();
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE (`id` = " . $id . " OR `parent` = " . $id . ")" . ($moderated_only ? " AND `moderated` = 1" : "") . " ORDER BY `id` ASC");
 	if ($result) {
