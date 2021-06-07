@@ -824,7 +824,7 @@ function rebuildThread($id) {
 	$id = intval($id);
 
 	$post = postByID($id);
-	if ($post['moderated'] == 0) {
+	if (empty($post) || $post['moderated'] == 0) {
 		@unlink('res/' . $id . '.html');
 		return;
 	}
