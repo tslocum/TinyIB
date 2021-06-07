@@ -274,9 +274,9 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		checkFlood();
 	}
 
-	$rawpost = isRawPost();
-	$rawposttext = '';
-	if (!$rawpost) {
+	$staffpost = isStaffPost();
+	$capcode = '';
+	if (!$staffpost) {
 		checkMessageSize();
 	}
 
@@ -310,30 +310,32 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 	$spoiler = TINYIB_SPOILERIMAGE && isset($_POST['spoiler']);
 
-	if ($rawpost || !in_array('name', $hide_fields)) {
+	if ($staffpost || !in_array('name', $hide_fields)) {
 		list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
 		$post['name'] = cleanString(substr($post['name'], 0, 75));
-		if (!$rawpost && TINYIB_MAXNAME > 0) {
+		if (!$staffpost && TINYIB_MAXNAME > 0) {
 			$post['name'] = substr($post['name'], 0, TINYIB_MAXNAME);
 		}
 	}
-	if ($rawpost || !in_array('email', $hide_fields)) {
+	if ($staffpost || !in_array('email', $hide_fields)) {
 		$post['email'] = cleanString(str_replace('"', '&quot;', substr($_POST['email'], 0, 75)));
-		if (!$rawpost && TINYIB_MAXEMAIL > 0) {
+		if (!$staffpost && TINYIB_MAXEMAIL > 0) {
 			$post['email'] = substr($post['email'], 0, TINYIB_MAXEMAIL);
 		}
 	}
-	if ($rawpost || !in_array('subject', $hide_fields)) {
+	if ($staffpost) {
+		$capcode = ($isadmin) ? ' <span style="color: ' . $tinyib_capcodes[0][1] . ' ;">## ' . $tinyib_capcodes[0][0] . '</span>' : ' <span style="color: ' . $tinyib_capcodes[1][1] . ';">## ' . $tinyib_capcodes[1][0] . '</span>';
+	}
+	if ($staffpost || !in_array('subject', $hide_fields)) {
 		$post['subject'] = cleanString(substr($_POST['subject'], 0, 75));
-		if (!$rawpost && TINYIB_MAXSUBJECT > 0) {
+		if (!$staffpost && TINYIB_MAXSUBJECT > 0) {
 			$post['subject'] = substr($post['subject'], 0, TINYIB_MAXSUBJECT);
 		}
 	}
-	if ($rawpost || !in_array('message', $hide_fields)) {
+	if ($staffpost || !in_array('message', $hide_fields)) {
 		$post['message'] = $_POST['message'];
-		if ($rawpost) {
+		if ($staffpost && isset($_POST['raw'])) {
 			// Treat message as raw HTML
-			$rawposttext = ($isadmin) ? ' <span style="color: ' . $tinyib_capcodes[0][1] . ' ;">## ' . $tinyib_capcodes[0][0] . '</span>' : ' <span style="color: ' . $tinyib_capcodes[1][1] . ';">## ' . $tinyib_capcodes[1][0] . '</span>';
 		} else {
 			if (TINYIB_WORDBREAK > 0) {
 				$post['message'] = preg_replace('/([^\s]{' . TINYIB_WORDBREAK . '})(?=[^\s])/', '$1' . TINYIB_WORDBREAK_IDENTIFIER, $post['message']);
@@ -351,7 +353,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			}
 		}
 	}
-	if ($rawpost || !in_array('password', $hide_fields)) {
+	if ($staffpost || !in_array('password', $hide_fields)) {
 		$post['password'] = ($_POST['password'] != '') ? hashData($_POST['password']) : '';
 	}
 
@@ -409,9 +411,9 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		break;
 	}
 
-	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $rawposttext);
+	$post['nameblock'] = nameBlock($post['name'], $post['tripcode'], $post['email'], time(), $capcode);
 
-	if (isset($_POST['embed']) && trim($_POST['embed']) != '' && ($rawpost || !in_array('embed', $hide_fields))) {
+	if (isset($_POST['embed']) && trim($_POST['embed']) != '' && ($staffpost || !in_array('embed', $hide_fields))) {
 		if (isset($_FILES['file']) && $_FILES['file']['name'] != "") {
 			fancyDie(__('Embedding a URL and uploading a file at the same time is not supported.'));
 		}
@@ -480,15 +482,15 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			$post['file_original'] = cleanString($embed['title']);
 			$post['file'] = str_ireplace(array('src="https://', 'src="http://'), 'src="//', $embed['html']);
 		}
-	} else if (isset($_FILES['file']) && $_FILES['file']['name'] != "" && ($rawpost || !in_array('file', $hide_fields))) {
+	} else if (isset($_FILES['file']) && $_FILES['file']['name'] != "" && ($staffpost || !in_array('file', $hide_fields))) {
 		validateFileUpload();
 
 		$post = attachFile($post, $_FILES['file']['tmp_name'], $_FILES['file']['name'], true, $spoiler);
 	}
 
 	if ($post['file'] == '') { // No file uploaded
-		$file_ok = !empty($tinyib_uploads) && ($rawpost || !in_array('file', $hide_fields));
-		$embed_ok = (!empty($tinyib_embeds) || TINYIB_UPLOADVIAURL) && ($rawpost || !in_array('embed', $hide_fields));
+		$file_ok = !empty($tinyib_uploads) && ($staffpost || !in_array('file', $hide_fields));
+		$embed_ok = (!empty($tinyib_embeds) || TINYIB_UPLOADVIAURL) && ($staffpost || !in_array('embed', $hide_fields));
 		$allowed = '';
 		if ($file_ok && $embed_ok) {
 			$allowed = __('upload a file or embed a URL');
@@ -500,7 +502,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		if ($post['parent'] == TINYIB_NEWTHREAD && $allowed != "" && !TINYIB_NOFILEOK) {
 			fancyDie(sprintf(__('Please %s to start a new thread.'), $allowed));
 		}
-		if (!$rawpost && str_replace('<br>', '', $post['message']) == "") {
+		if (!$staffpost && str_replace('<br>', '', $post['message']) == "") {
 			$message_ok = !in_array('message', $hide_fields);
 			if ($message_ok) {
 				if ($allowed != '') {
@@ -554,8 +556,8 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		rebuildIndexes();
 	}
 
-	if ($rawpost) {
-		manageLogAction(__('Created raw post') . ' ' . postLink('&gt;&gt;' . $post['id']));
+	if ($staffpost) {
+		manageLogAction(__('Created staff post') . ' ' . postLink('&gt;&gt;' . $post['id']));
 	}
 // Check if the request is to preview a post
 } elseif (isset($_GET['preview']) && !isset($_GET['manage'])) {
@@ -1150,8 +1152,8 @@ EOF;
 					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
 				}
 			}
-		} elseif (isset($_GET["rawpost"])) {
-			$onload = manageOnLoad("rawpost");
+		} elseif (isset($_GET["staffpost"])) {
+			$onload = manageOnLoad("staffpost");
 			$text .= buildPostForm(0, true);
 		} elseif (isset($_GET['changepassword'])) {
 			if ($account['username'] == 'admin' && TINYIB_ADMINPASS != '') {

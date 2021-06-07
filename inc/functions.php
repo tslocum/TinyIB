@@ -132,7 +132,7 @@ function nameAndTripcode($name) {
 	return array($name, "");
 }
 
-function nameBlock($name, $tripcode, $email, $timestamp, $rawposttext) {
+function nameBlock($name, $tripcode, $email, $timestamp, $capcode) {
 	global $tinyib_anonymous;
 	$anonymous = $tinyib_anonymous[array_rand($tinyib_anonymous)];
 
@@ -149,7 +149,7 @@ function nameBlock($name, $tripcode, $email, $timestamp, $rawposttext) {
 		$output = '<a href="mailto:' . $email . '">' . $output . '</a>';
 	}
 
-	return $output . $rawposttext . ' ' . strftime(TINYIB_DATEFMT, $timestamp);
+	return $output . $capcode . ' ' . strftime(TINYIB_DATEFMT, $timestamp);
 }
 
 function writePage($filename, $contents) {
@@ -448,8 +448,8 @@ function getParent($post) {
 	return $post['parent'];
 }
 
-function isRawPost() {
-	if (isset($_POST['rawpost'])) {
+function isStaffPost() {
+	if (isset($_POST['staffpost'])) {
 		list($loggedin, $isadmin) = manageCheckLogIn(false);
 		return $loggedin;
 	}

@@ -108,13 +108,13 @@ function makeLinksClickable($text) {
 	return $text;
 }
 
-function buildPostForm($parent, $raw_post = false) {
+function buildPostForm($parent, $staff_post = false) {
 	global $tinyib_hidefieldsop, $tinyib_hidefields, $tinyib_uploads, $tinyib_embeds;
 	$hide_fields = $parent == TINYIB_NEWTHREAD ? $tinyib_hidefieldsop : $tinyib_hidefields;
 
 	$postform_extra = array('name' => '', 'email' => '', 'subject' => '', 'footer' => '');
 	$input_submit = '<input type="submit" value="' . __('Submit') . '" accesskey="z">';
-	if ($raw_post || !in_array('subject', $hide_fields)) {
+	if ($staff_post || !in_array('subject', $hide_fields)) {
 		$postform_extra['subject'] = $input_submit;
 	} else if (!in_array('email', $hide_fields)) {
 		$postform_extra['email'] = $input_submit;
@@ -147,15 +147,28 @@ function buildPostForm($parent, $raw_post = false) {
 	if (TINYIB_MAXMESSAGE > 0) {
 		$maxlen_message = TINYIB_MAXMESSAGE;
 	}
-	if ($raw_post) {
+	if ($staff_post) {
+		$txt_options = __('Options');
+		$txt_raw_html = __('Raw HTML');
+		$txt_raw_html_info_1 = __('Text entered in the Message field will be posted as is with no formatting applied.');
+		$txt_raw_html_info_2 = __('Line-breaks must be specified with "&lt;br&gt;".');
+
 		$txt_reply_to = __('Reply to');
 		$txt_new_thread = __('0 to start a new thread');
-		$txt_info_1 = __('Text entered in the Message field will be posted as is with no formatting applied.');
-		$txt_info_2 = __('Line-breaks must be specified with "&lt;br&gt;".');
 
 		$form_action = '?';
-		$form_extra = '<input type="hidden" name="rawpost" value="1">';
+		$form_extra = '<input type="hidden" name="staffpost" value="1">';
 		$input_extra = <<<EOF
+					<tr>
+						<td class="postblock">
+							$txt_options
+						</td>
+						<td>
+							<label><input type="checkbox" name="raw" value="1" accesskey="r">&nbsp;$txt_raw_html</label><br>
+							&nbsp; <small>$txt_raw_html_info_1</small><br>
+							&nbsp; <small>$txt_raw_html_info_2</small>
+						</td>
+					</tr>
 					<tr>
 						<td class="postblock">
 							$txt_reply_to
@@ -164,12 +177,6 @@ function buildPostForm($parent, $raw_post = false) {
 							<input type="text" name="parent" size="28" maxlength="75" value="0" accesskey="t">&nbsp;$txt_new_thread
 						</td>
 					</tr>
-EOF;
-		$rules_extra = <<<EOF
-							<ul>
-								<li>$txt_info_1</li>
-								<li>$txt_info_2</li>
-							</ul><br>
 EOF;
 
 		$maxlen_name = -1;
@@ -187,7 +194,7 @@ EOF;
 	$unique_posts_html = '';
 
 	$captcha_html = '';
-	if (TINYIB_CAPTCHA && !$raw_post) {
+	if (TINYIB_CAPTCHA && !$staff_post) {
 		if (TINYIB_CAPTCHA === 'hcaptcha') {
 			$captcha_inner_html = '
 <div style="min-height: 82px;">
@@ -229,7 +236,7 @@ EOF;
 EOF;
 	}
 
-	if (!empty($tinyib_uploads) && ($raw_post || !in_array('file', $hide_fields))) {
+	if (!empty($tinyib_uploads) && ($staff_post || !in_array('file', $hide_fields))) {
 		if (TINYIB_MAXKB > 0) {
 			$max_file_size_input_html = '<input type="hidden" name="MAX_FILE_SIZE" value="' . strval(TINYIB_MAXKB * 1024) . '">';
 			$max_file_size_rules_html = '<li>' . sprintf(__('Maximum file size allowed is %s.'), TINYIB_MAXKBDESC) . '</li>';
@@ -255,7 +262,7 @@ EOF;
 EOF;
 	}
 
-	$embeds_enabled = (!empty($tinyib_embeds) || TINYIB_UPLOADVIAURL) && ($raw_post || !in_array('embed', $hide_fields));
+	$embeds_enabled = (!empty($tinyib_embeds) || TINYIB_UPLOADVIAURL) && ($staff_post || !in_array('embed', $hide_fields));
 	if ($embeds_enabled) {
 		$txt_embed = __('Embed');
 		$txt_embed_help = '';
@@ -304,7 +311,7 @@ EOF;
 				<tbody>
 					$input_extra
 EOF;
-	if ($raw_post || !in_array('name', $hide_fields)) {
+	if ($staff_post || !in_array('name', $hide_fields)) {
 		$txt_name = __('Name');
 		$output .= <<<EOF
 					<tr>
@@ -318,7 +325,7 @@ EOF;
 					</tr>
 EOF;
 	}
-	if ($raw_post || !in_array('email', $hide_fields)) {
+	if ($staff_post || !in_array('email', $hide_fields)) {
 		$txt_email = __('E-mail');
 		$output .= <<<EOF
 					<tr>
@@ -332,7 +339,7 @@ EOF;
 					</tr>
 EOF;
 	}
-	if ($raw_post || !in_array('subject', $hide_fields)) {
+	if ($staff_post || !in_array('subject', $hide_fields)) {
 		$txt_subject = __('Subject');
 		$output .= <<<EOF
 					<tr>
@@ -346,7 +353,7 @@ EOF;
 					</tr>
 EOF;
 	}
-	if ($raw_post || !in_array('message', $hide_fields)) {
+	if ($staff_post || !in_array('message', $hide_fields)) {
 		$txt_message = __('Message');
 		$output .= <<<EOF
 					<tr>
@@ -365,7 +372,7 @@ EOF;
 					$file_input_html
 					$embed_input_html
 EOF;
-	if ($raw_post || !in_array('password', $hide_fields)) {
+	if ($staff_post || !in_array('password', $hide_fields)) {
 		$txt_password = __('Password');
 		$txt_password_help = __('(for post and file deletion)');
 		$output .= <<<EOF
@@ -869,7 +876,7 @@ function adminBar() {
 	if ($isadmin) {
 		$output .= '<a href="?manage&modlog">' . __('Moderation Log') . '</a>] [';
 	}
-	$output .= '<a href="?manage&rawpost">' . __('Raw Post') . '</a>] [';
+	$output .= '<a href="?manage&staffpost">' . __('Staff Post') . '</a>] [';
 	if ($isadmin) {
 		$output .= '<a href="?manage&rebuildall">' . __('Rebuild All') . '</a>] [';
 		$output .= '<a href="?manage&reports">' . __('Reports') . '</a>] [';
@@ -916,7 +923,7 @@ function manageOnLoad($page) {
 			return ' onload="document.tinyib.text.focus();"';
 		case 'moderate':
 			return ' onload="document.tinyib.moderate.focus();"';
-		case 'rawpost':
+		case 'staffpost':
 			return ' onload="document.tinyib.message.focus();"';
 	}
 }
