@@ -30,7 +30,7 @@ ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
 
 <IfModule mod_deflate.c>
 AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
-</Ifmodule>
+</IfModule>
 
 <IfModule mod_alias.c>
 RedirectMatch 404 (.*)\.accounts$
@@ -40,4 +40,4 @@ RedirectMatch 404 (.*)\.logs$
 RedirectMatch 404 (.*)\.posts$
 RedirectMatch 404 (.*)\.reports$
 RedirectMatch 404 (.*)\.tinyib.db$
-</Ifmodule>
+</IfModule>
