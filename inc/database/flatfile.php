@@ -398,7 +398,7 @@ function postsByHex($hex) {
 }
 
 function latestPosts($moderated = true) {
-	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, NULL, 10, new OrderBy(POST_TIMESTAMP, DESCENDING, INTEGER_COMPARISON));
+	$rows = $GLOBALS['db']->selectWhere(POSTS_FILE, new SimpleWhereClause(POST_MODERATED, $moderated ? '>' : '=', 0, INTEGER_COMPARISON), 10, new OrderBy(POST_TIMESTAMP, DESCENDING, INTEGER_COMPARISON));
 	return convertPostsToSQLStyle($rows);
 }
 

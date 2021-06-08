@@ -215,7 +215,7 @@ function postsByHex($hex) {
 
 function latestPosts($moderated = true) {
 	$posts = array();
-	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " ORDER BY timestamp DESC LIMIT 10"), SQLITE_ASSOC);
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBPOSTS . " WHERE `moderated` " . ($moderated ? '>' : '=') . " 0 ORDER BY timestamp DESC LIMIT 10"), SQLITE_ASSOC);
 	foreach ($result as $post) {
 		$posts[] = $post;
 	}

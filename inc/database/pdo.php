@@ -226,7 +226,7 @@ function postsByHex($hex) {
 
 function latestPosts($moderated = true) {
 	$posts = array();
-	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE moderated = ? ORDER BY timestamp DESC LIMIT 10", array($moderated ? '1' : '0'));
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBPOSTS . " WHERE moderated " . ($moderated ? '>' : '=') . " 0 ORDER BY timestamp DESC LIMIT 10");
 	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
 		$posts[] = $row;
 	}

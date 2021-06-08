@@ -148,8 +148,8 @@ function buildPostForm($parent, $staff_post = false) {
 		$maxlen_message = TINYIB_MAXMESSAGE;
 	}
 	if ($staff_post) {
-		$txt_options = __('Options');
 		$txt_raw_html = __('Raw HTML');
+		$txt_enable = __('Enable');
 		$txt_raw_html_info_1 = __('Text entered in the Message field will be posted as is with no formatting applied.');
 		$txt_raw_html_info_2 = __('Line-breaks must be specified with "&lt;br&gt;".');
 
@@ -161,12 +161,14 @@ function buildPostForm($parent, $staff_post = false) {
 		$input_extra = <<<EOF
 					<tr>
 						<td class="postblock">
-							$txt_options
+							$txt_raw_html
 						</td>
 						<td>
-							<label><input type="checkbox" name="raw" value="1" accesskey="r">&nbsp;$txt_raw_html</label><br>
-							&nbsp; <small>$txt_raw_html_info_1</small><br>
-							&nbsp; <small>$txt_raw_html_info_2</small>
+							<label>
+								<input type="checkbox" name="raw" value="1" accesskey="r">&nbsp;$txt_enable<br>
+							&nbsp; 	<small>$txt_raw_html_info_1</small><br>
+							&nbsp; 	<small>$txt_raw_html_info_2</small>
+							</label>
 						</td>
 					</tr>
 					<tr>
@@ -879,7 +881,9 @@ function adminBar() {
 	$output .= '<a href="?manage&staffpost">' . __('Staff Post') . '</a>] [';
 	if ($isadmin) {
 		$output .= '<a href="?manage&rebuildall">' . __('Rebuild All') . '</a>] [';
-		$output .= '<a href="?manage&reports">' . __('Reports') . '</a>] [';
+		if (TINYIB_REPORT) {
+			$output .= '<a href="?manage&reports">' . __('Reports') . '</a>] [';
+		}
 	}
 	if ($isadmin && installedViaGit()) {
 		$output .= '<a href="?manage&update">' . __('Update') . '</a>] [';

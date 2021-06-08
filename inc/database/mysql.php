@@ -243,7 +243,7 @@ function postsByHex($hex) {
 
 function latestPosts($moderated = true) {
 	$posts = array();
-	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `moderated` = " . ($moderated ? '1' : '0') . " ORDER BY `timestamp` DESC LIMIT 10");
+	$result = mysql_query("SELECT * FROM `" . TINYIB_DBPOSTS . "` WHERE `moderated` " . ($moderated ? '>' : '=') . " 0 ORDER BY `timestamp` DESC LIMIT 10");
 	if ($result) {
 		while ($post = mysql_fetch_assoc($result)) {
 			$posts[] = $post;
