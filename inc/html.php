@@ -866,33 +866,33 @@ function adminBar() {
 		return $return;
 	}
 
-	$output = '[<a href="?manage">' . __('Status') . '</a>] [';
+	$output = '';
 	if ($isadmin) {
 		if ($account['role'] == TINYIB_SUPER_ADMINISTRATOR) {
-			$output .= '<a href="?manage&accounts">' . __('Accounts') . '</a>] [';
+			$output .= ' [<a href="?manage&accounts">' . __('Accounts') . '</a>]';
 		}
-		$output .= '<a href="?manage&bans">' . __('Bans') . '</a>] [';
-		$output .= '<a href="?manage&keywords">' . __('Keywords') . '</a>] [';
+		$output .= ' [<a href="?manage&bans">' . __('Bans') . '</a>]';
+		$output .= ' [<a href="?manage&keywords">' . __('Keywords') . '</a>]';
+		if (TINYIB_DBMIGRATE) {
+			$output .= ' [<a href="?manage&dbmigrate"><b>' . __('Migrate Database') . '</b></a>]';
+		}
 	}
-	$output .= '<a href="?manage&moderate">' . __('Moderate Post') . '</a>] [';
+	$output .= ' [<a href="?manage&moderate">' . __('Moderate Post') . '</a>]';
 	if ($isadmin) {
-		$output .= '<a href="?manage&modlog">' . __('Moderation Log') . '</a>] [';
-	}
-	$output .= '<a href="?manage&staffpost">' . __('Staff Post') . '</a>] [';
-	if ($isadmin) {
-		$output .= '<a href="?manage&rebuildall">' . __('Rebuild All') . '</a>] [';
+		$output .= ' [<a href="?manage&modlog">' . __('Moderation Log') . '</a>]';
+		$output .= ' [<a href="?manage&rebuildall">' . __('Rebuild All') . '</a>]';
 		if (TINYIB_REPORT) {
-			$output .= '<a href="?manage&reports">' . __('Reports') . '</a>] [';
+			$output .= ' [<a href="?manage&reports">' . __('Reports') . '</a>]';
 		}
 	}
+	$output .= ' [<a href="?manage&staffpost">' . __('Staff Post') . '</a>]';
+	$output .= ' [<a href="?manage">' . __('Status') . '</a>]';
 	if ($isadmin && installedViaGit()) {
-		$output .= '<a href="?manage&update">' . __('Update') . '</a>] [';
+		$output .= ' [<a href="?manage&update">' . __('Update') . '</a>]';
 	}
-	if ($isadmin && TINYIB_DBMIGRATE) {
-		$output .= '<a href="?manage&dbmigrate"><b>' . __('Migrate Database') . '</b></a>] [';
-	}
-	$output .= '<a href="?manage&changepassword">' . __('Change password') . '</a>] [';
-	$output .= '<a href="?manage&logout">' . __('Log Out') . '</a>] &middot; ' . $return;
+	$output .= ' &middot;  [<a href="?manage&changepassword">' . __('Change Password') . '</a>]';
+	$output .= ' [<a href="?manage&logout">' . __('Log Out') . '</a>]';
+	$output .= ' &middot; ' . $return;
 	return $output;
 }
 
@@ -1106,7 +1106,7 @@ EOF;
 }
 
 function manageChangePasswordForm() {
-	$txt_header = __('Change password');
+	$txt_header = __('Change Password');
 	$txt_submit = __('Submit');
 	return <<<EOF
 	<form id="tinyib" name="tinyib" method="post" action="?manage&changepassword">
