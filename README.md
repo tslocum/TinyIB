@@ -2,7 +2,7 @@
 [![Translate](https://hosted.weblate.org/widgets/tinyib/-/tinyib/svg-badge.svg)](https://hosted.weblate.org/projects/tinyib/tinyib/)
 [![Donate](https://img.shields.io/liberapay/receives/rocketnine.space.svg?logo=liberapay)](https://liberapay.com/rocketnine.space)
 
-See [DEMOS.md](https://code.rocketnine.space/tslocum/tinyib/src/branch/master/DEMOS.md) for a list of sites running TinyIB.
+A [**read-only demo**](https://tinyib.rocketnine.space) is available.
 
 ## Features
 
