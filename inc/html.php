@@ -1112,8 +1112,11 @@ function manageChangePasswordForm() {
 	<form id="tinyib" name="tinyib" method="post" action="?manage&changepassword">
 	<fieldset>
 	<legend>$txt_header</legend>
-	<input type="password" name="password" id="password" value="">
-	<input type="submit" value="$txt_submit" class="managebutton">
+	<table border="0">
+	<tr><td>New password</td><td><input type="password" name="password" id="password" value=""></td></tr>
+	<tr><td>Confirm</td><td><input type="password" name="confirm" id="confirm" value=""></td></tr>
+	<tr><td>&nbsp;</td><td><input type="submit" value="$txt_submit" class="managebutton"></td></tr>
+	</table>
 	<legend>
 	</fieldset>
 	</form><br>

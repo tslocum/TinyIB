@@ -1162,9 +1162,11 @@ EOF;
 				fancyDie(__('This account may not be updated while TINYIB_MODPASS is set.'));
 			}
 
-			if (isset($_POST['password'])) {
+			if (isset($_POST['password']) && isset($_POST['confirm'])) {
 				if ($_POST['password'] == '') {
 					fancyDie(__('A password is required.'));
+				} else if ($_POST['password'] != $_POST['confirm']) {
+					fancyDie(__('Passwords do not match.'));
 				}
 
 				$account['password'] = $_POST['password'];
