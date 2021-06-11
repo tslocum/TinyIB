@@ -1149,9 +1149,10 @@ function manageAccountForm($id = 0) {
 	<input type="hidden" name="id" value="{$a['id']}">
 	<fieldset>
 	<legend>$txt_header</legend>
-	<label for="username">$txt_username</label> <input type="text" name="username" id="username" value="{$a['username']}"><br>
-	<label for="password">$txt_password</label> <input type="password" name="password" id="password" value=""> <small>$txt_password_hint</small><br>
-	<label for="role">$txt_role</label> <select name="role" id="role">
+	<table border="0">
+	<tr><td><label for="username">$txt_username</label></td><td><input type="text" name="username" id="username" value="{$a['username']}"></td></tr>
+	<tr><td><label for="password">$txt_password</label></td><td><input type="password" name="password" id="password" value=""> <small>$txt_password_hint</small></td></tr>
+	<tr><td><label for="role">$txt_role</label></td><td><select name="role" id="role">
 EOF;
 	$return .= '<option value="0" ' . ($a['role'] == 0 ? ' selected' : '') . '>' . __('Choose a role') . '</option>';
 	$return .= '<option value="1" ' . ($a['role'] == 1 ? ' selected' : '') . '>' . __('Super-administrator') . '</option>';
@@ -1160,9 +1161,9 @@ EOF;
 	$return .= '<option value="99" ' . ($a['role'] == 99 ? ' selected' : '') . '>' . __('Disabled') . '</option>';
 	$txt_submit = __('Submit');
 	$return .= <<<EOF
-	</select><br>
-	<input type="submit" value="$txt_submit" class="managebutton">
-	<legend>
+	</select></td></tr>
+	<tr><td>&nbsp;</td><td><input type="submit" value="$txt_submit" class="managebutton"></td></tr>
+	</table>
 	</fieldset>
 	</form><br>
 EOF;
@@ -1217,10 +1218,11 @@ function manageBanForm() {
 	<form id="tinyib" name="tinyib" method="post" action="?manage&bans">
 	<fieldset>
 	<legend>$txt_ban</legend>
-	<label for="ip">$txt_ban_ip</label> <input type="text" name="ip" id="ip" value="${_GET['bans']}"> <input type="submit" value="$txt_submit" class="managebutton"><br>
-	<label for="expire">$txt_ban_expire</label> <input type="text" name="expire" id="expire" value="0">&nbsp;&nbsp;<small><a href="#" onclick="document.tinyib.expire.value='3600';return false;">$txt_1h</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='86400';return false;">$txt_1d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='172800';return false;">$txt_2d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='604800';return false;">$txt_1w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='1209600';return false;">$txt_2w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='2592000';return false;">$txt_1m</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='0';return false;">$txt_ban_never</a></small><br>
-	<label for="reason">$txt_ban_reason&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" name="reason" id="reason">&nbsp;&nbsp;<small>$txt_ban_optional</small><br>
-	<br>
+	<table border="0">
+	<tr><td><label for="ip">$txt_ban_ip</label></td><td><input type="text" name="ip" id="ip" value="${_GET['bans']}"></td><td><input type="submit" value="$txt_submit" class="managebutton"></td></tr>
+	<tr><td><label for="expire">$txt_ban_expire</label></td><td><input type="text" name="expire" id="expire" value="0"></td><td><small><a href="#" onclick="document.tinyib.expire.value='3600';return false;">$txt_1h</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='86400';return false;">$txt_1d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='172800';return false;">$txt_2d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='604800';return false;">$txt_1w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='1209600';return false;">$txt_2w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='2592000';return false;">$txt_1m</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='0';return false;">$txt_ban_never</a></small></td></tr>
+	<tr><td><label for="reason">$txt_ban_reason</label></td><td><input type="text" name="reason" id="reason"></td><td><small>$txt_ban_optional</small></td></tr>
+	</table><br>
 	<small>$txt_ban_help</small>
 	<legend>
 	</fieldset>
@@ -1501,9 +1503,9 @@ function manageEditKeyword($id) {
 	<form id="tinyib" name="tinyib" method="post" action="?manage&keywords=$id">
 	<fieldset>
 	<legend>$txt_keywords</legend>
-	<div valign="top"><label for="keyword">$txt_keyword</label> <input type="text" name="text" id="text" value="$v_text"> <label for="regexp">&nbsp; <input type="checkbox" name="regexp" value="1" $v_regexp_checked> Regular expression</label><br>
-	<label for="action">$txt_action</label>
-	<select name="action">
+	<table border="0">
+	<tr><td><label for="keyword">$txt_keyword</label></td><td><input type="text" name="text" id="text" value="$v_text"> <label for="regexp">&nbsp; <input type="checkbox" name="regexp" value="1" $v_regexp_checked> Regular expression</label></td></tr>
+	<tr><td><label for="action">$txt_action</label></td><td><select name="action">
 EOF;
 	if (TINYIB_REPORT && TINYIB_REQMOD != 'all') {
 		$return .= '<option value="report"' . ($v_action == 'report' ? ' selected' : '') . '>' . __('Report') . '</option>';
@@ -1518,8 +1520,9 @@ EOF;
 	$return .= '<option value="ban1m"' . ($v_action == 'ban1m' ? ' selected' : '') . '>' . __('Delete and ban for 1 month') . '</option>';
 	$return .= '<option value="ban0"' . ($v_action == 'ban0' ? ' selected' : '') . '>' . __('Delete and ban permanently') . '</option>';
 	return $return . <<<EOF
-	</select><br><br>
-	<input type="submit" value="$txt_submit" class="managebutton"></div>
+	</select></td></tr>
+	<tr><td>&nbsp;</td><td><input type="submit" value="$txt_submit" class="managebutton"></td></tr>
+	</table>
 	</fieldset>
 	</form><br>
 EOF;
