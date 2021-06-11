@@ -240,15 +240,15 @@ function setPostAttributes(element, autorefresh) {
             }
 
             if (enablebacklinks && autorefresh) {
-                reflinks = $('#reflinks' + m[1]);
-                if (reflinks) {
-                    if (reflinks.html() == '') {
-                        reflinks.append('&nbsp;');
+                backlinks = $('#backlinks' + m[1]);
+                if (backlinks) {
+                    if (backlinks.html() == '') {
+                        backlinks.append('&nbsp;');
                     } else {
-                        reflinks.append(', ');
+                        backlinks.append(', ');
                     }
-                    reflinks.append('<a href="' + $(element).attr('postLink') + '">&gt;&gt;' + $(element).attr('postID') + '<a>');
-                    setPostAttributes(reflinks, false);
+                    backlinks.append('<a href="' + $(element).attr('postLink') + '">&gt;&gt;' + $(element).attr('postID') + '<a>');
+                    setPostAttributes(backlinks, false);
                 }
             }
 
@@ -275,11 +275,15 @@ function setPostAttributes(element, autorefresh) {
                     } else if (refpost.html() && refpost.html() != undefined) {
                         preview.className = 'hoverpost';
                         $(preview).html(refpost.html());
-                        if (refpost.hasClass('reply')) {
+                        if (refpost.prop("tagName").toLowerCase() == 'td') {
                             $(preview).addClass('reply');
                         }
                     } else {
-                        $(preview).html('<div class="hoverpost" style="padding: 14px;">Loading...</div>');
+                        extraclasses = '';
+                        if ($(this).hasClass('refreply')) {
+                            extraclasses = ' reply';
+                        }
+                        $(preview).html('<div class="hoverpost' + extraclasses + '" style="padding: 14px;">Loading...</div>');
                         $(preview).fadeIn(125);
                         $.ajax({
                             url: base_url + $(this).attr('refID'),

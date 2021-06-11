@@ -572,6 +572,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	if (isset($_GET['res'])) {
 		$html = fixLinksInRes($html);
 	}
+
 	echo $html;
 	die();
 // Check if the request is to auto-refresh a thread

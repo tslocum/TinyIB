@@ -441,7 +441,7 @@ function backlinks($post) {
 	if ($return != '') {
 		$return = '&nbsp;' . $return;
 	}
-	return ' <small><span id="reflinks' . $post['id'] . '" class="reflink">' . $return . '</span></small>';
+	return ' <small><span id="backlinks' . $post['id'] . '" class="backlinks">' . $return . '</span></small>';
 }
 
 function buildPost($post, $res, $compact=false) {

@@ -176,7 +176,8 @@ function fixLinksInRes($html) {
 function _postLink($matches) {
 	$post = postByID($matches[1]);
 	if ($post) {
-		return '<a href="res/' . ($post['parent'] == TINYIB_NEWTHREAD ? $post['id'] : $post['parent']) . '.html#' . $matches[1] . '">' . $matches[0] . '</a>';
+		$is_op = $post['parent'] == TINYIB_NEWTHREAD;
+		return '<a href="res/' . ($is_op ? $post['id'] : $post['parent']) . '.html#' . $matches[1] . '" class="' . ($is_op ? 'refop' : 'refreply') . '">' . $matches[0] . '</a>';
 	}
 	return $matches[0];
 }

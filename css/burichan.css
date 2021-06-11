@@ -190,9 +190,9 @@ hr {
 }
 
 .reply {
-	background: #D6DAF0;
-	color: #000000;
-	font-family: serif;
+	background: #D6DAF0 !important;
+	color: #000000 !important;
+	font-family: serif !important;
 }
 
 .replyhl {
