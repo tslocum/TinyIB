@@ -39,3 +39,9 @@ function postsInThreadByID($id, $moderated_only = true) {
 	}
 	return $cache[$id];
 }
+
+function clearPostCache() {
+	global $cache_all, $cache_moderated;
+	$cache_all = array();
+	$cache_moderated = array();
+}

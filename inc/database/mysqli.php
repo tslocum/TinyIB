@@ -199,6 +199,11 @@ function insertPost($post) {
 	return mysqli_insert_id($link);
 }
 
+function updatePostMessage($id, $message) {
+	global $link;
+	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `message` = '" .  mysqli_real_escape_string($link, $message) . "' WHERE `id` = " . $id . " LIMIT 1");
+}
+
 function approvePostByID($id, $moderated) {
 	global $link;
 	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = " . $moderated . " WHERE `id` = " . $id . " LIMIT 1");

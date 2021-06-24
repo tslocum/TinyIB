@@ -842,7 +842,7 @@ EOF;
 					foreach ($ips as $ip) {
 						$banexists = banByIP($ip);
 						if ($banexists) {
-							fancyDie(__('Sorry, there is already a ban on record for that IP address.'));
+							continue;
 						}
 
 						if (TINYIB_REPORT) {
@@ -865,6 +865,25 @@ EOF;
 
 						insertBan($ban);
 						manageLogAction($action);
+					}
+					if (TINYIB_BANMESSAGE && isset($_POST['message']) && $_POST['message'] != '' && isset($_GET['posts']) && $_GET['posts'] != '') {
+						$post_ids = explode(',', $_GET['posts']);
+						foreach ($post_ids as $post_id) {
+							$post = postByID($post_id);
+							if (!$post) {
+								continue; // The post has been deleted
+							}
+							updatePostMessage($post['id'], $post['message'] . '<br>' . "\n" . '<span class="banmessage">(' . htmlentities($_POST['message']) . ')</span><br>');
+							manageLogAction('Added ban message to ' . postLink('&gt;&gt;' . $post['id']));
+						}
+						clearPostCache();
+						foreach ($post_ids as $post_id) {
+							$post = postByID($post_id);
+							if (!$post) {
+								continue; // The post has been deleted
+							}
+							threadUpdated(getParent($post));
+						}
 					}
 					if (count($ips) == 1) {
 						$text .= manageInfo(__('Banned 1 IP address'));
@@ -1024,10 +1043,8 @@ EOF;
 			foreach ($post_ids as $post_id) {
 				$post = postByID($post_id);
 				if (!$post) {
-					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
-
+					continue; // The post has already been deleted
 				}
-
 				$posts[$post_id] = $post;
 			}
 			foreach ($post_ids as $post_id) {

@@ -116,6 +116,11 @@ hr {
 	margin: 0.2em;
 }
 
+.banmessage {
+	color: red;
+	font-weight: bold;
+}
+
 .footer {
 	clear: both;
 	text-align: center;

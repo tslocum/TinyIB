@@ -33,11 +33,11 @@ function insertAccount($account) {
 }
 
 function updateAccount($account) {
-	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBACCOUNTS . " SET username = '" . sqlite_escape_string($account['username']) . "', password = '" . sqlite_escape_string(hashData($account['password'])) . "', role = '" . sqlite_escape_string($account['role']) . "', lastactive = '" . sqlite_escape_string($account['lastactive']) . "' WHERE id = " . sqlite_escape_string($account['id']));
+	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBACCOUNTS . " SET username = '" . sqlite_escape_string($account['username']) . "', password = '" . sqlite_escape_string(hashData($account['password'])) . "', role = '" . sqlite_escape_string($account['role']) . "', lastactive = '" . sqlite_escape_string($account['lastactive']) . "' WHERE id = '" . sqlite_escape_string($account['id']) . "'");
 }
 
 function deleteAccountByID($id) {
-	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBACCOUNTS . " WHERE id = " . sqlite_escape_string($id));
+	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBACCOUNTS . " WHERE id = '" . sqlite_escape_string($id) . "'");
 }
 
 // Ban functions
@@ -77,7 +77,7 @@ function clearExpiredBans() {
 }
 
 function deleteBanByID($id) {
-	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . sqlite_escape_string($id));
+	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBBANS . " WHERE id = '" . sqlite_escape_string($id) . "'");
 }
 
 // Keyword functions
@@ -113,7 +113,7 @@ function insertKeyword($keyword) {
 }
 
 function deleteKeyword($id) {
-	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = " . sqlite_escape_string($id));
+	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = '" . sqlite_escape_string($id) . "'");
 }
 
 // Log functions
@@ -149,6 +149,10 @@ function threadExistsByID($id) {
 function insertPost($post) {
 	sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBPOSTS . " (parent, timestamp, bumped, ip, name, tripcode, email, nameblock, subject, message, password, file, file_hex, file_original, file_size, file_size_formatted, image_width, image_height, thumb, thumb_width, thumb_height, moderated) VALUES (" . $post['parent'] . ", " . time() . ", " . time() . ", '" . hashData(remoteAddress()) . "', '" . sqlite_escape_string($post['name']) . "', '" . sqlite_escape_string($post['tripcode']) . "',	'" . sqlite_escape_string($post['email']) . "',	'" . sqlite_escape_string($post['nameblock']) . "', '" . sqlite_escape_string($post['subject']) . "', '" . sqlite_escape_string($post['message']) . "', '" . sqlite_escape_string($post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . sqlite_escape_string($post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ", " . $post['moderated'] . ")");
 	return sqlite_last_insert_rowid($GLOBALS["db"]);
+}
+
+function updatePostMessage($id, $message) {
+	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET message = '" . sqlite_escape_string($message) . "' WHERE id = " . $id);
 }
 
 function approvePostByID($id, $moderated) {
@@ -223,7 +227,7 @@ function latestPosts($moderated = true) {
 }
 
 function deletePostByID($id) {
-	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBPOSTS . " WHERE id = " . sqlite_escape_string($id));
+	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBPOSTS . " WHERE id = '" . sqlite_escape_string($id) . "'");
 }
 
 function trimThreads() {
@@ -273,7 +277,7 @@ function insertReport($report) {
 }
 
 function deleteReportsByPost($post) {
-	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBREPORTS . " WHERE post = " . sqlite_escape_string($post));
+	sqlite_query($GLOBALS["db"], "DELETE FROM " . TINYIB_DBREPORTS . " WHERE post = '" . sqlite_escape_string($post) . "'");
 }
 
 function deleteReportsByIP($ip) {

@@ -16,7 +16,9 @@ click Rebuild All in the management panel.
 */
 
 // Internationalization
-define('TINYIB_LOCALE', '');          // Locale  (see README for instructions)
+define('TINYIB_LOCALE', '');                      // See README for instructions  ['' to run in English]
+define('TINYIB_TIMEZONE', 'UTC');                 // See https://secure.php.net/manual/en/timezones.php - e.g. America/Los_Angeles
+define('TINYIB_DATEFMT', '%g/%m/%d(%a)%H:%M:%S'); // Date and time format  (see php.net/strftime)
 
 // Board description and behavior
 //   Warning: Enabling reCAPTCHA will cause all visitors to be tracked by Google.  See https://nearcyan.com/you-probably-dont-need-recaptcha/
@@ -30,6 +32,7 @@ define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to 
 define('TINYIB_REPORT', false);       // Allow users to report posts
 define('TINYIB_AUTOHIDE', 0);         // Amount of reports which will cause a post to be hidden until it is approved  [0 to disable]
 define('TINYIB_REQMOD', '');          // Require moderation before displaying posts: files / all  ['' to disable]
+define('TINYIB_BANMESSAGE', true);    // Allow staff to append a custom message to posts when banning users
 define('TINYIB_SPOILERTEXT', false);  // Allow users to hide text until it is hovered over using the tags <s>text here</s> or <spoiler>text here</spoiler>
 define('TINYIB_SPOILERIMAGE', false); // Allow users to blur thumbnails via a "Spoiler" checkbox
 define('TINYIB_AUTOREFRESH', 30);     // Delay (in seconds) between attempts to refresh a thread automatically  [0 to disable]
@@ -45,12 +48,10 @@ define('TINYIB_PREVIEWREPLIES', 3);   // Amount of replies previewed on index pa
 define('TINYIB_TRUNCATE', 15);        // Messages are truncated to this many lines on board index pages  [0 to disable]
 define('TINYIB_WORDBREAK', 80);       // Words longer than this many characters will be broken apart  [0 to disable]
 define('TINYIB_EXPANDWIDTH', 85);     // Expanded content size as a percentage of the screen's width
-define('TINYIB_TIMEZONE', 'UTC');     // See https://secure.php.net/manual/en/timezones.php - e.g. America/Los_Angeles
 define('TINYIB_BACKLINKS', true);     // Display reflinks to replies that reference a post
 define('TINYIB_CATALOG', true);       // Generate catalog page
 define('TINYIB_JSON', true);          // Generate JSON files
 define('TINYIB_DEFAULTSTYLE', 'futaba'); // Default page style
-define('TINYIB_DATEFMT', '%g/%m/%d(%a)%H:%M:%S'); // Date and time format  (see php.net/strftime)
 $tinyib_hidefieldsop = array();       // Fields to hide when creating a new thread - e.g. array('name', 'email', 'subject', 'message', 'file', 'embed', 'password')
 $tinyib_hidefields = array();         // Fields to hide when replying
 $tinyib_anonymous = array('Anonymous'); // Default name (or names)

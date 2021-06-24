@@ -159,8 +159,12 @@ function insertPost($post) {
 	return $dbh->lastInsertId();
 }
 
+function updatePostMessage($id, $message) {
+	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET message = ? WHERE id = ?", array($message, $id));
+}
+
 function approvePostByID($id, $moderated) {
-	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET moderated = ? WHERE id = ?", array($id, $moderated));
+	pdoQuery("UPDATE " . TINYIB_DBPOSTS . " SET moderated = ? WHERE id = ?", array($moderated, $id));
 }
 
 function bumpThreadByID($id) {

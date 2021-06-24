@@ -1206,7 +1206,7 @@ function manageBanForm() {
 	$txt_ban_expire = __('Expire(sec)');
 	$txt_ban_reason = __('Reason');
 	$txt_ban_never = __('never');
-	$txt_ban_optional = __('optional');
+	$txt_ban_optional = __('Optional.');
 	$txt_submit = __('Submit');
 	$txt_1h = __('1 hour');
 	$txt_1d = __('1 day');
@@ -1214,14 +1214,21 @@ function manageBanForm() {
 	$txt_1w = __('1 week');
 	$txt_2w = __('2 weeks');
 	$txt_1m = __('1 month');
+	$banmessage_html = '';
+	$post_ids = '';
+	if (TINYIB_BANMESSAGE && isset($_GET['posts']) && $_GET['posts'] != '') {
+		$post_ids = htmlentities($_GET['posts'], ENT_QUOTES);
+		$banmessage_html = '<tr><td><label for="message">' . __('Message') . '</label></td><td><input type="text" name="message" id="message"></td><td><small>' . __("Append a message to the post. Optional.") . '</small></td></tr>';
+	}
 	return <<<EOF
-	<form id="tinyib" name="tinyib" method="post" action="?manage&bans">
+	<form id="tinyib" name="tinyib" method="post" action="?manage&bans&posts=$post_ids">
 	<fieldset>
 	<legend>$txt_ban</legend>
 	<table border="0">
 	<tr><td><label for="ip">$txt_ban_ip</label></td><td><input type="text" name="ip" id="ip" value="${_GET['bans']}"></td><td><input type="submit" value="$txt_submit" class="managebutton"></td></tr>
 	<tr><td><label for="expire">$txt_ban_expire</label></td><td><input type="text" name="expire" id="expire" value="0"></td><td><small><a href="#" onclick="document.tinyib.expire.value='3600';return false;">$txt_1h</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='86400';return false;">$txt_1d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='172800';return false;">$txt_2d</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='604800';return false;">$txt_1w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='1209600';return false;">$txt_2w</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='2592000';return false;">$txt_1m</a>&nbsp;<a href="#" onclick="document.tinyib.expire.value='0';return false;">$txt_ban_never</a></small></td></tr>
 	<tr><td><label for="reason">$txt_ban_reason</label></td><td><input type="text" name="reason" id="reason"></td><td><small>$txt_ban_optional</small></td></tr>
+	$banmessage_html
 	</table><br>
 	<small>$txt_ban_help</small>
 	<legend>
@@ -1317,6 +1324,7 @@ function manageModerateAll($post_ids, $threads, $replies, $ips) {
 <form method="get" action="?">
 <input type="hidden" name="manage" value="">
 <input type="hidden" name="bans" value="{$ips_comma}">
+<input type="hidden" name="posts" value="{$post_ids_quoted}">
 <input type="submit" value="$txt_ban_all" class="managebutton" $ban_disabled>
 </form>
 
@@ -1451,6 +1459,7 @@ EOF;
 	<form method="get" action="?">
 	<input type="hidden" name="manage" value="">
 	<input type="hidden" name="bans" value="${post['ip']}">
+	<input type="hidden" name="posts" value="${post['id']}">
 	<input type="submit" value="$txt_ban" class="managebutton" $ban_disabled>
 	</form>
 	

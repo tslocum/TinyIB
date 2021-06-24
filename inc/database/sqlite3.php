@@ -38,13 +38,13 @@ function insertAccount($account) {
 
 function updateAccount($account) {
 	global $db;
-	$db->exec("UPDATE " . TINYIB_DBACCOUNTS . " SET username = '" . $db->escapeString($account['username']) . "', password = '" . $db->escapeString(hashData($account['password'])) . "', role = '" . $db->escapeString($account['role']) . "', lastactive = '" . $db->escapeString($account['lastactive']) . "'  WHERE id = " . $db->escapeString($account['id']));
+	$db->exec("UPDATE " . TINYIB_DBACCOUNTS . " SET username = '" . $db->escapeString($account['username']) . "', password = '" . $db->escapeString(hashData($account['password'])) . "', role = '" . $db->escapeString($account['role']) . "', lastactive = '" . $db->escapeString($account['lastactive']) . "'  WHERE id = '" . $db->escapeString($account['id']) . "'");
 	return $db->lastInsertRowID();
 }
 
 function deleteAccountByID($id) {
 	global $db;
-	$db->exec("DELETE FROM " . TINYIB_DBACCOUNTS . " WHERE id = " . $db->escapeString($id));
+	$db->exec("DELETE FROM " . TINYIB_DBACCOUNTS . " WHERE id = '" . $db->escapeString($id) . "'");
 }
 
 // Ban functions
@@ -90,7 +90,7 @@ function clearExpiredBans() {
 
 function deleteBanByID($id) {
 	global $db;
-	$db->exec("DELETE FROM " . TINYIB_DBBANS . " WHERE id = " . $db->escapeString($id));
+	$db->exec("DELETE FROM " . TINYIB_DBBANS . " WHERE id = '" . $db->escapeString($id) . "'");
 }
 
 // Keyword functions
@@ -131,7 +131,7 @@ function insertKeyword($keyword) {
 
 function deleteKeyword($id) {
 	global $db;
-	$db->exec("DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = " . $db->escapeString($id));
+	$db->exec("DELETE FROM " . TINYIB_DBKEYWORDS . " WHERE id = '" . $db->escapeString($id) . "'");
 }
 
 // Log functions
@@ -173,6 +173,11 @@ function insertPost($post) {
 	global $db;
 	$db->exec("INSERT INTO " . TINYIB_DBPOSTS . " (parent, timestamp, bumped, ip, name, tripcode, email, nameblock, subject, message, password, file, file_hex, file_original, file_size, file_size_formatted, image_width, image_height, thumb, thumb_width, thumb_height, moderated) VALUES (" . $post['parent'] . ", " . time() . ", " . time() . ", '" . hashData(remoteAddress()) . "', '" . $db->escapeString($post['name']) . "', '" . $db->escapeString($post['tripcode']) . "',	'" . $db->escapeString($post['email']) . "',	'" . $db->escapeString($post['nameblock']) . "', '" . $db->escapeString($post['subject']) . "', '" . $db->escapeString($post['message']) . "', '" . $db->escapeString($post['password']) . "', '" . $post['file'] . "', '" . $post['file_hex'] . "', '" . $db->escapeString($post['file_original']) . "', " . $post['file_size'] . ", '" . $post['file_size_formatted'] . "', " . $post['image_width'] . ", " . $post['image_height'] . ", '" . $post['thumb'] . "', " . $post['thumb_width'] . ", " . $post['thumb_height'] . ", " . $post['moderated'] . ")");
 	return $db->lastInsertRowID();
+}
+
+function updatePostMessage($id, $message) {
+	global $db;
+	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET message = '" . $db->escapeString($message) . "' WHERE id = " . $id);
 }
 
 function approvePostByID($id, $moderated) {
@@ -258,7 +263,7 @@ function latestPosts($moderated = true) {
 
 function deletePostByID($id) {
 	global $db;
-	$db->exec("DELETE FROM " . TINYIB_DBPOSTS . " WHERE id = " . $db->escapeString($id));
+	$db->exec("DELETE FROM " . TINYIB_DBPOSTS . " WHERE id = '" . $db->escapeString($id) . "'");
 }
 
 function trimThreads() {
@@ -315,7 +320,7 @@ function insertReport($report) {
 
 function deleteReportsByPost($post) {
 	global $db;
-	$db->exec("DELETE FROM " . TINYIB_DBREPORTS . " WHERE post = " . $db->escapeString($post));
+	$db->exec("DELETE FROM " . TINYIB_DBREPORTS . " WHERE post = '" . $db->escapeString($post) . "'");
 }
 
 function deleteReportsByIP($ip) {
