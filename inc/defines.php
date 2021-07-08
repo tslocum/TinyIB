@@ -82,6 +82,9 @@ if (!defined('TINYIB_REQMOD')) {
 if (!defined('TINYIB_BANMESSAGE')) {
 	define('TINYIB_BANMESSAGE', true);
 }
+if (!defined('TINYIB_UPDATEBUMPED')) {
+	define('TINYIB_UPDATEBUMPED', true);
+}
 if (!defined('TINYIB_SPOILERTEXT')) {
 	define('TINYIB_SPOILERTEXT', false);
 }

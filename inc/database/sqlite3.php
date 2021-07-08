@@ -180,6 +180,11 @@ function updatePostMessage($id, $message) {
 	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET message = '" . $db->escapeString($message) . "' WHERE id = " . $id);
 }
 
+function updatePostBumped($id, $bumped) {
+	global $db;
+	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET bumped = '" . $db->escapeString($bumped) . "' WHERE id = " . $id);
+}
+
 function approvePostByID($id, $moderated) {
 	global $db;
 	$db->exec("UPDATE " . TINYIB_DBPOSTS . " SET moderated = " . $moderated . " WHERE id = " . $id);

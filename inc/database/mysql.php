@@ -177,6 +177,10 @@ function updatePostMessage($id, $message) {
 	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `message` = '" . mysql_real_escape_string($message) . "' WHERE `id` = " . $id . " LIMIT 1");
 }
 
+function updatePostBumped($id, $bumped) {
+	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `bumped` = '" . mysql_real_escape_string($bumped) . "' WHERE `id` = " . $id . " LIMIT 1");
+}
+
 function approvePostByID($id, $moderated) {
 	mysql_query("UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = $moderated WHERE `id` = " . $id . " LIMIT 1");
 }

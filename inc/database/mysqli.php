@@ -204,6 +204,11 @@ function updatePostMessage($id, $message) {
 	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `message` = '" .  mysqli_real_escape_string($link, $message) . "' WHERE `id` = " . $id . " LIMIT 1");
 }
 
+function updatePostBumped($id, $bumped) {
+	global $link;
+	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `bumped` = '" .  mysqli_real_escape_string($link, $bumped) . "' WHERE `id` = " . $id . " LIMIT 1");
+}
+
 function approvePostByID($id, $moderated) {
 	global $link;
 	mysqli_query($link, "UPDATE `" . TINYIB_DBPOSTS . "` SET `moderated` = " . $moderated . " WHERE `id` = " . $id . " LIMIT 1");

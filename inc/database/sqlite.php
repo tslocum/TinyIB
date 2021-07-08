@@ -155,6 +155,10 @@ function updatePostMessage($id, $message) {
 	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET message = '" . sqlite_escape_string($message) . "' WHERE id = " . $id);
 }
 
+function updatePostBumped($id, $bumped) {
+	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET bumped = '" . sqlite_escape_string($bumped) . "' WHERE id = " . $id);
+}
+
 function approvePostByID($id, $moderated) {
 	sqlite_query($GLOBALS["db"], "UPDATE " . TINYIB_DBPOSTS . " SET moderated = " . $moderated . " WHERE id = " . $id);
 }

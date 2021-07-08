@@ -212,13 +212,20 @@ function deletePostImages($post) {
 
 function deletePost($id) {
 	$id = intval($id);
+	$is_op = false;
 
-	$posts = postsInThreadByID($id, false);
+	$parent = 0;
 	$op = array();
+	$posts = postsInThreadByID($id, false);
 	foreach ($posts as $post) {
 		if ($post['parent'] == TINYIB_NEWTHREAD) {
+			if ($post['id'] == $id) {
+				$is_op = true;
+			}
 			$op = $post;
 			continue;
+		} else if ($post['id'] == $id) {
+			$parent = $post['parent'];
 		}
 
 		deletePostImages($post);
@@ -231,7 +238,27 @@ function deletePost($id) {
 		deletePostByID($op['id']);
 	}
 
-	@unlink('res/' . $id . '.html');
+	if ($is_op) {
+		@unlink('res/' . $id . '.html');
+		return;
+	}
+
+	$current_bumped = 0;
+	$new_bumped = 0;
+	$posts = postsInThreadByID($parent, false);
+	foreach ($posts as $post) {
+		if ($post['parent'] == TINYIB_NEWTHREAD) {
+			$current_bumped = $post['bumped'];
+		} else if ($post['id'] == $id || strtolower($post['email']) == 'sage') {
+			continue;
+		}
+		$new_bumped = $post['timestamp'];
+	}
+	if ($new_bumped >= $current_bumped) {
+		return;
+	}
+	updatePostBumped($parent, $new_bumped);
+	rebuildIndexes();
 }
 
 function checkCAPTCHA($mode) {
