@@ -212,8 +212,8 @@ function deletePostImages($post) {
 
 function deletePost($id) {
 	$id = intval($id);
-	$is_op = false;
 
+	$is_op = false;
 	$parent = 0;
 	$op = array();
 	$posts = postsInThreadByID($id, false);
@@ -969,7 +969,7 @@ function stripMetadata($filename) {
 }
 
 function remoteAddress() {
-	if (TINYIB_CLOUDFLARE) {
+	if (TINYIB_CLOUDFLARE && isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
 		return $_SERVER['HTTP_CF_CONNECTING_IP'];
 	}
 	return $_SERVER['REMOTE_ADDR'];
