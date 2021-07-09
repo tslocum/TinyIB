@@ -107,7 +107,9 @@ function keywordByText($text) {
 	$result = mysql_query("SELECT * FROM `" . TINYIB_DBKEYWORDS . "` WHERE `text` = '" . mysql_real_escape_string($text) . "'");
 	if ($result) {
 		while ($keyword = mysql_fetch_assoc($result)) {
-			return $keyword;
+			if ($keyword['text'] === $text) {
+				return $keyword;
+			}
 		}
 	}
 	return array();

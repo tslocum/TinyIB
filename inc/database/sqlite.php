@@ -93,7 +93,9 @@ function keywordByText($text) {
 	$text = strtolower($text);
 	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE text = '" . sqlite_escape_string($text) . "'"), SQLITE_ASSOC);
 	foreach ($result as $keyword) {
-		return $keyword;
+		if ($keyword['text'] === $text) {
+			return $keyword;
+		}
 	}
 	return array();
 }

@@ -108,7 +108,9 @@ function keywordByText($text) {
 	$text = strtolower($text);
 	$result = $db->query("SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE text = '" . $db->escapeString($text) . "'");
 	while ($keyword = $result->fetchArray()) {
-		return $keyword;
+		if ($keyword['text'] === $text) {
+			return $keyword;
+		}
 	}
 	return array();
 }

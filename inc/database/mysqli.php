@@ -124,7 +124,9 @@ function keywordByText($text) {
 	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBKEYWORDS . "` WHERE `text` = '" . mysqli_real_escape_string($link, $text) . "'");
 	if ($result) {
 		while ($keyword = mysqli_fetch_assoc($result)) {
-			return $keyword;
+			if ($keyword['text'] === $text) {
+				return $keyword;
+			}
 		}
 	}
 	return array();

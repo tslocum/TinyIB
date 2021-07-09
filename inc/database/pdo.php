@@ -85,12 +85,13 @@ function keywordByID($id) {
 
 function keywordByText($text) {
 	$text = strtolower($text);
-	$keywords = array();
 	$results = pdoQuery("SELECT * FROM " . TINYIB_DBKEYWORDS . " WHERE text = ?", array($text));
-	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
-		$keywords[] = $row;
+	while ($keyword = $results->fetch(PDO::FETCH_ASSOC)) {
+		if ($keyword['text'] === $text) {
+			return $keyword;
+		}
 	}
-	return $keywords;
+	return array();
 }
 
 function allKeywords() {
