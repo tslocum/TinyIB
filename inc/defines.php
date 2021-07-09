@@ -64,6 +64,9 @@ if (!defined('TINYIB_NOFILEOK')) {
 if (!defined('TINYIB_CAPTCHA')) {
 	define('TINYIB_CAPTCHA', '');
 }
+if (!defined('TINYIB_REPLYCAPTCHA')) {
+	define('TINYIB_REPLYCAPTCHA', TINYIB_CAPTCHA);
+}
 if (!defined('TINYIB_REPORTCAPTCHA')) {
 	define('TINYIB_REPORTCAPTCHA', '');
 }

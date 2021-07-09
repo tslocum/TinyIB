@@ -13,10 +13,10 @@ function pageHeader() {
 	}
 
 	$js_captcha = '';
-	if (TINYIB_CAPTCHA === 'hcaptcha' || TINYIB_MANAGECAPTCHA === 'hcaptcha') {
+	if (TINYIB_CAPTCHA === 'hcaptcha' || TINYIB_REPLYCAPTCHA === 'hcaptcha' || TINYIB_MANAGECAPTCHA === 'hcaptcha') {
 		$js_captcha .= '<script src="https://www.hcaptcha.com/1/api.js" async defer></script>';
 	}
-	if (TINYIB_CAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') {
+	if (TINYIB_CAPTCHA === 'recaptcha' || TINYIB_REPLYCAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') {
 		$js_captcha .= '<script src="https://www.google.com/recaptcha/api.js" async defer></script>';
 	}
 
@@ -196,14 +196,16 @@ EOF;
 	$embed_input_html = '';
 	$unique_posts_html = '';
 
+	$captcha_setting = $parent == TINYIB_NEWTHREAD ? TINYIB_CAPTCHA : TINYIB_REPLYCAPTCHA;
+
 	$captcha_html = '';
-	if (TINYIB_CAPTCHA && !$staff_post) {
-		if (TINYIB_CAPTCHA === 'hcaptcha') {
+	if ($captcha_setting && !$staff_post) {
+		if ($captcha_setting === 'hcaptcha') {
 			$captcha_inner_html = '
 <div style="min-height: 82px;">
 	<div class="h-captcha" data-sitekey="' . TINYIB_HCAPTCHA_SITE . '"></div>
 </div>';
-		} else if (TINYIB_CAPTCHA === 'recaptcha') {
+		} else if ($captcha_setting === 'recaptcha') {
 			$captcha_inner_html = '
 <div style="min-height: 80px;">
 	<div class="g-recaptcha" data-sitekey="' . TINYIB_RECAPTCHA_SITE . '"></div>

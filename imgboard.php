@@ -66,11 +66,11 @@ if (!defined('TINYIB_LOCALE') || TINYIB_LOCALE == '') {
 	$translator->register();
 }
 
-if ((TINYIB_CAPTCHA === 'hcaptcha' || TINYIB_MANAGECAPTCHA === 'hcaptcha') && (TINYIB_HCAPTCHA_SITE == '' || TINYIB_HCAPTCHA_SECRET == '')) {
+if ((TINYIB_CAPTCHA === 'hcaptcha' || TINYIB_REPLYCAPTCHA === 'hcaptcha' || TINYIB_MANAGECAPTCHA === 'hcaptcha') && (TINYIB_HCAPTCHA_SITE == '' || TINYIB_HCAPTCHA_SECRET == '')) {
 	fancyDie(__('TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured.'));
 }
 
-if ((TINYIB_CAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') && (TINYIB_RECAPTCHA_SITE == '' || TINYIB_RECAPTCHA_SECRET == '')) {
+if ((TINYIB_CAPTCHA === 'recaptcha' || TINYIB_REPLYCAPTCHA === 'recaptcha' || TINYIB_MANAGECAPTCHA === 'recaptcha') && (TINYIB_RECAPTCHA_SITE == '' || TINYIB_RECAPTCHA_SECRET == '')) {
 	fancyDie(__('TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured.'));
 }
 
@@ -269,11 +269,6 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 		fancyDie(__('Posting is currently disabled.<br>Please try again in a few moments.'));
 	}
 
-	if (!$loggedin) {
-		checkCAPTCHA(TINYIB_CAPTCHA);
-		checkFlood();
-	}
-
 	$staffpost = isStaffPost();
 	$capcode = '';
 	if (!$staffpost) {
@@ -281,6 +276,11 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	}
 
 	$post = newPost(setParent());
+
+	if (!$loggedin) {
+		checkCAPTCHA($post['parent'] == TINYIB_NEWTHREAD ? TINYIB_CAPTCHA : TINYIB_REPLYCAPTCHA);
+		checkFlood();
+	}
 
 	if (!$loggedin) {
 		if ($post['parent'] == TINYIB_NEWTHREAD && TINYIB_DISALLOWTHREADS != '') {

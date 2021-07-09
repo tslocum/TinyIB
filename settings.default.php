@@ -26,7 +26,8 @@ define('TINYIB_BOARD', 'b');          // Unique identifier for this board using 
 define('TINYIB_BOARDDESC', 'TinyIB'); // Displayed below logo in page headers
 define('TINYIB_BOARDTITLE', '');      // Title of board pages.  When blank, defaults to TINYIB_BOARDDESC (when set) or "TinyIB"
 define('TINYIB_ALWAYSNOKO', false);   // Redirect to thread after posting
-define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass a CAPTCHA when posting: simple / hcaptcha / recaptcha  ['' to disable]
+define('TINYIB_CAPTCHA', '');         // Reduce spam by requiring users to pass a CAPTCHA when posting a new thread: simple / hcaptcha / recaptcha  ['' to disable]
+define('TINYIB_REPLYCAPTCHA', '');    // Reduce spam by requiring users to pass a CAPTCHA when posting a reply: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_REPORTCAPTCHA', '');   // Reduce invalid reports by requiring users to pass a CAPTCHA when reporting: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_MANAGECAPTCHA', '');   // Improve security by requiring users to pass a CAPTCHA when logging in to the management panel: simple / hcaptcha / recaptcha  ['' to disable]
 define('TINYIB_REPORT', false);       // Allow users to report posts
@@ -119,11 +120,11 @@ define('TINYIB_MAXH', 250);           // Height
 define('TINYIB_TRIPSEED', '');        // Enter some random text  (used when generating secure tripcodes, hashing passwords and hashing IP addresses)
 
 // CAPTCHA - hCaptcha / reCAPTCHA
-//   The following settings apply when TINYIB_CAPTCHA is set to hcaptcha
+//   The following settings only apply when using hcaptcha
 //   For API keys visit https://dashboard.hcaptcha.com/signup
 define('TINYIB_HCAPTCHA_SITE', '');   // Site key
 define('TINYIB_HCAPTCHA_SECRET', ''); // Secret key
-//   The following settings apply when TINYIB_CAPTCHA is set to recaptcha
+//   The following settings only apply when using recaptcha
 //   For API keys visit https://www.google.com/recaptcha
 define('TINYIB_RECAPTCHA_SITE', '');  // Site key
 define('TINYIB_RECAPTCHA_SECRET', '');// Secret key
