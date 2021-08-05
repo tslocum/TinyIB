@@ -79,7 +79,7 @@ if (TINYIB_TIMEZONE != '') {
 }
 
 if (TINYIB_TRIPSEED == '') {
-	fancyDie(__('TINYIB_TRIPSEED  must be configured.'));
+	fancyDie(__('TINYIB_TRIPSEED must be configured.'));
 }
 
 $bcrypt_salt = '$2y$12$' . str_pad(str_replace('=', '/', str_replace('+', '.', substr(base64_encode(TINYIB_TRIPSEED), 0, 22))), 22, '/');
@@ -401,12 +401,18 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			$ban = array();
 			$ban['ip'] = $post['ip'];
 			$ban['expire'] = $expire > 0 ? (time() + $expire) : 0;
-			$ban['reason'] = 'Keyword: ' . $keyword['text'];
+			$ban['reason'] = __('Keyword') . ': ' . $keyword['text'];
 			insertBan($ban);
 
-			$expire_txt = ($ban['expire'] > 0) ? ('<br>This ban will expire ' . strftime(TINYIB_DATEFMT, $ban['expire'])) : '<br>This ban is permanent and will not expire.';
-			$reason_txt = ($ban['reason'] == '') ? '' : ('<br>Reason: ' . $ban['reason']);
-			fancyDie('Your IP address ' . remoteAddress() . ' has been banned from posting on this image board.  ' . $expire_txt . $reason_txt);
+			if ($ban['expire'] > 0) {
+				$bannedText = sprintf(__('Your IP address (%1$s) is banned until %2$s.'), remoteAddress(), strftime(TINYIB_DATEFMT, $ban['expire']));
+			} else {
+				$bannedText = sprintf(__('Your IP address (%s) is permanently banned.'), remoteAddress());
+			}
+			if ($ban['reason'] != '') {
+				$bannedText .= '<br>' . __('Reason') . ': ' . $ban['reason'];
+			}
+			fancyDie($bannedText);
 		}
 		break;
 	}
@@ -874,7 +880,7 @@ EOF;
 								continue; // The post has been deleted
 							}
 							updatePostMessage($post['id'], $post['message'] . '<br>' . "\n" . '<span class="banmessage">(' . htmlentities($_POST['message']) . ')</span><br>');
-							manageLogAction('Added ban message to ' . postLink('&gt;&gt;' . $post['id']));
+							manageLogAction(sprintf(__('Added ban message to %s'), postLink('&gt;&gt;' . $post['id'])));
 						}
 						clearPostCache();
 						foreach ($post_ids as $post_id) {
@@ -1134,8 +1140,9 @@ EOF;
 					stickyThreadByID($post['id'], intval($_GET['setsticky']));
 					threadUpdated($post['id']);
 
-					manageLogAction(intval($_GET['setsticky']) == 1 ? __('Stickied') : __('Unstickied') . ' ' . postLink('&gt;&gt;' . $post['id']));
-					$text .= manageInfo('Thread No.' . $post['id'] . ' ' . (intval($_GET['setsticky']) == 1 ? 'stickied' : 'un-stickied') . '.');
+					$actionMessage = intval($_GET['setsticky']) == 1 ? __('Stickied') : __('Unstickied') . ' ' . postLink('&gt;&gt;' . $post['id']);
+					manageLogAction($actionMessage);
+					$text .= manageInfo($actionMessage);
 				} else {
 					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
 				}
@@ -1149,8 +1156,9 @@ EOF;
 					lockThreadByID($post['id'], intval($_GET['setlock']));
 					threadUpdated($post['id']);
 
-					manageLogAction(intval($_GET['setlock']) == 1 ? __('Locked') : __('Unlocked') . ' ' . postLink('&gt;&gt;' . $post['id']));
-					$text .= manageInfo('Thread No.' . $post['id'] . ' ' . (intval($_GET['setlock']) == 1 ? 'locked' : 'unlocked') . '.');
+					$actionMessage = intval($_GET['setlock']) == 1 ? __('Locked') : __('Unlocked') . ' ' . postLink('&gt;&gt;' . $post['id']);
+					manageLogAction($actionMessage);
+					$text .= manageInfo($actionMessage);
 				} else {
 					fancyDie(__("Sorry, there doesn't appear to be a post with that ID."));
 				}

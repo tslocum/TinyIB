@@ -481,7 +481,7 @@ function buildPost($post, $res, $compact=false) {
 	$direct_link = isEmbed($post["file_hex"]) ? "#" : (($res == TINYIB_RESPAGE ? "../" : "") . "src/" . $post["file"]);
 
 	if ($post['parent'] == TINYIB_NEWTHREAD && $post["file"] != '') {
-		$filesize .= (isEmbed($post['file_hex']) ? __('Embed:') : __('File:')) . ' ';
+		$filesize .= (isEmbed($post['file_hex']) ? __('Embed') : __('File')) . ': ';
 	}
 
 	$w = TINYIB_EXPANDWIDTH;
@@ -1259,7 +1259,7 @@ function manageModeratePostForm() {
 	$txt_moderate = __('Moderate a post');
 	$txt_postid = __('Post ID');
 	$txt_submit = __('Submit');
-	$txt_tip = __('Tip:');
+	$txt_tip = __('Tip');
 	$txt_tiptext1 = __('While browsing the image board, you can easily moderate a post if you are logged in.');
 	$txt_tiptext2 = __('Tick the box next to a post and click "Delete" at the bottom of the page with a blank password.');
 	return <<<EOF
@@ -1268,7 +1268,7 @@ function manageModeratePostForm() {
 	<fieldset>
 	<legend>$txt_moderate</legend>
 	<div valign="top"><label for="moderate">$txt_postid</label> <input type="text" name="moderate" id="moderate"> <input type="submit" value="$txt_submit" class="managebutton"></div><br>
-	<b>$txt_tip</b> $txt_tiptext1<br>
+	<b>$txt_tip:</b> $txt_tiptext1<br>
 	$txt_tiptext2<br>
 	</fieldset>
 	</form><br>
@@ -1508,7 +1508,7 @@ function manageEditKeyword($id) {
 
 	$txt_keyword = __('Keyword');
 	$txt_keywords = __('Keywords');
-	$txt_action = __('Action:');
+	$txt_action = __('Action');
 	$txt_submit = $id > 0 ? __('Update') : __('Add');
 
 	$return = <<<EOF
