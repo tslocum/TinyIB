@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-05-10 23:34-0700\n"
+"POT-Creation-Date: 2021-08-05 11:29-0700\n"
 "PO-Revision-Date: 2020-11-28 08:29+0000\n"
 "Last-Translator: hmi45 <hmi45@naver.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/tinyib/tinyib/ko/"
@@ -32,6 +32,9 @@ msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgstr ""
 "TINYIB_RECAPTCHA_SITE 와 TINYIB_RECAPTCHA_SECRET 는 반드시 설정해야 합니다."
 
+msgid "TINYIB_TRIPSEED must be configured."
+msgstr ""
+
 msgid "Unknown database mode specified."
 msgstr "알 수 없는 자료 뭉치 방식이 지정되었습니다."
 
@@ -51,6 +54,20 @@ msgstr "이 글타래는 잠겨서 답글이 허용되지 않습니다."
 
 msgid "Your post contains a blocked keyword."
 msgstr "당신의 게시물은 차단된 핵심어를 포함하고 있습니다."
+
+msgid "Keyword"
+msgstr "핵심어"
+
+#, php-format
+msgid "Your IP address (%1$s) is banned until %2$s."
+msgstr ""
+
+#, php-format
+msgid "Your IP address (%s) is permanently banned."
+msgstr ""
+
+msgid "Reason"
+msgstr "사유"
 
 msgid "Embedding a URL and uploading a file at the same time is not supported."
 msgstr "누리망 주소 끼워 넣기와 철 올리기는 동시에 지원되지 않습니다."
@@ -106,7 +123,7 @@ msgstr "글타래 갱신 중..."
 msgid "Updating index..."
 msgstr "색인 갱신 중..."
 
-msgid "Created raw post"
+msgid "Created staff post"
 msgstr ""
 
 msgid "This post has been deleted"
@@ -217,9 +234,6 @@ msgstr ""
 msgid "Updated account"
 msgstr ""
 
-msgid "Sorry, there is already a ban on record for that IP address."
-msgstr "죄송합니다, 해당 누리망 통신 규약 주소는 이미 차단 목록에 있습니다."
-
 msgid "permanently"
 msgstr ""
 
@@ -233,6 +247,10 @@ msgstr ""
 
 #, php-format
 msgid "Banned %s %s: %s"
+msgstr ""
+
+#, php-format
+msgid "Added ban message to %s"
 msgstr ""
 
 msgid "Banned 1 IP address"
@@ -269,9 +287,6 @@ msgstr ""
 msgid "Keyword deleted."
 msgstr "핵심어 삭제됨."
 
-msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr "죄송합니다. 해당 식별자의 게시물이 없는 것 같습니다."
-
 #, php-format
 msgid "Deleted %s"
 msgstr ""
@@ -290,6 +305,9 @@ msgstr ""
 msgid "Post No.%d approved."
 msgstr "게시물 번호 %d 가 승인되었습니다."
 
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr "죄송합니다. 해당 식별자의 게시물이 없는 것 같습니다."
+
 msgid "Stickied"
 msgstr "붙여짐"
 
@@ -303,6 +321,9 @@ msgid "Locked"
 msgstr "잠겨짐"
 
 msgid "Unlocked"
+msgstr ""
+
+msgid "Passwords do not match."
 msgstr ""
 
 msgid "Password updated"
@@ -397,11 +418,11 @@ msgstr "지원되는 철 형식은 다음과 같습니다 %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "지원되는 철 형식은 %1$s 그리고 %2$s 입니다."
 
-msgid "Reply to"
-msgstr "답글 하기"
+msgid "Raw HTML"
+msgstr ""
 
-msgid "0 to start a new thread"
-msgstr "0은 새 글타래를 시작합니다"
+msgid "Enable"
+msgstr ""
 
 msgid ""
 "Text entered in the Message field will be posted as is with no formatting "
@@ -410,6 +431,12 @@ msgstr "알림말 구역에 입력 한 글자는 서식이 적용되지 않은 �
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "줄 바꿈은 \"&lt;br&gt;\"로 지정해야합니다."
+
+msgid "Reply to"
+msgstr "답글 하기"
+
+msgid "0 to start a new thread"
+msgstr "0은 새 글타래를 시작합니다"
 
 msgid "CAPTCHA"
 msgstr "자동입력 방지 문자"
@@ -462,12 +489,6 @@ msgstr "(게시물, 철을 삭제하는데 필요합니다)"
 msgid "Report"
 msgstr "신고"
 
-msgid "Embed:"
-msgstr "끼워 넣기:"
-
-msgid "File:"
-msgstr "철:"
-
 msgid "Reply"
 msgstr "답글"
 
@@ -508,9 +529,6 @@ msgstr "삭제"
 msgid "Delete Post"
 msgstr "게시물 삭제"
 
-msgid "Status"
-msgstr "상태"
-
 msgid "Accounts"
 msgstr ""
 
@@ -520,14 +538,14 @@ msgstr "차단"
 msgid "Keywords"
 msgstr "핵심어"
 
+msgid "Migrate Database"
+msgstr "자료 뭉치 이동"
+
 msgid "Moderate Post"
 msgstr "게시물 검토"
 
 msgid "Moderation Log"
 msgstr ""
-
-msgid "Raw Post"
-msgstr "날 게시물"
 
 msgid "Rebuild All"
 msgstr "모두 재구축"
@@ -537,13 +555,16 @@ msgstr "모두 재구축"
 msgid "Reports"
 msgstr "신고"
 
+msgid "Staff Post"
+msgstr ""
+
+msgid "Status"
+msgstr "상태"
+
 msgid "Update"
 msgstr "갱신"
 
-msgid "Migrate Database"
-msgstr "자료 뭉치 이동"
-
-msgid "Change password"
+msgid "Change Password"
 msgstr ""
 
 msgid "Log Out"
@@ -632,14 +653,11 @@ msgstr "누리망 통신 규약 주소"
 msgid "Expire(sec)"
 msgstr "기한(초)"
 
-msgid "Reason"
-msgstr "사유"
-
 msgid "never"
 msgstr "절대"
 
-msgid "optional"
-msgstr "(선택)"
+msgid "Optional."
+msgstr ""
 
 msgid "1 hour"
 msgstr "1 시간"
@@ -659,6 +677,9 @@ msgstr "2 주"
 msgid "1 month"
 msgstr "1 달"
 
+msgid "Append a message to the post. Optional."
+msgstr ""
+
 msgid "Set At"
 msgstr "시작"
 
@@ -677,8 +698,8 @@ msgstr "게시물 검토하기"
 msgid "Post ID"
 msgstr "게시물 식별자"
 
-msgid "Tip:"
-msgstr "귀띔:"
+msgid "Tip"
+msgstr ""
 
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
@@ -799,12 +820,6 @@ msgstr "신고들"
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
 msgstr "죄송합니다. 해당 식별자의 핵심어가 없는 것 같습니다."
 
-msgid "Keyword"
-msgstr "핵심어"
-
-msgid "Action:"
-msgstr "동작:"
-
 msgid "Add"
 msgstr "추가"
 
@@ -858,6 +873,27 @@ msgstr "최근 게시물들"
 
 msgid "Info"
 msgstr "정보"
+
+#~ msgid "Sorry, there is already a ban on record for that IP address."
+#~ msgstr "죄송합니다, 해당 누리망 통신 규약 주소는 이미 차단 목록에 있습니다."
+
+#~ msgid "Embed:"
+#~ msgstr "끼워 넣기:"
+
+#~ msgid "File:"
+#~ msgstr "철:"
+
+#~ msgid "Raw Post"
+#~ msgstr "날 게시물"
+
+#~ msgid "optional"
+#~ msgstr "(선택)"
+
+#~ msgid "Tip:"
+#~ msgstr "귀띔:"
+
+#~ msgid "Action:"
+#~ msgstr "동작:"
 
 #~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
 #~ msgstr "TINYIB_TRIPSEED 와 TINYIB_ADMINPASS 는 반드시 설정해야 합니다."

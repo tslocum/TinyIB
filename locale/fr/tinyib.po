@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-05-10 23:34-0700\n"
+"POT-Creation-Date: 2021-08-05 11:29-0700\n"
 "PO-Revision-Date: 2021-04-07 14:27+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/tinyib/tinyib/fr/"
@@ -29,6 +29,9 @@ msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgstr ""
 "TINYIB_RECAPTCHA_SITE et TINYIB_RECAPTCHA_SECRET doivent être configurés."
 
+msgid "TINYIB_TRIPSEED must be configured."
+msgstr ""
+
 msgid "Unknown database mode specified."
 msgstr "Type de base de données spécifié inconnu."
 
@@ -53,6 +56,20 @@ msgstr "Les réponses ne sont pas autorisées sur les fils verrouillés."
 
 msgid "Your post contains a blocked keyword."
 msgstr "Votre publication contient un mot bloqué."
+
+msgid "Keyword"
+msgstr "Mot-clé"
+
+#, php-format
+msgid "Your IP address (%1$s) is banned until %2$s."
+msgstr ""
+
+#, php-format
+msgid "Your IP address (%s) is permanently banned."
+msgstr ""
+
+msgid "Reason"
+msgstr "Motif"
 
 msgid "Embedding a URL and uploading a file at the same time is not supported."
 msgstr ""
@@ -110,7 +127,7 @@ msgstr "Mise à jour du fil de discussion…"
 msgid "Updating index..."
 msgstr "Mise à jour de l’index…"
 
-msgid "Created raw post"
+msgid "Created staff post"
 msgstr ""
 
 msgid "This post has been deleted"
@@ -224,10 +241,6 @@ msgstr ""
 msgid "Updated account"
 msgstr "Compte mis à jour"
 
-msgid "Sorry, there is already a ban on record for that IP address."
-msgstr ""
-"Désolé, il y a déjà une interdiction enregistrée pour cette adresse IP."
-
 msgid "permanently"
 msgstr ""
 
@@ -241,6 +254,10 @@ msgstr ""
 
 #, php-format
 msgid "Banned %s %s: %s"
+msgstr ""
+
+#, php-format
+msgid "Added ban message to %s"
 msgstr ""
 
 msgid "Banned 1 IP address"
@@ -277,9 +294,6 @@ msgstr ""
 msgid "Keyword deleted."
 msgstr "Mot-clé supprimé."
 
-msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr "Désolé, il ne semble pas y avoir de publication avec cet identifiant."
-
 #, php-format
 msgid "Deleted %s"
 msgstr ""
@@ -298,6 +312,9 @@ msgstr ""
 msgid "Post No.%d approved."
 msgstr "Publication nº %d approuvée."
 
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr "Désolé, il ne semble pas y avoir de publication avec cet identifiant."
+
 msgid "Stickied"
 msgstr "Épinglé"
 
@@ -313,6 +330,9 @@ msgid "Locked"
 msgstr "Verrouillé"
 
 msgid "Unlocked"
+msgstr ""
+
+msgid "Passwords do not match."
 msgstr ""
 
 msgid "Password updated"
@@ -409,11 +429,11 @@ msgstr "Le type de fichier pris en charge est %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "Les types de fichier pris en charge sont %1$s et %2$s."
 
-msgid "Reply to"
-msgstr "Répondre à"
+msgid "Raw HTML"
+msgstr ""
 
-msgid "0 to start a new thread"
-msgstr "0 pour démarrer un nouveau fil"
+msgid "Enable"
+msgstr ""
 
 msgid ""
 "Text entered in the Message field will be posted as is with no formatting "
@@ -424,6 +444,12 @@ msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Les sauts de ligne doivent être spécifiés avec « &lt;br&gt; »."
+
+msgid "Reply to"
+msgstr "Répondre à"
+
+msgid "0 to start a new thread"
+msgstr "0 pour démarrer un nouveau fil"
 
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
@@ -477,12 +503,6 @@ msgstr "(pour la suppression de publications et de fichiers)"
 msgid "Report"
 msgstr "Signaler"
 
-msgid "Embed:"
-msgstr "Incorporer :"
-
-msgid "File:"
-msgstr "Fichier :"
-
 msgid "Reply"
 msgstr "Répondre"
 
@@ -523,9 +543,6 @@ msgstr "Supprimer"
 msgid "Delete Post"
 msgstr "Supprimer la publication"
 
-msgid "Status"
-msgstr "État"
-
 msgid "Accounts"
 msgstr "Comptes"
 
@@ -535,14 +552,14 @@ msgstr "Interdictions"
 msgid "Keywords"
 msgstr "Mots-clés"
 
+msgid "Migrate Database"
+msgstr "Migrer la base de données"
+
 msgid "Moderate Post"
 msgstr "Modérer la publication"
 
 msgid "Moderation Log"
 msgstr ""
-
-msgid "Raw Post"
-msgstr "Publication brute"
 
 msgid "Rebuild All"
 msgstr "Tout reconstruire"
@@ -550,14 +567,17 @@ msgstr "Tout reconstruire"
 msgid "Reports"
 msgstr "Signalements"
 
+msgid "Staff Post"
+msgstr ""
+
+msgid "Status"
+msgstr "État"
+
 msgid "Update"
 msgstr "Mettre à jour"
 
-msgid "Migrate Database"
-msgstr "Migrer la base de données"
-
-msgid "Change password"
-msgstr "Modifier le mot de passe"
+msgid "Change Password"
+msgstr ""
 
 msgid "Log Out"
 msgstr "Se déconnecter"
@@ -643,14 +663,11 @@ msgstr "Adresse IP"
 msgid "Expire(sec)"
 msgstr "Bannir pour"
 
-msgid "Reason"
-msgstr "Motif"
-
 msgid "never"
 msgstr "jamais"
 
-msgid "optional"
-msgstr "facultatif"
+msgid "Optional."
+msgstr ""
 
 msgid "1 hour"
 msgstr "1 heure"
@@ -670,6 +687,9 @@ msgstr "2 semaines"
 msgid "1 month"
 msgstr "1 mois"
 
+msgid "Append a message to the post. Optional."
+msgstr ""
+
 msgid "Set At"
 msgstr "Définir à"
 
@@ -688,8 +708,8 @@ msgstr "Modérer une publication"
 msgid "Post ID"
 msgstr "Identifiant de publication"
 
-msgid "Tip:"
-msgstr "Astuce :"
+msgid "Tip"
+msgstr ""
 
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
@@ -812,12 +832,6 @@ msgstr "signalements"
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
 msgstr "Désolé, il ne semble pas y avoir de mot-clé avec cet identifiant."
 
-msgid "Keyword"
-msgstr "Mot-clé"
-
-msgid "Action:"
-msgstr "Action :"
-
 msgid "Add"
 msgstr "Ajouter"
 
@@ -871,6 +885,31 @@ msgstr "Publications récentes"
 
 msgid "Info"
 msgstr "Informations"
+
+#~ msgid "Sorry, there is already a ban on record for that IP address."
+#~ msgstr ""
+#~ "Désolé, il y a déjà une interdiction enregistrée pour cette adresse IP."
+
+#~ msgid "Embed:"
+#~ msgstr "Incorporer :"
+
+#~ msgid "File:"
+#~ msgstr "Fichier :"
+
+#~ msgid "Raw Post"
+#~ msgstr "Publication brute"
+
+#~ msgid "Change password"
+#~ msgstr "Modifier le mot de passe"
+
+#~ msgid "optional"
+#~ msgstr "facultatif"
+
+#~ msgid "Tip:"
+#~ msgstr "Astuce :"
+
+#~ msgid "Action:"
+#~ msgstr "Action :"
 
 #~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
 #~ msgstr "TINYIB_TRIPSEED et TINYIB_ADMINPASS doivent être configurés."

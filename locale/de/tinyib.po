@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-05-10 23:34-0700\n"
+"POT-Creation-Date: 2021-08-05 11:29-0700\n"
 "PO-Revision-Date: 2021-01-29 23:32+0000\n"
 "Last-Translator: Trevor Slocum <trevor@rocketnine.space>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tinyib/tinyib/de/"
@@ -34,6 +34,9 @@ msgstr ""
 "TINYIB_RECAPTCHA_SITE und TINYIB_RECAPTCHA_SECRET  müssen konfiguriert "
 "werden."
 
+msgid "TINYIB_TRIPSEED must be configured."
+msgstr ""
+
 msgid "Unknown database mode specified."
 msgstr "Unbekannten Datenbankmodus spezifiziert."
 
@@ -58,6 +61,20 @@ msgstr "Antworten sind bei geschlossenen Beitragssträngen nicht erlaubt."
 
 msgid "Your post contains a blocked keyword."
 msgstr ""
+
+msgid "Keyword"
+msgstr ""
+
+#, php-format
+msgid "Your IP address (%1$s) is banned until %2$s."
+msgstr ""
+
+#, php-format
+msgid "Your IP address (%s) is permanently banned."
+msgstr ""
+
+msgid "Reason"
+msgstr "Grund"
 
 msgid "Embedding a URL and uploading a file at the same time is not supported."
 msgstr ""
@@ -115,7 +132,7 @@ msgstr "Aktualisierung des Beitragsstrang …"
 msgid "Updating index..."
 msgstr "Aktualisierung des Index …"
 
-msgid "Created raw post"
+msgid "Created staff post"
 msgstr ""
 
 msgid "This post has been deleted"
@@ -229,9 +246,6 @@ msgstr ""
 msgid "Updated account"
 msgstr ""
 
-msgid "Sorry, there is already a ban on record for that IP address."
-msgstr "Entschuldigung, auf dieser IP-Adresse existiert schon ein Ban vermerk."
-
 msgid "permanently"
 msgstr ""
 
@@ -245,6 +259,10 @@ msgstr ""
 
 #, php-format
 msgid "Banned %s %s: %s"
+msgstr ""
+
+#, php-format
+msgid "Added ban message to %s"
 msgstr ""
 
 msgid "Banned 1 IP address"
@@ -283,9 +301,6 @@ msgstr ""
 msgid "Keyword deleted."
 msgstr "Beitrag gelöscht."
 
-msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr "Entschuldigung, es scheint kein Beitrag mit dieser ID zu existieren."
-
 #, php-format
 msgid "Deleted %s"
 msgstr ""
@@ -304,6 +319,9 @@ msgstr ""
 msgid "Post No.%d approved."
 msgstr "Beitrag Nr. %d genehmigt."
 
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr "Entschuldigung, es scheint kein Beitrag mit dieser ID zu existieren."
+
 msgid "Stickied"
 msgstr "Aufgeklebt"
 
@@ -318,6 +336,9 @@ msgid "Locked"
 msgstr "Gesperrt"
 
 msgid "Unlocked"
+msgstr ""
+
+msgid "Passwords do not match."
 msgstr ""
 
 msgid "Password updated"
@@ -416,11 +437,11 @@ msgstr "Unterstützter Dateityp ist %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "Unterstützte Dateitypen sind %1$s und %2$s."
 
-msgid "Reply to"
-msgstr "Antwort an"
+msgid "Raw HTML"
+msgstr ""
 
-msgid "0 to start a new thread"
-msgstr "0 um ein neues Thema zu beginnen"
+msgid "Enable"
+msgstr ""
 
 msgid ""
 "Text entered in the Message field will be posted as is with no formatting "
@@ -431,6 +452,12 @@ msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Zeilen-umbrüche müssen mit \"&lt;br&gt;\" spezifiziert werden."
+
+msgid "Reply to"
+msgstr "Antwort an"
+
+msgid "0 to start a new thread"
+msgstr "0 um ein neues Thema zu beginnen"
 
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
@@ -485,12 +512,6 @@ msgstr "(für Beitrag- und Dateilöschung)"
 msgid "Report"
 msgstr ""
 
-msgid "Embed:"
-msgstr "Einbetten:"
-
-msgid "File:"
-msgstr "Datei:"
-
 msgid "Reply"
 msgstr "Antworten"
 
@@ -531,9 +552,6 @@ msgstr "Löschen"
 msgid "Delete Post"
 msgstr "Beitrag löschen"
 
-msgid "Status"
-msgstr "Status"
-
 msgid "Accounts"
 msgstr ""
 
@@ -543,14 +561,14 @@ msgstr "Verbannungen"
 msgid "Keywords"
 msgstr ""
 
+msgid "Migrate Database"
+msgstr "Datenbank migrieren"
+
 msgid "Moderate Post"
 msgstr "Beitrag moderieren"
 
 msgid "Moderation Log"
 msgstr ""
-
-msgid "Raw Post"
-msgstr "Unbearbeiteter Beitrag"
 
 msgid "Rebuild All"
 msgstr "Alles neu Strukturieren"
@@ -560,13 +578,16 @@ msgstr "Alles neu Strukturieren"
 msgid "Reports"
 msgstr "Neue Beiträge"
 
+msgid "Staff Post"
+msgstr ""
+
+msgid "Status"
+msgstr "Status"
+
 msgid "Update"
 msgstr "Aktualisieren"
 
-msgid "Migrate Database"
-msgstr "Datenbank migrieren"
-
-msgid "Change password"
+msgid "Change Password"
 msgstr ""
 
 msgid "Log Out"
@@ -656,14 +677,11 @@ msgstr "IP-Adresse"
 msgid "Expire(sec)"
 msgstr "Ablaufen(Sek)"
 
-msgid "Reason"
-msgstr "Grund"
-
 msgid "never"
 msgstr "nie"
 
-msgid "optional"
-msgstr "optional"
+msgid "Optional."
+msgstr ""
 
 msgid "1 hour"
 msgstr "1 Stunde"
@@ -683,6 +701,9 @@ msgstr "2 Wochen"
 msgid "1 month"
 msgstr "1 Monat"
 
+msgid "Append a message to the post. Optional."
+msgstr ""
+
 msgid "Set At"
 msgstr "Setzen bei"
 
@@ -701,8 +722,8 @@ msgstr "Beitrag moderieren"
 msgid "Post ID"
 msgstr "Beitrags-ID"
 
-msgid "Tip:"
-msgstr "Tipp:"
+msgid "Tip"
+msgstr ""
 
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
@@ -828,12 +849,6 @@ msgstr ""
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
 msgstr "Entschuldigung, es scheint kein Beitrag mit dieser ID zu existieren."
 
-msgid "Keyword"
-msgstr ""
-
-msgid "Action:"
-msgstr "Aktion:"
-
 msgid "Add"
 msgstr ""
 
@@ -887,6 +902,28 @@ msgstr "Neue Beiträge"
 
 msgid "Info"
 msgstr "Information"
+
+#~ msgid "Sorry, there is already a ban on record for that IP address."
+#~ msgstr ""
+#~ "Entschuldigung, auf dieser IP-Adresse existiert schon ein Ban vermerk."
+
+#~ msgid "Embed:"
+#~ msgstr "Einbetten:"
+
+#~ msgid "File:"
+#~ msgstr "Datei:"
+
+#~ msgid "Raw Post"
+#~ msgstr "Unbearbeiteter Beitrag"
+
+#~ msgid "optional"
+#~ msgstr "optional"
+
+#~ msgid "Tip:"
+#~ msgstr "Tipp:"
+
+#~ msgid "Action:"
+#~ msgstr "Aktion:"
 
 #~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
 #~ msgstr "TINYIB_TRIPSEED und TINYIB_ADMINPASS müssen konfiguriert werden."

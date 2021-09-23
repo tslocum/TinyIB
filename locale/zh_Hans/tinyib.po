@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-05-10 23:34-0700\n"
+"POT-Creation-Date: 2021-08-05 11:29-0700\n"
 "PO-Revision-Date: 2020-10-17 16:26+0000\n"
 "Last-Translator: Michael Mai <michaelmai2000@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -28,6 +28,9 @@ msgstr ""
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgstr ""
 
+msgid "TINYIB_TRIPSEED must be configured."
+msgstr ""
+
 msgid "Unknown database mode specified."
 msgstr "设置了未知的数据库模式。"
 
@@ -45,6 +48,20 @@ msgid "Replies are not allowed to locked threads."
 msgstr "不允许回复已锁定的帖子。"
 
 msgid "Your post contains a blocked keyword."
+msgstr ""
+
+msgid "Keyword"
+msgstr ""
+
+#, php-format
+msgid "Your IP address (%1$s) is banned until %2$s."
+msgstr ""
+
+#, php-format
+msgid "Your IP address (%s) is permanently banned."
+msgstr ""
+
+msgid "Reason"
 msgstr ""
 
 msgid "Embedding a URL and uploading a file at the same time is not supported."
@@ -104,7 +121,7 @@ msgstr "正在更新帖子..."
 msgid "Updating index..."
 msgstr "正在更新索引..."
 
-msgid "Created raw post"
+msgid "Created staff post"
 msgstr ""
 
 msgid "This post has been deleted"
@@ -214,9 +231,6 @@ msgstr ""
 msgid "Updated account"
 msgstr ""
 
-msgid "Sorry, there is already a ban on record for that IP address."
-msgstr "抱歉，此ID已被禁用。"
-
 msgid "permanently"
 msgstr ""
 
@@ -230,6 +244,10 @@ msgstr ""
 
 #, php-format
 msgid "Banned %s %s: %s"
+msgstr ""
+
+#, php-format
+msgid "Added ban message to %s"
 msgstr ""
 
 msgid "Banned 1 IP address"
@@ -268,9 +286,6 @@ msgstr ""
 msgid "Keyword deleted."
 msgstr "已删除帖子。"
 
-msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr "抱歉，似乎没有带该 ID 的帖子。"
-
 #, php-format
 msgid "Deleted %s"
 msgstr ""
@@ -289,6 +304,9 @@ msgstr ""
 msgid "Post No.%d approved."
 msgstr "帖子 %d 已被批准。"
 
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr "抱歉，似乎没有带该 ID 的帖子。"
+
 msgid "Stickied"
 msgstr ""
 
@@ -302,6 +320,9 @@ msgid "Locked"
 msgstr ""
 
 msgid "Unlocked"
+msgstr ""
+
+msgid "Passwords do not match."
 msgstr ""
 
 msgid "Password updated"
@@ -386,10 +407,10 @@ msgstr ""
 msgid "Supported file types are %1$s and %2$s."
 msgstr ""
 
-msgid "Reply to"
+msgid "Raw HTML"
 msgstr ""
 
-msgid "0 to start a new thread"
+msgid "Enable"
 msgstr ""
 
 msgid ""
@@ -398,6 +419,12 @@ msgid ""
 msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
+msgstr ""
+
+msgid "Reply to"
+msgstr ""
+
+msgid "0 to start a new thread"
 msgstr ""
 
 msgid "CAPTCHA"
@@ -451,12 +478,6 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
-msgid "Embed:"
-msgstr ""
-
-msgid "File:"
-msgstr ""
-
 msgid "Reply"
 msgstr ""
 
@@ -497,9 +518,6 @@ msgstr ""
 msgid "Delete Post"
 msgstr ""
 
-msgid "Status"
-msgstr ""
-
 msgid "Accounts"
 msgstr ""
 
@@ -509,13 +527,13 @@ msgstr ""
 msgid "Keywords"
 msgstr ""
 
+msgid "Migrate Database"
+msgstr ""
+
 msgid "Moderate Post"
 msgstr ""
 
 msgid "Moderation Log"
-msgstr ""
-
-msgid "Raw Post"
 msgstr ""
 
 msgid "Rebuild All"
@@ -524,13 +542,16 @@ msgstr ""
 msgid "Reports"
 msgstr ""
 
+msgid "Staff Post"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
 msgid "Update"
 msgstr ""
 
-msgid "Migrate Database"
-msgstr ""
-
-msgid "Change password"
+msgid "Change Password"
 msgstr ""
 
 msgid "Log Out"
@@ -617,13 +638,10 @@ msgstr ""
 msgid "Expire(sec)"
 msgstr ""
 
-msgid "Reason"
-msgstr ""
-
 msgid "never"
 msgstr ""
 
-msgid "optional"
+msgid "Optional."
 msgstr ""
 
 msgid "1 hour"
@@ -644,6 +662,9 @@ msgstr ""
 msgid "1 month"
 msgstr ""
 
+msgid "Append a message to the post. Optional."
+msgstr ""
+
 msgid "Set At"
 msgstr ""
 
@@ -662,7 +683,7 @@ msgstr ""
 msgid "Post ID"
 msgstr ""
 
-msgid "Tip:"
+msgid "Tip"
 msgstr ""
 
 msgid ""
@@ -788,12 +809,6 @@ msgstr ""
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
 msgstr "抱歉，似乎没有带该 ID 的帖子。"
 
-msgid "Keyword"
-msgstr ""
-
-msgid "Action:"
-msgstr ""
-
 msgid "Add"
 msgstr ""
 
@@ -847,6 +862,9 @@ msgstr ""
 
 msgid "Info"
 msgstr ""
+
+#~ msgid "Sorry, there is already a ban on record for that IP address."
+#~ msgstr "抱歉，此ID已被禁用。"
 
 #~ msgid "%s uploaded."
 #~ msgstr "%s 已上传。"

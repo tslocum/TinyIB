@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-05-10 23:34-0700\n"
+"POT-Creation-Date: 2021-08-05 11:29-0700\n"
 "PO-Revision-Date: 2021-04-13 21:27+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/tinyib/"
@@ -30,6 +30,9 @@ msgstr "TINYIB_RECAPTCHA_SITE og TINYIB_RECAPTCHA_SECRET må settes opp."
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgstr "TINYIB_RECAPTCHA_SITE og TINYIB_RECAPTCHA_SECRET må settes opp."
 
+msgid "TINYIB_TRIPSEED must be configured."
+msgstr ""
+
 msgid "Unknown database mode specified."
 msgstr "Ukjent databasemodus angitt."
 
@@ -49,6 +52,20 @@ msgstr "Svar tillates ikke i låste tråder."
 
 msgid "Your post contains a blocked keyword."
 msgstr "Din post inneholder et blokkert nøkkelord."
+
+msgid "Keyword"
+msgstr "Nøkkelord"
+
+#, php-format
+msgid "Your IP address (%1$s) is banned until %2$s."
+msgstr ""
+
+#, php-format
+msgid "Your IP address (%s) is permanently banned."
+msgstr ""
+
+msgid "Reason"
+msgstr "Grunn"
 
 #, fuzzy
 msgid "Embedding a URL and uploading a file at the same time is not supported."
@@ -109,7 +126,7 @@ msgstr "Oppdaterer tråd…"
 msgid "Updating index..."
 msgstr "Oppdaterer indeks…"
 
-msgid "Created raw post"
+msgid "Created staff post"
 msgstr ""
 
 msgid "This post has been deleted"
@@ -226,9 +243,6 @@ msgstr ""
 msgid "Updated account"
 msgstr ""
 
-msgid "Sorry, there is already a ban on record for that IP address."
-msgstr "Denne IP-adressen er allerede bannlyst."
-
 msgid "permanently"
 msgstr ""
 
@@ -242,6 +256,10 @@ msgstr ""
 
 #, php-format
 msgid "Banned %s %s: %s"
+msgstr ""
+
+#, php-format
+msgid "Added ban message to %s"
 msgstr ""
 
 msgid "Banned 1 IP address"
@@ -278,9 +296,6 @@ msgstr ""
 msgid "Keyword deleted."
 msgstr "Nøkkelord slettet."
 
-msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr "Ingen post har denne ID-en."
-
 #, php-format
 msgid "Deleted %s"
 msgstr ""
@@ -299,6 +314,9 @@ msgstr ""
 msgid "Post No.%d approved."
 msgstr "Post nummer %d godkjent."
 
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr "Ingen post har denne ID-en."
+
 #, fuzzy
 #| msgid "Sticky"
 msgid "Stickied"
@@ -316,6 +334,9 @@ msgid "Locked"
 msgstr "Lås"
 
 msgid "Unlocked"
+msgstr ""
+
+msgid "Passwords do not match."
 msgstr ""
 
 msgid "Password updated"
@@ -413,12 +434,11 @@ msgstr "Støttet filtype er %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "Støttede filtyper er %1$s og %2$s."
 
-msgid "Reply to"
-msgstr "Besvar"
+msgid "Raw HTML"
+msgstr ""
 
-#, fuzzy
-msgid "0 to start a new thread"
-msgstr "0 for å starte ny tråd"
+msgid "Enable"
+msgstr ""
 
 #, fuzzy
 msgid ""
@@ -429,6 +449,13 @@ msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Linjeskift må angis med «&lt;br&gt;\"."
+
+msgid "Reply to"
+msgstr "Besvar"
+
+#, fuzzy
+msgid "0 to start a new thread"
+msgstr "0 for å starte ny tråd"
 
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
@@ -482,12 +509,6 @@ msgstr "(for post- og filsletting)"
 msgid "Report"
 msgstr "Rapporter"
 
-msgid "Embed:"
-msgstr "Innebygg:"
-
-msgid "File:"
-msgstr "Fil:"
-
 msgid "Reply"
 msgstr "Svar"
 
@@ -531,9 +552,6 @@ msgstr "Slett"
 msgid "Delete Post"
 msgstr "Slett post"
 
-msgid "Status"
-msgstr "Status"
-
 msgid "Accounts"
 msgstr ""
 
@@ -543,14 +561,14 @@ msgstr "Bannlysninger"
 msgid "Keywords"
 msgstr "Nøkkelord"
 
+msgid "Migrate Database"
+msgstr "Flytt database"
+
 msgid "Moderate Post"
 msgstr "Moderer post"
 
 msgid "Moderation Log"
 msgstr ""
-
-msgid "Raw Post"
-msgstr "Rå post"
 
 #, fuzzy
 #| msgid "Rebuild All<"
@@ -561,13 +579,16 @@ msgstr "Gjenoppbygg alle"
 msgid "Reports"
 msgstr "Rapporter"
 
+msgid "Staff Post"
+msgstr ""
+
+msgid "Status"
+msgstr "Status"
+
 msgid "Update"
 msgstr "Oppdater"
 
-msgid "Migrate Database"
-msgstr "Flytt database"
-
-msgid "Change password"
+msgid "Change Password"
 msgstr ""
 
 msgid "Log Out"
@@ -656,15 +677,11 @@ msgstr "IP-adresse"
 msgid "Expire(sec)"
 msgstr "Utløp (sek.):"
 
-msgid "Reason"
-msgstr "Grunn"
-
 msgid "never"
 msgstr "aldri"
 
-#, fuzzy
-msgid "optional"
-msgstr "valgfritt"
+msgid "Optional."
+msgstr ""
 
 msgid "1 hour"
 msgstr "Én time"
@@ -683,6 +700,9 @@ msgstr "To uker"
 
 msgid "1 month"
 msgstr "Én måned"
+
+msgid "Append a message to the post. Optional."
+msgstr ""
 
 #, fuzzy
 msgid "Set At"
@@ -706,8 +726,8 @@ msgstr "Moderer post"
 msgid "Post ID"
 msgstr "Post-ID"
 
-msgid "Tip:"
-msgstr "Tips:"
+msgid "Tip"
+msgstr ""
 
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
@@ -834,14 +854,6 @@ msgstr "rapporter"
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
 msgstr "Ingen nøkkelord har denne ID-en."
 
-msgid "Keyword"
-msgstr "Nøkkelord"
-
-#, fuzzy
-#| msgid "Action"
-msgid "Action:"
-msgstr "Handling"
-
 msgid "Add"
 msgstr "Legg til"
 
@@ -895,6 +907,30 @@ msgstr "Nylige poster"
 
 msgid "Info"
 msgstr "Info"
+
+#~ msgid "Sorry, there is already a ban on record for that IP address."
+#~ msgstr "Denne IP-adressen er allerede bannlyst."
+
+#~ msgid "Embed:"
+#~ msgstr "Innebygg:"
+
+#~ msgid "File:"
+#~ msgstr "Fil:"
+
+#~ msgid "Raw Post"
+#~ msgstr "Rå post"
+
+#, fuzzy
+#~ msgid "optional"
+#~ msgstr "valgfritt"
+
+#~ msgid "Tip:"
+#~ msgstr "Tips:"
+
+#, fuzzy
+#~| msgid "Action"
+#~ msgid "Action:"
+#~ msgstr "Handling"
 
 #~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
 #~ msgstr "TINYIB_TRIPSEED og TINYIB_ADMINPASS må settes opp."

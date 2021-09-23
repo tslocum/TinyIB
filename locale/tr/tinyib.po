@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-05-10 23:34-0700\n"
-"PO-Revision-Date: 2021-05-12 11:33+0000\n"
+"POT-Creation-Date: 2021-08-05 11:29-0700\n"
+"PO-Revision-Date: 2021-08-07 05:33+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tinyib/tinyib/tr/"
 ">\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
@@ -27,6 +27,9 @@ msgstr "TINYIB_HCAPTCHA_SITE ve TINYIB_HCAPTCHA_SECRET  yapılandırılmalıdır
 
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgstr "TINYIB_RECAPTCHA_SITE ve TINYIB_RECAPTCHA_SECRET  yapılandırılmalıdır."
+
+msgid "TINYIB_TRIPSEED must be configured."
+msgstr "TINYIB_TRIPSEED yapılandırılmalıdır."
 
 msgid "Unknown database mode specified."
 msgstr "Bilinmeyen veri tabanı modu belirtildi."
@@ -47,6 +50,20 @@ msgstr "Kilitli mesaj dizilerini yanıtlamaya izin verilmiyor."
 
 msgid "Your post contains a blocked keyword."
 msgstr "Gönderiniz engellenen bir anahtar sözcük içeriyor."
+
+msgid "Keyword"
+msgstr "Anahtar sözcük"
+
+#, php-format
+msgid "Your IP address (%1$s) is banned until %2$s."
+msgstr "IP adresiniz (%1$s), %2$s tarihine kadar yasaklandı."
+
+#, php-format
+msgid "Your IP address (%s) is permanently banned."
+msgstr "IP adresiniz (%s) kalıcı olarak yasaklandı."
+
+msgid "Reason"
+msgstr "Neden"
 
 msgid "Embedding a URL and uploading a file at the same time is not supported."
 msgstr "Aynı anda bir URL yerleştirmek ve bir dosya yüklemek desteklenmiyor."
@@ -102,8 +119,8 @@ msgstr "Mesaj dizisi güncelleniyor..."
 msgid "Updating index..."
 msgstr "İndeks güncelleniyor..."
 
-msgid "Created raw post"
-msgstr "Ham gönderi oluşturuldu"
+msgid "Created staff post"
+msgstr "Personel gönderisi oluşturuldu"
 
 msgid "This post has been deleted"
 msgstr "Bu gönderi silindi"
@@ -214,9 +231,6 @@ msgstr "%s hesabının rolü %s olarak değiştirildi"
 msgid "Updated account"
 msgstr "Hesap güncellendi"
 
-msgid "Sorry, there is already a ban on record for that IP address."
-msgstr "Üzgünüm, bu IP adresi için zaten bir yasak kaydı var."
-
 msgid "permanently"
 msgstr "kalıcı olarak"
 
@@ -231,6 +245,10 @@ msgstr "Yasaklandı %s %s"
 #, php-format
 msgid "Banned %s %s: %s"
 msgstr "Yasaklandı %s %s: %s"
+
+#, php-format
+msgid "Added ban message to %s"
+msgstr "%s'e yasaklama mesajı eklendi"
 
 msgid "Banned 1 IP address"
 msgstr "1 IP adresi yasaklandı"
@@ -266,9 +284,6 @@ msgstr "%s anahtar sözcüğü silindi"
 msgid "Keyword deleted."
 msgstr "Anahtar sözcük silindi."
 
-msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr "Üzgünüm, bu kimliğe sahip bir gönderi görünmüyor."
-
 #, php-format
 msgid "Deleted %s"
 msgstr "%s silindi"
@@ -287,6 +302,9 @@ msgstr "Onaylandı"
 msgid "Post No.%d approved."
 msgstr "%d numaralı gönderi onaylandı."
 
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr "Üzgünüm, bu kimliğe sahip bir gönderi görünmüyor."
+
 msgid "Stickied"
 msgstr "Sabitlendi"
 
@@ -301,6 +319,9 @@ msgstr "Kilitlendi"
 
 msgid "Unlocked"
 msgstr "Kilidi kaldırıldı"
+
+msgid "Passwords do not match."
+msgstr "Parolalar eşleşmiyor."
 
 msgid "Password updated"
 msgstr "Parola güncellendi"
@@ -394,11 +415,11 @@ msgstr "Desteklenen dosya türü %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "Desteklenen dosya türleri %1$s ve %2$s."
 
-msgid "Reply to"
-msgstr "Yanıtla"
+msgid "Raw HTML"
+msgstr "Ham HTML"
 
-msgid "0 to start a new thread"
-msgstr "Yeni bir mesaj dizisi başlatmak için 0"
+msgid "Enable"
+msgstr "Etkinleştir"
 
 msgid ""
 "Text entered in the Message field will be posted as is with no formatting "
@@ -409,6 +430,12 @@ msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Satır sonları \"&lt;br&gt;\" ile belirtilmelidir."
+
+msgid "Reply to"
+msgstr "Yanıtla"
+
+msgid "0 to start a new thread"
+msgstr "Yeni bir mesaj dizisi başlatmak için 0"
 
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
@@ -461,12 +488,6 @@ msgstr "(gönderi ve dosya silme için)"
 msgid "Report"
 msgstr "Bildir"
 
-msgid "Embed:"
-msgstr "Yerleştir:"
-
-msgid "File:"
-msgstr "Dosya:"
-
 msgid "Reply"
 msgstr "Yanıtla"
 
@@ -509,9 +530,6 @@ msgstr "Sil"
 msgid "Delete Post"
 msgstr "Gönderiyi Sil"
 
-msgid "Status"
-msgstr "Durum"
-
 msgid "Accounts"
 msgstr "Hesaplar"
 
@@ -521,14 +539,14 @@ msgstr "Yasaklamalar"
 msgid "Keywords"
 msgstr "Anahtar Sözcükler"
 
+msgid "Migrate Database"
+msgstr "Veri Tabanını Taşı"
+
 msgid "Moderate Post"
 msgstr "Gönderiyi Denetle"
 
 msgid "Moderation Log"
 msgstr "Denetleme Günlüğü"
-
-msgid "Raw Post"
-msgstr "Ham Gönderi"
 
 msgid "Rebuild All"
 msgstr "Tümünü Yeniden Oluştur"
@@ -536,14 +554,17 @@ msgstr "Tümünü Yeniden Oluştur"
 msgid "Reports"
 msgstr "Bildiriler"
 
+msgid "Staff Post"
+msgstr "Personel Gönderisi"
+
+msgid "Status"
+msgstr "Durum"
+
 msgid "Update"
 msgstr "Güncelle"
 
-msgid "Migrate Database"
-msgstr "Veri Tabanını Taşı"
-
-msgid "Change password"
-msgstr "Parola değiştir"
+msgid "Change Password"
+msgstr "Parola Değiştir"
 
 msgid "Log Out"
 msgstr "Oturumu Kapat"
@@ -630,14 +651,11 @@ msgstr "IP Adresi"
 msgid "Expire(sec)"
 msgstr "Sona erme (sn)"
 
-msgid "Reason"
-msgstr "Neden"
-
 msgid "never"
 msgstr "asla"
 
-msgid "optional"
-msgstr "isteğe bağlı"
+msgid "Optional."
+msgstr "İsteğe bağlı."
 
 msgid "1 hour"
 msgstr "1 saat"
@@ -657,6 +675,9 @@ msgstr "2 hafta"
 msgid "1 month"
 msgstr "1 ay"
 
+msgid "Append a message to the post. Optional."
+msgstr "Gönderiye bir mesaj ekleyin. İsteğe bağlı."
+
 msgid "Set At"
 msgstr "Ekleme Tarihi"
 
@@ -675,8 +696,8 @@ msgstr "Gönderi denetle"
 msgid "Post ID"
 msgstr "Gönderi kimliği"
 
-msgid "Tip:"
-msgstr "İpucu:"
+msgid "Tip"
+msgstr "İpucu"
 
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
@@ -800,12 +821,6 @@ msgstr "bildiri"
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
 msgstr "Üzgünüm, bu kimliğe sahip bir anahtar sözcük görünmüyor."
 
-msgid "Keyword"
-msgstr "Anahtar sözcük"
-
-msgid "Action:"
-msgstr "Eylem:"
-
 msgid "Add"
 msgstr "Ekle"
 
@@ -859,6 +874,33 @@ msgstr "Son gönderiler"
 
 msgid "Info"
 msgstr "Bilgi"
+
+#~ msgid "Created raw post"
+#~ msgstr "Ham gönderi oluşturuldu"
+
+#~ msgid "Sorry, there is already a ban on record for that IP address."
+#~ msgstr "Üzgünüm, bu IP adresi için zaten bir yasak kaydı var."
+
+#~ msgid "Embed:"
+#~ msgstr "Yerleştir:"
+
+#~ msgid "File:"
+#~ msgstr "Dosya:"
+
+#~ msgid "Raw Post"
+#~ msgstr "Ham Gönderi"
+
+#~ msgid "Change password"
+#~ msgstr "Parola değiştir"
+
+#~ msgid "optional"
+#~ msgstr "isteğe bağlı"
+
+#~ msgid "Tip:"
+#~ msgstr "İpucu:"
+
+#~ msgid "Action:"
+#~ msgstr "Eylem:"
 
 #~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
 #~ msgstr "TINYIB_TRIPSEED ve TINYIB_ADMINPASS yapılandırılmalıdır."

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-05-10 23:34-0700\n"
-"PO-Revision-Date: 2021-05-12 11:33+0000\n"
+"POT-Creation-Date: 2021-08-05 11:29-0700\n"
+"PO-Revision-Date: 2021-08-07 05:33+0000\n"
 "Last-Translator: Domokun <domokun@asdasd.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/tinyib/tinyib/nl/>"
 "\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -29,6 +29,9 @@ msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgstr ""
 "TINYIB_RECAPTCHA_SITE en TINYIB_RECAPTCHA_SECRET  moeten worden "
 "geconfigureerd."
+
+msgid "TINYIB_TRIPSEED must be configured."
+msgstr "TINYIB_TRIPSEED moet worden geconfigureerd."
 
 msgid "Unknown database mode specified."
 msgstr "Onbekende databasemodus gespecificeerd."
@@ -52,6 +55,20 @@ msgstr "Reacties zijn niet toegestaan op vergrendelde threads."
 
 msgid "Your post contains a blocked keyword."
 msgstr "Je post bevat een geblokkeerd trefwoord."
+
+msgid "Keyword"
+msgstr "Trefwoord"
+
+#, php-format
+msgid "Your IP address (%1$s) is banned until %2$s."
+msgstr "Je IP-adres (%1$s) is verbannen tot %2$s."
+
+#, php-format
+msgid "Your IP address (%s) is permanently banned."
+msgstr "Je IP-adres (%s) is permanent verbannen."
+
+msgid "Reason"
+msgstr "Reden"
 
 msgid "Embedding a URL and uploading a file at the same time is not supported."
 msgstr ""
@@ -108,8 +125,8 @@ msgstr "Thread updaten..."
 msgid "Updating index..."
 msgstr "Index updaten..."
 
-msgid "Created raw post"
-msgstr "Ruwe post gemaakt"
+msgid "Created staff post"
+msgstr "Stafpost aangemaakt"
 
 msgid "This post has been deleted"
 msgstr "Deze post is verwijderd"
@@ -222,9 +239,6 @@ msgstr "Rol van account %s veranderd naar %s"
 msgid "Updated account"
 msgstr "Account bijgewerkt"
 
-msgid "Sorry, there is already a ban on record for that IP address."
-msgstr "Sorry, er is al een ban vastgelegd voor dat IP-adres."
-
 msgid "permanently"
 msgstr "permanent"
 
@@ -239,6 +253,10 @@ msgstr "%s %s verbannen"
 #, php-format
 msgid "Banned %s %s: %s"
 msgstr "%s %s: %s verbannen"
+
+#, php-format
+msgid "Added ban message to %s"
+msgstr "Banopmerking toegevoegd aan %s"
 
 msgid "Banned 1 IP address"
 msgstr "1 IP-adres verbannen"
@@ -274,9 +292,6 @@ msgstr "Trefwoord %s verwijderd"
 msgid "Keyword deleted."
 msgstr "Trefwoord verwijderd."
 
-msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr "Sorry, er is geen post met dat ID."
-
 #, php-format
 msgid "Deleted %s"
 msgstr "%s verwijderd"
@@ -295,6 +310,9 @@ msgstr "Goedgekeurd"
 msgid "Post No.%d approved."
 msgstr "Postnr.%d goedgekeurd."
 
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr "Sorry, er is geen post met dat ID."
+
 msgid "Stickied"
 msgstr "Vastgeplakt"
 
@@ -310,6 +328,9 @@ msgstr "Vergrendeld"
 
 msgid "Unlocked"
 msgstr "Ontgrendeld"
+
+msgid "Passwords do not match."
+msgstr "Wachtwoorden komen niet overeen."
 
 msgid "Password updated"
 msgstr "Wachtwoord bijgewerkt"
@@ -403,11 +424,11 @@ msgstr "Ondersteund bestandstype is %s"
 msgid "Supported file types are %1$s and %2$s."
 msgstr "Ondersteunde bestandstypen zijn %1$s en %2$s."
 
-msgid "Reply to"
-msgstr "Antwoord aan"
+msgid "Raw HTML"
+msgstr "Ruwe HTML"
 
-msgid "0 to start a new thread"
-msgstr "0 om een nieuwe thread te starten"
+msgid "Enable"
+msgstr "Inschakelen"
 
 msgid ""
 "Text entered in the Message field will be posted as is with no formatting "
@@ -418,6 +439,12 @@ msgstr ""
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr "Regelafbrekingen moeten worden opgegeven met \"&lt;br&gt;\"."
+
+msgid "Reply to"
+msgstr "Antwoord aan"
+
+msgid "0 to start a new thread"
+msgstr "0 om een nieuwe thread te starten"
 
 msgid "CAPTCHA"
 msgstr "CAPTCHA"
@@ -472,12 +499,6 @@ msgstr "(voor verwijdering van post en bestand)"
 msgid "Report"
 msgstr "Meld"
 
-msgid "Embed:"
-msgstr "Embed:"
-
-msgid "File:"
-msgstr "Bestand:"
-
 msgid "Reply"
 msgstr "Beantwoorden"
 
@@ -518,9 +539,6 @@ msgstr "Verwijder"
 msgid "Delete Post"
 msgstr "Verwijder post"
 
-msgid "Status"
-msgstr "Status"
-
 msgid "Accounts"
 msgstr "Accounts"
 
@@ -530,14 +548,14 @@ msgstr "Bans"
 msgid "Keywords"
 msgstr "Trefwoorden"
 
+msgid "Migrate Database"
+msgstr "Migreer database"
+
 msgid "Moderate Post"
 msgstr "Modereer post"
 
 msgid "Moderation Log"
 msgstr "Moderatielogboek"
-
-msgid "Raw Post"
-msgstr "Ruwe post"
 
 msgid "Rebuild All"
 msgstr "Herbouw alles"
@@ -545,13 +563,16 @@ msgstr "Herbouw alles"
 msgid "Reports"
 msgstr "Meldingen"
 
+msgid "Staff Post"
+msgstr "Stafpost"
+
+msgid "Status"
+msgstr "Status"
+
 msgid "Update"
 msgstr "Update"
 
-msgid "Migrate Database"
-msgstr "Migreer database"
-
-msgid "Change password"
+msgid "Change Password"
 msgstr "Verander wachtwoord"
 
 msgid "Log Out"
@@ -640,14 +661,11 @@ msgstr "IP-adres"
 msgid "Expire(sec)"
 msgstr "Vervallen(sec)"
 
-msgid "Reason"
-msgstr "Reden"
-
 msgid "never"
 msgstr "nooit"
 
-msgid "optional"
-msgstr "optioneel"
+msgid "Optional."
+msgstr "Optioneel."
 
 msgid "1 hour"
 msgstr "1 uur"
@@ -667,6 +685,9 @@ msgstr "2 weken"
 msgid "1 month"
 msgstr "1 maand"
 
+msgid "Append a message to the post. Optional."
+msgstr "Voeg een opmerking toe aan de post. Optioneel."
+
 msgid "Set At"
 msgstr "Ingesteld op"
 
@@ -685,8 +706,8 @@ msgstr "Modereer een post"
 msgid "Post ID"
 msgstr "Post ID"
 
-msgid "Tip:"
-msgstr "Tip:"
+msgid "Tip"
+msgstr "Tip"
 
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
@@ -810,12 +831,6 @@ msgstr "meldingen"
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
 msgstr "Sorry, er is geen trefwoord met dat ID."
 
-msgid "Keyword"
-msgstr "Trefwoord"
-
-msgid "Action:"
-msgstr "Actie:"
-
 msgid "Add"
 msgstr "Voeg toe"
 
@@ -869,6 +884,33 @@ msgstr "Recente posts"
 
 msgid "Info"
 msgstr "Info"
+
+#~ msgid "Created raw post"
+#~ msgstr "Ruwe post gemaakt"
+
+#~ msgid "Sorry, there is already a ban on record for that IP address."
+#~ msgstr "Sorry, er is al een ban vastgelegd voor dat IP-adres."
+
+#~ msgid "Embed:"
+#~ msgstr "Embed:"
+
+#~ msgid "File:"
+#~ msgstr "Bestand:"
+
+#~ msgid "Raw Post"
+#~ msgstr "Ruwe post"
+
+#~ msgid "Change password"
+#~ msgstr "Verander wachtwoord"
+
+#~ msgid "optional"
+#~ msgstr "optioneel"
+
+#~ msgid "Tip:"
+#~ msgstr "Tip:"
+
+#~ msgid "Action:"
+#~ msgstr "Actie:"
 
 #~ msgid "TINYIB_TRIPSEED and TINYIB_ADMINPASS must be configured."
 #~ msgstr "TINYIB_TRIPSEED en TINYIB_ADMINPASS moeten worden geconfigureerd."
