@@ -542,7 +542,7 @@ function videoDimensions($file_location) {
 
 	$dimensions = '';
 	$exit_status = 1;
-	exec("ffprobe -hide_banner -loglevel error -of csv=p=0 -show_entries stream=width,height $file_location", $dimensions, $exit_status);
+	exec("ffprobe -hide_banner -loglevel error -of csv=p=0 -select_streams v -show_entries stream=width,height $file_location", $dimensions, $exit_status);
 	if ($exit_status != 0) {
 		return array(0, 0);
 	}
