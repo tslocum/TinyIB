@@ -37,6 +37,7 @@ A [**read-only demo**](https://tinyib.rocketnine.space) is available.
    - French
    - German
    - Italian
+   - Japanese
    - Korean
    - Norwegian
    - Polish
