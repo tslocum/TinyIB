@@ -26,9 +26,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-use Gettext\Translator;
-use Gettext\Translations;
-
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 session_start();
@@ -58,12 +55,7 @@ if (!defined('TINYIB_LOCALE') || TINYIB_LOCALE == '') {
 		return $string;
 	}
 } else {
-	setlocale(LC_ALL, TINYIB_LOCALE);
-	require 'inc/gettext/src/autoloader.php';
-	$translations = Translations::fromPoFile('locale/' . TINYIB_LOCALE . '/tinyib.po');
-	$translator = new Translator();
-	$translator->loadTranslations($translations);
-	$translator->register();
+	require 'inc/gettext.php';
 }
 
 if ((TINYIB_CAPTCHA === 'hcaptcha' || TINYIB_REPLYCAPTCHA === 'hcaptcha' || TINYIB_MANAGECAPTCHA === 'hcaptcha') && (TINYIB_HCAPTCHA_SITE == '' || TINYIB_HCAPTCHA_SECRET == '')) {
