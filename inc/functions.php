@@ -149,7 +149,7 @@ function nameBlock($name, $tripcode, $email, $timestamp, $capcode) {
 		$output = '<a href="mailto:' . $email . '">' . $output . '</a>';
 	}
 
-	return $output . $capcode . ' ' . strftime(TINYIB_DATEFMT, $timestamp);
+	return $output . $capcode . ' ' . formatDate($timestamp);
 }
 
 function writePage($filename, $contents) {
@@ -329,7 +329,7 @@ function checkBanned() {
 	$ban = banByIP(remoteAddress());
 	if ($ban) {
 		if ($ban['expire'] == 0 || $ban['expire'] > time()) {
-			$expire = ($ban['expire'] > 0) ? ('<br>This ban will expire ' . strftime(TINYIB_DATEFMT, $ban['expire'])) : '<br>This ban is permanent and will not expire.';
+			$expire = ($ban['expire'] > 0) ? ('<br>This ban will expire ' . formatDate($ban['expire'])) : '<br>This ban is permanent and will not expire.';
 			$reason = ($ban['reason'] == '') ? '' : ('<br>Reason: ' . $ban['reason']);
 			fancyDie('Your IP address ' . remoteAddress() . ' has been banned from posting on this image board.  ' . $expire . $reason);
 		} else {
@@ -966,6 +966,10 @@ function stripMetadata($filename) {
 	$discard = '';
 	$exit_status = 1;
 	exec("exiftool -All= -overwrite_original_in_place " . escapeshellarg($filename), $discard, $exit_status);
+}
+
+function formatDate($timestamp) {
+	return @strftime(TINYIB_DATEFMT, $timestamp);
 }
 
 function remoteAddress() {

@@ -397,7 +397,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 			insertBan($ban);
 
 			if ($ban['expire'] > 0) {
-				$bannedText = sprintf(__('Your IP address (%1$s) is banned until %2$s.'), remoteAddress(), strftime(TINYIB_DATEFMT, $ban['expire']));
+				$bannedText = sprintf(__('Your IP address (%1$s) is banned until %2$s.'), remoteAddress(), formatDate($ban['expire']));
 			} else {
 				$bannedText = sprintf(__('Your IP address (%s) is permanently banned.'), remoteAddress());
 			}
@@ -854,7 +854,7 @@ EOF;
 
 						$until = __('permanently');
 						if ($ban['expire'] > 0) {
-							$until = sprintf(__('until %s'), strftime(TINYIB_DATEFMT, $ban['expire']));
+							$until = sprintf(__('until %s'), formatDate($ban['expire']));
 						}
 						$action = sprintf(__('Banned %s %s'), htmlentities($ban['ip']), $until);
 						if ($ban['reason'] != '') {

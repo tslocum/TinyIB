@@ -1006,7 +1006,7 @@ function manageModerationLog($offset) {
 			}
 			$u[$log['account']] = $username;
 		}
-		$text .= '<tr><td>' . strftime(TINYIB_DATEFMT, $log['timestamp']) . '</td><td>' . htmlentities($u[$log['account']]) . '</td><td>' . $log['message'] . '</td></tr>';
+		$text .= '<tr><td>' . formatDate($log['timestamp']) . '</td><td>' . htmlentities($u[$log['account']]) . '</td><td>' . $log['message'] . '</td></tr>';
 	}
 
 	if ($text == '') {
@@ -1179,7 +1179,7 @@ function manageAccountsTable() {
 	if (count($allaccounts) > 0) {
 		$text .= '<table border="1"><tr><th>' . __('Username') . '</th><th>' . __('Role') . '</th><th>' . __('Last active') . '</th><th>&nbsp;</th></tr>';
 		foreach ($allaccounts as $account) {
-			$lastactive = ($account['lastactive'] > 0) ? strftime(TINYIB_DATEFMT, $account['lastactive']) : __('Never');
+			$lastactive = ($account['lastactive'] > 0) ? formatDate($account['lastactive']) : __('Never');
 			$text .= '<tr><td>' . htmlentities($account['username']) . '</td><td>';
 			switch (intval($account['role'])) {
 				case TINYIB_SUPER_ADMINISTRATOR:
@@ -1246,9 +1246,9 @@ function manageBansTable() {
 	if (count($allbans) > 0) {
 		$text .= '<table border="1"><tr><th>' . __('IP Address') . '</th><th>' . __('Set At') . '</th><th>' . __('Expires') . '</th><th>' . __('Reason') . '</th><th>&nbsp;</th></tr>';
 		foreach ($allbans as $ban) {
-			$expire = ($ban['expire'] > 0) ? strftime(TINYIB_DATEFMT, $ban['expire']) : __('Does not expire');
+			$expire = ($ban['expire'] > 0) ? formatDate($ban['expire']) : __('Does not expire');
 			$reason = ($ban['reason'] == '') ? '&nbsp;' : htmlentities($ban['reason']);
-			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . strftime(TINYIB_DATEFMT, $ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">' . __('lift') . '</a></td></tr>';
+			$text .= '<tr><td>' . $ban['ip'] . '</td><td>' . formatDate($ban['timestamp']) . '</td><td>' . $expire . '</td><td>' . $reason . '</td><td><a href="?manage&bans&lift=' . $ban['id'] . '">' . __('lift') . '</a></td></tr>';
 		}
 		$text .= '</table>';
 	}
