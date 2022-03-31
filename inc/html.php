@@ -95,8 +95,8 @@ function _makeLinksClickable($matches) {
 	if (!isset($matches[1])) {
 		return '';
 	}
-	$url = str_replace('&amp;', '&', htmlspecialchars($matches[1], ENT_QUOTES));
-	$text = htmlentities($matches[1], ENT_QUOTES);
+	$url = cleanQuotes($matches[1]);
+	$text = $matches[1];
 	return '<a href="' . $url . '" target="_blank">' . $text . '</a>';
 }
 

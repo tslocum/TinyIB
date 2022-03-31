@@ -26,6 +26,13 @@ function cleanString($string) {
 	return str_replace($search, $replace, $string);
 }
 
+function cleanQuotes($string) {
+	$search = array("'", "\"");
+	$replace = array("&apos;", "&quot;");
+
+	return str_replace($search, $replace, $string);
+}
+
 function plural($count, $singular, $plural) {
 	if ($plural == 's') {
 		$plural = $singular . $plural;
