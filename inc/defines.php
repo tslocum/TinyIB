@@ -6,6 +6,7 @@ if (!defined('TINYIB_BOARD')) {
 define('TINYIB_NEWTHREAD', '0');
 define('TINYIB_INDEXPAGE', false);
 define('TINYIB_RESPAGE', true);
+define('TINYIB_LOCKFILE', 'tinyib.lock');
 define('TINYIB_WORDBREAK_IDENTIFIER', '@!@TINYIB_WORDBREAK@!@');
 
 // Account roles

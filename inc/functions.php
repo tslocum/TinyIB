@@ -11,6 +11,19 @@ if (!function_exists('array_column')) {
 	}
 }
 
+// lockDatabase obtains an exclusive lock to prevent race conditions when
+// accessing the database.
+function lockDatabase() {
+	if (TINYIB_LOCKFILE == '') {
+		return true;
+	}
+	$fp = fopen(TINYIB_LOCKFILE, 'c+');
+	if (!flock($fp, LOCK_EX)) {
+		fancyDie('Failed to lock control file.');
+	}
+	return $fp;
+}
+
 function hashData($data, $force = false) {
 	global $bcrypt_salt;
 	if (substr($data, 0, 4) == '$2y$' && !$force) {

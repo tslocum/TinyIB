@@ -257,6 +257,8 @@ if (!$loggedin) {
 $redirect = true;
 // Check if the request is to make a post
 if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name']) || isset($_POST['email']) || isset($_POST['subject']) || isset($_POST['message']) || isset($_POST['file']) || isset($_POST['embed']) || isset($_POST['password']))) {
+	$lock = lockDatabase();
+
 	if (TINYIB_DBMIGRATE) {
 		fancyDie(__('Posting is currently disabled.<br>Please try again in a few moments.'));
 	}
@@ -600,6 +602,8 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	die();
 // Check if the request is to report a post
 } elseif (isset($_GET['report']) && !isset($_GET['manage'])) {
+	$lock = lockDatabase();
+
 	if (!TINYIB_REPORT) {
 		fancyDie(__('Reporting is disabled.'));
 	}
@@ -681,6 +685,8 @@ EOF;
 	fancyDie(__('Post reported.'), $go_back);
 // Check if the request is to delete a post and/or its associated image
 } elseif (isset($_GET['delete']) && !isset($_GET['manage'])) {
+	$lock = lockDatabase();
+
 	if (!isset($_POST['delete'])) {
 		fancyDie(__('Tick the box next to a post and click "Delete" to delete it.'));
 	}
@@ -721,6 +727,8 @@ EOF;
 	$redirect = false;
 // Check if the request is to access the management area
 } elseif (isset($_GET['manage'])) {
+	$lock = lockDatabase();
+
 	$text = '';
 	$onload = '';
 	$navbar = '&nbsp;';
