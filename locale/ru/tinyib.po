@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2021-08-05 11:29-0700\n"
-"PO-Revision-Date: 2021-01-02 22:29+0000\n"
-"Last-Translator: prc07 <a.lipinsh@gmail.com>\n"
+"PO-Revision-Date: 2022-02-25 21:21+0000\n"
+"Last-Translator: Орк Пидорашко <valentinn.p@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tinyib/tinyib/ru/"
 ">\n"
 "Language: ru\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.11.1-dev\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -34,54 +34,54 @@ msgstr ""
 "TINYIB_RECAPTCHA_SITE и TINYIB_RECAPTCHA_SECRET  должны быть настроены."
 
 msgid "TINYIB_TRIPSEED must be configured."
-msgstr ""
+msgstr "TINYIB_TRIPSEED должен быть настроен."
 
 msgid "Unknown database mode specified."
 msgstr "Выбран неизвестный режим базы данных."
 
 #, php-format
 msgid "Directory '%s' can not be written to.  Please modify its permissions."
-msgstr ""
+msgstr "Директория '%s' недоступна к записи. Пожалуйста, настройте её права."
 
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
-msgstr ""
+msgstr "Публикация сообщений на данный момент отключена.<br>Попробуйте позже."
 
 msgid "Invalid parent thread ID supplied, unable to create post."
-msgstr ""
+msgstr "Некорректный ID родительской нити, не удалось опубликовать сообщение."
 
 msgid "Replies are not allowed to locked threads."
-msgstr ""
+msgstr "Ответы в закрытую нить недопустимы."
 
 msgid "Your post contains a blocked keyword."
 msgstr "В вашем посте есть заблокированное ключевое слово."
 
 msgid "Keyword"
-msgstr ""
+msgstr "Слово"
 
 #, php-format
 msgid "Your IP address (%1$s) is banned until %2$s."
-msgstr ""
+msgstr "Ваш IP-адрес (%1$s) заблокирован до %2$s."
 
 #, php-format
 msgid "Your IP address (%s) is permanently banned."
-msgstr ""
+msgstr "Ваш IP-адрес (%s) заблокирован навсегда."
 
 msgid "Reason"
-msgstr ""
+msgstr "Причина"
 
 msgid "Embedding a URL and uploading a file at the same time is not supported."
-msgstr ""
+msgstr "Вложение URL и загрузка файла одновременно не поддерживается."
 
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
-msgstr ""
+msgstr "Некорректный URL для вложения. Поддерживаются только URL %s."
 
 #, php-format
 msgid "That file is larger than %s."
 msgstr "Этот файл больше чем %s."
 
 msgid "Failed to download file at specified URL."
-msgstr ""
+msgstr "Не удалось загрузить файл по указанному URL."
 
 msgid "Error while processing audio/video."
 msgstr "Ошибка при обработке аудио/видео."
@@ -90,13 +90,13 @@ msgid "Could not create thumbnail."
 msgstr "Не получилось создать миниатюру."
 
 msgid "upload a file or embed a URL"
-msgstr "загрузить файл или вставить ссылку"
+msgstr "загрузите файл или вложите URL"
 
 msgid "upload a file"
-msgstr "загрузить файл"
+msgstr "загрузите файл"
 
 msgid "embed a URL"
-msgstr "вставить ссылку"
+msgstr "вложите URL"
 
 #, fuzzy, php-format
 msgid "Please %s to start a new thread."
@@ -104,201 +104,206 @@ msgstr "Пожалуйста, %s, чтобы начать новую тему."
 
 #, php-format
 msgid "Please enter a message and/or %s."
-msgstr ""
+msgstr "Пожалуйста, введите сообщение и/или %s."
 
 msgid "Please enter a message."
 msgstr "Пожалуйста, введите сообщение."
 
 #, php-format
 msgid "Please %s."
-msgstr ""
+msgstr "Пожалуйста, %s."
 
 #, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
-msgstr ""
+msgstr "Ваш %s будет отображён <b>как только будет одобрен</b>."
 
 msgid "Updating thread..."
-msgstr ""
+msgstr "Обновление нити..."
 
 msgid "Updating index..."
-msgstr ""
+msgstr "Обновление индека..."
 
 msgid "Created staff post"
-msgstr ""
+msgstr "Опубликовано сообщение персонала"
 
 msgid "This post has been deleted"
-msgstr ""
+msgstr "Указанное сообщение было удалено"
 
 msgid "This post requires moderation before it can be displayed"
-msgstr ""
+msgstr "Указанное сообщение требует модерации перед отображением"
 
 msgid "Automatic refreshing is disabled."
-msgstr ""
+msgstr "Автоматическое обновление отключено."
 
 msgid "Reporting is disabled."
-msgstr ""
+msgstr "Жалобы отключены."
 
 msgid ""
 "Sorry, an invalid post identifier was sent. Please go back, refresh the "
 "page, and try again."
 msgstr ""
+"Извините, был отправлен недостоверный ID сообщения. Вернитесь назад, "
+"перезагрузите страницу и попробуйте снова."
 
 msgid "Moderators have determined that post does not break any rules."
-msgstr ""
+msgstr "Модераторы установили, что это сообщение не нарушает никаких правил."
 
 msgid "You have already submitted a report for that post."
-msgstr ""
+msgstr "Вы уже отправили жалобу на данное сообщение."
 
 msgid "(enter the text below)"
-msgstr ""
+msgstr "(Введите текст снизу)"
 
 msgid "Please complete a CAPTCHA to submit your report"
-msgstr ""
+msgstr "Пожалуйста, пройдите CAPTCHA чтобы подать жалобу"
 
 msgid "Submit"
-msgstr ""
+msgstr "Отправить"
 
 msgid "Post reported."
-msgstr ""
+msgstr "Жалоба на сообщение подана."
 
 msgid "Tick the box next to a post and click \"Delete\" to delete it."
 msgstr ""
+"Установите флажок рядом с сообщением и нажмите \"Удалить\", чтобы удалить "
+"его."
 
 msgid ""
 "Post deletion is currently disabled.<br>Please try again in a few moments."
-msgstr ""
+msgstr "Удаление сообщений на данный момент отключено.<br>Попробуйте позже."
 
 msgid "Post deleted."
 msgstr "Пост удалён."
 
 msgid "Invalid password."
-msgstr ""
+msgstr "Некорректный пароль."
 
 msgid "Rebuilt board."
-msgstr ""
+msgstr "Доска пересобрана."
 
 msgid "Access denied"
-msgstr ""
+msgstr "Доступ запрещён"
 
 msgid "Account not found."
-msgstr ""
+msgstr "Аккаунт не найден."
 
 msgid "This account may not be updated while TINYIB_ADMINPASS is set."
 msgstr ""
+"Данный аккаунт не может быть обновлён, пока установлен TINYIB_ADMINPASS."
 
 msgid "This account may not be updated while TINYIB_MODPASS is set."
-msgstr ""
+msgstr "Данный аккаунт не может быть обновлён, пока установлен TINYIB_MODPASS."
 
 msgid "A password is required."
-msgstr ""
+msgstr "Необходим пароль."
 
 msgid "Invalid role."
-msgstr ""
+msgstr "Некорректная роль."
 
 #, php-format
 msgid "Added account %s"
-msgstr ""
+msgstr "Добавлен аккаунт %s"
 
 msgid "Added account"
-msgstr ""
+msgstr "Добавлен аккаунт"
 
 #, php-format
 msgid "Renamed account %1$s as %2$s"
-msgstr ""
+msgstr "Аккаунт %1$s был переименован в %2$s"
 
 #, php-format
 msgid "Changed password of account %s"
-msgstr ""
+msgstr "Пароль для аккаунта %s изменён"
 
 msgid "Super-administrator"
-msgstr ""
+msgstr "Супер-администратор"
 
 msgid "Administrator"
-msgstr ""
+msgstr "Администратор"
 
 msgid "Moderator"
-msgstr ""
+msgstr "Модератор"
 
 msgid "Disabled"
-msgstr ""
+msgstr "Отключен"
 
 #, php-format
 msgid "Changed role of account %s to %s"
-msgstr ""
+msgstr "Роль аккаунта %s изменена на %s"
 
 msgid "Updated account"
-msgstr ""
+msgstr "Аккаунт обновлён"
 
 msgid "permanently"
-msgstr ""
+msgstr "навсегда"
 
 #, php-format
 msgid "until %s"
-msgstr ""
+msgstr "до %s"
 
 #, php-format
 msgid "Banned %s %s"
-msgstr ""
+msgstr "Заблокировано %s %s"
 
 #, php-format
 msgid "Banned %s %s: %s"
-msgstr ""
+msgstr "Заблокировано %s %s: %s"
 
 #, php-format
 msgid "Added ban message to %s"
-msgstr ""
+msgstr "Добавлено сообщение о блокировке для %s"
 
 msgid "Banned 1 IP address"
-msgstr ""
+msgstr "Заблокирован 1 IP-адрес"
 
 #, php-format
 msgid "Banned %d IP addresses"
-msgstr ""
+msgstr "Заблокировано %d IP-адресов"
 
 #, php-format
 msgid "Lifted ban on %s"
-msgstr ""
+msgstr "Бан для %s был снят"
 
 msgid "Sorry, that keyword has already been added."
-msgstr ""
+msgstr "Извините, данное слово уже было добавлено."
 
 #, php-format
 msgid "Updated keyword %s"
-msgstr ""
+msgstr "Обновлено слово %s"
 
 msgid "Keyword updated."
-msgstr "Ключевое слово обновлено."
+msgstr "Слово обновлено."
 
 msgid "Keyword added."
-msgstr "Ключевое слово добавлено."
+msgstr "Слово добавлено."
 
 msgid "That keyword does not exist."
-msgstr ""
+msgstr "Данное слово не существует."
 
 #, php-format
 msgid "Deleted keyword %s"
-msgstr ""
+msgstr "Удалено слово %s"
 
 msgid "Keyword deleted."
-msgstr "Ключевое слово удалено."
+msgstr "Слово удалено."
 
 #, php-format
 msgid "Deleted %s"
-msgstr ""
+msgstr "Удалено %s"
 
 msgid "Deleted 1 post"
-msgstr ""
+msgstr "Удалено 1 сообщение"
 
 #, php-format
 msgid "Deleted %d posts"
-msgstr ""
+msgstr "Удалено %d сообщений"
 
 msgid "Approved"
-msgstr ""
+msgstr "Одобрено"
 
 #, php-format
 msgid "Post No.%d approved."
-msgstr ""
+msgstr "Сообщение №%d одобрено."
 
 msgid "Sorry, there doesn't appear to be a post with that ID."
 msgstr ""

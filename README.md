@@ -36,12 +36,14 @@ A [**read-only demo**](https://tinyib.rocketnine.space) is available.
    - Dutch
    - French
    - German
+   - Indonesian
    - Italian
    - Japanese
    - Korean
    - Norwegian
    - Polish
    - Portuguese
+   - Romanian
    - Russian
    - Spanish (Mexico)
    - Turkish

@@ -1,0 +1,1129 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
+"POT-Creation-Date: 2021-08-05 11:29-0700\n"
+"PO-Revision-Date: 2021-12-30 00:52+0000\n"
+"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/tinyib/tinyib/"
+"id/>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.10.1\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: imgboard.php\n"
+"X-Poedit-SearchPath-1: inc/functions.php\n"
+"X-Poedit-SearchPath-2: inc/html.php\n"
+
+#: imgboard.php:44
+msgid "Click here to go back"
+msgstr "Klik ini untuk kembali"
+
+#: imgboard.php:70
+msgid "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured."
+msgstr ""
+"Pengaturan TINYIB_HCAPTCHA_SITE dan TINYIB_HCAPTCHA_SECRET  harus diisi."
+
+#: imgboard.php:74
+msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
+msgstr ""
+"Pengaturan TINYIB_RECAPTCHA_SITE dan TINYIB_RECAPTCHA_SECRET  harus diisi."
+
+#: imgboard.php:82
+msgid "TINYIB_TRIPSEED must be configured."
+msgstr "Pengaturan TINYIB_TRIPSEED wajib diisi."
+
+#: imgboard.php:89 imgboard.php:991
+msgid "Unknown database mode specified."
+msgstr "Mode database tidak ditemukan atau tidak tersedia."
+
+#: imgboard.php:250
+#, php-format
+msgid "Directory '%s' can not be written to.  Please modify its permissions."
+msgstr ""
+"Direktori '%s' tidak dapat ditulis.  Harap ubah izin direktori tersebut "
+"menjadi tertulis (write access permission)."
+
+#: imgboard.php:269
+msgid "Posting is currently disabled.<br>Please try again in a few moments."
+msgstr ""
+"Posting saat ini dinonaktifkan.<br>Silakan coba lagi dalam beberapa saat "
+"lagi."
+
+#: imgboard.php:298 inc/functions.php:462
+msgid "Invalid parent thread ID supplied, unable to create post."
+msgstr "ID thread induk yang diberikan tidak valid, tidak dapat membuat post."
+
+#: imgboard.php:300
+msgid "Replies are not allowed to locked threads."
+msgstr "Post balasan pada thread yang dikunci tidak diizinkan."
+
+#: imgboard.php:377
+msgid "Your post contains a blocked keyword."
+msgstr "Posting Anda berisikan kata kunci yang diblokir."
+
+#: imgboard.php:404 inc/html.php:1509 inc/html.php:1547
+msgid "Keyword"
+msgstr "Kata kunci"
+
+#: imgboard.php:408
+#, php-format
+msgid "Your IP address (%1$s) is banned until %2$s."
+msgstr "Alamat IP anda (%1$s) diblokir sampai %2$s."
+
+#: imgboard.php:410
+#, php-format
+msgid "Your IP address (%s) is permanently banned."
+msgstr "Alamat IP Anda (%s) diblokir permanen."
+
+#: imgboard.php:413 inc/html.php:1210 inc/html.php:1247
+msgid "Reason"
+msgstr "Alasan"
+
+#: imgboard.php:424
+msgid "Embedding a URL and uploading a file at the same time is not supported."
+msgstr ""
+"Operasi menyematkan URL dan mengunggah file pada waktu yang sama tidak "
+"didukung."
+
+#: imgboard.php:430
+#, php-format
+msgid "Invalid embed URL. Only %s URLs are supported."
+msgstr "URL sematan tidak valid. Hanya URL %s yang didukung."
+
+#: imgboard.php:435 imgboard.php:444 inc/functions.php:493
+#: inc/functions.php:875
+#, php-format
+msgid "That file is larger than %s."
+msgstr "File yang diunggah lebih besar dari %s."
+
+#: imgboard.php:440 imgboard.php:450
+msgid "Failed to download file at specified URL."
+msgstr "Gagal mengunduh file pada URL yang rujuk."
+
+#: imgboard.php:472
+msgid "Error while processing audio/video."
+msgstr "Terjadi kesalahan pada pemrosesan audio/video."
+
+#: imgboard.php:479 inc/functions.php:900 inc/functions.php:911
+msgid "Could not create thumbnail."
+msgstr "Tidak dapat membuat thumbnail."
+
+#: imgboard.php:502
+msgid "upload a file or embed a URL"
+msgstr "unggah file atau sematkan URL"
+
+#: imgboard.php:504
+msgid "upload a file"
+msgstr "unggah file"
+
+#: imgboard.php:506
+msgid "embed a URL"
+msgstr "sematkan URL"
+
+#: imgboard.php:509
+#, php-format
+msgid "Please %s to start a new thread."
+msgstr "Harap %s untuk memulai thread baru."
+
+#: imgboard.php:515
+#, php-format
+msgid "Please enter a message and/or %s."
+msgstr "Harap masukkan pesan dan/atau %s."
+
+#: imgboard.php:517
+msgid "Please enter a message."
+msgstr "Harap masukkan pesan."
+
+#: imgboard.php:519
+#, php-format
+msgid "Please %s."
+msgstr "Harap %s."
+
+#: imgboard.php:525
+#, php-format
+msgid "Your %s will be shown <b>once it has been approved</b>."
+msgstr "%s Anda akan ditampilkan <b>jika disetujui</b>."
+
+#: imgboard.php:548
+msgid "Updating thread..."
+msgstr "Memperbarui thread..."
+
+#: imgboard.php:561
+msgid "Updating index..."
+msgstr "Memperbarui index..."
+
+#: imgboard.php:566
+msgid "Created staff post"
+msgstr "Membuat postingan staf"
+
+#: imgboard.php:572
+msgid "This post has been deleted"
+msgstr "Postingan ini telah dihapus"
+
+#: imgboard.php:574
+msgid "This post requires moderation before it can be displayed"
+msgstr "Postingan ini memerlukan moderasi sebelum bisa ditampilkan"
+
+#: imgboard.php:587
+msgid "Automatic refreshing is disabled."
+msgstr "Refresh halaman otomatis dinonaktifkan."
+
+#: imgboard.php:612 imgboard.php:762
+msgid "Reporting is disabled."
+msgstr "Pelaporan dinonaktifkan."
+
+#: imgboard.php:617 imgboard.php:716
+msgid ""
+"Sorry, an invalid post identifier was sent. Please go back, refresh the "
+"page, and try again."
+msgstr ""
+"Maaf, identifier post yang dirujuk tidak valid. Harap kembali, refresh "
+"halaman, dan coba lagi."
+
+#: imgboard.php:621
+msgid "Moderators have determined that post does not break any rules."
+msgstr ""
+"Moderator telah menetapkan bahwa postingan tersebut tidak melanggar aturan "
+"apa pun."
+
+#: imgboard.php:626
+msgid "You have already submitted a report for that post."
+msgstr "Anda telah mengirimkan laporan untuk posting itu."
+
+#: imgboard.php:662 inc/html.php:227 inc/html.php:969
+msgid "(enter the text below)"
+msgstr "(masukkan teks di bawah ini)"
+
+#: imgboard.php:666
+msgid "Please complete a CAPTCHA to submit your report"
+msgstr "Harap lengkapi CAPTCHA untuk mengirimkan laporan Anda"
+
+#: imgboard.php:667 inc/html.php:117 inc/html.php:1113 inc/html.php:1165
+#: inc/html.php:1213 inc/html.php:1261
+msgid "Submit"
+msgstr "Kirim"
+
+#: imgboard.php:689
+msgid "Post reported."
+msgstr "Postingan telah dilaporkan."
+
+#: imgboard.php:693
+msgid "Tick the box next to a post and click \"Delete\" to delete it."
+msgstr "Centang kotak di samping postingan dan klik \"Hapus\" untuk menghapus."
+
+#: imgboard.php:697
+msgid ""
+"Post deletion is currently disabled.<br>Please try again in a few moments."
+msgstr ""
+"Penghapusan postingan saat ini dinonaktifkan.<br>Silakan coba lagi dalam "
+"beberapa saat."
+
+#: imgboard.php:724
+msgid "Post deleted."
+msgstr "Postingan dihapus."
+
+#: imgboard.php:726
+msgid "Invalid password."
+msgstr "Kata sandi salah."
+
+#: imgboard.php:757
+msgid "Rebuilt board."
+msgstr "<i>Rebuilt</i> board."
+
+#: imgboard.php:767
+msgid "Access denied"
+msgstr "Akses ditolak"
+
+#: imgboard.php:778
+msgid "Account not found."
+msgstr "Akun tidak ditemukan."
+
+#: imgboard.php:782 imgboard.php:1186
+msgid "This account may not be updated while TINYIB_ADMINPASS is set."
+msgstr "Akun ini tidak dapat diperbarui selama TINYIB_ADMINPASS diset."
+
+#: imgboard.php:784 imgboard.php:1188
+msgid "This account may not be updated while TINYIB_MODPASS is set."
+msgstr "Akun ini tidak dapat diperbarui selama TINYIB_MODPASS diset."
+
+#: imgboard.php:790 imgboard.php:1193
+msgid "A password is required."
+msgstr "Kata sandi diperlukan."
+
+#: imgboard.php:801
+msgid "Invalid role."
+msgstr "Role tidak valid."
+
+#: imgboard.php:806
+#, php-format
+msgid "Added account %s"
+msgstr "Membuat akun %s"
+
+#: imgboard.php:807
+msgid "Added account"
+msgstr "Akun dibuat"
+
+#: imgboard.php:811
+#, php-format
+msgid "Renamed account %1$s as %2$s"
+msgstr "Mengganti nama akun %1$s menjadi %2$s"
+
+#: imgboard.php:814
+#, php-format
+msgid "Changed password of account %s"
+msgstr "Mengubah kata sandi akun %s"
+
+#: imgboard.php:820 inc/html.php:1161 inc/html.php:1186
+msgid "Super-administrator"
+msgstr "Super-administrator"
+
+#: imgboard.php:823 inc/html.php:1162 inc/html.php:1189
+msgid "Administrator"
+msgstr "Administrator"
+
+#: imgboard.php:826 inc/html.php:1163 inc/html.php:1192
+msgid "Moderator"
+msgstr "Moderator"
+
+#: imgboard.php:829 inc/html.php:1164 inc/html.php:1195
+msgid "Disabled"
+msgstr "Dinonaktifkan"
+
+#: imgboard.php:832
+#, php-format
+msgid "Changed role of account %s to %s"
+msgstr "Mengubah role akun %s menjadi %s"
+
+#: imgboard.php:834
+msgid "Updated account"
+msgstr "Akun diperbarui"
+
+#: imgboard.php:863
+msgid "permanently"
+msgstr "permanen"
+
+#: imgboard.php:865
+#, php-format
+msgid "until %s"
+msgstr "sampai %s"
+
+#: imgboard.php:867
+#, php-format
+msgid "Banned %s %s"
+msgstr "Alamat IP %s diblokir %s"
+
+#: imgboard.php:869
+#, php-format
+msgid "Banned %s %s: %s"
+msgstr "Alamat IP %s diblokir %s: %s"
+
+#: imgboard.php:883
+#, php-format
+msgid "Added ban message to %s"
+msgstr "Pesan larangan ke %s dibuat"
+
+#: imgboard.php:895
+msgid "Banned 1 IP address"
+msgstr "1 alamat IP diblokir"
+
+#: imgboard.php:897
+#, php-format
+msgid "Banned %d IP addresses"
+msgstr "%d alamat IP diblokir"
+
+#: imgboard.php:903
+#, php-format
+msgid "Lifted ban on %s"
+msgstr "Blokir pada %s dicabut"
+
+#: imgboard.php:920
+msgid "Sorry, that keyword has already been added."
+msgstr "Maaf, kata kunci itu sudah ditambahkan."
+
+#: imgboard.php:935 imgboard.php:939
+#, php-format
+msgid "Updated keyword %s"
+msgstr "Perbarui kata kunci %s"
+
+#: imgboard.php:936
+msgid "Keyword updated."
+msgstr "Kata kunci diperbarui."
+
+#: imgboard.php:940
+msgid "Keyword added."
+msgstr "Kata kunci ditambahkan."
+
+#: imgboard.php:945
+msgid "That keyword does not exist."
+msgstr "Kata kunci disebut tidak ditemukan."
+
+#: imgboard.php:954
+#, php-format
+msgid "Deleted keyword %s"
+msgstr "Hapus kata kunci %s"
+
+#: imgboard.php:955
+msgid "Keyword deleted."
+msgstr "Kata kunci dihapus."
+
+#: imgboard.php:1066
+#, php-format
+msgid "Deleted %s"
+msgstr "Hapus %s"
+
+#: imgboard.php:1078
+msgid "Deleted 1 post"
+msgstr "1 posting dihapus"
+
+#: imgboard.php:1080
+#, php-format
+msgid "Deleted %d posts"
+msgstr "%d posting dihapus"
+
+#: imgboard.php:1094 imgboard.php:1175
+msgid "Approved"
+msgstr "Disetujui"
+
+#: imgboard.php:1095 imgboard.php:1176
+#, php-format
+msgid "Post No.%d approved."
+msgstr "Postingan No.%d disetujui."
+
+#: imgboard.php:1097 imgboard.php:1112 imgboard.php:1147 imgboard.php:1163
+#: imgboard.php:1178
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr ""
+"Maaf, tampaknya postingan dengan ID tersebut tidak ada atau tidak ditemukan."
+
+#: imgboard.php:1143 inc/html.php:467
+msgid "Stickied"
+msgstr "Rekat"
+
+#: imgboard.php:1143
+msgid "Unstickied"
+msgstr "Tidak rekat"
+
+#: imgboard.php:1150 imgboard.php:1166
+msgid "Form data was lost. Please go back and try again."
+msgstr "Data formulir hilang. Silakan kembali dan coba lagi."
+
+#: imgboard.php:1159 inc/html.php:471
+msgid "Locked"
+msgstr "Dikunci"
+
+#: imgboard.php:1159
+msgid "Unlocked"
+msgstr "Tidak dikunci"
+
+#: imgboard.php:1195
+msgid "Passwords do not match."
+msgstr "Kata sandi tidak cocok."
+
+#: imgboard.php:1201
+msgid "Password updated"
+msgstr "Kata sandi diperbarui"
+
+#: inc/functions.php:321
+msgid "Please enter the CAPTCHA text."
+msgstr "Harap masukkan teks CAPTCHA."
+
+#: inc/functions.php:323
+msgid ""
+"Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
+"retrieve a new CAPTCHA."
+msgstr ""
+"Teks CAPTCHA yang dimasukkan salah. Harap coba lagi.<br>Klik gambar untuk "
+"memuat CAPTCHA baru."
+
+#: inc/functions.php:372
+#, php-format
+msgid ""
+"Please shorten your message, or post it in multiple parts. Your message is "
+"%1$d characters long, and the maximum allowed is %2$d."
+msgstr ""
+"Harap persingkat pesan Anda, atau pecah posting jadi beberapa bagian. "
+"Panjang pesan anda adalah %1$d karakter, dan maksimum karakter yang "
+"diizinkan adalah %2$d."
+
+#: inc/functions.php:405
+msgid "Invalid key."
+msgstr "Kunci login salah."
+
+#: inc/functions.php:416
+msgid "Invalid username or password."
+msgstr "Username dan password salah."
+
+#: inc/functions.php:496
+#, php-format
+msgid ""
+"The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
+msgstr "File yang diunggah melebihi aturan upload_max_filesize (%s) di php.ini."
+
+#: inc/functions.php:499
+msgid "The uploaded file was only partially uploaded."
+msgstr "File yang diunggah hanya diunggah sebagian."
+
+#: inc/functions.php:502
+msgid "No file was uploaded."
+msgstr "Tidak ada file yang diunggah."
+
+#: inc/functions.php:505
+msgid "Missing a temporary folder."
+msgstr "Directory sementara (temporary directory) tidak ditemukan."
+
+#: inc/functions.php:508
+msgid "Failed to write file to disk"
+msgstr "Gagal menulis file ke diska"
+
+#: inc/functions.php:511
+msgid "Unable to save the uploaded file."
+msgstr "Tidak dapat menyimpan file yang diunggah."
+
+#: inc/functions.php:519
+#, php-format
+msgid ""
+"Duplicate file uploaded. That file has already been posted <a href=\"%s"
+"\">here</a>."
+msgstr ""
+"File unggahan duplikat. File tersebut telah diposting <a href=\"%s\">di "
+"sini</a>."
+
+#: inc/functions.php:611 inc/functions.php:684
+msgid ""
+"Unable to read the uploaded file while creating its thumbnail. A common "
+"cause for this is an incorrect extension when the file is actually of a "
+"different type."
+msgstr ""
+"Gagal membuat thumbnail: file yang diunggah tidak dapat dibaca. Ini umumnya "
+"terjadi karena penamaan extensi file dengan jenis file berbeda atau salah."
+
+#: inc/functions.php:836
+msgid "File transfer failure. Please retry the submission."
+msgstr ""
+
+#: inc/functions.php:845
+msgid ""
+"Failed to read the MIME type and size of the uploaded file. Please retry the "
+"submission."
+msgstr ""
+
+#: inc/functions.php:859 inc/functions.php:864
+msgid "Could not copy uploaded file."
+msgstr ""
+
+#: inc/functions.php:872
+msgid "File transfer failure. Please go back and try again."
+msgstr ""
+
+#: inc/functions.php:928 inc/functions.php:951
+msgid "Sorry, your video appears to be corrupt."
+msgstr ""
+
+#: inc/html.php:88
+#, php-format
+msgid "Supported file type is %s"
+msgstr ""
+
+#: inc/html.php:91
+#, php-format
+msgid "Supported file types are %1$s and %2$s."
+msgstr ""
+
+#: inc/html.php:152
+msgid "Raw HTML"
+msgstr ""
+
+#: inc/html.php:153
+msgid "Enable"
+msgstr ""
+
+#: inc/html.php:154
+msgid ""
+"Text entered in the Message field will be posted as is with no formatting "
+"applied."
+msgstr ""
+
+#: inc/html.php:155
+msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
+msgstr ""
+
+#: inc/html.php:157
+msgid "Reply to"
+msgstr ""
+
+#: inc/html.php:158
+msgid "0 to start a new thread"
+msgstr ""
+
+#: inc/html.php:231
+msgid "CAPTCHA"
+msgstr ""
+
+#: inc/html.php:247
+#, php-format
+msgid "Maximum file size allowed is %s."
+msgstr ""
+
+#: inc/html.php:252 inc/html.php:484
+msgid "File"
+msgstr ""
+
+#: inc/html.php:272 inc/html.php:484
+msgid "Embed"
+msgstr ""
+
+#: inc/html.php:275
+msgid "(paste a YouTube URL)"
+msgstr ""
+
+#: inc/html.php:290
+msgid "All posts are moderated before being shown."
+msgstr ""
+
+#: inc/html.php:292
+msgid "All posts with a file attached are moderated before being shown."
+msgstr ""
+
+#: inc/html.php:302
+#, php-format
+msgid "Images greater than %s will be thumbnailed."
+msgstr ""
+
+#: inc/html.php:307
+#, php-format
+msgid "Currently %s unique user posts."
+msgstr ""
+
+#: inc/html.php:320
+msgid "Name"
+msgstr ""
+
+#: inc/html.php:334
+msgid "E-mail"
+msgstr ""
+
+#: inc/html.php:348
+msgid "Subject"
+msgstr ""
+
+#: inc/html.php:362 inc/html.php:1224
+msgid "Message"
+msgstr ""
+
+#: inc/html.php:381 inc/html.php:701 inc/html.php:1148
+msgid "Password"
+msgstr ""
+
+#: inc/html.php:382
+msgid "(for post and file deletion)"
+msgstr ""
+
+#: inc/html.php:455 inc/html.php:1523 inc/html.php:1552
+msgid "Report"
+msgstr ""
+
+#: inc/html.php:592 inc/html.php:1358
+msgid "Reply"
+msgstr ""
+
+#: inc/html.php:600
+msgid "Post truncated. Click Reply to view."
+msgstr ""
+
+#: inc/html.php:612
+msgid "1 post omitted. Click Reply to view."
+msgstr ""
+
+#: inc/html.php:614
+#, php-format
+msgid "%d posts omitted. Click Reply to view."
+msgstr ""
+
+#: inc/html.php:634 inc/html.php:669 inc/html.php:681
+msgid "Catalog"
+msgstr ""
+
+#: inc/html.php:635
+msgid "Manage"
+msgstr ""
+
+#: inc/html.php:644
+msgid "Previous"
+msgstr ""
+
+#: inc/html.php:657
+msgid "Next"
+msgstr ""
+
+#: inc/html.php:681 inc/html.php:683 inc/html.php:867
+msgid "Return"
+msgstr ""
+
+#: inc/html.php:683
+msgid "Posting mode: Reply"
+msgstr ""
+
+#: inc/html.php:700
+msgid "Style"
+msgstr ""
+
+#: inc/html.php:702 inc/html.php:1525 inc/html.php:1558 inc/html.php:1582
+#: inc/html.php:1627
+msgid "Delete"
+msgstr ""
+
+#: inc/html.php:703
+msgid "Delete Post"
+msgstr ""
+
+#: inc/html.php:875
+msgid "Accounts"
+msgstr ""
+
+#: inc/html.php:877
+msgid "Bans"
+msgstr ""
+
+#: inc/html.php:878 inc/html.php:1510
+msgid "Keywords"
+msgstr ""
+
+#: inc/html.php:880
+msgid "Migrate Database"
+msgstr ""
+
+#: inc/html.php:883
+msgid "Moderate Post"
+msgstr ""
+
+#: inc/html.php:885
+msgid "Moderation Log"
+msgstr ""
+
+#: inc/html.php:886
+msgid "Rebuild All"
+msgstr ""
+
+#: inc/html.php:888
+msgid "Reports"
+msgstr ""
+
+#: inc/html.php:891
+msgid "Staff Post"
+msgstr ""
+
+#: inc/html.php:892 inc/html.php:1670
+msgid "Status"
+msgstr ""
+
+#: inc/html.php:894 inc/html.php:1512
+msgid "Update"
+msgstr ""
+
+#: inc/html.php:896 inc/html.php:1112
+msgid "Change Password"
+msgstr ""
+
+#: inc/html.php:897
+msgid "Log Out"
+msgstr ""
+
+#: inc/html.php:904
+msgid "Manage mode"
+msgstr ""
+
+#: inc/html.php:939
+msgid "Log In"
+msgstr ""
+
+#: inc/html.php:940
+msgid "Enter a username and password"
+msgstr ""
+
+#: inc/html.php:1013
+msgid "No logs."
+msgstr ""
+
+#: inc/html.php:1016
+msgid "Moderation log"
+msgstr ""
+
+#: inc/html.php:1069
+msgid "Reported posts"
+msgstr ""
+
+#: inc/html.php:1072
+#, php-format
+msgid "%1$d report by %2$s"
+msgstr ""
+
+#: inc/html.php:1074
+#, php-format
+msgid "%1$d reports by %2$s"
+msgstr ""
+
+#: inc/html.php:1088
+#, php-format
+msgid "%d reports"
+msgstr ""
+
+#: inc/html.php:1091
+#, php-format
+msgid "Reported by %s"
+msgstr ""
+
+#: inc/html.php:1094 inc/html.php:1657
+msgid "Moderate"
+msgstr ""
+
+#: inc/html.php:1098
+msgid "There are currently no reported posts."
+msgstr ""
+
+#: inc/html.php:1136
+msgid "Add an account"
+msgstr ""
+
+#: inc/html.php:1139
+msgid "Update an account"
+msgstr ""
+
+#: inc/html.php:1140
+msgid "Leave blank to maintain current password"
+msgstr ""
+
+#: inc/html.php:1147 inc/html.php:1180
+msgid "Username"
+msgstr ""
+
+#: inc/html.php:1149 inc/html.php:1180
+msgid "Role"
+msgstr ""
+
+#: inc/html.php:1160
+msgid "Choose a role"
+msgstr ""
+
+#: inc/html.php:1180
+msgid "Last active"
+msgstr ""
+
+#: inc/html.php:1182
+msgid "Never"
+msgstr ""
+
+#: inc/html.php:1198
+msgid "update"
+msgstr ""
+
+#: inc/html.php:1206
+msgid "Add a ban"
+msgstr ""
+
+#: inc/html.php:1207
+msgid ""
+"Multiple IP addresses may be banned at once by separating each address with "
+"a comma."
+msgstr ""
+
+#: inc/html.php:1208 inc/html.php:1247
+msgid "IP Address"
+msgstr ""
+
+#: inc/html.php:1209
+msgid "Expire(sec)"
+msgstr ""
+
+#: inc/html.php:1211
+msgid "never"
+msgstr ""
+
+#: inc/html.php:1212
+msgid "Optional."
+msgstr ""
+
+#: inc/html.php:1214
+msgid "1 hour"
+msgstr ""
+
+#: inc/html.php:1215
+msgid "1 day"
+msgstr ""
+
+#: inc/html.php:1216
+msgid "2 days"
+msgstr ""
+
+#: inc/html.php:1217
+msgid "1 week"
+msgstr ""
+
+#: inc/html.php:1218
+msgid "2 weeks"
+msgstr ""
+
+#: inc/html.php:1219
+msgid "1 month"
+msgstr ""
+
+#: inc/html.php:1224
+msgid "Append a message to the post. Optional."
+msgstr ""
+
+#: inc/html.php:1247
+msgid "Set At"
+msgstr ""
+
+#: inc/html.php:1247
+msgid "Expires"
+msgstr ""
+
+#: inc/html.php:1249
+msgid "Does not expire"
+msgstr ""
+
+#: inc/html.php:1251
+msgid "lift"
+msgstr ""
+
+#: inc/html.php:1259
+msgid "Moderate a post"
+msgstr ""
+
+#: inc/html.php:1260
+msgid "Post ID"
+msgstr ""
+
+#: inc/html.php:1262
+msgid "Tip"
+msgstr ""
+
+#: inc/html.php:1263
+msgid ""
+"While browsing the image board, you can easily moderate a post if you are "
+"logged in."
+msgstr ""
+
+#: inc/html.php:1264
+msgid ""
+"Tick the box next to a post and click \"Delete\" at the bottom of the page "
+"with a blank password."
+msgstr ""
+
+#: inc/html.php:1280
+#, php-format
+msgid "Moderate %d posts"
+msgstr ""
+
+#: inc/html.php:1281
+msgid "Delete all"
+msgstr ""
+
+#: inc/html.php:1282
+msgid "Ban all"
+msgstr ""
+
+#: inc/html.php:1284
+msgid "1 thread and 1 reply will be deleted."
+msgstr ""
+
+#: inc/html.php:1286
+#, php-format
+msgid "1 thread and %d replies will be deleted."
+msgstr ""
+
+#: inc/html.php:1288
+#, php-format
+msgid "%d threads and 1 reply will be deleted."
+msgstr ""
+
+#: inc/html.php:1290
+#, php-format
+msgid "%1$d threads and %2$d replies will be deleted."
+msgstr ""
+
+#: inc/html.php:1293
+msgid "1 IP address will be banned."
+msgstr ""
+
+#: inc/html.php:1295
+#, php-format
+msgid "%d IP addresses will be banned."
+msgstr ""
+
+#: inc/html.php:1349
+#, php-format
+msgid " A ban record already exists for %s"
+msgstr ""
+
+#: inc/html.php:1352
+msgid "Only an administrator may ban an IP address."
+msgstr ""
+
+#: inc/html.php:1354
+#, php-format
+msgid "IP address: %s"
+msgstr "Alamat IP: %s"
+
+#: inc/html.php:1358
+msgid "Thread"
+msgstr "Utas"
+
+#: inc/html.php:1365
+msgid "1 reply will be deleted."
+msgstr ""
+
+#: inc/html.php:1367
+#, php-format
+msgid "%d replies will be deleted."
+msgstr ""
+
+#: inc/html.php:1371
+msgid "Belongs to "
+msgstr ""
+
+#: inc/html.php:1378
+msgid "Un-sticky"
+msgstr ""
+
+#: inc/html.php:1378
+msgid "Sticky"
+msgstr ""
+
+#: inc/html.php:1379
+msgid "Return this thread to a normal state."
+msgstr ""
+
+#: inc/html.php:1379
+msgid "Keep this thread at the top of the board."
+msgstr ""
+
+#: inc/html.php:1392
+msgid "Unlock"
+msgstr "Buka kunci"
+
+#: inc/html.php:1392
+msgid "Lock"
+msgstr "Kunci"
+
+#: inc/html.php:1393
+msgid "Allow replying to this thread."
+msgstr ""
+
+#: inc/html.php:1393
+msgid "Disallow replying to this thread."
+msgstr ""
+
+#: inc/html.php:1407
+#, php-format
+msgid "Moderating No.%d"
+msgstr ""
+
+#: inc/html.php:1408 inc/html.php:1511 inc/html.php:1547
+msgid "Action"
+msgstr "Aksi"
+
+#: inc/html.php:1410
+msgid "Delete thread"
+msgstr "Hapus utas"
+
+#: inc/html.php:1412
+msgid "Delete reply"
+msgstr "Hapus balasan"
+
+#: inc/html.php:1414
+msgid "Ban poster"
+msgstr ""
+
+#: inc/html.php:1419 inc/html.php:1623
+msgid "Approve"
+msgstr ""
+
+#: inc/html.php:1420 inc/html.php:1597
+msgid "report"
+msgstr ""
+
+#: inc/html.php:1420 inc/html.php:1597
+msgid "reports"
+msgstr ""
+
+#: inc/html.php:1498
+msgid "Sorry, there doesn't appear to be a keyword with that ID."
+msgstr ""
+
+#: inc/html.php:1512
+msgid "Add"
+msgstr "Tambah"
+
+#: inc/html.php:1526 inc/html.php:1555
+msgid "Hide until approved"
+msgstr "Sembunyikan sampai disetujui"
+
+#: inc/html.php:1527 inc/html.php:1564
+msgid "Delete and ban for 1 hour"
+msgstr "Hapus dan banned untuk 1 jam"
+
+#: inc/html.php:1528 inc/html.php:1567
+msgid "Delete and ban for 1 day"
+msgstr "Hapus dan banned untuk 1 hari"
+
+#: inc/html.php:1529 inc/html.php:1570
+msgid "Delete and ban for 2 days"
+msgstr "Hapus dan banned untuk 2 hari"
+
+#: inc/html.php:1530 inc/html.php:1573
+msgid "Delete and ban for 1 week"
+msgstr "Hapus dan banned untuk 1 minggu"
+
+#: inc/html.php:1531 inc/html.php:1576
+msgid "Delete and ban for 2 weeks"
+msgstr "Hapus dan banned untuk 2 minggu"
+
+#: inc/html.php:1532 inc/html.php:1579
+msgid "Delete and ban for 1 month"
+msgstr "Hapus dan banned untuk 1 bulan"
+
+#: inc/html.php:1533 inc/html.php:1561
+msgid "Delete and ban permanently"
+msgstr "Hapus dan banned permanen"
+
+#: inc/html.php:1582
+msgid "Edit"
+msgstr "Ubah"
+
+#: inc/html.php:1595
+msgid "thread"
+msgstr "Utas"
+
+#: inc/html.php:1595
+msgid "threads"
+msgstr "utas"
+
+#: inc/html.php:1599
+msgid "ban"
+msgstr "banned"
+
+#: inc/html.php:1599
+msgid "bans"
+msgstr "banned"
+
+#: inc/html.php:1625
+msgid "More Info"
+msgstr "Info lengkap"
+
+#: inc/html.php:1633
+msgid "Pending posts"
+msgstr "Postingan tertunda"
+
+#: inc/html.php:1649
+msgid "Recent posts"
+msgstr "Posting terbaru"
+
+#: inc/html.php:1671
+msgid "Info"
+msgstr "Info"

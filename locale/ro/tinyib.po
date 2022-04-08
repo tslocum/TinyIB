@@ -3,865 +3,1109 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2021-08-05 11:29-0700\n"
-"PO-Revision-Date: 2022-03-13 15:58+0000\n"
-"Last-Translator: 369322320@qq.com <369322320@qq.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"tinyib/tinyib/zh_Hans/>\n"
-"Language: zh_Hans\n"
+"PO-Revision-Date: 2021-12-07 09:51+0000\n"
+"Last-Translator: methiu sigma <methiumeh@gmail.com>\n"
+"Language-Team: Romanian <https://hosted.weblate.org/projects/tinyib/tinyib/"
+"ro/>\n"
+"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Weblate 4.10-dev\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/functions.php\n"
 "X-Poedit-SearchPath-2: inc/html.php\n"
 
+#: imgboard.php:44
 msgid "Click here to go back"
-msgstr "点击此处返回"
+msgstr "Apăsați aici pentru a reveni"
 
+#: imgboard.php:70
 msgid "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured."
-msgstr "TINYIB_HCAPTCHA_SITE和TINYIB_HCAPTCHA_SECRET必须被配置。"
+msgstr ""
 
+#: imgboard.php:74
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
-msgstr "TINYIB_RECAPTCHA_SITE和TINYIB_RECAPTCHA_SECRET必须被配置。"
+msgstr ""
 
+#: imgboard.php:82
 msgid "TINYIB_TRIPSEED must be configured."
-msgstr "TINYIB_TRIPSEED必须被配置。"
+msgstr ""
 
+#: imgboard.php:89 imgboard.php:991
 msgid "Unknown database mode specified."
-msgstr "设置了未知的数据库模式。"
+msgstr "Baza de date aleasă este necunoscută."
 
+#: imgboard.php:250
 #, php-format
 msgid "Directory '%s' can not be written to.  Please modify its permissions."
-msgstr "无法写入目录 '%s'。请修改其权限。"
+msgstr ""
+"Nu se poate scrie in locația '%s' .  Vă rugăm să modificați permisiunile."
 
+#: imgboard.php:269
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
-msgstr "现在发帖功能已被禁用。<br>请稍等片刻再重试。"
+msgstr ""
+"Momentan, postarea este dezactivată.<br>Încercați din nou peste câteva "
+"momente."
 
+#: imgboard.php:298 inc/functions.php:462
 msgid "Invalid parent thread ID supplied, unable to create post."
-msgstr "提供的上级帖子ID无效，无法创建帖子。"
+msgstr ""
 
+#: imgboard.php:300
 msgid "Replies are not allowed to locked threads."
-msgstr "不允许回复已锁定的帖子。"
+msgstr "Comentariile nu sunt permise la thread-urile blocate."
 
+#: imgboard.php:377
 msgid "Your post contains a blocked keyword."
-msgstr "你的贴文包含屏蔽词。"
+msgstr "Postarea ta conține un cuvânt blocat."
 
+#: imgboard.php:404 inc/html.php:1509 inc/html.php:1547
 msgid "Keyword"
-msgstr "关键词"
+msgstr "Cuvânt cheie"
 
+#: imgboard.php:408
 #, php-format
 msgid "Your IP address (%1$s) is banned until %2$s."
-msgstr "你的IP地址（%1$s）已被封禁直至%2$s。"
+msgstr "Adresa dvs. IP (%1$s) este interzisă până la %2$s."
 
+#: imgboard.php:410
 #, php-format
 msgid "Your IP address (%s) is permanently banned."
-msgstr "你的IP地址（%s）已被永久封禁。"
+msgstr "Adresa dvs. IP (%s) este interzisă permanent."
 
+#: imgboard.php:413 inc/html.php:1210 inc/html.php:1247
 msgid "Reason"
-msgstr "原因"
+msgstr "Motiv"
 
+#: imgboard.php:424
 msgid "Embedding a URL and uploading a file at the same time is not supported."
-msgstr "不支持同时嵌入URL和上传文件。"
+msgstr ""
+"Încorporarea unei adrese URL și încărcarea unui fișier în același timp nu "
+"este suportată."
 
+#: imgboard.php:430
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
-msgstr "无效的嵌入网址。仅支持 %s URL。"
+msgstr "Adresă URL de încorporare nevalidă. Numai %s adrese URL sunt acceptate."
 
+#: imgboard.php:435 imgboard.php:444 inc/functions.php:493
+#: inc/functions.php:875
 #, php-format
 msgid "That file is larger than %s."
-msgstr "该文件大于 %s 。"
+msgstr "Fișierul este mai mare decât %s."
 
+#: imgboard.php:440 imgboard.php:450
 msgid "Failed to download file at specified URL."
-msgstr "无法下载指定 URL 的文件。"
+msgstr ""
 
+#: imgboard.php:472
 msgid "Error while processing audio/video."
-msgstr "处理音频/视频时发生错误。"
+msgstr ""
 
+#: imgboard.php:479 inc/functions.php:900 inc/functions.php:911
 msgid "Could not create thumbnail."
-msgstr "无法创建缩略图。"
+msgstr ""
 
+#: imgboard.php:502
 msgid "upload a file or embed a URL"
-msgstr "上传文件或是嵌入链接"
+msgstr ""
 
+#: imgboard.php:504
 msgid "upload a file"
-msgstr "上传文件"
+msgstr ""
 
+#: imgboard.php:506
 msgid "embed a URL"
-msgstr "嵌入链接"
+msgstr ""
 
+#: imgboard.php:509
 #, php-format
 msgid "Please %s to start a new thread."
-msgstr "请%s来创建一个新主题贴。"
+msgstr ""
 
+#: imgboard.php:515
 #, php-format
 msgid "Please enter a message and/or %s."
-msgstr "请输入信息和/或%s。"
+msgstr ""
 
+#: imgboard.php:517
 msgid "Please enter a message."
-msgstr "请输入信息。"
+msgstr ""
 
+#: imgboard.php:519
 #, php-format
 msgid "Please %s."
-msgstr "请%s。"
+msgstr ""
 
+#: imgboard.php:525
 #, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
-msgstr "<b>当审核通过后</b>，你的%s会被显示。"
+msgstr ""
 
+#: imgboard.php:548
 msgid "Updating thread..."
-msgstr "正在更新主题贴..."
+msgstr ""
 
+#: imgboard.php:561
 msgid "Updating index..."
-msgstr "正在更新索引..."
+msgstr ""
 
+#: imgboard.php:566
 msgid "Created staff post"
-msgstr "已创建管理员贴文"
+msgstr ""
 
+#: imgboard.php:572
 msgid "This post has been deleted"
-msgstr "此贴文已被删除"
+msgstr ""
 
+#: imgboard.php:574
 msgid "This post requires moderation before it can be displayed"
-msgstr "此贴文需经审核后方可显示"
+msgstr ""
 
+#: imgboard.php:587
 msgid "Automatic refreshing is disabled."
-msgstr "自动刷新已关闭。"
+msgstr ""
 
+#: imgboard.php:612 imgboard.php:762
 msgid "Reporting is disabled."
-msgstr "举报被禁用。"
+msgstr ""
 
+#: imgboard.php:617 imgboard.php:716
 msgid ""
 "Sorry, an invalid post identifier was sent. Please go back, refresh the "
 "page, and try again."
-msgstr "抱歉，贴文ID非法。请返回，刷新页面并重试。"
+msgstr ""
 
+#: imgboard.php:621
 msgid "Moderators have determined that post does not break any rules."
-msgstr "版主已确定该贴文不违反任何规则。"
+msgstr ""
 
+#: imgboard.php:626
 msgid "You have already submitted a report for that post."
-msgstr "你已经对此贴文提交过举报了。"
+msgstr ""
 
+#: imgboard.php:662 inc/html.php:227 inc/html.php:969
 msgid "(enter the text below)"
-msgstr "（在下方输入文字）"
+msgstr ""
 
+#: imgboard.php:666
 msgid "Please complete a CAPTCHA to submit your report"
-msgstr "请完成验证码以提交你的举报"
+msgstr ""
 
+#: imgboard.php:667 inc/html.php:117 inc/html.php:1113 inc/html.php:1165
+#: inc/html.php:1213 inc/html.php:1261
 msgid "Submit"
-msgstr "提交"
+msgstr ""
 
+#: imgboard.php:689
 msgid "Post reported."
-msgstr "已举报贴文。"
+msgstr ""
 
+#: imgboard.php:693
 msgid "Tick the box next to a post and click \"Delete\" to delete it."
-msgstr "勾选贴文旁边的复选框，然后点击“删除”来删除贴文。"
+msgstr ""
 
+#: imgboard.php:697
 msgid ""
 "Post deletion is currently disabled.<br>Please try again in a few moments."
-msgstr "删贴目前已禁用。<br>请稍后再试。"
+msgstr ""
 
+#: imgboard.php:724
 msgid "Post deleted."
-msgstr "已删除贴文。"
+msgstr ""
 
+#: imgboard.php:726
 msgid "Invalid password."
-msgstr "无效的密码。"
+msgstr ""
 
+#: imgboard.php:757
 msgid "Rebuilt board."
-msgstr "重建板块。"
+msgstr ""
 
+#: imgboard.php:767
 msgid "Access denied"
-msgstr "访问被拒绝"
+msgstr ""
 
+#: imgboard.php:778
 msgid "Account not found."
-msgstr "账户未找到。"
+msgstr ""
 
+#: imgboard.php:782 imgboard.php:1186
 msgid "This account may not be updated while TINYIB_ADMINPASS is set."
-msgstr "设置 TINYIB_ADMINPASS 时，此账户可能不会更新。"
+msgstr ""
 
+#: imgboard.php:784 imgboard.php:1188
 msgid "This account may not be updated while TINYIB_MODPASS is set."
-msgstr "设置 TINYIB_MODPASS 时，此账户可能不会更新。"
+msgstr ""
 
+#: imgboard.php:790 imgboard.php:1193
 msgid "A password is required."
-msgstr "需要密码。"
+msgstr ""
 
+#: imgboard.php:801
 msgid "Invalid role."
-msgstr "非法角色。"
+msgstr ""
 
+#: imgboard.php:806
 #, php-format
 msgid "Added account %s"
-msgstr "已添加账户%s"
+msgstr ""
 
+#: imgboard.php:807
 msgid "Added account"
-msgstr "已添加账户"
+msgstr ""
 
+#: imgboard.php:811
 #, php-format
 msgid "Renamed account %1$s as %2$s"
-msgstr "已重命名账户%1$s为%2$s"
+msgstr ""
 
+#: imgboard.php:814
 #, php-format
 msgid "Changed password of account %s"
-msgstr "已为账户%s重置密码"
+msgstr ""
 
+#: imgboard.php:820 inc/html.php:1161 inc/html.php:1186
 msgid "Super-administrator"
-msgstr "超级管理员"
+msgstr ""
 
+#: imgboard.php:823 inc/html.php:1162 inc/html.php:1189
 msgid "Administrator"
-msgstr "管理员"
+msgstr ""
 
+#: imgboard.php:826 inc/html.php:1163 inc/html.php:1192
 msgid "Moderator"
-msgstr "版主"
+msgstr ""
 
+#: imgboard.php:829 inc/html.php:1164 inc/html.php:1195
 msgid "Disabled"
-msgstr "已关闭"
+msgstr ""
 
+#: imgboard.php:832
 #, php-format
 msgid "Changed role of account %s to %s"
-msgstr "已切换账户角色%s为%s"
+msgstr ""
 
+#: imgboard.php:834
 msgid "Updated account"
-msgstr "已更新账户"
+msgstr ""
 
+#: imgboard.php:863
 msgid "permanently"
-msgstr "永久的"
+msgstr ""
 
+#: imgboard.php:865
 #, php-format
 msgid "until %s"
-msgstr "直至%s"
+msgstr ""
 
+#: imgboard.php:867
 #, php-format
 msgid "Banned %s %s"
-msgstr "已封禁%s%s"
+msgstr ""
 
+#: imgboard.php:869
 #, php-format
 msgid "Banned %s %s: %s"
-msgstr "已封禁%s%s：%s"
+msgstr ""
 
+#: imgboard.php:883
 #, php-format
 msgid "Added ban message to %s"
-msgstr "已添加封禁信息至%s"
+msgstr ""
 
+#: imgboard.php:895
 msgid "Banned 1 IP address"
-msgstr "已封禁IP地址"
+msgstr ""
 
+#: imgboard.php:897
 #, php-format
 msgid "Banned %d IP addresses"
-msgstr "已封禁%d个IP地址"
+msgstr ""
 
+#: imgboard.php:903
 #, php-format
 msgid "Lifted ban on %s"
-msgstr "解除对%s的封禁"
+msgstr ""
 
+#: imgboard.php:920
 msgid "Sorry, that keyword has already been added."
-msgstr "抱歉，此关键词已被添加。"
+msgstr ""
 
+#: imgboard.php:935 imgboard.php:939
 #, php-format
 msgid "Updated keyword %s"
-msgstr "已更新关键词%s"
+msgstr ""
 
+#: imgboard.php:936
 msgid "Keyword updated."
-msgstr "已更新关键词。"
+msgstr ""
 
+#: imgboard.php:940
 msgid "Keyword added."
-msgstr "已添加关键词。"
+msgstr ""
 
+#: imgboard.php:945
 msgid "That keyword does not exist."
-msgstr "关键词不存在。"
+msgstr ""
 
+#: imgboard.php:954
 #, php-format
 msgid "Deleted keyword %s"
-msgstr "已删除关键词%s"
+msgstr ""
 
+#: imgboard.php:955
 msgid "Keyword deleted."
-msgstr "已删除关键词。"
+msgstr ""
 
+#: imgboard.php:1066
 #, php-format
 msgid "Deleted %s"
-msgstr "已删除%s"
+msgstr ""
 
+#: imgboard.php:1078
 msgid "Deleted 1 post"
-msgstr "已删除贴文"
+msgstr ""
 
+#: imgboard.php:1080
 #, php-format
 msgid "Deleted %d posts"
-msgstr "已删除%d篇贴文"
+msgstr ""
 
+#: imgboard.php:1094 imgboard.php:1175
 msgid "Approved"
-msgstr "已认可"
+msgstr ""
 
+#: imgboard.php:1095 imgboard.php:1176
 #, php-format
 msgid "Post No.%d approved."
-msgstr "贴文No.%d已被批准。"
+msgstr ""
 
+#: imgboard.php:1097 imgboard.php:1112 imgboard.php:1147 imgboard.php:1163
+#: imgboard.php:1178
 msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr "抱歉，似乎没有带该 ID 的贴文。"
+msgstr ""
 
+#: imgboard.php:1143 inc/html.php:467
 msgid "Stickied"
-msgstr "已钉选"
+msgstr ""
 
+#: imgboard.php:1143
 msgid "Unstickied"
-msgstr "解除钉选"
+msgstr ""
 
+#: imgboard.php:1150 imgboard.php:1166
 msgid "Form data was lost. Please go back and try again."
-msgstr "表单数据丢失。请返回并重试。"
+msgstr ""
 
+#: imgboard.php:1159 inc/html.php:471
 msgid "Locked"
-msgstr "已锁定"
+msgstr ""
 
+#: imgboard.php:1159
 msgid "Unlocked"
-msgstr "已解锁"
+msgstr ""
 
+#: imgboard.php:1195
 msgid "Passwords do not match."
-msgstr "密码不匹配。"
+msgstr ""
 
+#: imgboard.php:1201
 msgid "Password updated"
-msgstr "密码已更新"
+msgstr ""
 
+#: inc/functions.php:321
 msgid "Please enter the CAPTCHA text."
-msgstr "请输入验证码。"
+msgstr ""
 
+#: inc/functions.php:323
 msgid ""
 "Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
 "retrieve a new CAPTCHA."
-msgstr "输入了错误的验证码。请重试。<br>单击图像以获取新的验证码。"
+msgstr ""
 
+#: inc/functions.php:372
 #, php-format
 msgid ""
 "Please shorten your message, or post it in multiple parts. Your message is "
 "%1$d characters long, and the maximum allowed is %2$d."
-msgstr "请缩短您的信息，或分几段发布。 "
-"您的信息长度为%1$d个字符，允许的最大值为%2$d个。"
+msgstr ""
 
+#: inc/functions.php:405
 msgid "Invalid key."
-msgstr "无效的密码。"
+msgstr ""
 
+#: inc/functions.php:416
 msgid "Invalid username or password."
-msgstr "无效的名称或密码。"
+msgstr ""
 
+#: inc/functions.php:496
 #, php-format
 msgid ""
 "The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
 msgstr ""
 
+#: inc/functions.php:499
 msgid "The uploaded file was only partially uploaded."
 msgstr ""
 
+#: inc/functions.php:502
 msgid "No file was uploaded."
 msgstr ""
 
+#: inc/functions.php:505
 msgid "Missing a temporary folder."
 msgstr ""
 
+#: inc/functions.php:508
 msgid "Failed to write file to disk"
 msgstr ""
 
+#: inc/functions.php:511
 msgid "Unable to save the uploaded file."
 msgstr ""
 
+#: inc/functions.php:519
 #, php-format
 msgid ""
 "Duplicate file uploaded. That file has already been posted <a href=\"%s"
 "\">here</a>."
 msgstr ""
 
+#: inc/functions.php:611 inc/functions.php:684
 msgid ""
 "Unable to read the uploaded file while creating its thumbnail. A common "
 "cause for this is an incorrect extension when the file is actually of a "
 "different type."
 msgstr ""
 
+#: inc/functions.php:836
 msgid "File transfer failure. Please retry the submission."
-msgstr "文件传输失败。请重试。"
+msgstr ""
 
+#: inc/functions.php:845
 msgid ""
 "Failed to read the MIME type and size of the uploaded file. Please retry the "
 "submission."
-msgstr "无法读取已上传文件的MIME类型和大小。请重试。"
+msgstr ""
 
+#: inc/functions.php:859 inc/functions.php:864
 msgid "Could not copy uploaded file."
-msgstr "无法复制已上传的文件。"
+msgstr ""
 
+#: inc/functions.php:872
 msgid "File transfer failure. Please go back and try again."
-msgstr "文件传输失败。请返回并重试。"
+msgstr ""
 
+#: inc/functions.php:928 inc/functions.php:951
 msgid "Sorry, your video appears to be corrupt."
-msgstr "抱歉，你上传的视频已经损坏。"
+msgstr ""
 
+#: inc/html.php:88
 #, php-format
 msgid "Supported file type is %s"
 msgstr ""
 
+#: inc/html.php:91
 #, php-format
 msgid "Supported file types are %1$s and %2$s."
 msgstr ""
 
+#: inc/html.php:152
 msgid "Raw HTML"
 msgstr ""
 
+#: inc/html.php:153
 msgid "Enable"
 msgstr ""
 
+#: inc/html.php:154
 msgid ""
 "Text entered in the Message field will be posted as is with no formatting "
 "applied."
 msgstr ""
 
+#: inc/html.php:155
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
 msgstr ""
 
+#: inc/html.php:157
 msgid "Reply to"
 msgstr ""
 
+#: inc/html.php:158
 msgid "0 to start a new thread"
 msgstr ""
 
+#: inc/html.php:231
 msgid "CAPTCHA"
 msgstr ""
 
+#: inc/html.php:247
 #, php-format
 msgid "Maximum file size allowed is %s."
 msgstr ""
 
+#: inc/html.php:252 inc/html.php:484
 msgid "File"
 msgstr ""
 
+#: inc/html.php:272 inc/html.php:484
 msgid "Embed"
 msgstr ""
 
+#: inc/html.php:275
 msgid "(paste a YouTube URL)"
 msgstr ""
 
+#: inc/html.php:290
 msgid "All posts are moderated before being shown."
 msgstr ""
 
+#: inc/html.php:292
 msgid "All posts with a file attached are moderated before being shown."
 msgstr ""
 
+#: inc/html.php:302
 #, php-format
 msgid "Images greater than %s will be thumbnailed."
 msgstr ""
 
+#: inc/html.php:307
 #, php-format
 msgid "Currently %s unique user posts."
 msgstr ""
 
+#: inc/html.php:320
 msgid "Name"
 msgstr ""
 
+#: inc/html.php:334
 msgid "E-mail"
 msgstr ""
 
+#: inc/html.php:348
 msgid "Subject"
 msgstr ""
 
+#: inc/html.php:362 inc/html.php:1224
 msgid "Message"
 msgstr ""
 
+#: inc/html.php:381 inc/html.php:701 inc/html.php:1148
 msgid "Password"
 msgstr ""
 
+#: inc/html.php:382
 msgid "(for post and file deletion)"
 msgstr ""
 
+#: inc/html.php:455 inc/html.php:1523 inc/html.php:1552
 msgid "Report"
 msgstr ""
 
+#: inc/html.php:592 inc/html.php:1358
 msgid "Reply"
 msgstr ""
 
+#: inc/html.php:600
 msgid "Post truncated. Click Reply to view."
 msgstr ""
 
+#: inc/html.php:612
 msgid "1 post omitted. Click Reply to view."
 msgstr ""
 
+#: inc/html.php:614
 #, php-format
 msgid "%d posts omitted. Click Reply to view."
 msgstr ""
 
+#: inc/html.php:634 inc/html.php:669 inc/html.php:681
 msgid "Catalog"
 msgstr ""
 
+#: inc/html.php:635
 msgid "Manage"
 msgstr ""
 
+#: inc/html.php:644
 msgid "Previous"
 msgstr ""
 
+#: inc/html.php:657
 msgid "Next"
 msgstr ""
 
+#: inc/html.php:681 inc/html.php:683 inc/html.php:867
 msgid "Return"
 msgstr ""
 
+#: inc/html.php:683
 msgid "Posting mode: Reply"
 msgstr ""
 
+#: inc/html.php:700
 msgid "Style"
 msgstr ""
 
+#: inc/html.php:702 inc/html.php:1525 inc/html.php:1558 inc/html.php:1582
+#: inc/html.php:1627
 msgid "Delete"
 msgstr ""
 
+#: inc/html.php:703
 msgid "Delete Post"
 msgstr ""
 
+#: inc/html.php:875
 msgid "Accounts"
 msgstr ""
 
+#: inc/html.php:877
 msgid "Bans"
 msgstr ""
 
+#: inc/html.php:878 inc/html.php:1510
 msgid "Keywords"
 msgstr ""
 
+#: inc/html.php:880
 msgid "Migrate Database"
 msgstr ""
 
+#: inc/html.php:883
 msgid "Moderate Post"
 msgstr ""
 
+#: inc/html.php:885
 msgid "Moderation Log"
 msgstr ""
 
+#: inc/html.php:886
 msgid "Rebuild All"
 msgstr ""
 
+#: inc/html.php:888
 msgid "Reports"
 msgstr ""
 
+#: inc/html.php:891
 msgid "Staff Post"
 msgstr ""
 
+#: inc/html.php:892 inc/html.php:1670
 msgid "Status"
 msgstr ""
 
+#: inc/html.php:894 inc/html.php:1512
 msgid "Update"
 msgstr ""
 
+#: inc/html.php:896 inc/html.php:1112
 msgid "Change Password"
 msgstr ""
 
+#: inc/html.php:897
 msgid "Log Out"
 msgstr ""
 
+#: inc/html.php:904
 msgid "Manage mode"
 msgstr ""
 
+#: inc/html.php:939
 msgid "Log In"
 msgstr ""
 
+#: inc/html.php:940
 msgid "Enter a username and password"
 msgstr ""
 
+#: inc/html.php:1013
 msgid "No logs."
 msgstr ""
 
+#: inc/html.php:1016
 msgid "Moderation log"
 msgstr ""
 
+#: inc/html.php:1069
 msgid "Reported posts"
 msgstr ""
 
+#: inc/html.php:1072
 #, php-format
 msgid "%1$d report by %2$s"
 msgstr ""
 
+#: inc/html.php:1074
 #, php-format
 msgid "%1$d reports by %2$s"
 msgstr ""
 
+#: inc/html.php:1088
 #, php-format
 msgid "%d reports"
 msgstr ""
 
+#: inc/html.php:1091
 #, php-format
 msgid "Reported by %s"
 msgstr ""
 
+#: inc/html.php:1094 inc/html.php:1657
 msgid "Moderate"
 msgstr ""
 
+#: inc/html.php:1098
 msgid "There are currently no reported posts."
 msgstr ""
 
+#: inc/html.php:1136
 msgid "Add an account"
 msgstr ""
 
+#: inc/html.php:1139
 msgid "Update an account"
 msgstr ""
 
+#: inc/html.php:1140
 msgid "Leave blank to maintain current password"
 msgstr ""
 
+#: inc/html.php:1147 inc/html.php:1180
 msgid "Username"
 msgstr ""
 
+#: inc/html.php:1149 inc/html.php:1180
 msgid "Role"
 msgstr ""
 
+#: inc/html.php:1160
 msgid "Choose a role"
 msgstr ""
 
+#: inc/html.php:1180
 msgid "Last active"
 msgstr ""
 
+#: inc/html.php:1182
 msgid "Never"
 msgstr ""
 
+#: inc/html.php:1198
 msgid "update"
 msgstr ""
 
+#: inc/html.php:1206
 msgid "Add a ban"
 msgstr ""
 
+#: inc/html.php:1207
 msgid ""
 "Multiple IP addresses may be banned at once by separating each address with "
 "a comma."
 msgstr ""
 
+#: inc/html.php:1208 inc/html.php:1247
 msgid "IP Address"
 msgstr ""
 
+#: inc/html.php:1209
 msgid "Expire(sec)"
 msgstr ""
 
+#: inc/html.php:1211
 msgid "never"
 msgstr ""
 
+#: inc/html.php:1212
 msgid "Optional."
 msgstr ""
 
+#: inc/html.php:1214
 msgid "1 hour"
 msgstr ""
 
+#: inc/html.php:1215
 msgid "1 day"
 msgstr ""
 
+#: inc/html.php:1216
 msgid "2 days"
 msgstr ""
 
+#: inc/html.php:1217
 msgid "1 week"
 msgstr ""
 
+#: inc/html.php:1218
 msgid "2 weeks"
 msgstr ""
 
+#: inc/html.php:1219
 msgid "1 month"
 msgstr ""
 
+#: inc/html.php:1224
 msgid "Append a message to the post. Optional."
 msgstr ""
 
+#: inc/html.php:1247
 msgid "Set At"
 msgstr ""
 
+#: inc/html.php:1247
 msgid "Expires"
 msgstr ""
 
+#: inc/html.php:1249
 msgid "Does not expire"
 msgstr ""
 
+#: inc/html.php:1251
 msgid "lift"
 msgstr ""
 
+#: inc/html.php:1259
 msgid "Moderate a post"
 msgstr ""
 
+#: inc/html.php:1260
 msgid "Post ID"
 msgstr ""
 
+#: inc/html.php:1262
 msgid "Tip"
 msgstr ""
 
+#: inc/html.php:1263
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
 "logged in."
 msgstr ""
 
+#: inc/html.php:1264
 msgid ""
 "Tick the box next to a post and click \"Delete\" at the bottom of the page "
 "with a blank password."
-msgstr "勾选贴文旁边的复选框，然后使用空白密码点击页面底部的“删除”。"
+msgstr ""
 
+#: inc/html.php:1280
 #, php-format
 msgid "Moderate %d posts"
 msgstr ""
 
+#: inc/html.php:1281
 msgid "Delete all"
 msgstr ""
 
+#: inc/html.php:1282
 msgid "Ban all"
 msgstr ""
 
+#: inc/html.php:1284
 msgid "1 thread and 1 reply will be deleted."
 msgstr ""
 
+#: inc/html.php:1286
 #, php-format
 msgid "1 thread and %d replies will be deleted."
 msgstr ""
 
+#: inc/html.php:1288
 #, php-format
 msgid "%d threads and 1 reply will be deleted."
 msgstr ""
 
+#: inc/html.php:1290
 #, php-format
 msgid "%1$d threads and %2$d replies will be deleted."
 msgstr ""
 
+#: inc/html.php:1293
 msgid "1 IP address will be banned."
 msgstr ""
 
+#: inc/html.php:1295
 #, php-format
 msgid "%d IP addresses will be banned."
 msgstr ""
 
+#: inc/html.php:1349
 #, php-format
 msgid " A ban record already exists for %s"
-msgstr " %s的封禁记录已存在"
+msgstr ""
 
+#: inc/html.php:1352
 msgid "Only an administrator may ban an IP address."
 msgstr ""
 
+#: inc/html.php:1354
 #, php-format
 msgid "IP address: %s"
 msgstr ""
 
+#: inc/html.php:1358
 msgid "Thread"
 msgstr ""
 
+#: inc/html.php:1365
 msgid "1 reply will be deleted."
 msgstr ""
 
+#: inc/html.php:1367
 #, php-format
 msgid "%d replies will be deleted."
 msgstr ""
 
+#: inc/html.php:1371
 msgid "Belongs to "
 msgstr ""
 
+#: inc/html.php:1378
 msgid "Un-sticky"
 msgstr ""
 
+#: inc/html.php:1378
 msgid "Sticky"
 msgstr ""
 
+#: inc/html.php:1379
 msgid "Return this thread to a normal state."
 msgstr ""
 
+#: inc/html.php:1379
 msgid "Keep this thread at the top of the board."
 msgstr ""
 
+#: inc/html.php:1392
 msgid "Unlock"
 msgstr ""
 
+#: inc/html.php:1392
 msgid "Lock"
 msgstr ""
 
+#: inc/html.php:1393
 msgid "Allow replying to this thread."
 msgstr ""
 
+#: inc/html.php:1393
 msgid "Disallow replying to this thread."
 msgstr ""
 
+#: inc/html.php:1407
 #, php-format
 msgid "Moderating No.%d"
 msgstr ""
 
+#: inc/html.php:1408 inc/html.php:1511 inc/html.php:1547
 msgid "Action"
 msgstr ""
 
+#: inc/html.php:1410
 msgid "Delete thread"
 msgstr ""
 
+#: inc/html.php:1412
 msgid "Delete reply"
 msgstr ""
 
+#: inc/html.php:1414
 msgid "Ban poster"
 msgstr ""
 
+#: inc/html.php:1419 inc/html.php:1623
 msgid "Approve"
 msgstr ""
 
+#: inc/html.php:1420 inc/html.php:1597
 msgid "report"
 msgstr ""
 
+#: inc/html.php:1420 inc/html.php:1597
 msgid "reports"
 msgstr ""
 
+#: inc/html.php:1498
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
-msgstr "抱歉，似乎没有带该关键词的帖子。"
+msgstr ""
 
+#: inc/html.php:1512
 msgid "Add"
 msgstr ""
 
+#: inc/html.php:1526 inc/html.php:1555
 msgid "Hide until approved"
 msgstr ""
 
+#: inc/html.php:1527 inc/html.php:1564
 msgid "Delete and ban for 1 hour"
 msgstr ""
 
+#: inc/html.php:1528 inc/html.php:1567
 msgid "Delete and ban for 1 day"
 msgstr ""
 
+#: inc/html.php:1529 inc/html.php:1570
 msgid "Delete and ban for 2 days"
 msgstr ""
 
+#: inc/html.php:1530 inc/html.php:1573
 msgid "Delete and ban for 1 week"
 msgstr ""
 
+#: inc/html.php:1531 inc/html.php:1576
 msgid "Delete and ban for 2 weeks"
 msgstr ""
 
+#: inc/html.php:1532 inc/html.php:1579
 msgid "Delete and ban for 1 month"
 msgstr ""
 
+#: inc/html.php:1533 inc/html.php:1561
 msgid "Delete and ban permanently"
 msgstr ""
 
+#: inc/html.php:1582
 msgid "Edit"
 msgstr ""
 
+#: inc/html.php:1595
 msgid "thread"
 msgstr ""
 
+#: inc/html.php:1595
 msgid "threads"
 msgstr ""
 
+#: inc/html.php:1599
 msgid "ban"
 msgstr ""
 
+#: inc/html.php:1599
 msgid "bans"
 msgstr ""
 
+#: inc/html.php:1625
 msgid "More Info"
 msgstr ""
 
+#: inc/html.php:1633
 msgid "Pending posts"
 msgstr ""
 
+#: inc/html.php:1649
 msgid "Recent posts"
 msgstr ""
 
+#: inc/html.php:1671
 msgid "Info"
 msgstr ""
-
-#~ msgid "Sorry, there is already a ban on record for that IP address."
-#~ msgstr "抱歉，此ID已被禁用。"
-
-#~ msgid "%s uploaded."
-#~ msgstr "%s 已上传。"
-
-#~ msgid "Ban record added for %s"
-#~ msgstr "添加了对 %s 的禁令"
-
-#~ msgid "Ban record lifted for %s"
-#~ msgstr "解除了对 %s 的禁令"
-
-#~ msgid "Post No.%d deleted."
-#~ msgstr "帖子 ID%d 已删除。"
-
-#~ msgid "Anonymous"
-#~ msgstr "匿名"
