@@ -1,6 +1,7 @@
 # TinyIB - Lightweight and efficient [imageboard](https://en.wikipedia.org/wiki/Imageboard)
 [![Translate](https://hosted.weblate.org/widgets/tinyib/-/tinyib/svg-badge.svg)](https://hosted.weblate.org/projects/tinyib/tinyib/)
-[![Donate](https://img.shields.io/liberapay/receives/rocketnine.space.svg?logo=liberapay)](https://liberapay.com/rocketnine.space)
+[![Donate via LiberaPay](https://img.shields.io/liberapay/receives/rocketnine.space.svg?logo=liberapay)](https://liberapay.com/rocketnine.space)
+[![Donate via Patreon](https://img.shields.io/badge/dynamic/json?color=%23e85b46&label=Patreon&query=data.attributes.patron_count&suffix=%20patrons&url=https%3A%2F%2Fwww.patreon.com%2Fapi%2Fcampaigns%2F5252223)](https://www.patreon.com/rocketnine)
 
 A [**read-only demo**](https://tinyib.rocketnine.space) is available.
 
@@ -32,21 +33,7 @@ A [**read-only demo**](https://tinyib.rocketnine.space) is available.
    - Post using raw HTML.
    - Upgrade automatically when installed via git.  (Tested on Linux only)
  - [Translations:](https://hosted.weblate.org/projects/tinyib/tinyib/)
-   - Chinese
-   - Dutch
-   - French
-   - German
-   - Indonesian
-   - Italian
-   - Japanese
-   - Korean
-   - Norwegian
-   - Polish
-   - Portuguese
-   - Romanian
-   - Russian
-   - Spanish (Mexico)
-   - Turkish
+   - Catalan, Chinese, Dutch, Finnish, French, German, Indonesian, Italian, Japanese, Korean, Norwegian, Polish, Portuguese, Romanian, Russian, Spanish (Mexico) and Turkish
 
 ## Donate
 

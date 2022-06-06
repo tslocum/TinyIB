@@ -1,0 +1,1144 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
+"POT-Creation-Date: 2021-08-05 11:29-0700\n"
+"PO-Revision-Date: 2022-05-11 11:15+0000\n"
+"Last-Translator: Charlie Towers <xtowersx@protonmail.com>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/tinyib/tinyib/ca/"
+">\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.12.1\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: imgboard.php\n"
+"X-Poedit-SearchPath-1: inc/functions.php\n"
+"X-Poedit-SearchPath-2: inc/html.php\n"
+
+#: imgboard.php:44
+msgid "Click here to go back"
+msgstr "Prem ací per tornar enrere"
+
+#: imgboard.php:70
+msgid "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured."
+msgstr "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  ha d'ésser configurat."
+
+#: imgboard.php:74
+msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
+msgstr ""
+"TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  ha d'ésser configurat."
+
+#: imgboard.php:82
+msgid "TINYIB_TRIPSEED must be configured."
+msgstr "TINYIB_TRIPSEED ha d'ésser configurat."
+
+#: imgboard.php:89 imgboard.php:991
+msgid "Unknown database mode specified."
+msgstr "Mode de base de dades desconegut."
+
+#: imgboard.php:250
+#, php-format
+msgid "Directory '%s' can not be written to.  Please modify its permissions."
+msgstr ""
+"Al directori '%s' no s'hi pot escriure.  Si us play modifica'n els permisos."
+
+#: imgboard.php:269
+msgid "Posting is currently disabled.<br>Please try again in a few moments."
+msgstr ""
+"La publicació actualment es troba desactivada.<br>Si us plau, torna a provar-"
+"ho d'aquí uns instants."
+
+#: imgboard.php:298 inc/functions.php:462
+msgid "Invalid parent thread ID supplied, unable to create post."
+msgstr "L'ID del fil pare és invàlid i no es pot crear la publicació."
+
+#: imgboard.php:300
+msgid "Replies are not allowed to locked threads."
+msgstr "Les respostes als fils blocats no són permeses."
+
+#: imgboard.php:377
+msgid "Your post contains a blocked keyword."
+msgstr "La teva publicació conté un mot blocat."
+
+#: imgboard.php:404 inc/html.php:1509 inc/html.php:1547
+msgid "Keyword"
+msgstr "Mot"
+
+#: imgboard.php:408
+#, php-format
+msgid "Your IP address (%1$s) is banned until %2$s."
+msgstr "La teva adreça IP (%1$s) es troba blocada fins %2$s."
+
+#: imgboard.php:410
+#, php-format
+msgid "Your IP address (%s) is permanently banned."
+msgstr "La teva adreça IP (%s) es troba permanentment blocada."
+
+#: imgboard.php:413 inc/html.php:1210 inc/html.php:1247
+msgid "Reason"
+msgstr "Raó"
+
+#: imgboard.php:424
+msgid "Embedding a URL and uploading a file at the same time is not supported."
+msgstr "Inserir una URL i, alhora, pujar un fitxer no és suportat."
+
+#: imgboard.php:430
+#, php-format
+msgid "Invalid embed URL. Only %s URLs are supported."
+msgstr "URL invàlida per a inserir. Només es suporten %s URLs."
+
+#: imgboard.php:435 imgboard.php:444 inc/functions.php:493
+#: inc/functions.php:875
+#, php-format
+msgid "That file is larger than %s."
+msgstr "Aquest fitxer és més gran de %s."
+
+#: imgboard.php:440 imgboard.php:450
+msgid "Failed to download file at specified URL."
+msgstr "La baixada del fitxer a l'URL especificat ha fallat."
+
+#: imgboard.php:472
+msgid "Error while processing audio/video."
+msgstr "Error mentre es processava àudio/vídeo."
+
+#: imgboard.php:479 inc/functions.php:900 inc/functions.php:911
+msgid "Could not create thumbnail."
+msgstr "No es pot crear la miniatura."
+
+#: imgboard.php:502
+msgid "upload a file or embed a URL"
+msgstr "puja un fitxer o insereix una URL"
+
+#: imgboard.php:504
+msgid "upload a file"
+msgstr "puja un fitxer"
+
+#: imgboard.php:506
+msgid "embed a URL"
+msgstr "insereix un URL"
+
+#: imgboard.php:509
+#, php-format
+msgid "Please %s to start a new thread."
+msgstr "Si us plau %s per a començar un nou fil."
+
+#: imgboard.php:515
+#, php-format
+msgid "Please enter a message and/or %s."
+msgstr "Si us plau, introdueix un missatge i/o %s."
+
+#: imgboard.php:517
+msgid "Please enter a message."
+msgstr "Si us plau, introdueix un missatge."
+
+#: imgboard.php:519
+#, php-format
+msgid "Please %s."
+msgstr "Si us plau %s."
+
+#: imgboard.php:525
+#, php-format
+msgid "Your %s will be shown <b>once it has been approved</b>."
+msgstr "El teu %s serà mostrat <b>després d'ésser aprovat</b>."
+
+#: imgboard.php:548
+msgid "Updating thread..."
+msgstr "Actualitzant el fil..."
+
+#: imgboard.php:561
+msgid "Updating index..."
+msgstr "Actualitzant l'índex..."
+
+#: imgboard.php:566
+msgid "Created staff post"
+msgstr "Publicació del personal creada"
+
+#: imgboard.php:572
+msgid "This post has been deleted"
+msgstr "Aquesta publicació ha estat eliminada"
+
+#: imgboard.php:574
+msgid "This post requires moderation before it can be displayed"
+msgstr "Aquesta publicació requereix moderació abans d'ésser mostrada"
+
+#: imgboard.php:587
+msgid "Automatic refreshing is disabled."
+msgstr "El refresc automàtic és desactivat."
+
+#: imgboard.php:612 imgboard.php:762
+msgid "Reporting is disabled."
+msgstr "El report és desactivat."
+
+#: imgboard.php:617 imgboard.php:716
+msgid ""
+"Sorry, an invalid post identifier was sent. Please go back, refresh the "
+"page, and try again."
+msgstr ""
+"Discupleu, s'ha enviat un identificador de publicació incorrecte. Si us "
+"plau, torneu enrere, recarregueu la plana i torneu a intentar-ho."
+
+#: imgboard.php:621
+msgid "Moderators have determined that post does not break any rules."
+msgstr "Els moderadors han decidit que aquesta publicació no trenca cap regla."
+
+#: imgboard.php:626
+msgid "You have already submitted a report for that post."
+msgstr "Ja has enviat un report per a aquesta publicació."
+
+#: imgboard.php:662 inc/html.php:227 inc/html.php:969
+msgid "(enter the text below)"
+msgstr "(introdueix el text de sota)"
+
+#: imgboard.php:666
+msgid "Please complete a CAPTCHA to submit your report"
+msgstr "Si us plau, completa el CAPTCHA per a poder enviar el teu report"
+
+#: imgboard.php:667 inc/html.php:117 inc/html.php:1113 inc/html.php:1165
+#: inc/html.php:1213 inc/html.php:1261
+msgid "Submit"
+msgstr "Envia"
+
+#: imgboard.php:689
+msgid "Post reported."
+msgstr "Publicació reportada."
+
+#: imgboard.php:693
+msgid "Tick the box next to a post and click \"Delete\" to delete it."
+msgstr ""
+"Marca la caixeta del costat de la publicació i prem \"Esborrar\" per a "
+"eliminar-la."
+
+#: imgboard.php:697
+msgid ""
+"Post deletion is currently disabled.<br>Please try again in a few moments."
+msgstr ""
+"L'eliminació de publicacions és desactivada.<br>Si us plau, torna a intentar-"
+"ho d'aquí uns instants."
+
+#: imgboard.php:724
+msgid "Post deleted."
+msgstr "Publicació eliminada."
+
+#: imgboard.php:726
+msgid "Invalid password."
+msgstr "Contrasenya invàlida."
+
+#: imgboard.php:757
+msgid "Rebuilt board."
+msgstr "Reconstruir l'imageboard."
+
+#: imgboard.php:767
+msgid "Access denied"
+msgstr "Accés denegat"
+
+#: imgboard.php:778
+msgid "Account not found."
+msgstr "No s'ha trobat el compte."
+
+#: imgboard.php:782 imgboard.php:1186
+msgid "This account may not be updated while TINYIB_ADMINPASS is set."
+msgstr ""
+"Aquest compte no ha d'ésser modificat mentre la variable TINYIB_ADMINPASS es "
+"trobi definida."
+
+#: imgboard.php:784 imgboard.php:1188
+msgid "This account may not be updated while TINYIB_MODPASS is set."
+msgstr ""
+"Aquest compte no hauria d'ésser actualitzat mentre la variable "
+"TINYIB_MODPASS es trobi definida."
+
+#: imgboard.php:790 imgboard.php:1193
+msgid "A password is required."
+msgstr "Es requereix una contrasenya."
+
+#: imgboard.php:801
+msgid "Invalid role."
+msgstr "Rol invàlid."
+
+#: imgboard.php:806
+#, php-format
+msgid "Added account %s"
+msgstr "El compte %s ha estat afegit"
+
+#: imgboard.php:807
+msgid "Added account"
+msgstr "Compte afegit"
+
+#: imgboard.php:811
+#, php-format
+msgid "Renamed account %1$s as %2$s"
+msgstr "El compte %1$s ha estat reanomenat a %2$s"
+
+#: imgboard.php:814
+#, php-format
+msgid "Changed password of account %s"
+msgstr "La contrasenya per al compte %s ha estat canviada"
+
+#: imgboard.php:820 inc/html.php:1161 inc/html.php:1186
+msgid "Super-administrator"
+msgstr "Súper-administrador"
+
+#: imgboard.php:823 inc/html.php:1162 inc/html.php:1189
+msgid "Administrator"
+msgstr "Administrador"
+
+#: imgboard.php:826 inc/html.php:1163 inc/html.php:1192
+msgid "Moderator"
+msgstr "Moderador"
+
+#: imgboard.php:829 inc/html.php:1164 inc/html.php:1195
+msgid "Disabled"
+msgstr "Desactivat"
+
+#: imgboard.php:832
+#, php-format
+msgid "Changed role of account %s to %s"
+msgstr "El rol del compte %s ha estat canviat a %s"
+
+#: imgboard.php:834
+msgid "Updated account"
+msgstr "Compte actualitzat"
+
+#: imgboard.php:863
+msgid "permanently"
+msgstr "permanentment"
+
+#: imgboard.php:865
+#, php-format
+msgid "until %s"
+msgstr "fins %s"
+
+#: imgboard.php:867
+#, php-format
+msgid "Banned %s %s"
+msgstr "Blocat %s %s"
+
+#: imgboard.php:869
+#, php-format
+msgid "Banned %s %s: %s"
+msgstr "Blocat %s %s: %s"
+
+#: imgboard.php:883
+#, php-format
+msgid "Added ban message to %s"
+msgstr "Missatge per blocatge afegit a %s"
+
+#: imgboard.php:895
+msgid "Banned 1 IP address"
+msgstr "1 adreça IP blocada"
+
+#: imgboard.php:897
+#, php-format
+msgid "Banned %d IP addresses"
+msgstr "%d adreces IP blocades"
+
+#: imgboard.php:903
+#, php-format
+msgid "Lifted ban on %s"
+msgstr "S'ha llevat el blocatge a %s"
+
+#: imgboard.php:920
+msgid "Sorry, that keyword has already been added."
+msgstr "Disculpeu, aquest mot ja havia estat afegit."
+
+#: imgboard.php:935 imgboard.php:939
+#, php-format
+msgid "Updated keyword %s"
+msgstr "Mot %s actualitzat"
+
+#: imgboard.php:936
+msgid "Keyword updated."
+msgstr "Mot actualitzat."
+
+#: imgboard.php:940
+msgid "Keyword added."
+msgstr "Mot afegit."
+
+#: imgboard.php:945
+msgid "That keyword does not exist."
+msgstr "Aquest mot no existeix."
+
+#: imgboard.php:954
+#, php-format
+msgid "Deleted keyword %s"
+msgstr "Mot eliminat %s"
+
+#: imgboard.php:955
+msgid "Keyword deleted."
+msgstr "Mot eliminat."
+
+#: imgboard.php:1066
+#, php-format
+msgid "Deleted %s"
+msgstr "%s eliminat"
+
+#: imgboard.php:1078
+msgid "Deleted 1 post"
+msgstr "1 publicació eliminada"
+
+#: imgboard.php:1080
+#, php-format
+msgid "Deleted %d posts"
+msgstr "%d publicacions eliminades"
+
+#: imgboard.php:1094 imgboard.php:1175
+msgid "Approved"
+msgstr "Aprovat"
+
+#: imgboard.php:1095 imgboard.php:1176
+#, php-format
+msgid "Post No.%d approved."
+msgstr "La publicació número %d ha estat aprovada."
+
+#: imgboard.php:1097 imgboard.php:1112 imgboard.php:1147 imgboard.php:1163
+#: imgboard.php:1178
+msgid "Sorry, there doesn't appear to be a post with that ID."
+msgstr "Disculpeu, no sembla que hi hagi cap publicació amb aquest ID."
+
+#: imgboard.php:1143 inc/html.php:467
+msgid "Stickied"
+msgstr "Fixat"
+
+#: imgboard.php:1143
+msgid "Unstickied"
+msgstr "Alliberat"
+
+#: imgboard.php:1150 imgboard.php:1166
+msgid "Form data was lost. Please go back and try again."
+msgstr ""
+"La informació del formulari s'ha perdut. Si us plau, torna enrere i prova-ho "
+"una altra vegada."
+
+#: imgboard.php:1159 inc/html.php:471
+msgid "Locked"
+msgstr "Blocat"
+
+#: imgboard.php:1159
+msgid "Unlocked"
+msgstr "Desblocat"
+
+#: imgboard.php:1195
+msgid "Passwords do not match."
+msgstr "Les contrasenyes no coincideixen."
+
+#: imgboard.php:1201
+msgid "Password updated"
+msgstr "La contrasenya ha estat actualitzada"
+
+#: inc/functions.php:321
+msgid "Please enter the CAPTCHA text."
+msgstr "Si us plau, introdueix el text del CAPTCHA."
+
+#: inc/functions.php:323
+msgid ""
+"Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
+"retrieve a new CAPTCHA."
+msgstr ""
+"El text del CAPTCHA introduït és incorrecte.  Si us plau, torna a intentar-"
+"ho.<br>Prem sobre la imatge per a obtenir un nou CAPTCHA."
+
+#: inc/functions.php:372
+#, php-format
+msgid ""
+"Please shorten your message, or post it in multiple parts. Your message is "
+"%1$d characters long, and the maximum allowed is %2$d."
+msgstr ""
+"Si us plau, escurça el teu missatge o bé publica'l en múltiples parts. El "
+"teu missatge conté %1$d caràcters i el màxim permès és %2$d."
+
+#: inc/functions.php:405
+msgid "Invalid key."
+msgstr "Clau invàlida."
+
+#: inc/functions.php:416
+msgid "Invalid username or password."
+msgstr "Usuari o contrasenya invàlids."
+
+#: inc/functions.php:496
+#, php-format
+msgid ""
+"The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
+msgstr ""
+"El fitxer pujat excedeix la directiva upload_max_filesize (%s) de php.ini."
+
+#: inc/functions.php:499
+msgid "The uploaded file was only partially uploaded."
+msgstr "El fitxer ha estat parcialment pujat."
+
+#: inc/functions.php:502
+msgid "No file was uploaded."
+msgstr "No s'ha pujat cap fitxer."
+
+#: inc/functions.php:505
+msgid "Missing a temporary folder."
+msgstr "Hi manca una carpeta temporal."
+
+#: inc/functions.php:508
+msgid "Failed to write file to disk"
+msgstr "Ha fallat l'escriptura del fitxer al disc"
+
+#: inc/functions.php:511
+msgid "Unable to save the uploaded file."
+msgstr "No s'ha pogut desar el fitxer pujat."
+
+#: inc/functions.php:519
+#, php-format
+msgid ""
+"Duplicate file uploaded. That file has already been posted <a href=\"%s"
+"\">here</a>."
+msgstr ""
+"S'ha pujat un fitxer duplicat. Aquest fitxer ja havia estat publicat <a href="
+"\"%s\">ací</a>."
+
+#: inc/functions.php:611 inc/functions.php:684
+msgid ""
+"Unable to read the uploaded file while creating its thumbnail. A common "
+"cause for this is an incorrect extension when the file is actually of a "
+"different type."
+msgstr ""
+"Ha estat impossible llegir el fitxer pujat mentre es creava la seva "
+"miniatura. Una causa habitual sol ser que contingui una extensió incorrecta "
+"per al tipus de fitxer."
+
+#: inc/functions.php:836
+msgid "File transfer failure. Please retry the submission."
+msgstr ""
+"Ha fallat la transferència del fitxer. Si us plau, reintenta l'enviament."
+
+#: inc/functions.php:845
+msgid ""
+"Failed to read the MIME type and size of the uploaded file. Please retry the "
+"submission."
+msgstr ""
+"Ha fallat la lectura del tipus MIME i de la mida del fitxer pujat. Si us "
+"plau, reintenta l'enviament."
+
+#: inc/functions.php:859 inc/functions.php:864
+msgid "Could not copy uploaded file."
+msgstr "No s'ha pogut copiar el fitxer pujat."
+
+#: inc/functions.php:872
+msgid "File transfer failure. Please go back and try again."
+msgstr ""
+"Ha fallat la transferència del fitxer. Si us plau, torna enrere i intenta-ho "
+"novament."
+
+#: inc/functions.php:928 inc/functions.php:951
+msgid "Sorry, your video appears to be corrupt."
+msgstr "Disculpa, el teu vídeo sembla corromput."
+
+#: inc/html.php:88
+#, php-format
+msgid "Supported file type is %s"
+msgstr "El tipus de fitxer suportat és %s"
+
+#: inc/html.php:91
+#, php-format
+msgid "Supported file types are %1$s and %2$s."
+msgstr "Els tipus de fitxers suportats són %1$s i %2$s."
+
+#: inc/html.php:152
+msgid "Raw HTML"
+msgstr "HTML cru"
+
+#: inc/html.php:153
+msgid "Enable"
+msgstr "Activa"
+
+#: inc/html.php:154
+msgid ""
+"Text entered in the Message field will be posted as is with no formatting "
+"applied."
+msgstr ""
+"El text introduït en el camp Missatge serà publicat tal comés i sense cap "
+"formatació aplicada."
+
+#: inc/html.php:155
+msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
+msgstr "Els salts de línia s'han d'especificar amb \"&lt;br&gt;\"."
+
+#: inc/html.php:157
+msgid "Reply to"
+msgstr "Respon a"
+
+#: inc/html.php:158
+msgid "0 to start a new thread"
+msgstr "0 per a començar un nou fil"
+
+#: inc/html.php:231
+msgid "CAPTCHA"
+msgstr "CAPTCHA"
+
+#: inc/html.php:247
+#, php-format
+msgid "Maximum file size allowed is %s."
+msgstr "La mida màxima de fitxer autoritzada és %s."
+
+#: inc/html.php:252 inc/html.php:484
+msgid "File"
+msgstr "Fitxer"
+
+#: inc/html.php:272 inc/html.php:484
+msgid "Embed"
+msgstr "Insereix"
+
+#: inc/html.php:275
+msgid "(paste a YouTube URL)"
+msgstr "(enganxa un URL de YouTube)"
+
+#: inc/html.php:290
+msgid "All posts are moderated before being shown."
+msgstr "Totes les publicacions són moderades abans d'ésser mostrades."
+
+#: inc/html.php:292
+msgid "All posts with a file attached are moderated before being shown."
+msgstr ""
+"Totes les publicacions amb fitxer adjunt són moderades abans d'ésser "
+"mostrades."
+
+#: inc/html.php:302
+#, php-format
+msgid "Images greater than %s will be thumbnailed."
+msgstr "Les imatges més grans de %s seran miniaturitzades."
+
+#: inc/html.php:307
+#, php-format
+msgid "Currently %s unique user posts."
+msgstr "Actualment %s publicacions úniques."
+
+#: inc/html.php:320
+msgid "Name"
+msgstr "Nom"
+
+#: inc/html.php:334
+msgid "E-mail"
+msgstr "E-mail"
+
+#: inc/html.php:348
+msgid "Subject"
+msgstr "Assumpte"
+
+#: inc/html.php:362 inc/html.php:1224
+msgid "Message"
+msgstr "Missatge"
+
+#: inc/html.php:381 inc/html.php:701 inc/html.php:1148
+msgid "Password"
+msgstr "Contrasenya"
+
+#: inc/html.php:382
+msgid "(for post and file deletion)"
+msgstr "(per a l'eliminació de publicació i fitxer)"
+
+#: inc/html.php:455 inc/html.php:1523 inc/html.php:1552
+msgid "Report"
+msgstr "Reporta"
+
+#: inc/html.php:592 inc/html.php:1358
+msgid "Reply"
+msgstr "Respon"
+
+#: inc/html.php:600
+msgid "Post truncated. Click Reply to view."
+msgstr "La publicació ha estat truncada. Prem Respon per a veure-la."
+
+#: inc/html.php:612
+msgid "1 post omitted. Click Reply to view."
+msgstr "S'ha omès 1 publicació. Prem Respon per a veure-ho."
+
+#: inc/html.php:614
+#, php-format
+msgid "%d posts omitted. Click Reply to view."
+msgstr "%d publicacions omeses. Prem Respon per a veure-ho."
+
+#: inc/html.php:634 inc/html.php:669 inc/html.php:681
+msgid "Catalog"
+msgstr "Catàleg"
+
+#: inc/html.php:635
+msgid "Manage"
+msgstr "Administra"
+
+#: inc/html.php:644
+msgid "Previous"
+msgstr "Previ"
+
+#: inc/html.php:657
+msgid "Next"
+msgstr "Següent"
+
+#: inc/html.php:681 inc/html.php:683 inc/html.php:867
+msgid "Return"
+msgstr "Recula"
+
+#: inc/html.php:683
+msgid "Posting mode: Reply"
+msgstr "Mode de publicació: Resposta"
+
+#: inc/html.php:700
+msgid "Style"
+msgstr "Estil"
+
+#: inc/html.php:702 inc/html.php:1525 inc/html.php:1558 inc/html.php:1582
+#: inc/html.php:1627
+msgid "Delete"
+msgstr "Esborra"
+
+#: inc/html.php:703
+msgid "Delete Post"
+msgstr "Esborra la publicació"
+
+#: inc/html.php:875
+msgid "Accounts"
+msgstr "Comptes"
+
+#: inc/html.php:877
+msgid "Bans"
+msgstr "Bloquejos"
+
+#: inc/html.php:878 inc/html.php:1510
+msgid "Keywords"
+msgstr "Mots"
+
+#: inc/html.php:880
+msgid "Migrate Database"
+msgstr "Migrar Base de Dades"
+
+#: inc/html.php:883
+msgid "Moderate Post"
+msgstr "Moderar Publicació"
+
+#: inc/html.php:885
+msgid "Moderation Log"
+msgstr "Històric de Moderació"
+
+#: inc/html.php:886
+msgid "Rebuild All"
+msgstr "Reconstrueix-ho tot"
+
+#: inc/html.php:888
+msgid "Reports"
+msgstr "Reports"
+
+#: inc/html.php:891
+msgid "Staff Post"
+msgstr "Publicació del Personal"
+
+#: inc/html.php:892 inc/html.php:1670
+msgid "Status"
+msgstr "Estat"
+
+#: inc/html.php:894 inc/html.php:1512
+msgid "Update"
+msgstr "Actualitza"
+
+#: inc/html.php:896 inc/html.php:1112
+msgid "Change Password"
+msgstr "Canvia la Contrasenya"
+
+#: inc/html.php:897
+msgid "Log Out"
+msgstr "Ix"
+
+#: inc/html.php:904
+msgid "Manage mode"
+msgstr "Mode d'Administració"
+
+#: inc/html.php:939
+msgid "Log In"
+msgstr "Identifica't"
+
+#: inc/html.php:940
+msgid "Enter a username and password"
+msgstr "Introdueix un nom d'usuari i una contrasenya"
+
+#: inc/html.php:1013
+msgid "No logs."
+msgstr "Sense històrics."
+
+#: inc/html.php:1016
+msgid "Moderation log"
+msgstr "Històric de moderació"
+
+#: inc/html.php:1069
+msgid "Reported posts"
+msgstr "Publicacions reportades"
+
+#: inc/html.php:1072
+#, php-format
+msgid "%1$d report by %2$s"
+msgstr "%1$d report per %2$s"
+
+#: inc/html.php:1074
+#, php-format
+msgid "%1$d reports by %2$s"
+msgstr "%1$d reports per %2$s"
+
+#: inc/html.php:1088
+#, php-format
+msgid "%d reports"
+msgstr "%d reports"
+
+#: inc/html.php:1091
+#, php-format
+msgid "Reported by %s"
+msgstr "Reportat per %s"
+
+#: inc/html.php:1094 inc/html.php:1657
+msgid "Moderate"
+msgstr "Modera"
+
+#: inc/html.php:1098
+msgid "There are currently no reported posts."
+msgstr "Actualment no hi ha cap publicació reportada."
+
+#: inc/html.php:1136
+msgid "Add an account"
+msgstr "Afegeix un compte"
+
+#: inc/html.php:1139
+msgid "Update an account"
+msgstr "Actualitza un compte"
+
+#: inc/html.php:1140
+msgid "Leave blank to maintain current password"
+msgstr "Deixa-ho en blanc per a conservar la contrasenya actual"
+
+#: inc/html.php:1147 inc/html.php:1180
+msgid "Username"
+msgstr "Nom d'usuari"
+
+#: inc/html.php:1149 inc/html.php:1180
+msgid "Role"
+msgstr "Rol"
+
+#: inc/html.php:1160
+msgid "Choose a role"
+msgstr "Tria un rol"
+
+#: inc/html.php:1180
+msgid "Last active"
+msgstr "Darrer actiu"
+
+#: inc/html.php:1182
+msgid "Never"
+msgstr "Mai"
+
+#: inc/html.php:1198
+msgid "update"
+msgstr "actualitza"
+
+#: inc/html.php:1206
+msgid "Add a ban"
+msgstr "Afegeix un blocatge"
+
+#: inc/html.php:1207
+msgid ""
+"Multiple IP addresses may be banned at once by separating each address with "
+"a comma."
+msgstr "Per a blocar múltiples adreces IP cal separar-les amb una coma."
+
+#: inc/html.php:1208 inc/html.php:1247
+msgid "IP Address"
+msgstr "Adreça IP"
+
+#: inc/html.php:1209
+msgid "Expire(sec)"
+msgstr "Expira(seg)"
+
+#: inc/html.php:1211
+msgid "never"
+msgstr "mai"
+
+#: inc/html.php:1212
+msgid "Optional."
+msgstr "Opcional."
+
+#: inc/html.php:1214
+msgid "1 hour"
+msgstr "1 hora"
+
+#: inc/html.php:1215
+msgid "1 day"
+msgstr "1 dia"
+
+#: inc/html.php:1216
+msgid "2 days"
+msgstr "2 dies"
+
+#: inc/html.php:1217
+msgid "1 week"
+msgstr "1 setmana"
+
+#: inc/html.php:1218
+msgid "2 weeks"
+msgstr "2 setmanes"
+
+#: inc/html.php:1219
+msgid "1 month"
+msgstr "1 mes"
+
+#: inc/html.php:1224
+msgid "Append a message to the post. Optional."
+msgstr "Afegeix un missatge a la publicació. Opcional."
+
+#: inc/html.php:1247
+msgid "Set At"
+msgstr "Estableix A"
+
+#: inc/html.php:1247
+msgid "Expires"
+msgstr "Expira"
+
+#: inc/html.php:1249
+msgid "Does not expire"
+msgstr "No expira"
+
+#: inc/html.php:1251
+msgid "lift"
+msgstr "lleva"
+
+#: inc/html.php:1259
+msgid "Moderate a post"
+msgstr "Modera una publicació"
+
+#: inc/html.php:1260
+msgid "Post ID"
+msgstr "ID de publicació"
+
+#: inc/html.php:1262
+msgid "Tip"
+msgstr "Consell"
+
+#: inc/html.php:1263
+msgid ""
+"While browsing the image board, you can easily moderate a post if you are "
+"logged in."
+msgstr ""
+"Mentre consultes l'imageboard, pots moderar fàcilment les publicacions si et "
+"trobes identificat."
+
+#: inc/html.php:1264
+msgid ""
+"Tick the box next to a post and click \"Delete\" at the bottom of the page "
+"with a blank password."
+msgstr ""
+"Marca la caixeta al costat d'una publicació i prem \"Esborra\" al peu de la "
+"plana amb la contrasenya en blanc."
+
+#: inc/html.php:1280
+#, php-format
+msgid "Moderate %d posts"
+msgstr "Modera %d publicacions"
+
+#: inc/html.php:1281
+msgid "Delete all"
+msgstr "Esborra-ho tot"
+
+#: inc/html.php:1282
+msgid "Ban all"
+msgstr "Bloca a tothom"
+
+#: inc/html.php:1284
+msgid "1 thread and 1 reply will be deleted."
+msgstr "1 fil i 1 resposta seran esborrades."
+
+#: inc/html.php:1286
+#, php-format
+msgid "1 thread and %d replies will be deleted."
+msgstr "1 fil i %d respostes seran esborrades."
+
+#: inc/html.php:1288
+#, php-format
+msgid "%d threads and 1 reply will be deleted."
+msgstr "%d fils i 1 resposta seran esborrats."
+
+#: inc/html.php:1290
+#, php-format
+msgid "%1$d threads and %2$d replies will be deleted."
+msgstr "%1$d fils i %2$d respostes seran esborrats."
+
+#: inc/html.php:1293
+msgid "1 IP address will be banned."
+msgstr "1 adreça IP serà blocada."
+
+#: inc/html.php:1295
+#, php-format
+msgid "%d IP addresses will be banned."
+msgstr "%d adreces IP seran blocades."
+
+#: inc/html.php:1349
+#, php-format
+msgid " A ban record already exists for %s"
+msgstr " %s ja es troba blocat"
+
+#: inc/html.php:1352
+msgid "Only an administrator may ban an IP address."
+msgstr "Només els administradors poden blocar una adreça IP."
+
+#: inc/html.php:1354
+#, php-format
+msgid "IP address: %s"
+msgstr "Adreça IP: %s"
+
+#: inc/html.php:1358
+msgid "Thread"
+msgstr "Fil"
+
+#: inc/html.php:1365
+msgid "1 reply will be deleted."
+msgstr "1 reposta serà esborrada."
+
+#: inc/html.php:1367
+#, php-format
+msgid "%d replies will be deleted."
+msgstr "%d respostes seran esborrades."
+
+#: inc/html.php:1371
+msgid "Belongs to "
+msgstr "Pertany a "
+
+#: inc/html.php:1378
+msgid "Un-sticky"
+msgstr "Allibera"
+
+#: inc/html.php:1378
+msgid "Sticky"
+msgstr "Fixa"
+
+#: inc/html.php:1379
+msgid "Return this thread to a normal state."
+msgstr "Retorna aquest fil a un estat normal."
+
+#: inc/html.php:1379
+msgid "Keep this thread at the top of the board."
+msgstr "Mantingues aquest fil al principi de l'imageboard."
+
+#: inc/html.php:1392
+msgid "Unlock"
+msgstr "Desprotegeix"
+
+#: inc/html.php:1392
+msgid "Lock"
+msgstr "Protegeix"
+
+#: inc/html.php:1393
+msgid "Allow replying to this thread."
+msgstr "Permet les respostes en aquest fil."
+
+#: inc/html.php:1393
+msgid "Disallow replying to this thread."
+msgstr "Prohibeix les respostes en aquest fil."
+
+#: inc/html.php:1407
+#, php-format
+msgid "Moderating No.%d"
+msgstr "Moderació No.%d"
+
+#: inc/html.php:1408 inc/html.php:1511 inc/html.php:1547
+msgid "Action"
+msgstr "Acció"
+
+#: inc/html.php:1410
+msgid "Delete thread"
+msgstr "Esborra fil"
+
+#: inc/html.php:1412
+msgid "Delete reply"
+msgstr "Esborra resposta"
+
+#: inc/html.php:1414
+msgid "Ban poster"
+msgstr "Bloca publicador"
+
+#: inc/html.php:1419 inc/html.php:1623
+msgid "Approve"
+msgstr "Aprova"
+
+#: inc/html.php:1420 inc/html.php:1597
+msgid "report"
+msgstr "reporta"
+
+#: inc/html.php:1420 inc/html.php:1597
+msgid "reports"
+msgstr "reports"
+
+#: inc/html.php:1498
+msgid "Sorry, there doesn't appear to be a keyword with that ID."
+msgstr "Disculpa, sembla que no hi ha cap mot amb aquest ID."
+
+#: inc/html.php:1512
+msgid "Add"
+msgstr "Afegeix"
+
+#: inc/html.php:1526 inc/html.php:1555
+msgid "Hide until approved"
+msgstr "Amaga fins que sigui aprovat"
+
+#: inc/html.php:1527 inc/html.php:1564
+msgid "Delete and ban for 1 hour"
+msgstr "Esborra i bloca per 1 hora"
+
+#: inc/html.php:1528 inc/html.php:1567
+msgid "Delete and ban for 1 day"
+msgstr "Esborra i bloca per 1 dia"
+
+#: inc/html.php:1529 inc/html.php:1570
+msgid "Delete and ban for 2 days"
+msgstr "Esborra i bloca per 2 dies"
+
+#: inc/html.php:1530 inc/html.php:1573
+msgid "Delete and ban for 1 week"
+msgstr "Esborra i bloca per 1 setmana"
+
+#: inc/html.php:1531 inc/html.php:1576
+msgid "Delete and ban for 2 weeks"
+msgstr "Esborra i bloca per 2 setmanes"
+
+#: inc/html.php:1532 inc/html.php:1579
+msgid "Delete and ban for 1 month"
+msgstr "Esborra i bloca per 1 mes"
+
+#: inc/html.php:1533 inc/html.php:1561
+msgid "Delete and ban permanently"
+msgstr "Esborra i bloca permanentment"
+
+#: inc/html.php:1582
+msgid "Edit"
+msgstr "Edita"
+
+#: inc/html.php:1595
+msgid "thread"
+msgstr "fil"
+
+#: inc/html.php:1595
+msgid "threads"
+msgstr "fils"
+
+#: inc/html.php:1599
+msgid "ban"
+msgstr "bloca"
+
+#: inc/html.php:1599
+msgid "bans"
+msgstr "bloquejos"
+
+#: inc/html.php:1625
+msgid "More Info"
+msgstr "Més Info"
+
+#: inc/html.php:1633
+msgid "Pending posts"
+msgstr "Publicacions pendents"
+
+#: inc/html.php:1649
+msgid "Recent posts"
+msgstr "Publicacions recents"
+
+#: inc/html.php:1671
+msgid "Info"
+msgstr "Info"
