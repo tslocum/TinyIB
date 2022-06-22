@@ -203,10 +203,10 @@ function convertLogsToSQLStyle($logs, $single = false) {
 
 function insertLog($l) {
 	$log = array();
-	$log['id'] = '0';
-	$log['timestamp'] = $l[LOG_TIMESTAMP];
-	$log['account'] = $l[LOG_ACCOUNT];
-	$log['message'] = $l[LOG_MESSAGE];
+	$log[LOG_ID] = '0';
+	$log[LOG_TIMESTAMP] = $l['timestamp'];
+	$log[LOG_ACCOUNT] = $l['account'];
+	$log[LOG_MESSAGE] = $l['message'];
 
 	$GLOBALS['db']->insertWithAutoId(LOGS_FILE, LOG_ID, $log);
 }
