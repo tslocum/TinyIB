@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2021-08-05 11:29-0700\n"
-"PO-Revision-Date: 2021-12-30 00:52+0000\n"
-"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
+"PO-Revision-Date: 2022-12-18 03:51+0000\n"
+"Last-Translator: Neko Nekowazarashi <kodra@nekoweb.my.id>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/tinyib/tinyib/"
 "id/>\n"
 "Language: id\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
@@ -257,7 +257,7 @@ msgstr "Kata sandi diperlukan."
 
 #: imgboard.php:801
 msgid "Invalid role."
-msgstr "Role tidak valid."
+msgstr "Peran tidak valid."
 
 #: imgboard.php:806
 #, php-format
@@ -325,7 +325,7 @@ msgstr "Alamat IP %s diblokir %s: %s"
 #: imgboard.php:883
 #, php-format
 msgid "Added ban message to %s"
-msgstr "Pesan larangan ke %s dibuat"
+msgstr "Pesan blokiran ke %s dibuat"
 
 #: imgboard.php:895
 msgid "Banned 1 IP address"
@@ -514,7 +514,7 @@ msgstr ""
 
 #: inc/functions.php:859 inc/functions.php:864
 msgid "Could not copy uploaded file."
-msgstr ""
+msgstr "Tidak dapat menyalin berkas yang diunggah."
 
 #: inc/functions.php:872
 msgid "File transfer failure. Please go back and try again."
@@ -554,7 +554,7 @@ msgstr ""
 
 #: inc/html.php:157
 msgid "Reply to"
-msgstr ""
+msgstr "Membalas ke"
 
 #: inc/html.php:158
 msgid "0 to start a new thread"
@@ -562,7 +562,7 @@ msgstr ""
 
 #: inc/html.php:231
 msgid "CAPTCHA"
-msgstr ""
+msgstr "CAPTCHA"
 
 #: inc/html.php:247
 #, php-format
@@ -571,7 +571,7 @@ msgstr ""
 
 #: inc/html.php:252 inc/html.php:484
 msgid "File"
-msgstr ""
+msgstr "Berkas"
 
 #: inc/html.php:272 inc/html.php:484
 msgid "Embed"
@@ -579,7 +579,7 @@ msgstr ""
 
 #: inc/html.php:275
 msgid "(paste a YouTube URL)"
-msgstr ""
+msgstr "(tempel URL YouTube)"
 
 #: inc/html.php:290
 msgid "All posts are moderated before being shown."
@@ -601,23 +601,23 @@ msgstr ""
 
 #: inc/html.php:320
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: inc/html.php:334
 msgid "E-mail"
-msgstr ""
+msgstr "Surel"
 
 #: inc/html.php:348
 msgid "Subject"
-msgstr ""
+msgstr "Subjek"
 
 #: inc/html.php:362 inc/html.php:1224
 msgid "Message"
-msgstr ""
+msgstr "Pesan"
 
 #: inc/html.php:381 inc/html.php:701 inc/html.php:1148
 msgid "Password"
-msgstr ""
+msgstr "Kata Sandi"
 
 #: inc/html.php:382
 msgid "(for post and file deletion)"
@@ -625,11 +625,11 @@ msgstr ""
 
 #: inc/html.php:455 inc/html.php:1523 inc/html.php:1552
 msgid "Report"
-msgstr ""
+msgstr "Laporan"
 
 #: inc/html.php:592 inc/html.php:1358
 msgid "Reply"
-msgstr ""
+msgstr "Balasan"
 
 #: inc/html.php:600
 msgid "Post truncated. Click Reply to view."
@@ -646,23 +646,23 @@ msgstr ""
 
 #: inc/html.php:634 inc/html.php:669 inc/html.php:681
 msgid "Catalog"
-msgstr ""
+msgstr "Katalog"
 
 #: inc/html.php:635
 msgid "Manage"
-msgstr ""
+msgstr "Kelola"
 
 #: inc/html.php:644
 msgid "Previous"
-msgstr ""
+msgstr "Sebelumnya"
 
 #: inc/html.php:657
 msgid "Next"
-msgstr ""
+msgstr "Selanjutnya"
 
 #: inc/html.php:681 inc/html.php:683 inc/html.php:867
 msgid "Return"
-msgstr ""
+msgstr "Kembali"
 
 #: inc/html.php:683
 msgid "Posting mode: Reply"
@@ -670,20 +670,20 @@ msgstr ""
 
 #: inc/html.php:700
 msgid "Style"
-msgstr ""
+msgstr "Gaya"
 
 #: inc/html.php:702 inc/html.php:1525 inc/html.php:1558 inc/html.php:1582
 #: inc/html.php:1627
 msgid "Delete"
-msgstr ""
+msgstr "Hapus"
 
 #: inc/html.php:703
 msgid "Delete Post"
-msgstr ""
+msgstr "Hapus pos"
 
 #: inc/html.php:875
 msgid "Accounts"
-msgstr ""
+msgstr "Akun"
 
 #: inc/html.php:877
 msgid "Bans"
@@ -691,11 +691,11 @@ msgstr ""
 
 #: inc/html.php:878 inc/html.php:1510
 msgid "Keywords"
-msgstr ""
+msgstr "Kata Kunci"
 
 #: inc/html.php:880
 msgid "Migrate Database"
-msgstr ""
+msgstr "Migrasi Basis Data"
 
 #: inc/html.php:883
 msgid "Moderate Post"
@@ -711,7 +711,7 @@ msgstr ""
 
 #: inc/html.php:888
 msgid "Reports"
-msgstr ""
+msgstr "Laporan"
 
 #: inc/html.php:891
 msgid "Staff Post"
@@ -719,43 +719,43 @@ msgstr ""
 
 #: inc/html.php:892 inc/html.php:1670
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: inc/html.php:894 inc/html.php:1512
 msgid "Update"
-msgstr ""
+msgstr "Perbarui"
 
 #: inc/html.php:896 inc/html.php:1112
 msgid "Change Password"
-msgstr ""
+msgstr "Ubah Kata Sandi"
 
 #: inc/html.php:897
 msgid "Log Out"
-msgstr ""
+msgstr "Keluar"
 
 #: inc/html.php:904
 msgid "Manage mode"
-msgstr ""
+msgstr "Mode kelola"
 
 #: inc/html.php:939
 msgid "Log In"
-msgstr ""
+msgstr "Masuk"
 
 #: inc/html.php:940
 msgid "Enter a username and password"
-msgstr ""
+msgstr "Masukkan nama pengguna dan kata sandi"
 
 #: inc/html.php:1013
 msgid "No logs."
-msgstr ""
+msgstr "Tidak ada log."
 
 #: inc/html.php:1016
 msgid "Moderation log"
-msgstr ""
+msgstr "Log moderasi"
 
 #: inc/html.php:1069
 msgid "Reported posts"
-msgstr ""
+msgstr "Pos yang dilaporkan"
 
 #: inc/html.php:1072
 #, php-format
@@ -770,12 +770,12 @@ msgstr ""
 #: inc/html.php:1088
 #, php-format
 msgid "%d reports"
-msgstr ""
+msgstr "%d laporan"
 
 #: inc/html.php:1091
 #, php-format
 msgid "Reported by %s"
-msgstr ""
+msgstr "Dilaporkan oleh %s"
 
 #: inc/html.php:1094 inc/html.php:1657
 msgid "Moderate"
@@ -787,11 +787,11 @@ msgstr ""
 
 #: inc/html.php:1136
 msgid "Add an account"
-msgstr ""
+msgstr "Tambahkan akun"
 
 #: inc/html.php:1139
 msgid "Update an account"
-msgstr ""
+msgstr "Perbarui akun"
 
 #: inc/html.php:1140
 msgid "Leave blank to maintain current password"
@@ -799,19 +799,19 @@ msgstr ""
 
 #: inc/html.php:1147 inc/html.php:1180
 msgid "Username"
-msgstr ""
+msgstr "Nama Pengguna"
 
 #: inc/html.php:1149 inc/html.php:1180
 msgid "Role"
-msgstr ""
+msgstr "Peran"
 
 #: inc/html.php:1160
 msgid "Choose a role"
-msgstr ""
+msgstr "Pilih peran"
 
 #: inc/html.php:1180
 msgid "Last active"
-msgstr ""
+msgstr "Terakhir aktif"
 
 #: inc/html.php:1182
 msgid "Never"
@@ -819,7 +819,7 @@ msgstr ""
 
 #: inc/html.php:1198
 msgid "update"
-msgstr ""
+msgstr "perbarui"
 
 #: inc/html.php:1206
 msgid "Add a ban"
@@ -833,43 +833,43 @@ msgstr ""
 
 #: inc/html.php:1208 inc/html.php:1247
 msgid "IP Address"
-msgstr ""
+msgstr "Alamat IP"
 
 #: inc/html.php:1209
 msgid "Expire(sec)"
-msgstr ""
+msgstr "Kedaluwarsa(detik)"
 
 #: inc/html.php:1211
 msgid "never"
-msgstr ""
+msgstr "tidak pernah"
 
 #: inc/html.php:1212
 msgid "Optional."
-msgstr ""
+msgstr "Opsional."
 
 #: inc/html.php:1214
 msgid "1 hour"
-msgstr ""
+msgstr "1 jam"
 
 #: inc/html.php:1215
 msgid "1 day"
-msgstr ""
+msgstr "1 hari"
 
 #: inc/html.php:1216
 msgid "2 days"
-msgstr ""
+msgstr "2 hari"
 
 #: inc/html.php:1217
 msgid "1 week"
-msgstr ""
+msgstr "1 pekan"
 
 #: inc/html.php:1218
 msgid "2 weeks"
-msgstr ""
+msgstr "2 pekan"
 
 #: inc/html.php:1219
 msgid "1 month"
-msgstr ""
+msgstr "1 bulan"
 
 #: inc/html.php:1224
 msgid "Append a message to the post. Optional."
@@ -877,15 +877,15 @@ msgstr ""
 
 #: inc/html.php:1247
 msgid "Set At"
-msgstr ""
+msgstr "Diatur pada"
 
 #: inc/html.php:1247
 msgid "Expires"
-msgstr ""
+msgstr "Kedaluwarsa"
 
 #: inc/html.php:1249
 msgid "Does not expire"
-msgstr ""
+msgstr "Tidak akan kedaluwarsa"
 
 #: inc/html.php:1251
 msgid "lift"
@@ -897,7 +897,7 @@ msgstr ""
 
 #: inc/html.php:1260
 msgid "Post ID"
-msgstr ""
+msgstr "ID pos"
 
 #: inc/html.php:1262
 msgid "Tip"
@@ -908,6 +908,8 @@ msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
 "logged in."
 msgstr ""
+"Ketika menjelajah, Anda bisa dengan mudah memoderasi pos jika Anda telah "
+"masuk."
 
 #: inc/html.php:1264
 msgid ""
@@ -918,43 +920,43 @@ msgstr ""
 #: inc/html.php:1280
 #, php-format
 msgid "Moderate %d posts"
-msgstr ""
+msgstr "Moderasi %d pos"
 
 #: inc/html.php:1281
 msgid "Delete all"
-msgstr ""
+msgstr "Hapus semua"
 
 #: inc/html.php:1282
 msgid "Ban all"
-msgstr ""
+msgstr "Blokir semua"
 
 #: inc/html.php:1284
 msgid "1 thread and 1 reply will be deleted."
-msgstr ""
+msgstr "1 utas dan 1 balasan akan dihapus."
 
 #: inc/html.php:1286
 #, php-format
 msgid "1 thread and %d replies will be deleted."
-msgstr ""
+msgstr "1 utas dan %d balasan akan dihapus."
 
 #: inc/html.php:1288
 #, php-format
 msgid "%d threads and 1 reply will be deleted."
-msgstr ""
+msgstr "%d utas dan 1 balasan akan dihapus."
 
 #: inc/html.php:1290
 #, php-format
 msgid "%1$d threads and %2$d replies will be deleted."
-msgstr ""
+msgstr "%1$d utas dan %2$d balasan akan dihapus."
 
 #: inc/html.php:1293
 msgid "1 IP address will be banned."
-msgstr ""
+msgstr "1 alamat IP akan diblokir."
 
 #: inc/html.php:1295
 #, php-format
 msgid "%d IP addresses will be banned."
-msgstr ""
+msgstr "%d alamat IP akan diblokir."
 
 #: inc/html.php:1349
 #, php-format
@@ -963,7 +965,7 @@ msgstr ""
 
 #: inc/html.php:1352
 msgid "Only an administrator may ban an IP address."
-msgstr ""
+msgstr "Hanya administrator yang bisa memblokir alamat IP."
 
 #: inc/html.php:1354
 #, php-format
@@ -976,12 +978,12 @@ msgstr "Utas"
 
 #: inc/html.php:1365
 msgid "1 reply will be deleted."
-msgstr ""
+msgstr "1 balasan akan dihapus."
 
 #: inc/html.php:1367
 #, php-format
 msgid "%d replies will be deleted."
-msgstr ""
+msgstr "%d balasan akan dihapus."
 
 #: inc/html.php:1371
 msgid "Belongs to "
@@ -1013,7 +1015,7 @@ msgstr "Kunci"
 
 #: inc/html.php:1393
 msgid "Allow replying to this thread."
-msgstr ""
+msgstr "Perbolehkan membalas ke utas ini."
 
 #: inc/html.php:1393
 msgid "Disallow replying to this thread."
@@ -1042,15 +1044,15 @@ msgstr ""
 
 #: inc/html.php:1419 inc/html.php:1623
 msgid "Approve"
-msgstr ""
+msgstr "Setujui"
 
 #: inc/html.php:1420 inc/html.php:1597
 msgid "report"
-msgstr ""
+msgstr "laporan"
 
 #: inc/html.php:1420 inc/html.php:1597
 msgid "reports"
-msgstr ""
+msgstr "laporan"
 
 #: inc/html.php:1498
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
@@ -1098,7 +1100,7 @@ msgstr "Ubah"
 
 #: inc/html.php:1595
 msgid "thread"
-msgstr "Utas"
+msgstr "utas"
 
 #: inc/html.php:1595
 msgid "threads"
