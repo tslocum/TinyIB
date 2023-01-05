@@ -1368,7 +1368,7 @@ function manageModeratePost($post, $compact=false) {
 			}
 		}
 	} else {
-		$delete_info = __('Belongs to ' . postLink('&gt;&gt;' . $post['id']) . '.');
+		$delete_info = sprintf(__('Belongs to %s'), postLink('&gt;&gt;' . $post['id']));
 	}
 
 	$sticky_html = "";

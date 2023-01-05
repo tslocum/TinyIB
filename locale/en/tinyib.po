@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-05 11:29-0700\n"
-"PO-Revision-Date: 2021-08-05 11:29-0700\n"
+"POT-Creation-Date: 2023-01-05 10:20-0800\n"
+"PO-Revision-Date: 2023-01-05 10:20-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -17,201 +17,201 @@ msgstr ""
 "X-Poedit-SearchPath-1: inc/functions.php\n"
 "X-Poedit-SearchPath-2: inc/html.php\n"
 
-#: imgboard.php:44
+#: imgboard.php:41
 msgid "Click here to go back"
 msgstr ""
 
-#: imgboard.php:70
+#: imgboard.php:62
 msgid "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured."
 msgstr ""
 
-#: imgboard.php:74
+#: imgboard.php:66
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
 msgstr ""
 
-#: imgboard.php:82
+#: imgboard.php:74
 msgid "TINYIB_TRIPSEED must be configured."
 msgstr ""
 
-#: imgboard.php:89 imgboard.php:991
+#: imgboard.php:81 imgboard.php:991
 msgid "Unknown database mode specified."
 msgstr ""
 
-#: imgboard.php:250
+#: imgboard.php:242
 #, php-format
 msgid "Directory '%s' can not be written to.  Please modify its permissions."
 msgstr ""
 
-#: imgboard.php:269
+#: imgboard.php:263
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
 msgstr ""
 
-#: imgboard.php:298 inc/functions.php:462
+#: imgboard.php:292 inc/functions.php:482
 msgid "Invalid parent thread ID supplied, unable to create post."
 msgstr ""
 
-#: imgboard.php:300
+#: imgboard.php:294
 msgid "Replies are not allowed to locked threads."
 msgstr ""
 
-#: imgboard.php:377
+#: imgboard.php:371
 msgid "Your post contains a blocked keyword."
 msgstr ""
 
-#: imgboard.php:404 inc/html.php:1509 inc/html.php:1547
+#: imgboard.php:398 inc/html.php:1509 inc/html.php:1547
 msgid "Keyword"
 msgstr ""
 
-#: imgboard.php:408
+#: imgboard.php:402
 #, php-format
 msgid "Your IP address (%1$s) is banned until %2$s."
 msgstr ""
 
-#: imgboard.php:410
+#: imgboard.php:404
 #, php-format
 msgid "Your IP address (%s) is permanently banned."
 msgstr ""
 
-#: imgboard.php:413 inc/html.php:1210 inc/html.php:1247
+#: imgboard.php:407 inc/html.php:1210 inc/html.php:1247
 msgid "Reason"
 msgstr ""
 
-#: imgboard.php:424
+#: imgboard.php:418
 msgid "Embedding a URL and uploading a file at the same time is not supported."
 msgstr ""
 
-#: imgboard.php:430
+#: imgboard.php:424
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
 msgstr ""
 
-#: imgboard.php:435 imgboard.php:444 inc/functions.php:493
-#: inc/functions.php:875
+#: imgboard.php:429 imgboard.php:438 inc/functions.php:513
+#: inc/functions.php:895
 #, php-format
 msgid "That file is larger than %s."
 msgstr ""
 
-#: imgboard.php:440 imgboard.php:450
+#: imgboard.php:434 imgboard.php:444
 msgid "Failed to download file at specified URL."
 msgstr ""
 
-#: imgboard.php:472
+#: imgboard.php:466
 msgid "Error while processing audio/video."
 msgstr ""
 
-#: imgboard.php:479 inc/functions.php:900 inc/functions.php:911
+#: imgboard.php:473 inc/functions.php:920 inc/functions.php:931
 msgid "Could not create thumbnail."
 msgstr ""
 
-#: imgboard.php:502
+#: imgboard.php:496
 msgid "upload a file or embed a URL"
 msgstr ""
 
-#: imgboard.php:504
+#: imgboard.php:498
 msgid "upload a file"
 msgstr ""
 
-#: imgboard.php:506
+#: imgboard.php:500
 msgid "embed a URL"
 msgstr ""
 
-#: imgboard.php:509
+#: imgboard.php:503
 #, php-format
 msgid "Please %s to start a new thread."
 msgstr ""
 
-#: imgboard.php:515
+#: imgboard.php:509
 #, php-format
 msgid "Please enter a message and/or %s."
 msgstr ""
 
-#: imgboard.php:517
+#: imgboard.php:511
 msgid "Please enter a message."
 msgstr ""
 
-#: imgboard.php:519
+#: imgboard.php:513
 #, php-format
 msgid "Please %s."
 msgstr ""
 
-#: imgboard.php:525
+#: imgboard.php:519
 #, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
 msgstr ""
 
-#: imgboard.php:548
+#: imgboard.php:542
 msgid "Updating thread..."
 msgstr ""
 
-#: imgboard.php:561
+#: imgboard.php:555
 msgid "Updating index..."
 msgstr ""
 
-#: imgboard.php:566
+#: imgboard.php:560
 msgid "Created staff post"
 msgstr ""
 
-#: imgboard.php:572
+#: imgboard.php:566
 msgid "This post has been deleted"
 msgstr ""
 
-#: imgboard.php:574
+#: imgboard.php:568
 msgid "This post requires moderation before it can be displayed"
 msgstr ""
 
-#: imgboard.php:587
+#: imgboard.php:581
 msgid "Automatic refreshing is disabled."
 msgstr ""
 
-#: imgboard.php:612 imgboard.php:762
+#: imgboard.php:608 imgboard.php:762
 msgid "Reporting is disabled."
 msgstr ""
 
-#: imgboard.php:617 imgboard.php:716
+#: imgboard.php:613 imgboard.php:714
 msgid ""
 "Sorry, an invalid post identifier was sent. Please go back, refresh the "
 "page, and try again."
 msgstr ""
 
-#: imgboard.php:621
+#: imgboard.php:617
 msgid "Moderators have determined that post does not break any rules."
 msgstr ""
 
-#: imgboard.php:626
+#: imgboard.php:622
 msgid "You have already submitted a report for that post."
 msgstr ""
 
-#: imgboard.php:662 inc/html.php:227 inc/html.php:969
+#: imgboard.php:658 inc/html.php:227 inc/html.php:969
 msgid "(enter the text below)"
 msgstr ""
 
-#: imgboard.php:666
+#: imgboard.php:662
 msgid "Please complete a CAPTCHA to submit your report"
 msgstr ""
 
-#: imgboard.php:667 inc/html.php:117 inc/html.php:1113 inc/html.php:1165
+#: imgboard.php:663 inc/html.php:117 inc/html.php:1113 inc/html.php:1165
 #: inc/html.php:1213 inc/html.php:1261
 msgid "Submit"
 msgstr ""
 
-#: imgboard.php:689
+#: imgboard.php:685
 msgid "Post reported."
 msgstr ""
 
-#: imgboard.php:693
+#: imgboard.php:691
 msgid "Tick the box next to a post and click \"Delete\" to delete it."
 msgstr ""
 
-#: imgboard.php:697
+#: imgboard.php:695
 msgid ""
 "Post deletion is currently disabled.<br>Please try again in a few moments."
 msgstr ""
 
-#: imgboard.php:724
+#: imgboard.php:722
 msgid "Post deleted."
 msgstr ""
 
-#: imgboard.php:726
+#: imgboard.php:724
 msgid "Invalid password."
 msgstr ""
 
@@ -411,90 +411,90 @@ msgstr ""
 msgid "Password updated"
 msgstr ""
 
-#: inc/functions.php:321
+#: inc/functions.php:341
 msgid "Please enter the CAPTCHA text."
 msgstr ""
 
-#: inc/functions.php:323
+#: inc/functions.php:343
 msgid ""
 "Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
 "retrieve a new CAPTCHA."
 msgstr ""
 
-#: inc/functions.php:372
+#: inc/functions.php:392
 #, php-format
 msgid ""
 "Please shorten your message, or post it in multiple parts. Your message is "
 "%1$d characters long, and the maximum allowed is %2$d."
 msgstr ""
 
-#: inc/functions.php:405
+#: inc/functions.php:425
 msgid "Invalid key."
 msgstr ""
 
-#: inc/functions.php:416
+#: inc/functions.php:436
 msgid "Invalid username or password."
 msgstr ""
 
-#: inc/functions.php:496
+#: inc/functions.php:516
 #, php-format
 msgid ""
 "The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
 msgstr ""
 
-#: inc/functions.php:499
+#: inc/functions.php:519
 msgid "The uploaded file was only partially uploaded."
 msgstr ""
 
-#: inc/functions.php:502
+#: inc/functions.php:522
 msgid "No file was uploaded."
 msgstr ""
 
-#: inc/functions.php:505
+#: inc/functions.php:525
 msgid "Missing a temporary folder."
 msgstr ""
 
-#: inc/functions.php:508
+#: inc/functions.php:528
 msgid "Failed to write file to disk"
 msgstr ""
 
-#: inc/functions.php:511
+#: inc/functions.php:531
 msgid "Unable to save the uploaded file."
 msgstr ""
 
-#: inc/functions.php:519
+#: inc/functions.php:539
 #, php-format
 msgid ""
-"Duplicate file uploaded. That file has already been posted <a href=\"%s"
-"\">here</a>."
+"Duplicate file uploaded. That file has already been posted <a "
+"href=\"%s\">here</a>."
 msgstr ""
 
-#: inc/functions.php:611 inc/functions.php:684
+#: inc/functions.php:631 inc/functions.php:704
 msgid ""
 "Unable to read the uploaded file while creating its thumbnail. A common "
 "cause for this is an incorrect extension when the file is actually of a "
 "different type."
 msgstr ""
 
-#: inc/functions.php:836
+#: inc/functions.php:856
 msgid "File transfer failure. Please retry the submission."
 msgstr ""
 
-#: inc/functions.php:845
+#: inc/functions.php:865
 msgid ""
 "Failed to read the MIME type and size of the uploaded file. Please retry the "
 "submission."
 msgstr ""
 
-#: inc/functions.php:859 inc/functions.php:864
+#: inc/functions.php:879 inc/functions.php:884
 msgid "Could not copy uploaded file."
 msgstr ""
 
-#: inc/functions.php:872
+#: inc/functions.php:892
 msgid "File transfer failure. Please go back and try again."
 msgstr ""
 
-#: inc/functions.php:928 inc/functions.php:951
+#: inc/functions.php:948 inc/functions.php:971
 msgid "Sorry, your video appears to be corrupt."
 msgstr ""
 
@@ -958,7 +958,8 @@ msgid "%d replies will be deleted."
 msgstr ""
 
 #: inc/html.php:1371
-msgid "Belongs to "
+#, php-format
+msgid "Belongs to %s"
 msgstr ""
 
 #: inc/html.php:1378
