@@ -108,7 +108,7 @@ if (!$result->fetchArray()) {
 if (function_exists('insertPost')) {
 	function migrateAccount($account) {
 		global $db;
-		$db->exec("INSERT INTO " . TINYIB_DBACCOUNTS . " (id, username, password, role, lastactive) VALUES (" . $db->escapeString($account['id']) . ", '" . $db->escapeString($account['username']) . "', " . $db->escapeString($account['password']) . ", " . $db->escapeString($account['role']) . ", '" . $db->escapeString($account['lastactive']) . "')");
+		$db->exec("INSERT INTO " . TINYIB_DBACCOUNTS . " (id, username, password, role, lastactive) VALUES (" . $db->escapeString($account['id']) . ", '" . $db->escapeString($account['username']) . "', '" . $db->escapeString($account['password']) . "', " . $db->escapeString($account['role']) . ", '" . $db->escapeString($account['lastactive']) . "')");
 	}
 
 	function migrateBan($ban) {

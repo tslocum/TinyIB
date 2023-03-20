@@ -128,6 +128,15 @@ function getLogs($offset, $limit) {
 	return $logs;
 }
 
+function allLogs() {
+	$logs = array();
+	$result = sqlite_fetch_all(sqlite_query($GLOBALS["db"], "SELECT * FROM " . TINYIB_DBLOGS . " ORDER BY timestamp ASC"), SQLITE_ASSOC);
+	foreach ($result as $log) {
+		$logs[] = $log;
+	}
+	return $logs;
+}
+
 function insertLog($log) {
 	sqlite_query($GLOBALS["db"], "INSERT INTO " . TINYIB_DBLOGS . " (timestamp, account, message) VALUES ('" . sqlite_escape_string($log['timestamp']) . "', '" . sqlite_escape_string($log['account']) . "', '" . sqlite_escape_string($log['message']) . "')");
 }

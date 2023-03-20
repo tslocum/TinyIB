@@ -147,6 +147,17 @@ function getLogs($offset, $limit) {
 	return $logs;
 }
 
+function allLogs() {
+        $logs = array();
+        $result = mysql_query("SELECT * FROM `" . TINYIB_DBLOGS . "` ORDER BY `timestamp` ASC");
+        if ($result) {
+                while ($log = mysql_fetch_assoc($result)) {
+                        $logs[] = $log;
+                }
+        }
+        return $logs;
+}
+
 function insertLog($log) {
 	mysql_query("INSERT INTO `" . TINYIB_DBLOGS . "` (`timestamp`, `account`, `message`) VALUES ('" . mysql_real_escape_string($log['timestamp']) . "', '" . mysql_real_escape_string($log['account']) . "', '" . mysql_real_escape_string($log['message']) . "')");
 }

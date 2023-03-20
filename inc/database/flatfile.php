@@ -184,6 +184,11 @@ function getLogs($offset, $limit) {
 	return convertLogsToSQLStyle($rows);
 }
 
+function allLogs() {
+	$rows = $GLOBALS['db']->selectWhere(LOGS_FILE, NULL, -1, new OrderBy(LOG_TIMESTAMP, ASCENDING, INTEGER_COMPARISON));
+	return convertLogsToSQLStyle($rows);
+}
+
 function convertLogsToSQLStyle($logs, $single = false) {
 	$newlogs = array();
 	foreach ($logs as $l) {

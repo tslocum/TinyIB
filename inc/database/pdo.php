@@ -124,6 +124,15 @@ function getLogs($offset, $limit) {
 	return $logs;
 }
 
+function allLogs() {
+	$logs = array();
+	$results = pdoQuery("SELECT * FROM " . TINYIB_DBLOGS . " ORDER BY timestamp ASC");
+	while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+		$logs[] = $row;
+	}
+	return $logs;
+}
+
 function insertLog($log) {
 	global $dbh;
 	$stm = $dbh->prepare("INSERT INTO " . TINYIB_DBLOGS . " (timestamp, account, message) VALUES (?, ?, ?)");

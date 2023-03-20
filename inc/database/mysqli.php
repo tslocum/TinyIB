@@ -168,6 +168,18 @@ function getLogs($offset, $limit) {
 	return $logs;
 }
 
+function allLogs() {
+	global $link;
+	$logs = array();
+	$result = mysqli_query($link, "SELECT * FROM `" . TINYIB_DBLOGS . "` ORDER BY `timestamp` ASC");
+	if ($result) {
+		while ($log = mysqli_fetch_assoc($result)) {
+			$logs[] = $log;
+		}
+	}
+	return $logs;
+}
+
 function insertLog($log) {
 	global $link;
 	mysqli_query($link, "INSERT INTO `" . TINYIB_DBLOGS . "` (`timestamp`, `account`, `message`) VALUES ('" . mysqli_real_escape_string($link, $log['timestamp']) . "', '" . mysqli_real_escape_string($link, $log['account']) . "', '" . mysqli_real_escape_string($link, $log['message']) . "')");

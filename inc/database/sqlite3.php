@@ -147,6 +147,16 @@ function getLogs($offset, $limit) {
 	return $logs;
 }
 
+function allLogs() {
+	global $db;
+	$logs = array();
+	$result = $db->query("SELECT * FROM " . TINYIB_DBLOGS . " ORDER BY timestamp ASC");
+	while ($log = $result->fetchArray()) {
+		$logs[] = $log;
+	}
+	return $logs;
+}
+
 function insertLog($log) {
 	global $db;
 	$db->exec("INSERT INTO " . TINYIB_DBLOGS . " (timestamp, account, message) VALUES ('" . $db->escapeString($log['timestamp']) . "', '" . $db->escapeString($log['account']) . "', '" . $db->escapeString($log['message']) . "')");
