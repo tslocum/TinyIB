@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-08-05 11:29-0700\n"
+"POT-Creation-Date: 2023-01-05 10:20-0800\n"
 "PO-Revision-Date: 2021-08-30 06:32+0000\n"
 "Last-Translator: Warichas <warichas@protonmail.com>\n"
 "Language-Team: Spanish (Mexico) <https://hosted.weblate.org/projects/tinyib/"
@@ -344,8 +344,8 @@ msgid ""
 "Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
 "retrieve a new CAPTCHA."
 msgstr ""
-"El texto ingresado del CAPTCHA es incorrecto. Por favor inténtelo de "
-"nuevo.<br>Haga click en la imagen para obtener un nuevo CAPTCHA."
+"El texto ingresado del CAPTCHA es incorrecto. Por favor inténtelo de nuevo."
+"<br>Haga click en la imagen para obtener un nuevo CAPTCHA."
 
 #, php-format
 msgid ""
@@ -777,8 +777,9 @@ msgstr "1 respuesta será eliminada."
 msgid "%d replies will be deleted."
 msgstr "%d respuestas serán eliminadas."
 
-msgid "Belongs to "
-msgstr "Pertenece a "
+#, php-format
+msgid "Belongs to %s"
+msgstr ""
 
 msgid "Un-sticky"
 msgstr "Dejar de fijar"
@@ -885,6 +886,9 @@ msgstr "Posts recientes"
 
 msgid "Info"
 msgstr "Información"
+
+#~ msgid "Belongs to "
+#~ msgstr "Pertenece a "
 
 #~ msgid "Created raw post"
 #~ msgstr "Crear publicación bruta"

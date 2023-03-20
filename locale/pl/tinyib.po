@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-08-05 11:29-0700\n"
+"POT-Creation-Date: 2023-01-05 10:20-0800\n"
 "PO-Revision-Date: 2021-06-02 23:32+0000\n"
 "Last-Translator: Grzegorz Kowalski <grzegorz.adam.kowalski@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/tinyib/tinyib/pl/"
@@ -770,8 +770,9 @@ msgstr "1 odpowiedź zostanie usunięta."
 msgid "%d replies will be deleted."
 msgstr "%d odpowiedzi zostaną usunięte."
 
-msgid "Belongs to "
-msgstr "Należy do "
+#, php-format
+msgid "Belongs to %s"
+msgstr ""
 
 msgid "Un-sticky"
 msgstr ""
@@ -878,6 +879,9 @@ msgstr "Najnowsze posty"
 
 msgid "Info"
 msgstr ""
+
+#~ msgid "Belongs to "
+#~ msgstr "Należy do "
 
 #~ msgid "Created raw post"
 #~ msgstr "Utworzono nieprzetworzony post"

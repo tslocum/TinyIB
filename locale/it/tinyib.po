@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
-"POT-Creation-Date: 2021-08-05 11:29-0700\n"
+"POT-Creation-Date: 2023-01-05 10:20-0800\n"
 "PO-Revision-Date: 2020-11-14 21:28+0000\n"
 "Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/tinyib/tinyib/it/"
@@ -755,7 +755,8 @@ msgstr ""
 msgid "%d replies will be deleted."
 msgstr ""
 
-msgid "Belongs to "
+#, php-format
+msgid "Belongs to %s"
 msgstr ""
 
 msgid "Un-sticky"
