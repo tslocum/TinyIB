@@ -1,5 +1,4 @@
 # Change Log
-
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
@@ -7,123 +6,220 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Previous releases are documented in [github releases](https://github.com/oscarotero/Gettext/releases)
 
-## [5.6.1] - 2021-12-04
+## [4.8.11] - 2023-08-14
 ### Fixed
-- PHP 8.1 support [#278].
+- PHP 5.4 support [#289]
 
-## [5.6.0] - 2021-11-05
-### Added
-- New method `addFlag` to `ParsedFunction`, that allows to assign flags by scanners.
-- The `FunctionsHandlersTrait` has an abstract `addFlags` method.
-
+## [4.8.10] - 2023-08-10
 ### Fixed
-- Subsequent load file fails [#257] [#276]
-- Upgraded some dependencies in `dev`.
+- Previous version was tagged with the incorrect branch.
 
-## [5.5.4] - 2020-12-20
+## [4.8.9] - 2023-08-10
 ### Fixed
-- TypeError in which numeric entries were converted to integers [#265]
+- PHP 8.1 deprecation warning [#289]
 
-## [5.5.3] - 2020-12-01
+## [4.8.8] - 2022-12-08
 ### Fixed
-- Add PHP 8 to composer.json
+- PHP functions prefixed with a slash are being ignored [#284], [#288]
 
-## [5.5.2] - 2020-11-17
+## [4.8.7] - 2022-08-02
 ### Fixed
-- Parse of multiline disabled translations [#262] [#263]
+- Suppress deprecation error on PHP 8.1 [#280]
 
-## [5.5.1] - 2020-06-08
+## [4.8.6] - 2021-10-19
 ### Fixed
-- Type error in which numeric filenames were converted to integers [#260]
+- Parse PO files with multiline disabled entries [#274]
 
-## [5.5.0] - 2020-05-23
-### Added
-- New option `addReferences()` to configure the code scanners whether add or not references [#258]
+## [4.8.5] - 2021-07-13
+### Fixed
+- Prevent adding the same translator comment to multiple functions [#271]
 
+## [4.8.4] - 2021-03-10
+### Fixed
+- PHP 8 compatibilty [#266]
+
+## [4.8.3] - 2020-11-18
+### Fixed
+- Blade extractor for Laravel8/Jetstream [#261]
+
+## [4.8.2] - 2019-12-02
+### Fixed
+- UTF-8 handling for VueJs extractor [#242]
+
+## [4.8.1] - 2019-11-15
+### Fixed
+- Php error when scanning for a single domain but other string found [#238]
+
+## [4.8.0] - 2019-11-04
 ### Changed
-- BREAKING: Moved some code from `CodeScanner` to the new `FunctionsHandlersTrait` in order to better reuse.
-
-## [5.4.1] - 2020-03-15
-### Fixed
-- PoGenerator includes the description and flags of the translations [#253]
-
-## [5.4.0] - 2020-03-07
-### Added
-- Added `_` function to the list of functions scanned by default
-- Added `Translations::setDescription()` and `Translations::getDescription()` methods [#251]
-- Added `Translations::getFlags()` that returns a `Flags` object to assign flags to the entire po file [#251]
-
-## [5.3.0] - 2020-02-18
-### Added
-- `Comments::delete()` and `Flags::delete()` methods [#247]
-
-## [5.2.2] - 2020-02-09
-### Fixed
-- MoLoader with plurals [#246]
-
-## [5.2.1] - 2019-12-08
-### Fixed
-- Multiline string in PoGenerator [#244]
-
-## [5.2.0] - 2019-11-25
-### Added
-- New function `CodeScanner::extractCommentsStartingWith()` to extract comments from the code.
-
-## [5.1.0] - 2019-11-11
-### Added
-- New function `CodeScanner::ignoreInvalidFunctions()` to ignore invalid functions instead throw an exception
-
-## 5.0.0 - 2019-11-04
-### Added
-- New interfaces: `ScannerInterface` and `FunctionsScannerInterface`.
-
-### Changed
-- Moved the package and dependencies to [php-gettext](https://github.com/php-gettext) organization
-- Minimum PHP version supported is 7.2
-- Added php7 strict typing
-- Extractors have been split into two different types of classes to import translations:
-  - Scanners: To scan code files (like php, javascript, twig, etc) in order to collect gettext entries from many domains at the same time.
-  - Loaders: To load a translation format such po, mo, json, xliff, etc
-- Split the `Translation` and `Translations` classes in different sub-classes to handle comments, flags, references, etc. For example, instead `$translation->addComment('foo')` now it's `$translation->getComments()->add('foo')`.
-- Simplified the options to merge translations with pre-configured options like `Merged::SCAN_AND_LOAD`.
-- The headers of translations are always sorted alphabetically.
-- Changed the signature of all classes and interfaces.
-
-### Removed
-- Extractors (now scanners and loaders), generators and translators were removed from this package and published as external packages, allowing to install only those that you need. Only Po and Mo formats are included by default.
-- Removed magic classes like `Translations::fromPoFile` or `$translation->toMoFile()`. Now, the scanners, loaders and generators are independent classes that have to be instantiated.
-- Removed `Merge::LANGUAGE_OVERRIDE` and `Merge::DOMAIN_OVERRIDE` contants
+- Many `private` properties and methods were changed to `protected` in order to improve the extensibility [#231]
 
 ### Fixed
-- Improved code quality
-- The library is easier to extend
-- Translation id can be independent of the context + original values, in order to be more compatible with Xliff format.
+- PHP 7.4 support [#230]
 
-[#244]: https://github.com/php-gettext/Gettext/issues/244
-[#246]: https://github.com/php-gettext/Gettext/issues/246
-[#247]: https://github.com/php-gettext/Gettext/issues/247
-[#251]: https://github.com/php-gettext/Gettext/issues/251
-[#253]: https://github.com/php-gettext/Gettext/issues/253
-[#257]: https://github.com/php-gettext/Gettext/issues/257
-[#258]: https://github.com/php-gettext/Gettext/issues/258
-[#260]: https://github.com/php-gettext/Gettext/issues/260
-[#262]: https://github.com/php-gettext/Gettext/issues/262
-[#263]: https://github.com/php-gettext/Gettext/issues/263
-[#265]: https://github.com/php-gettext/Gettext/issues/265
-[#276]: https://github.com/php-gettext/Gettext/issues/276
-[#278]: https://github.com/php-gettext/Gettext/issues/278
+## [4.7.0] - 2019-10-07
+### Added
+- Support for UnitID in Xliff [#221] [#224] [#225]
+- Support for scan multiple domains at the same time [#223]
 
-[5.6.1]: https://github.com/php-gettext/Gettext/compare/v5.6.0...v5.6.1
-[5.6.0]: https://github.com/php-gettext/Gettext/compare/v5.5.4...v5.6.0
-[5.5.4]: https://github.com/php-gettext/Gettext/compare/v5.5.3...v5.5.4
-[5.5.3]: https://github.com/php-gettext/Gettext/compare/v5.5.2...v5.5.3
-[5.5.2]: https://github.com/php-gettext/Gettext/compare/v5.5.1...v5.5.2
-[5.5.1]: https://github.com/php-gettext/Gettext/compare/v5.5.0...v5.5.1
-[5.5.0]: https://github.com/php-gettext/Gettext/compare/v5.4.1...v5.5.0
-[5.4.1]: https://github.com/php-gettext/Gettext/compare/v5.4.0...v5.4.1
-[5.4.0]: https://github.com/php-gettext/Gettext/compare/v5.3.0...v5.4.0
-[5.3.0]: https://github.com/php-gettext/Gettext/compare/v5.2.2...v5.3.0
-[5.2.2]: https://github.com/php-gettext/Gettext/compare/v5.2.1...v5.2.2
-[5.2.1]: https://github.com/php-gettext/Gettext/compare/v5.2.0...v5.2.1
-[5.2.0]: https://github.com/php-gettext/Gettext/compare/v5.1.0...v5.2.0
-[5.1.0]: https://github.com/php-gettext/Gettext/compare/v5.0.0...v5.1.0
+### Fixed
+- New lines in windows [#218] [#226]
+
+## [4.6.3] - 2019-07-15
+### Added
+- Some VueJs extraction improvements and additions [#205], [#213]
+
+### Fixed
+- Multiline extractions in jsCode [#200]
+- Support for js template literals [#214]
+- Fixed tabs in PHP comments [#215]
+
+## [4.6.2] - 2019-01-12
+### Added
+- New option `facade` in blade extractor to use a facade instead create a blade compiler [#197], [#198]
+
+### Fixed
+- Added php-7.3 to travis
+- Added VueJS extractor method docblocks for IDEs [#191]
+
+## [4.6.1] - 2018-08-27
+### Fixed
+- VueJS DOM parsing [#188]
+- Javascript parser was unable to extract some functions [#187]
+
+## [4.6.0] - 2018-06-26
+### Added
+- New extractor for VueJs [#178]
+
+### Fixed
+- Do not include empty translations containing the headers in the translator [#182]
+- Test enhancement [#177]
+
+## [4.5.0] - 2018-04-23
+### Added
+- Support for disabled translations
+
+### Fixed
+- Added php-7.2 to travis
+- Fixed po tests on bigendian [#159]
+- Improved comment estraction [#166]
+- Fixed incorrect docs to dn__ function [#170]
+- Ignored phpcs.xml file on export [#168]
+- Improved `@method` docs in `Translations` [#175]
+
+## [4.4.4] - 2018-02-21
+### Fixed
+- Changed the comment extraction to be compatible with gettext behaviour: the comment must be placed in the line preceding the function [#161]
+
+### Security
+- Validate eval input from plural forms [#156]
+
+## [4.4.3] - 2017-08-09
+### Fixed
+- Handle `NULL` arguments on extract entries in php. For example `dn__(null, 'singular', 'plural')`.
+- Fixed the `PhpCode` and `JsCode` extractors that didn't extract `dn__` and `dngettext` entries [#155].
+- Fixed the `PhpCode` and `JsCode` extractors that didn't extract `dnpgettext` correctly.
+
+## [4.4.2] - 2017-07-27
+### Fixed
+- Clone the translations in `Translations::mergeWith` to prevent that the translation is referenced in both places. [#152]
+- Fixed escaped quotes in the javascript extractor [#154]
+
+## [4.4.1] - 2017-05-20
+### Fixed
+- Fixed a bug where the options was not passed correctly to the merging Translations object [#147]
+- Unified the plural behaviours between PHP gettext and Translator when the plural translation is unknown [#148]
+- Removed the deprecated function `create_function()` and use `eval()` instead
+
+## [4.4.0] - 2017-05-10
+### Added
+- New option `noLocation` to po generator, to omit the references [#143]
+- New options `delimiter`, `enclosure` and `escape_char` to Csv and CsvDictionary extractors and generators [#145]
+- Added the missing `dn__()` function [#146]
+
+### Fixed
+- Improved the code style including php_codesniffer in development
+
+## [4.3.0] - 2017-03-04
+### Added
+- Added support for named placeholders (using `strtr`). For example:
+  ```php
+  __('Hello :name', [':name' => 'World']);
+  ```
+- Added support for Twig v2
+- New function `BaseTranslator::includeFunctions()` to include the functions file without register any translator
+
+### Fixed
+- Fixed a bug related with the javascript source extraction with single quotes
+
+[#143]: https://github.com/oscarotero/Gettext/issues/143
+[#145]: https://github.com/oscarotero/Gettext/issues/145
+[#146]: https://github.com/oscarotero/Gettext/issues/146
+[#147]: https://github.com/oscarotero/Gettext/issues/147
+[#148]: https://github.com/oscarotero/Gettext/issues/148
+[#152]: https://github.com/oscarotero/Gettext/issues/152
+[#154]: https://github.com/oscarotero/Gettext/issues/154
+[#155]: https://github.com/oscarotero/Gettext/issues/155
+[#156]: https://github.com/oscarotero/Gettext/issues/156
+[#159]: https://github.com/oscarotero/Gettext/issues/159
+[#161]: https://github.com/oscarotero/Gettext/issues/161
+[#166]: https://github.com/oscarotero/Gettext/issues/166
+[#168]: https://github.com/oscarotero/Gettext/issues/168
+[#170]: https://github.com/oscarotero/Gettext/issues/170
+[#175]: https://github.com/oscarotero/Gettext/issues/175
+[#177]: https://github.com/oscarotero/Gettext/issues/177
+[#178]: https://github.com/oscarotero/Gettext/issues/178
+[#182]: https://github.com/oscarotero/Gettext/issues/182
+[#187]: https://github.com/oscarotero/Gettext/issues/187
+[#188]: https://github.com/oscarotero/Gettext/issues/188
+[#191]: https://github.com/oscarotero/Gettext/issues/191
+[#197]: https://github.com/oscarotero/Gettext/issues/197
+[#198]: https://github.com/oscarotero/Gettext/issues/198
+[#200]: https://github.com/oscarotero/Gettext/issues/200
+[#205]: https://github.com/oscarotero/Gettext/issues/205
+[#213]: https://github.com/oscarotero/Gettext/issues/213
+[#214]: https://github.com/oscarotero/Gettext/issues/214
+[#215]: https://github.com/oscarotero/Gettext/issues/215
+[#218]: https://github.com/oscarotero/Gettext/issues/218
+[#221]: https://github.com/oscarotero/Gettext/issues/221
+[#223]: https://github.com/oscarotero/Gettext/issues/223
+[#224]: https://github.com/oscarotero/Gettext/issues/224
+[#225]: https://github.com/oscarotero/Gettext/issues/225
+[#226]: https://github.com/oscarotero/Gettext/issues/226
+[#230]: https://github.com/oscarotero/Gettext/issues/230
+[#231]: https://github.com/oscarotero/Gettext/issues/231
+[#238]: https://github.com/oscarotero/Gettext/issues/238
+[#242]: https://github.com/oscarotero/Gettext/issues/242
+[#261]: https://github.com/oscarotero/Gettext/issues/261
+[#266]: https://github.com/oscarotero/Gettext/issues/266
+[#271]: https://github.com/oscarotero/Gettext/issues/271
+[#274]: https://github.com/oscarotero/Gettext/issues/274
+[#280]: https://github.com/oscarotero/Gettext/issues/280
+[#284]: https://github.com/oscarotero/Gettext/issues/284
+[#288]: https://github.com/oscarotero/Gettext/issues/288
+[#289]: https://github.com/oscarotero/Gettext/issues/289
+
+[4.8.11]: https://github.com/oscarotero/Gettext/compare/v4.8.10...v4.8.11
+[4.8.10]: https://github.com/oscarotero/Gettext/compare/v4.8.9...v4.8.10
+[4.8.9]: https://github.com/oscarotero/Gettext/compare/v4.8.8...v4.8.9
+[4.8.8]: https://github.com/oscarotero/Gettext/compare/v4.8.7...v4.8.8
+[4.8.7]: https://github.com/oscarotero/Gettext/compare/v4.8.6...v4.8.7
+[4.8.6]: https://github.com/oscarotero/Gettext/compare/v4.8.5...v4.8.6
+[4.8.5]: https://github.com/oscarotero/Gettext/compare/v4.8.4...v4.8.5
+[4.8.4]: https://github.com/oscarotero/Gettext/compare/v4.8.3...v4.8.4
+[4.8.3]: https://github.com/oscarotero/Gettext/compare/v4.8.2...v4.8.3
+[4.8.2]: https://github.com/oscarotero/Gettext/compare/v4.8.1...v4.8.2
+[4.8.1]: https://github.com/oscarotero/Gettext/compare/v4.8.0...v4.8.1
+[4.8.0]: https://github.com/oscarotero/Gettext/compare/v4.7.0...v4.8.0
+[4.7.0]: https://github.com/oscarotero/Gettext/compare/v4.6.3...v4.7.0
+[4.6.3]: https://github.com/oscarotero/Gettext/compare/v4.6.2...v4.6.3
+[4.6.2]: https://github.com/oscarotero/Gettext/compare/v4.6.1...v4.6.2
+[4.6.1]: https://github.com/oscarotero/Gettext/compare/v4.6.0...v4.6.1
+[4.6.0]: https://github.com/oscarotero/Gettext/compare/v4.5.0...v4.6.0
+[4.5.0]: https://github.com/oscarotero/Gettext/compare/v4.4.4...v4.5.0
+[4.4.4]: https://github.com/oscarotero/Gettext/compare/v4.4.3...v4.4.4
+[4.4.3]: https://github.com/oscarotero/Gettext/compare/v4.4.2...v4.4.3
+[4.4.2]: https://github.com/oscarotero/Gettext/compare/v4.4.1...v4.4.2
+[4.4.1]: https://github.com/oscarotero/Gettext/compare/v4.4.0...v4.4.1
+[4.4.0]: https://github.com/oscarotero/Gettext/compare/v4.3.0...v4.4.0
+[4.3.0]: https://github.com/oscarotero/Gettext/releases/tag/v4.3.0
