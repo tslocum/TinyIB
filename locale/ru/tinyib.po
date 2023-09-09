@@ -3,17 +3,17 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2023-01-05 10:20-0800\n"
-"PO-Revision-Date: 2022-10-07 03:26+0000\n"
-"Last-Translator: oleh postnikov <isdavarice@gmail.com>\n"
+"PO-Revision-Date: 2023-04-17 17:50+0000\n"
+"Last-Translator: AHOHNMYC <lqwh2h2cwa@protonmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tinyib/tinyib/ru/"
 ">\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.14.1\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.17\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -94,7 +94,7 @@ msgstr "загрузите файл"
 msgid "embed a URL"
 msgstr "вложите URL"
 
-#, fuzzy, php-format
+#, php-format
 msgid "Please %s to start a new thread."
 msgstr "Пожалуйста, %s, чтобы начать новую тему."
 
@@ -345,7 +345,7 @@ msgstr ""
 "вашем сообщении %1$d символов, максимальный лимит символов – %2$d."
 
 msgid "Invalid key."
-msgstr ""
+msgstr "Неверный ключ."
 
 msgid "Invalid username or password."
 msgstr "Неверное имя пользователя или пароль."
@@ -354,6 +354,7 @@ msgstr "Неверное имя пользователя или пароль."
 msgid ""
 "The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
 msgstr ""
+"Загружаемый файл превышает директиву upload_max_filesize (%s) в php.ini."
 
 msgid "The uploaded file was only partially uploaded."
 msgstr "Загруженный файл был загружен частично."
@@ -459,7 +460,7 @@ msgstr ""
 "Все посты с прикрепленными файлами проходят модерацию, прежде чем появиться "
 "на странице."
 
-#, fuzzy, php-format
+#, php-format
 msgid "Images greater than %s will be thumbnailed."
 msgstr "Для изображений больше чем %s будут созданы миниатюры."
 
@@ -494,11 +495,10 @@ msgstr "Ответить"
 msgid "Post truncated. Click Reply to view."
 msgstr "Пост обрезан. Нажмите Ответить, чтобы просмотреть."
 
-#, fuzzy
 msgid "1 post omitted. Click Reply to view."
 msgstr "1 пост пропущен. Нажмите Ответить, чтобы просмотреть."
 
-#, fuzzy, php-format
+#, php-format
 msgid "%d posts omitted. Click Reply to view."
 msgstr "%d постов пропущено. Нажмите Ответить, чтобы просмотреть"
 
@@ -549,7 +549,7 @@ msgid "Moderation Log"
 msgstr "Журнал модерации"
 
 msgid "Rebuild All"
-msgstr ""
+msgstr "Пересобрать всё"
 
 msgid "Reports"
 msgstr "Жалобы"
@@ -653,9 +653,8 @@ msgstr "Заканчивается(сек)"
 msgid "never"
 msgstr "никогда"
 
-#, fuzzy
 msgid "Optional."
-msgstr "Опционально."
+msgstr "Не обязательно."
 
 msgid "1 hour"
 msgstr "1 час"
@@ -678,9 +677,8 @@ msgstr "1 месяц"
 msgid "Append a message to the post. Optional."
 msgstr "Добавьте сообщение к посту (опционально)."
 
-#, fuzzy
 msgid "Set At"
-msgstr "Установить"
+msgstr "Установить на"
 
 msgid "Expires"
 msgstr "Заканчивается"
@@ -697,7 +695,6 @@ msgstr "Модерировать пост"
 msgid "Post ID"
 msgstr "ID поста"
 
-#, fuzzy
 msgid "Tip"
 msgstr "Подсказка"
 
@@ -720,7 +717,6 @@ msgstr "Модерировать %d постов"
 msgid "Delete all"
 msgstr "Удалить все"
 
-#, fuzzy
 msgid "Ban all"
 msgstr "Забанить всех"
 
@@ -746,7 +742,7 @@ msgstr "Будет забанен 1 IP адрес."
 msgid "%d IP addresses will be banned."
 msgstr "Будет забанено %d IP адресов."
 
-#, fuzzy, php-format
+#, php-format
 msgid " A ban record already exists for %s"
 msgstr " Запись о бане для %s уже существует"
 
@@ -769,7 +765,7 @@ msgstr "%d ответов будут удалены."
 
 #, php-format
 msgid "Belongs to %s"
-msgstr ""
+msgstr "Принадлежит %s"
 
 msgid "Un-sticky"
 msgstr "Открепить"
