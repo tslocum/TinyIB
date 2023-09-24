@@ -70,7 +70,7 @@ function pageFooter() {
 
 	return <<<EOF
 		<div class="footer">
-			- <a href="http://www.2chan.net" target="_blank">futaba</a> + <a href="http://www.1chan.net" target="_blank">futallaby</a> + <a href="https://code.rocketnine.space/tslocum/tinyib" target="_blank">tinyib</a> -
+			- <a href="http://www.2chan.net" target="_blank">futaba</a> + <a href="http://www.1chan.net" target="_blank">futallaby</a> + <a href="https://code.rocket9labs.com/tslocum/tinyib" target="_blank">tinyib</a> -
 		</div>
 	</body>
 </html>

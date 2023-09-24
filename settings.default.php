@@ -1,10 +1,10 @@
 <?php
 /*
 TinyIB
-https://code.rocketnine.space/tslocum/tinyib
+https://code.rocket9labs.com/tslocum/tinyib
 
 Support:
-https://code.rocketnine.space/tslocum/tinyib/issues
+https://code.rocket9labs.com/tslocum/tinyib/issues
 
 See README for instructions on configuring, moderating and upgrading your board.
 
