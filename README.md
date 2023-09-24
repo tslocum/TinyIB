@@ -81,6 +81,7 @@ support in mind.
       - Set ``TINYIB_THUMBNAIL`` to ``imagemagick``.
       - **Note:** GIF files will have animated thumbnails, which will often have large file sizes.
     - To use TINYIB in another language, set ``TINYIB_LOCALE`` to a language code found in `locale/`.
+      - **Note:** The [mbstring](https://www.php.net/manual/en/book.mbstring.php) PHP extension must be installed and enabled for TinyIB to properly support operating on and rendering text in any language other than English.
  6. [CHMOD](https://en.wikipedia.org/wiki/Chmod) write permissions to these directories:
     - ./ (the directory containing TinyIB)
     - ./src/

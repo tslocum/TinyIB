@@ -594,9 +594,9 @@ EOF;
 		$return .= backlinks($post);
 	}
 
-	if (TINYIB_TRUNCATE > 0 && !$res && substr_count($post['message'], '<br>') > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
+	if (TINYIB_TRUNCATE > 0 && !$res && _substr_count($post['message'], '<br>') > TINYIB_TRUNCATE) { // Truncate messages on board index pages for readability
 		$br_offsets = strallpos($post['message'], '<br>');
-		$post['message'] = substr($post['message'], 0, $br_offsets[TINYIB_TRUNCATE - 1]);
+		$post['message'] = _substr($post['message'], 0, $br_offsets[TINYIB_TRUNCATE - 1]);
 		$post['message'] .= '<br><span class="omittedposts">' . __('Post truncated. Click Reply to view.') . '</span><br>';
 	}
 	$return .= <<<EOF
@@ -762,7 +762,7 @@ function buildCatalogPost($post) {
 EOF;
 	}
 	$replies = numRepliesToThreadByID($post['id']);
-	$subject = trim($post['subject']) != '' ? $post['subject'] : substr(trim(str_ireplace("\n", '', strip_tags($post['message']))), 0, 75);
+	$subject = trim($post['subject']) != '' ? $post['subject'] : _substr(trim(str_ireplace("\n", '', strip_tags($post['message']))), 0, 75);
 
 	return <<<EOF
 <div class="catalogpost" style="max-width: {$maxwidth}px;">

@@ -3,6 +3,8 @@ if (!defined('TINYIB_BOARD')) {
 	die('');
 }
 
+$multibyte_enabled = function_exists('mb_strlen');
+
 if (!function_exists('array_column')) {
 	function array_column($array, $column_name) {
 		return array_map(function ($element) use ($column_name) {
@@ -22,6 +24,38 @@ function lockDatabase() {
 		fancyDie('Failed to lock control file.');
 	}
 	return $fp;
+}
+
+function _strlen($string) {
+	global $multibyte_enabled;
+	if ($multibyte_enabled) {
+		return mb_strlen($string);
+	}
+	return strlen($string);
+}
+
+function _strpos($haystack, $needle, $offset=0) {
+	global $multibyte_enabled;
+	if ($multibyte_enabled) {
+		return mb_strpos($haystack, $needle, $offset);
+	}
+	return strpos($haystack, $needle, $offset);
+}
+
+function _substr($string, $start, $length=null) {
+	global $multibyte_enabled;
+	if ($multibyte_enabled) {
+		return mb_substr($string, $start, $length);
+	}
+	return substr($string, $start, $length);
+}
+
+function _substr_count($haystack, $needle) {
+	global $multibyte_enabled;
+	if ($multibyte_enabled) {
+		return mb_substr_count($haystack, $needle);
+	}
+	return substr_count($haystack, $needle);
 }
 
 function hashData($data, $force = false) {
@@ -388,8 +422,8 @@ function checkFlood() {
 }
 
 function checkMessageSize() {
-	if (TINYIB_MAXMESSAGE > 0 && strlen($_POST['message']) > TINYIB_MAXMESSAGE) {
-		fancyDie(sprintf(__('Please shorten your message, or post it in multiple parts. Your message is %1$d characters long, and the maximum allowed is %2$d.'), strlen($_POST['message']), TINYIB_MAXMESSAGE));
+	if (TINYIB_MAXMESSAGE > 0 && _strlen($_POST['message']) > TINYIB_MAXMESSAGE) {
+		fancyDie(sprintf(__('Please shorten your message, or post it in multiple parts. Your message is %1$d characters long, and the maximum allowed is %2$d.'), _strlen($_POST['message']), TINYIB_MAXMESSAGE));
 	}
 }
 
@@ -793,8 +827,8 @@ function addVideoOverlay($thumb_location) {
 
 function strallpos($haystack, $needle, $offset = 0) {
 	$result = array();
-	for ($i = $offset; $i < strlen($haystack); $i++) {
-		$pos = strpos($haystack, $needle, $i);
+	for ($i = $offset; $i < _strlen($haystack); $i++) {
+		$pos = _strpos($haystack, $needle, $i);
 		if ($pos !== False) {
 			$offset = $pos;
 			if ($offset >= $i) {
@@ -900,7 +934,7 @@ function attachFile($post, $filepath, $filename, $uploaded, $spoiler) {
 	}
 
 	$post['file'] = $file_name;
-	$post['file_original'] = trim(htmlentities(substr($filename, 0, 50), ENT_QUOTES));
+	$post['file_original'] = trim(htmlentities(_substr($filename, 0, 50), ENT_QUOTES));
 	$post['file_hex'] = md5_file($filepath);
 	$post['file_size'] = $filesize;
 	$post['file_size_formatted'] = convertBytes($post['file_size']);
