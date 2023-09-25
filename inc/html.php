@@ -498,7 +498,7 @@ function buildPost($post, $res, $compact=false) {
 </video>
 EOF;
 	} else if (in_array(substr($post['file'], -4), array('.jpg', '.png', '.gif'))) {
-		$expandhtml = "<a href=\"$direct_link\" onclick=\"return expandFile(event, '{$post['id']}');\"><img src=\"" . ($res == TINYIB_RESPAGE ? "../" : "") . "src/{$post["file"]}\" width=\"{$post["image_width"]}\" style=\"max-width: {$w}vw;height: auto;\"></a>";
+		$expandhtml = "<a href=\"$direct_link\" onclick=\"return expandFile(event, '{$post['id']}');\"><img src=\"" . ($res == TINYIB_RESPAGE ? "../" : "") . "src/{$post["file"]}\" width=\"{$post["image_width"]}\" style=\"min-width: {$post["thumb_width"]}px;min-height: {$post["thumb_height"]}px;max-width: {$w}vw;height: auto;\"></a>";
 	}
 
 	$thumblink = "<a href=\"$direct_link\" target=\"_blank\"" . ((isEmbed($post["file_hex"]) || in_array(substr($post['file'], -4), array('.jpg', '.png', '.gif', 'webm', '.mp4'))) ? " onclick=\"return expandFile(event, '{$post['id']}');\"" : "") . ">";
