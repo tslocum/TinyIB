@@ -11,6 +11,9 @@
 
 session_start();
 putenv('GDFONTPATH=' . realpath(dirname(__FILE__)) . '/fonts/');
+
+error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_DEPRECATED));
+
 $captcha = new SimpleCaptcha();
 $captcha->CreateImage();
 
