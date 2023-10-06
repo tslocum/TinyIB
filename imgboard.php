@@ -306,25 +306,27 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 
 	if ($staffpost || !in_array('name', $hide_fields)) {
 		list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
-		$post['name'] = cleanString(_substr($post['name'], 0, 75));
-		if (!$staffpost && TINYIB_MAXNAME > 0) {
-			$post['name'] = _substr($post['name'], 0, TINYIB_MAXNAME);
+		if (TINYIB_MAXNAME > 0) {
+			$post['name'] = _substr($post['name'], 0, TINYIB_MAXNAME)
 		}
+		$post['name'] = cleanString($post['name']);
 	}
 	if ($staffpost || !in_array('email', $hide_fields)) {
-		$post['email'] = cleanString(str_replace('"', '&quot;', _substr($_POST['email'], 0, 75)));
-		if (!$staffpost && TINYIB_MAXEMAIL > 0) {
-			$post['email'] = _substr($post['email'], 0, TINYIB_MAXEMAIL);
+		$post['email'] = $_POST['email'];
+		if (TINYIB_MAXEMAIL > 0) {
+			$post['email'] = _substr($post['email'], 0, TINYIB_MAXEMAIL)
 		}
+		$post['email'] = cleanString(str_replace('"', '&quot;', $post['email']));
 	}
 	if ($staffpost) {
 		$capcode = ($isadmin) ? ' <span style="color: ' . $tinyib_capcodes[0][1] . ' ;">## ' . $tinyib_capcodes[0][0] . '</span>' : ' <span style="color: ' . $tinyib_capcodes[1][1] . ';">## ' . $tinyib_capcodes[1][0] . '</span>';
 	}
 	if ($staffpost || !in_array('subject', $hide_fields)) {
-		$post['subject'] = cleanString(_substr($_POST['subject'], 0, 75));
-		if (!$staffpost && TINYIB_MAXSUBJECT > 0) {
-			$post['subject'] = _substr($post['subject'], 0, TINYIB_MAXSUBJECT);
+		$post['subject'] = $_POST['subject'];
+		if (TINYIB_MAXSUBJECT > 0) {
+			$post['subject'] = _substr($post['subject'], 0, TINYIB_MAXSUBJECT)
 		}
+		$post['subject'] = cleanString($post['subject']);
 	}
 	if ($staffpost || !in_array('message', $hide_fields)) {
 		$post['message'] = $_POST['message'];
