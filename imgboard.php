@@ -307,14 +307,14 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	if ($staffpost || !in_array('name', $hide_fields)) {
 		list($post['name'], $post['tripcode']) = nameAndTripcode($_POST['name']);
 		if (TINYIB_MAXNAME > 0) {
-			$post['name'] = _substr($post['name'], 0, TINYIB_MAXNAME)
+			$post['name'] = _substr($post['name'], 0, TINYIB_MAXNAME);
 		}
 		$post['name'] = cleanString($post['name']);
 	}
 	if ($staffpost || !in_array('email', $hide_fields)) {
 		$post['email'] = $_POST['email'];
 		if (TINYIB_MAXEMAIL > 0) {
-			$post['email'] = _substr($post['email'], 0, TINYIB_MAXEMAIL)
+			$post['email'] = _substr($post['email'], 0, TINYIB_MAXEMAIL);
 		}
 		$post['email'] = cleanString(str_replace('"', '&quot;', $post['email']));
 	}
@@ -324,7 +324,7 @@ if (!isset($_GET['delete']) && !isset($_GET['manage']) && (isset($_POST['name'])
 	if ($staffpost || !in_array('subject', $hide_fields)) {
 		$post['subject'] = $_POST['subject'];
 		if (TINYIB_MAXSUBJECT > 0) {
-			$post['subject'] = _substr($post['subject'], 0, TINYIB_MAXSUBJECT)
+			$post['subject'] = _substr($post['subject'], 0, TINYIB_MAXSUBJECT);
 		}
 		$post['subject'] = cleanString($post['subject']);
 	}
