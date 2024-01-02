@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocket9labs.com\n"
 "POT-Creation-Date: 2023-01-05 10:20-0800\n"
-"PO-Revision-Date: 2023-09-20 06:59+0000\n"
+"PO-Revision-Date: 2023-10-25 16:01+0000\n"
 "Last-Translator: jamerLamer <akHarINlMYExpSmVPDRT@proton.me>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "tinyib/tinyib/pt_BR/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
@@ -35,19 +35,20 @@ msgstr "Modo de banco de dados desconhecido especificado."
 
 #, php-format
 msgid "Directory '%s' can not be written to.  Please modify its permissions."
-msgstr "Diretório '%s' não ser escrito. Por favor, modifique as permissões."
+msgstr ""
+"Não é possível escrever no diretório '%s' . Por favor, modifique as "
+"permissões."
 
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
 msgstr ""
-"A publicação está atualmente desativada.<br>Por favor, tente novamente em "
-"alguns instantes."
+"Novas publicações estão atualmente desativada.<br>Por favor, tente novamente "
+"em alguns instantes."
 
 msgid "Invalid parent thread ID supplied, unable to create post."
-msgstr ""
-"ID inválida fornecida de tópico parent, não é possível criar a postagem."
+msgstr "ID de thread pai inválida, não é possível criar a postagem."
 
 msgid "Replies are not allowed to locked threads."
-msgstr "Respostas não são permitidas para tópicos bloqueados."
+msgstr "Respostas não são permitidas em tópicos bloqueados."
 
 msgid "Your post contains a blocked keyword."
 msgstr "Sua postagem contém uma palavra-chave bloqueada."
@@ -71,11 +72,11 @@ msgstr "Incorporar um URL e enviar um arquivo ao mesmo tempo não é suportado."
 
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
-msgstr "URL de incorporação inválido. Apenas%s URLs são suportados."
+msgstr "URL de incorporação inválido. Apenas URLs %s são suportadas."
 
 #, php-format
 msgid "That file is larger than %s."
-msgstr "Esse arquivo é maior que%s."
+msgstr "Esse arquivo é maior que %s."
 
 msgid "Failed to download file at specified URL."
 msgstr "Falha ao baixar o arquivo no URL especificado."
