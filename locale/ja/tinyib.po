@@ -377,8 +377,8 @@ msgstr "アップロードされたファイルを保存することができま
 
 #, php-format
 msgid ""
-"Duplicate file uploaded. That file has already been posted <a href=\"%s"
-"\">here</a>."
+"Duplicate file uploaded. That file has already been posted <a "
+"href=\"%s\">here</a>."
 msgstr ""
 "重複したファイルがアップロードされました。そのファイルはすでに<a href=\"%s\">"
 "ここ</a>に投稿されています。"

@@ -374,8 +374,8 @@ msgstr "Yüklenen dosya kaydedilemedi."
 
 #, php-format
 msgid ""
-"Duplicate file uploaded. That file has already been posted <a href=\"%s"
-"\">here</a>."
+"Duplicate file uploaded. That file has already been posted <a "
+"href=\"%s\">here</a>."
 msgstr ""
 "Yinelenen dosya yüklendi. Bu dosya zaten <a href=\"%s\">burada</a> "
 "gönderildi."

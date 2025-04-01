@@ -372,8 +372,8 @@ msgstr "올리기 된 철을 저장할 수 없습니다."
 
 #, php-format
 msgid ""
-"Duplicate file uploaded. That file has already been posted <a href=\"%s"
-"\">here</a>."
+"Duplicate file uploaded. That file has already been posted <a "
+"href=\"%s\">here</a>."
 msgstr ""
 "중복된 철이 올리기 되었습니다. 그 철이 이미 <a href=\"%s\">이곳</a>에 게시되"
 "어 있습니다."

@@ -382,8 +382,8 @@ msgstr "Tidak dapat menyimpan file yang diunggah."
 
 #, php-format
 msgid ""
-"Duplicate file uploaded. That file has already been posted <a href=\"%s"
-"\">here</a>."
+"Duplicate file uploaded. That file has already been posted <a "
+"href=\"%s\">here</a>."
 msgstr ""
 "File unggahan duplikat. File tersebut telah diposting <a href=\"%s\">di "
 "sini</a>."

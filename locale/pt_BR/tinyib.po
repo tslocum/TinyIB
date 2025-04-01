@@ -377,8 +377,8 @@ msgstr "Incapaz de salvar o arquivo enviado."
 
 #, php-format
 msgid ""
-"Duplicate file uploaded. That file has already been posted <a href=\"%s"
-"\">here</a>."
+"Duplicate file uploaded. That file has already been posted <a "
+"href=\"%s\">here</a>."
 msgstr ""
 "Arquivo enviado duplicado. Este arquivo já foi postado <a href=\"%s\"> aqui "
 "</a>."

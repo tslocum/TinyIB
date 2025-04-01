@@ -384,11 +384,11 @@ msgstr "No se pudo guardar el archivo subido."
 
 #, php-format
 msgid ""
-"Duplicate file uploaded. That file has already been posted <a href=\"%s"
-"\">here</a>."
+"Duplicate file uploaded. That file has already been posted <a "
+"href=\"%s\">here</a>."
 msgstr ""
-"Se ha subido un archivo duplicado. Ese archivo ya ha sido publicado <a href="
-"\"%s\">aquí</a>."
+"Se ha subido un archivo duplicado. Ese archivo ya ha sido publicado <a "
+"href=\"%s\">aquí</a>."
 
 msgid ""
 "Unable to read the uploaded file while creating its thumbnail. A common "

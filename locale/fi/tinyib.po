@@ -3,85 +3,90 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: trevor@rocketnine.space\n"
 "POT-Creation-Date: 2023-01-05 10:20-0800\n"
-"PO-Revision-Date: 2022-04-13 23:12+0000\n"
-"Last-Translator: Käännös Ukko <dataick@gmail.com>\n"
-"Language-Team: Finnish <https://hosted.weblate.org/projects/tinyib/tinyib/fi/"
-">\n"
+"PO-Revision-Date: 2025-01-28 10:21+0000\n"
+"Last-Translator: Ricky-Tigg <ricky-tigg@users.noreply.translate.codeberg."
+"org>\n"
+"Language-Team: Finnish <https://translate.codeberg.org/projects/tinyib/"
+"tinyib/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.12-dev\n"
+"X-Generator: Weblate 5.9.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: imgboard.php\n"
 "X-Poedit-SearchPath-1: inc/html.php\n"
 "X-Poedit-SearchPath-2: inc/functions.php\n"
 
 msgid "Click here to go back"
-msgstr ""
+msgstr "Klikkaa tästä palataksesi takaisin"
 
 msgid "TINYIB_HCAPTCHA_SITE and TINYIB_HCAPTCHA_SECRET  must be configured."
-msgstr ""
+msgstr "TINYIB_HCAPTCHA_SITE ja TINYIB_HCAPTCHA_SECRET on määritettävä."
 
 msgid "TINYIB_RECAPTCHA_SITE and TINYIB_RECAPTCHA_SECRET  must be configured."
-msgstr ""
+msgstr "TINYIB_RECAPTCHA_SITE ja TINYIB_RECAPTCHA_SECRET on määritettävä."
 
 msgid "TINYIB_TRIPSEED must be configured."
-msgstr ""
+msgstr "TINYIB_TRIPSEED on määritettävä."
 
 msgid "Unknown database mode specified."
-msgstr ""
+msgstr "Tuntematon tietokantatila määritetty."
 
 #, php-format
 msgid "Directory '%s' can not be written to.  Please modify its permissions."
-msgstr ""
+msgstr "Hakemistoon %s ei voi kirjoittaa. Muokkaa sen käyttöoikeuksia."
 
 msgid "Posting is currently disabled.<br>Please try again in a few moments."
 msgstr ""
+"Lähetys on tällä hetkellä poissa käytöstä.<br>Yritä hetken kuluttua "
+"uudelleen."
 
 msgid "Invalid parent thread ID supplied, unable to create post."
-msgstr ""
+msgstr "Virheellinen yläsäikeen tunnus ilmoitettu, viestiä ei voi luoda."
 
 msgid "Replies are not allowed to locked threads."
-msgstr "Vastauksia ei voi lähettää lukittuihin lankoihin."
+msgstr "Vastauksia ei voi lähettää lukittuihin säikeihin."
 
 msgid "Your post contains a blocked keyword."
 msgstr "Viestissäsi on mustalistattu sana."
 
 msgid "Keyword"
-msgstr ""
+msgstr "Avainsana"
 
 #, php-format
 msgid "Your IP address (%1$s) is banned until %2$s."
-msgstr ""
+msgstr "IP-osoitteesi (%1$s) on kielletty %2$s saakka."
 
 #, php-format
 msgid "Your IP address (%s) is permanently banned."
-msgstr ""
+msgstr "IP-osoitteesi (%s) on pysyvästi kielletty."
 
 msgid "Reason"
 msgstr "Syy"
 
 msgid "Embedding a URL and uploading a file at the same time is not supported."
 msgstr ""
+"URL-osoitteen upottamista ja tiedoston uloslataamista samanaikaisesti ei "
+"tueta."
 
 #, php-format
 msgid "Invalid embed URL. Only %s URLs are supported."
-msgstr ""
+msgstr "Virheellinen upotuksen URL-osoite. Vain %s URL-osoitteita tuetaan."
 
 #, php-format
 msgid "That file is larger than %s."
-msgstr ""
+msgstr "Tämä tiedosto on suurempi kuin %s."
 
 msgid "Failed to download file at specified URL."
-msgstr ""
+msgstr "Tiedoston lataaminen määritetystä URL-osoitteesta epäonnistui."
 
 msgid "Error while processing audio/video."
-msgstr ""
+msgstr "Virhe käsiteltäessä ääntä/videota."
 
 msgid "Could not create thumbnail."
-msgstr ""
+msgstr "Pikkukuvaa ei voitu luoda."
 
 msgid "upload a file or embed a URL"
 msgstr "lähetä tiedosto tai upota linkki"
@@ -90,250 +95,260 @@ msgid "upload a file"
 msgstr "lähetä tiedosto"
 
 msgid "embed a URL"
-msgstr ""
+msgstr "upota URL-osoite"
 
 #, php-format
 msgid "Please %s to start a new thread."
-msgstr ""
+msgstr "Ole hyvä ja %s aloittaaksesi uuden säikeen."
 
 #, php-format
 msgid "Please enter a message and/or %s."
-msgstr ""
+msgstr "Kirjoita viesti ja/tai %s."
 
 msgid "Please enter a message."
-msgstr ""
+msgstr "Kirjoita viesti."
 
 #, php-format
 msgid "Please %s."
-msgstr ""
+msgstr "Ole hyvä ja %s."
 
 #, php-format
 msgid "Your %s will be shown <b>once it has been approved</b>."
-msgstr ""
+msgstr "%s näytetään <b>kun se on hyväksytty</b>."
 
 msgid "Updating thread..."
-msgstr ""
+msgstr "Päivitetään säikettä..."
 
 msgid "Updating index..."
-msgstr ""
+msgstr "Päivitetään indeksiä…"
 
 msgid "Created staff post"
-msgstr ""
+msgstr "Henkilökunnan posti luotu"
 
 msgid "This post has been deleted"
 msgstr "Tämä viesti on poistettu"
 
 msgid "This post requires moderation before it can be displayed"
-msgstr ""
+msgstr "Tätä viestiä on valvottava ennen kuin se voidaan näyttää"
 
 msgid "Automatic refreshing is disabled."
-msgstr ""
+msgstr "Automaattinen virkistys on poissa käytöstä."
 
 msgid "Reporting is disabled."
-msgstr ""
+msgstr "Raportointi on poistettu käytöstä."
 
 msgid ""
 "Sorry, an invalid post identifier was sent. Please go back, refresh the "
 "page, and try again."
 msgstr ""
+"Valitettavasti lähetettiin virheellinen viestin tunniste. Palaa takaisin, "
+"virkistä sivu ja yritä uudelleen."
 
 msgid "Moderators have determined that post does not break any rules."
-msgstr ""
+msgstr "Valvojat ovat päättäneet, että viesti ei riko mitään sääntöjä."
 
 msgid "You have already submitted a report for that post."
-msgstr ""
+msgstr "Olet jo lähettänyt raportin kyseisestä viestistä."
 
 msgid "(enter the text below)"
-msgstr ""
+msgstr "(syötä teksti alle)"
 
 msgid "Please complete a CAPTCHA to submit your report"
-msgstr ""
+msgstr "Täytä CAPTCHA lähettääksesi raporttisi"
 
 msgid "Submit"
 msgstr "Lähetä"
 
 msgid "Post reported."
-msgstr ""
+msgstr "Viesti raportoittu."
 
 msgid "Tick the box next to a post and click \"Delete\" to delete it."
 msgstr ""
+"Valitse viestin vieressä oleva valintaruutu ja poista se napsauttamalla "
+"\"Poista\"."
 
 msgid ""
 "Post deletion is currently disabled.<br>Please try again in a few moments."
 msgstr ""
+"Viestien poistaminen on tällä hetkellä poissa käytöstä.<br>Yritä hetken "
+"kuluttua uudelleen."
 
 msgid "Post deleted."
 msgstr "Viesti poistettu."
 
 msgid "Invalid password."
-msgstr ""
+msgstr "Virheellinen salasana."
 
 msgid "Rebuilt board."
-msgstr ""
+msgstr "Uudelleen rakennettu taulu."
 
 msgid "Access denied"
-msgstr ""
+msgstr "Pääsy evätty"
 
 msgid "Account not found."
-msgstr ""
+msgstr "Tiliä ei löytynyt."
 
 msgid "This account may not be updated while TINYIB_ADMINPASS is set."
-msgstr ""
+msgstr "Tätä tiliä ei ehkä päivitetä, kun TINYIB_ADMINPASS on asetettu."
 
 msgid "This account may not be updated while TINYIB_MODPASS is set."
-msgstr ""
+msgstr "Tätä tiliä ei ehkä päivitetä, kun TINYIB_MODPASS on asetettu."
 
 msgid "A password is required."
-msgstr ""
+msgstr "Salasana vaaditaan."
 
 msgid "Invalid role."
-msgstr ""
+msgstr "Virheellinen rooli."
 
 #, php-format
 msgid "Added account %s"
-msgstr ""
+msgstr "Lisätty tili %s"
 
 msgid "Added account"
-msgstr ""
+msgstr "Lisätty tili"
 
 #, php-format
 msgid "Renamed account %1$s as %2$s"
-msgstr ""
+msgstr "Tili %1$s nimettiin uudelleen %2$s:ksi"
 
 #, php-format
 msgid "Changed password of account %s"
 msgstr "Tunnuksen %s salasana vaihdettu"
 
 msgid "Super-administrator"
-msgstr ""
+msgstr "Super-järjestelmänvalvoja"
 
 msgid "Administrator"
-msgstr ""
+msgstr "Järjestelmänvalvoja"
 
 msgid "Moderator"
-msgstr ""
+msgstr "Valvoja"
 
 msgid "Disabled"
-msgstr ""
+msgstr "Poistettu käytöstä"
 
 #, php-format
 msgid "Changed role of account %s to %s"
-msgstr ""
+msgstr "Tilin %s rooli muutettu %s:ksi"
 
 msgid "Updated account"
-msgstr ""
+msgstr "Päivitetty tili"
 
 msgid "permanently"
-msgstr ""
+msgstr "pysyvästi"
 
 #, php-format
 msgid "until %s"
-msgstr ""
+msgstr "%s saakka"
 
 #, php-format
 msgid "Banned %s %s"
-msgstr ""
+msgstr "Porttikiellon sai %s %s"
 
 #, php-format
 msgid "Banned %s %s: %s"
-msgstr ""
+msgstr "Porttikiellon sai %s %s: %s"
 
 #, php-format
 msgid "Added ban message to %s"
-msgstr ""
+msgstr "Lisätty kieltoviesti %s:lle"
 
 msgid "Banned 1 IP address"
-msgstr ""
+msgstr "Porttikiellon sai yksi IP-osoite"
 
 #, php-format
 msgid "Banned %d IP addresses"
-msgstr ""
+msgstr "Porttikiellon saivat %d IP-osoitetta"
 
 #, php-format
 msgid "Lifted ban on %s"
-msgstr ""
+msgstr "%s:n kielto kumottu"
 
 msgid "Sorry, that keyword has already been added."
-msgstr ""
+msgstr "Valitettavasti tämä avainsana on jo lisätty."
 
 #, php-format
 msgid "Updated keyword %s"
-msgstr ""
+msgstr "Päivitetty avainsana %s"
 
 msgid "Keyword updated."
-msgstr ""
+msgstr "Päivitetty avainsana."
 
 msgid "Keyword added."
-msgstr ""
+msgstr "Avainsana lisätty."
 
 msgid "That keyword does not exist."
-msgstr ""
+msgstr "Tätä avainsanaa ei ole olemassa."
 
 #, php-format
 msgid "Deleted keyword %s"
-msgstr ""
+msgstr "Poistettu avainsana %s"
 
 msgid "Keyword deleted."
-msgstr ""
+msgstr "Avainsana poistettu."
 
 #, php-format
 msgid "Deleted %s"
-msgstr ""
+msgstr "%s poistettu"
 
 msgid "Deleted 1 post"
-msgstr ""
+msgstr "Yksi viesti poistettu"
 
 #, php-format
 msgid "Deleted %d posts"
-msgstr ""
+msgstr "%d viestiä poistettu"
 
 msgid "Approved"
-msgstr ""
+msgstr "Hyväksytty"
 
 #, php-format
 msgid "Post No.%d approved."
-msgstr ""
+msgstr "Viesti nro %d hyväksytty."
 
 msgid "Sorry, there doesn't appear to be a post with that ID."
-msgstr ""
+msgstr "Valitettavasti tällä tunnuksella ei näytä olevan viestiä."
 
 msgid "Stickied"
-msgstr ""
+msgstr "Liimattu"
 
 msgid "Unstickied"
-msgstr ""
+msgstr "Irrotettu"
 
 msgid "Form data was lost. Please go back and try again."
-msgstr ""
+msgstr "Lomakkeen tiedot katosivat. Palaa takaisin ja yritä uudelleen."
 
 msgid "Locked"
-msgstr ""
+msgstr "Lukittu"
 
 msgid "Unlocked"
-msgstr ""
+msgstr "Lukitus avattu"
 
 msgid "Passwords do not match."
 msgstr "Salasanat eivät täsmää."
 
 msgid "Password updated"
-msgstr ""
+msgstr "Salasana päivitetty"
 
 msgid "Please enter the CAPTCHA text."
-msgstr ""
+msgstr "Syötä CAPTCHA-teksti."
 
 msgid ""
 "Incorrect CAPTCHA text entered.  Please try again.<br>Click the image to "
 "retrieve a new CAPTCHA."
 msgstr ""
+"Väärä CAPTCHA-teksti syötetty. Yritä uudelleen.<br>Hae uusi CAPTCHA "
+"napsauttamalla kuvaa."
 
 #, php-format
 msgid ""
 "Please shorten your message, or post it in multiple parts. Your message is "
 "%1$d characters long, and the maximum allowed is %2$d."
 msgstr ""
+"Lyhennä viestiäsi tai lähetä se useissa osissa. Viestisi on %1$d merkkiä "
+"pitkä ja suurin sallittu on %2$d."
 
 msgid "Invalid key."
-msgstr ""
+msgstr "Virheellinen avain."
 
 msgid "Invalid username or password."
 msgstr "Väärä käyttäjätunnus tai salasana."
@@ -342,117 +357,127 @@ msgstr "Väärä käyttäjätunnus tai salasana."
 msgid ""
 "The uploaded file exceeds the upload_max_filesize directive (%s) in php.ini."
 msgstr ""
+"Ulosladattu tiedosto ylittää php.ini-tiedoston upload_max_filesize-"
+"direktiivin (%s)."
 
 msgid "The uploaded file was only partially uploaded."
-msgstr ""
+msgstr "Ulosladattu tiedosto ulosladattiin vain osittain."
 
 msgid "No file was uploaded."
-msgstr ""
+msgstr "Mitään tiedostoa ei ladattu."
 
 msgid "Missing a temporary folder."
-msgstr ""
+msgstr "Väliaikainen kansio puuttuu."
 
 msgid "Failed to write file to disk"
-msgstr ""
+msgstr "Tiedoston kirjoittaminen levylle epäonnistui"
 
 msgid "Unable to save the uploaded file."
 msgstr "Lähetetyn tiedoston tallentaminen epäonnistui."
 
 #, php-format
 msgid ""
-"Duplicate file uploaded. That file has already been posted <a href=\"%s"
-"\">here</a>."
+"Duplicate file uploaded. That file has already been posted <a "
+"href=\"%s\">here</a>."
 msgstr ""
+"Kaksoistiedosto ulosladattu. Tämä tiedosto on jo lähetetty <a "
+"href=\"%s\">tähän</a>."
 
 msgid ""
 "Unable to read the uploaded file while creating its thumbnail. A common "
 "cause for this is an incorrect extension when the file is actually of a "
 "different type."
 msgstr ""
+"Ulosladattua tiedostoa ei voi lukea pikkukuvaa luotaessa. Yleinen syy tähän "
+"on virheellinen tiedostopääte, kun tiedosto on itse asiassa erityyppinen."
 
 msgid "File transfer failure. Please retry the submission."
-msgstr ""
+msgstr "Tiedostonsiirron epäonnistuminen. Yritä lähettää uudelleen."
 
 msgid ""
 "Failed to read the MIME type and size of the uploaded file. Please retry the "
 "submission."
 msgstr ""
+"Ulosladatun tiedoston MIME-tyypin ja -koon lukeminen epäonnistui. Yritä "
+"lähettää uudelleen."
 
 msgid "Could not copy uploaded file."
-msgstr ""
+msgstr "Ulosladattua tiedostoa ei voitu kopioida."
 
 msgid "File transfer failure. Please go back and try again."
-msgstr ""
+msgstr "Tiedostonsiirron epäonnistuminen. Palaa takaisin ja yritä uudelleen."
 
 msgid "Sorry, your video appears to be corrupt."
-msgstr ""
+msgstr "Anteeksi, mutta videosi vaikuttaa vioittuneelta."
 
 #, php-format
 msgid "Supported file type is %s"
-msgstr ""
+msgstr "Tuettu tiedostotyyppi on %s"
 
 #, php-format
 msgid "Supported file types are %1$s and %2$s."
-msgstr ""
+msgstr "Tuetut tiedostotyypit ovat %1$s ja %2$s."
 
 msgid "Raw HTML"
-msgstr ""
+msgstr "Raaka HTML"
 
 msgid "Enable"
-msgstr ""
+msgstr "Ota käyttöön"
 
 msgid ""
 "Text entered in the Message field will be posted as is with no formatting "
 "applied."
 msgstr ""
+"Viesti-kenttään syötetty teksti lähetetään sellaisenaan ilman muotoilua."
 
 msgid "Line-breaks must be specified with \"&lt;br&gt;\"."
-msgstr ""
+msgstr "Rivinvaihdot on määritettävä \"&lt;br&gt;\":n kanssa."
 
 msgid "Reply to"
-msgstr ""
+msgstr "Vastaa"
 
 msgid "0 to start a new thread"
-msgstr ""
+msgstr "0 aloittaaksesi uuden säikeen"
 
 msgid "CAPTCHA"
-msgstr ""
+msgstr "CAPTCHA"
 
 #, php-format
 msgid "Maximum file size allowed is %s."
-msgstr ""
+msgstr "Suurin sallittu tiedostokoko on %s."
 
 msgid "File"
-msgstr ""
+msgstr "Tiedosto"
 
 msgid "Embed"
-msgstr ""
+msgstr "Upota"
 
 msgid "(paste a YouTube URL)"
 msgstr "(liitä YouTube-linkki)"
 
 msgid "All posts are moderated before being shown."
-msgstr ""
+msgstr "Kaikki viestit valvotaan ennen näyttämistä."
 
 msgid "All posts with a file attached are moderated before being shown."
 msgstr ""
+"Kaikki viestit, joihin on liitetty tiedosto, valvotaan ennen näyttämistä."
 
 #, php-format
 msgid "Images greater than %s will be thumbnailed."
-msgstr ""
+msgstr "Kuvat, jotka ovat suurempia kuin %s, ovat pikkukuvia."
 
 #, php-format
 msgid "Currently %s unique user posts."
-msgstr ""
+msgstr "Tällä hetkellä %s ainutlaatuista käyttäjän viestiä."
 
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 msgid "E-mail"
-msgstr ""
+msgstr "Sähköposti"
 
 msgid "Subject"
-msgstr ""
+msgstr "Aihe"
 
 msgid "Message"
 msgstr "Viesti"
@@ -461,44 +486,44 @@ msgid "Password"
 msgstr "Salasana"
 
 msgid "(for post and file deletion)"
-msgstr ""
+msgstr "(viestien ja tiedostojen poistamista varten)"
 
 msgid "Report"
-msgstr ""
+msgstr "Ilmoita"
 
 msgid "Reply"
-msgstr ""
+msgstr "Vastaa"
 
 msgid "Post truncated. Click Reply to view."
-msgstr ""
+msgstr "Viesti katkaistu. Napsauta 'Vastaa' nähdäksesi."
 
 msgid "1 post omitted. Click Reply to view."
-msgstr ""
+msgstr "Yksi viesti jätetty pois. Napsauta 'Vastaa' nähdäksesi."
 
 #, php-format
 msgid "%d posts omitted. Click Reply to view."
-msgstr ""
+msgstr "%d viestiä jätetty pois. Napsauta 'Vastaa' nähdäksesi."
 
 msgid "Catalog"
 msgstr "Katalogi"
 
 msgid "Manage"
-msgstr ""
+msgstr "Hallinnoi"
 
 msgid "Previous"
-msgstr ""
+msgstr "Edellinen"
 
 msgid "Next"
-msgstr ""
+msgstr "Seuraava"
 
 msgid "Return"
-msgstr ""
+msgstr "Palaa"
 
 msgid "Posting mode: Reply"
-msgstr ""
+msgstr "Lähetystila: Vastaus"
 
 msgid "Style"
-msgstr ""
+msgstr "Tyyli"
 
 msgid "Delete"
 msgstr "Poista"
@@ -507,342 +532,348 @@ msgid "Delete Post"
 msgstr "Poista viesti"
 
 msgid "Accounts"
-msgstr ""
+msgstr "Tilit"
 
 msgid "Bans"
-msgstr ""
+msgstr "Porttikiellot"
 
 msgid "Keywords"
-msgstr ""
+msgstr "Avainsanat"
 
 msgid "Migrate Database"
-msgstr ""
+msgstr "Siirrä tietokanta"
 
 msgid "Moderate Post"
-msgstr ""
+msgstr "Valvo viestiä"
 
 msgid "Moderation Log"
-msgstr ""
+msgstr "Valvontaloki"
 
 msgid "Rebuild All"
-msgstr ""
+msgstr "Rakenna uudelleen kaikki"
 
 msgid "Reports"
-msgstr ""
+msgstr "Ilmoitukset"
 
 msgid "Staff Post"
-msgstr ""
+msgstr "Henkilökunnan posti"
 
 msgid "Status"
-msgstr ""
+msgstr "Tila"
 
 msgid "Update"
 msgstr "Päivitä"
 
 msgid "Change Password"
-msgstr ""
+msgstr "Vaihda salasana"
 
 msgid "Log Out"
-msgstr ""
+msgstr "Kirjaudu ulos"
 
 msgid "Manage mode"
-msgstr ""
+msgstr "Hallinnoi tila"
 
 msgid "Log In"
-msgstr ""
+msgstr "Kirjaudu sisään"
 
 msgid "Enter a username and password"
-msgstr ""
+msgstr "Syötä käyttäjänimi ja salasana"
 
 msgid "No logs."
-msgstr ""
+msgstr "Ei lokeja."
 
 msgid "Moderation log"
-msgstr ""
+msgstr "Valvontaloki"
 
 msgid "Reported posts"
-msgstr ""
+msgstr "Ilmoitetut viestit"
 
 #, php-format
 msgid "%1$d report by %2$s"
-msgstr ""
+msgstr "%1$d ilmoitus %2$s:lta"
 
 #, php-format
 msgid "%1$d reports by %2$s"
-msgstr ""
+msgstr "%1$d ilmoitusta %2$s:lta"
 
 #, php-format
 msgid "%d reports"
-msgstr ""
+msgstr "%d ilmoitusta"
 
 #, php-format
 msgid "Reported by %s"
-msgstr ""
+msgstr "%s:n ilmoittama"
 
 msgid "Moderate"
-msgstr ""
+msgstr "Valvo"
 
 msgid "There are currently no reported posts."
-msgstr ""
+msgstr "Tällä hetkellä ei ole ilmoitettuja viestejä."
 
 msgid "Add an account"
-msgstr ""
+msgstr "Lisää tili"
 
 msgid "Update an account"
-msgstr ""
+msgstr "Päivitä tili"
 
 msgid "Leave blank to maintain current password"
-msgstr ""
+msgstr "Jätä tyhjäksi nykyisen salasanan säilyttämiseksi"
 
 msgid "Username"
-msgstr ""
+msgstr "Käyttäjänimi"
 
 msgid "Role"
-msgstr ""
+msgstr "Rooli"
 
 msgid "Choose a role"
-msgstr ""
+msgstr "Valitse rooli"
 
 msgid "Last active"
-msgstr ""
+msgstr "Viimeksi aktiivinen"
 
 msgid "Never"
-msgstr ""
+msgstr "Ei koskaan"
 
 msgid "update"
-msgstr ""
+msgstr "päivitä"
 
 msgid "Add a ban"
-msgstr ""
+msgstr "Lisää kielto"
 
 msgid ""
 "Multiple IP addresses may be banned at once by separating each address with "
 "a comma."
 msgstr ""
+"Useita IP-osoitteita voidaan kieltää kerralla erottamalla kukin osoite "
+"pilkulla."
 
 msgid "IP Address"
-msgstr ""
+msgstr "IP-osoite"
 
 msgid "Expire(sec)"
 msgstr ""
 
 msgid "never"
-msgstr ""
+msgstr "ei koskaan"
 
 msgid "Optional."
-msgstr ""
+msgstr "Valinnainen."
 
 msgid "1 hour"
-msgstr ""
+msgstr "Yksi tunti"
 
 msgid "1 day"
-msgstr ""
+msgstr "Yksi päivä"
 
 msgid "2 days"
-msgstr ""
+msgstr "Kaksi päivää"
 
 msgid "1 week"
-msgstr ""
+msgstr "Yksi viikko"
 
 msgid "2 weeks"
-msgstr ""
+msgstr "Kaksi viikkoa"
 
 msgid "1 month"
-msgstr ""
+msgstr "Yksi kuukausi"
 
 msgid "Append a message to the post. Optional."
-msgstr ""
+msgstr "Liitä lähetysviestiin viesti. Valinnainen."
 
 msgid "Set At"
-msgstr ""
+msgstr "Asetettu"
 
 msgid "Expires"
-msgstr ""
+msgstr "Vanhenee"
 
 msgid "Does not expire"
-msgstr ""
+msgstr "Ei vanhene"
 
 msgid "lift"
-msgstr ""
+msgstr "kumoa"
 
 msgid "Moderate a post"
-msgstr ""
+msgstr "Valvo viestiä"
 
 msgid "Post ID"
-msgstr ""
+msgstr "Lähetysviestin tunnus"
 
 msgid "Tip"
-msgstr ""
+msgstr "Vinkki"
 
 msgid ""
 "While browsing the image board, you can easily moderate a post if you are "
 "logged in."
 msgstr ""
+"Kun selaat kuvataulua, voit helposti valvoa lähetysviestiä, jos olet "
+"kirjautunut sisään."
 
 msgid ""
 "Tick the box next to a post and click \"Delete\" at the bottom of the page "
 "with a blank password."
 msgstr ""
+"Valitse viestin vieressä oleva ruutu ja napsauta \"Poista\" sivun "
+"alareunassa tyhjällä salasanalla."
 
 #, php-format
 msgid "Moderate %d posts"
-msgstr ""
+msgstr "Valvo %d viestiä"
 
 msgid "Delete all"
-msgstr ""
+msgstr "Poista kaikki"
 
 msgid "Ban all"
-msgstr ""
+msgstr "Aseta porttikielto kaikille"
 
 msgid "1 thread and 1 reply will be deleted."
-msgstr ""
+msgstr "Yksi säike ja yksi vastaus poistetaan."
 
 #, php-format
 msgid "1 thread and %d replies will be deleted."
-msgstr ""
+msgstr "Yksi säike ja %d vastausta poistetaan."
 
 #, php-format
 msgid "%d threads and 1 reply will be deleted."
-msgstr ""
+msgstr "%d säikettä ja yksi vastaus poistetaan."
 
 #, php-format
 msgid "%1$d threads and %2$d replies will be deleted."
-msgstr ""
+msgstr "%1$d säikettä ja %2$d vastausta poistetaan."
 
 msgid "1 IP address will be banned."
-msgstr ""
+msgstr "Yksi IP-osoite kielletään."
 
 #, php-format
 msgid "%d IP addresses will be banned."
-msgstr ""
+msgstr "%d IP-osoitetta kielletään."
 
 #, php-format
 msgid " A ban record already exists for %s"
-msgstr ""
+msgstr " Kieltotietue on jo olemassa %s:lle"
 
 msgid "Only an administrator may ban an IP address."
-msgstr ""
+msgstr "Vain järjestelmänvalvoja voi kieltää IP-osoitteen."
 
 #, php-format
 msgid "IP address: %s"
-msgstr ""
+msgstr "IP-osoite: %s"
 
 msgid "Thread"
-msgstr ""
+msgstr "Säike"
 
 msgid "1 reply will be deleted."
-msgstr ""
+msgstr "Yksi vastaus poistetaan."
 
 #, php-format
 msgid "%d replies will be deleted."
-msgstr ""
+msgstr "%d vastausta poistetaan."
 
 #, php-format
 msgid "Belongs to %s"
-msgstr ""
+msgstr "Kuuluu %s:lle"
 
 msgid "Un-sticky"
-msgstr ""
+msgstr "Ei tahmea"
 
 msgid "Sticky"
-msgstr ""
+msgstr "Tahmea"
 
 msgid "Return this thread to a normal state."
-msgstr ""
+msgstr "Palauta tämä säike normaaliin tilaan."
 
 msgid "Keep this thread at the top of the board."
-msgstr ""
+msgstr "Pidä tämä säike taulun yläosassa."
 
 msgid "Unlock"
-msgstr ""
+msgstr "Avaa lukitus"
 
 msgid "Lock"
-msgstr ""
+msgstr "Lukitse"
 
 msgid "Allow replying to this thread."
-msgstr ""
+msgstr "Salli vastaaminen tähän säikeeseen."
 
 msgid "Disallow replying to this thread."
-msgstr ""
+msgstr "Estä vastaaminen tähän säikeeseen."
 
 #, php-format
 msgid "Moderating No.%d"
-msgstr ""
+msgstr "Valvotaan nro %d"
 
 msgid "Action"
-msgstr ""
+msgstr "Toimi"
 
 msgid "Delete thread"
-msgstr ""
+msgstr "Poista säike"
 
 msgid "Delete reply"
 msgstr "Poista vastaus"
 
 msgid "Ban poster"
-msgstr ""
+msgstr "Aseta porttikielto viestin lähettäjälle"
 
 msgid "Approve"
-msgstr ""
+msgstr "Hyväksy"
 
 msgid "report"
-msgstr ""
+msgstr "ilmoita"
 
 msgid "reports"
-msgstr ""
+msgstr "ilmoitukset"
 
 msgid "Sorry, there doesn't appear to be a keyword with that ID."
-msgstr ""
+msgstr "Valitettavasti tällä tunnuksella ei näytä olevan avainsanaa."
 
 msgid "Add"
-msgstr ""
+msgstr "Lisää"
 
 msgid "Hide until approved"
-msgstr ""
+msgstr "Piilota, kunnes se hyväksytään"
 
 msgid "Delete and ban for 1 hour"
-msgstr ""
+msgstr "Poista ja kiellä yhdeksi tunniksi"
 
 msgid "Delete and ban for 1 day"
-msgstr ""
+msgstr "Poista ja kiellä yhdeksi päiväksi"
 
 msgid "Delete and ban for 2 days"
-msgstr ""
+msgstr "Poista ja kiellä kahdeksi päiväksi"
 
 msgid "Delete and ban for 1 week"
-msgstr ""
+msgstr "Poista ja kiellä yhdeksi viikoksi"
 
 msgid "Delete and ban for 2 weeks"
-msgstr ""
+msgstr "Poista ja kiellä kahdeksi viikoksi"
 
 msgid "Delete and ban for 1 month"
-msgstr ""
+msgstr "Poista ja kiellä yhdeksi kuukaudeksi"
 
 msgid "Delete and ban permanently"
-msgstr ""
+msgstr "Poista ja kiellä pysyväksi"
 
 msgid "Edit"
 msgstr "Muokkaa"
 
 msgid "thread"
-msgstr ""
+msgstr "saike"
 
 msgid "threads"
-msgstr ""
+msgstr "säikeet"
 
 msgid "ban"
-msgstr ""
+msgstr "kiellä"
 
 msgid "bans"
-msgstr ""
+msgstr "Kiellot"
 
 msgid "More Info"
-msgstr ""
+msgstr "Lisätietoa"
 
 msgid "Pending posts"
-msgstr ""
+msgstr "Odottavat lähetysviestit"
 
 msgid "Recent posts"
-msgstr ""
+msgstr "Viimeaikaiset lähetysviestit"
 
 msgid "Info"
-msgstr ""
+msgstr "Tietoa"

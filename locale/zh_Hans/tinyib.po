@@ -363,15 +363,16 @@ msgstr "无法保存上传的文件。"
 
 #, php-format
 msgid ""
-"Duplicate file uploaded. That file has already been posted <a href=\"%s"
-"\">here</a>."
+"Duplicate file uploaded. That file has already been posted <a "
+"href=\"%s\">here</a>."
 msgstr "重复上传文件。该文件已经在<a href=\"%s\">这里</a>发布过了。"
 
 msgid ""
 "Unable to read the uploaded file while creating its thumbnail. A common "
 "cause for this is an incorrect extension when the file is actually of a "
 "different type."
-msgstr "无法读取上传的文件并创建其缩略图。常见原因是文件的扩展名不正确，而实际上文件"
+msgstr ""
+"无法读取上传的文件并创建其缩略图。常见原因是文件的扩展名不正确，而实际上文件"
 "的类型可能不同。"
 
 msgid "File transfer failure. Please retry the submission."
