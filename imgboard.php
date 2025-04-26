@@ -81,7 +81,8 @@ if (!in_array(TINYIB_DBMODE, $database_modes)) {
 	fancyDie(__('Unknown database mode specified.'));
 }
 
-if (TINYIB_DBMODE == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
+$schema_mode = (TINYIB_DBMIGRATE) ? TINYIB_DBMIGRATE : TINYIB_DBMODE;
+if ($schema_mode == 'pdo' && TINYIB_DBDRIVER == 'pgsql') {
 	$accounts_sql = 'CREATE TABLE "' . TINYIB_DBACCOUNTS . '" (
 		"id" bigserial NOT NULL,
 		"username" varchar(255) NOT NULL,

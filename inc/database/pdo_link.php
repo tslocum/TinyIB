@@ -99,45 +99,45 @@ if (TINYIB_DBDRIVER === 'pgsql') {
 	$query = "SELECT column_name FROM information_schema.columns WHERE table_name='" . TINYIB_DBPOSTS . "' and column_name='moderated'";
 	$moderated_exists = $dbh->query($query)->fetchColumn() != 0;
 } else {
-	$dbh->query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'moderated'");
+	$dbh->query("SHOW COLUMNS FROM " . TINYIB_DBPOSTS . " LIKE 'moderated'");
 	$moderated_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
 }
 if (!$moderated_exists) {
-	$dbh->exec("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN moderated TINYINT(1) NOT NULL DEFAULT '1'");
+	$dbh->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN moderated TINYINT(1) NOT NULL DEFAULT '1'");
 }
 
 if (TINYIB_DBDRIVER === 'pgsql') {
 	$query = "SELECT column_name FROM information_schema.columns WHERE table_name='" . TINYIB_DBPOSTS . "' and column_name='stickied'";
 	$stickied_exists = $dbh->query($query)->fetchColumn() != 0;
 } else {
-	$dbh->query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'stickied'");
+	$dbh->query("SHOW COLUMNS FROM " . TINYIB_DBPOSTS . " LIKE 'stickied'");
 	$stickied_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
 }
 if (!$stickied_exists) {
-	$dbh->exec("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN stickied TINYINT(1) NOT NULL DEFAULT '0'");
+	$dbh->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN stickied TINYINT(1) NOT NULL DEFAULT '0'");
 }
 
 if (TINYIB_DBDRIVER === 'pgsql') {
 	$query = "SELECT column_name FROM information_schema.columns WHERE table_name='" . TINYIB_DBPOSTS . "' and column_name='locked'";
 	$locked_exists = $dbh->query($query)->fetchColumn() != 0;
 } else {
-	$dbh->query("SHOW COLUMNS FROM `" . TINYIB_DBPOSTS . "` LIKE 'locked'");
+	$dbh->query("SHOW COLUMNS FROM " . TINYIB_DBPOSTS . " LIKE 'locked'");
 	$locked_exists = $dbh->query("SELECT FOUND_ROWS()")->fetchColumn() != 0;
 }
 if (!$locked_exists) {
-	$dbh->exec("ALTER TABLE `" . TINYIB_DBPOSTS . "` ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
+	$dbh->exec("ALTER TABLE " . TINYIB_DBPOSTS . " ADD COLUMN locked TINYINT(1) NOT NULL DEFAULT '0'");
 }
 
 if (TINYIB_DBDRIVER === 'pgsql') {
-	$dbh->query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ALTER COLUMN tripcode VARCHAR(24) NOT NULL DEFAULT ''");
+	$dbh->query("ALTER TABLE " . TINYIB_DBPOSTS . " ALTER COLUMN tripcode TYPE VARCHAR(24)");
 
-	$dbh->query("ALTER TABLE `" . TINYIB_DBPOSTS . "` ALTER COLUMN ip VARCHAR(255) NOT NULL DEFAULT ''");
-	$dbh->query("ALTER TABLE `" . TINYIB_DBBANS . "` ALTER COLUMN ip VARCHAR(255) NOT NULL DEFAULT ''");
+	$dbh->query("ALTER TABLE " . TINYIB_DBPOSTS . " ALTER COLUMN ip TYPE VARCHAR(255)");
+	$dbh->query("ALTER TABLE " . TINYIB_DBBANS . " ALTER COLUMN ip TYPE VARCHAR(255)");
 } else {
-	$dbh->query("ALTER TABLE `" . TINYIB_DBPOSTS . "` MODIFY tripcode VARCHAR(24) NOT NULL DEFAULT ''");
+	$dbh->query("ALTER TABLE " . TINYIB_DBPOSTS . " MODIFY tripcode VARCHAR(24) NOT NULL DEFAULT ''");
 
-	$dbh->query("ALTER TABLE `" . TINYIB_DBPOSTS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
-	$dbh->query("ALTER TABLE `" . TINYIB_DBBANS . "` MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
+	$dbh->query("ALTER TABLE " . TINYIB_DBPOSTS . " MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
+	$dbh->query("ALTER TABLE " . TINYIB_DBBANS . " MODIFY ip VARCHAR(255) NOT NULL DEFAULT ''");
 }
 
 function pdoQuery($sql, $params = false) {

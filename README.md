@@ -1,6 +1,6 @@
 # TinyIB - Lightweight and efficient [imageboard](https://en.wikipedia.org/wiki/Imageboard)
 [![Translate](https://translate.codeberg.org/widget/tinyib/tinyib/svg-badge.svg)](https://translate.codeberg.org/projects/tinyib/tinyib/)
-[![Donate via LiberaPay](https://img.shields.io/liberapay/receives/rocket9labs.com.svg?logo=liberapay)](https://liberapay.com/rocket9labs.com)
+[![Donate](https://img.shields.io/liberapay/receives/rocket9labs.com.svg?logo=liberapay)](https://liberapay.com/rocket9labs.com)
 
 A [**read-only demo**](https://tinyib.rocket9labs.com) is available.
 
