@@ -2,9 +2,20 @@
 [![Translate](https://translate.codeberg.org/widget/tinyib/tinyib/svg-badge.svg)](https://translate.codeberg.org/projects/tinyib/tinyib/)
 [![Donate](https://img.shields.io/liberapay/receives/rocket9labs.com.svg?logo=liberapay)](https://liberapay.com/rocket9labs.com)
 
-A [**read-only demo**](https://tinyib.rocket9labs.com) is available.
+TinyIB is in maintenance mode. Use [Sriracha](https://codeberg.org/tslocum/sriracha) instead.
+
+## Maintenance Mode
+
+All desired features have been implemented in TinyIB. Only security fixes, bug
+fixes and translation updates will continue to be added.
+
+[Sriracha](https://codeberg.org/tslocum/sriracha) is a modern imageboard system
+with support for importing TinyIB boards. While TinyIB will continue to function,
+site owners are recommended to migrate to Sriracha if and when possible.
 
 ## Features
+
+A [**read-only demo**](https://tinyib.rocket9labs.com) is available.
 
 **Got database? Get speed.**  Use [MySQL](https://mysql.com), [PostgreSQL](https://www.postgresql.org) or [SQLite](https://sqlite.org) for an efficient set-up able to handle high amounts of traffic.
 
